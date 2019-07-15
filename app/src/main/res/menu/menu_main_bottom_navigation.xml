@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_home_pager"
+        android:checked="true"
+        android:icon="@mipmap/ic_main_navigation_home_normal"
+        android:title="@string/main_bottom_menu_home_desc"/>
+    <item
+        android:id="@+id/home_class_page"
+        android:checked="false"
+        android:icon="@mipmap/ic_main_navigation_circle_normal"
+        android:title="@string/main_bottom_menu_circle_desc"/>
+
+    <item
+        android:id="@+id/home_shopping_cart"
+        android:checked="false"
+        android:icon="@mipmap/ic_main_navigation_news_normal"
+        android:title="@string/main_bottom_menu_news_desc"/>
+    <item
+        android:id="@+id/home_peson_centre"
+        android:checked="false"
+        android:icon="@mipmap/ic_main_navigation_mine_normal"
+        android:title="@string/main_bottom_menu_mine_desc"/>
+</menu>

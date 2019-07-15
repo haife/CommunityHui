@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LineBreakLayout">
+        <attr name="HorizontalSpace" format="dimension"/>
+        <!--标签行距-->
+        <attr name="VerticalSpace" format="dimension"/>
+    </declare-styleable>
+    <attr name="app_primary_color" format="color"/>
+    <attr name="app_content_bg_color" format="color"/>
+</resources>
