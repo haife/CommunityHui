@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/base_horizontal_left_margin"
+    android:paddingTop="@dimen/dp_20"
+    android:paddingRight="@dimen/base_horizontal_right_margin"
+    android:paddingBottom="@dimen/dp_55"
+    app:layout_scrollFlags="scroll">
+
+    <TextView
+        android:id="@+id/tv_store_sort_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="金牌月嫂店"
+        android:textColor="@color/home_color_banner_top_text"
+        android:textSize="@dimen/sp_22"
+        />
+
+    <TextView
+        android:id="@+id/tv_store_sort_header_look_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_store_sort_header"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_toRightOf="@+id/tv_store_sort_header"
+        android:drawableRight="@mipmap/icon_common_next_step"
+        android:drawablePadding="@dimen/dp_8"
+        android:text="@string/store_look_detail_desc"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_store_sort_header_grade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_store_sort_header"
+        android:layout_marginTop="@dimen/dp_6"
+        android:text="评分：4.7分丨09：00-22：00"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="@dimen/sp_13"/>
+
+    <TextView
+        android:id="@+id/tv_store_sort_header_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_store_sort_header_grade"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_72"
+        android:drawableLeft="@mipmap/icon_home_address_location"
+        android:drawablePadding="@dimen/dp_2"
+        android:gravity="center_vertical"
+        android:text="南昌市青山湖区上海路7号楼902"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_13"/>
+
+    <CheckBox
+        android:id="@+id/cb_store_sort_header_address"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_30"
+        android:layout_alignParentRight="true"
+        android:button="@null"
+        android:drawableLeft="@drawable/selector_store_collection"
+        android:drawablePadding="@dimen/dp_5"
+        android:text="@string/store_collect_desc"
+        android:textColor="@color/color_common_theme_dark_checked"
+        android:textSize="@dimen/sp_15"/>
+</RelativeLayout>

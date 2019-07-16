@@ -4,6 +4,7 @@ import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.ui.activity.HouseKeepActivity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseStaffListFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import dagger.Component
@@ -22,4 +23,5 @@ interface HouseKeepComponent {
     fun inject(activity: HouseKeepActivity)
     fun inject(fragment: HouseKeepFragment)
     fun inject(fragment: HouseKeepListFragment)
+    fun inject(fragment: HouseStaffListFragment)
 }

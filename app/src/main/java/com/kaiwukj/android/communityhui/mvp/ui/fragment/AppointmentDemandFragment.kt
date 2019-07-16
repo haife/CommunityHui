@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
-import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
-import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
-import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
-import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
+import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
+import com.kaiwukj.android.communityhui.di.module.AppointmentModule
+import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
+import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-
 
 /**
  * Copyright © KaiWu Technology Company
@@ -20,35 +20,34 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/16
- * @desc 家政服务人员列表container
+ * @desc
  */
-class HouseKeepListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
+class AppointmentDemandFragment : BaseSupportFragment<AppointmentPresenter>(), AppointmentContract.View {
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
-        fun newInstance(): HouseKeepListFragment {
-            val fragment = HouseKeepListFragment()
+        fun newInstance(): AppointmentDemandFragment {
+            val fragment = AppointmentDemandFragment()
             return fragment
         }
     }
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerHouseKeepComponent
+        DaggerAppointmentComponent
                 .builder()
                 .appComponent(appComponent)
-                .houseKeepModule(HouseKeepModule(this))
+                .appointmentModule(AppointmentModule(this))
                 .build()
                 .inject(this)
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_house_keep_service_list, container, false);
+        return inflater.inflate(R.layout.fragment_appointment_demand, container, false);
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
     }
 
 

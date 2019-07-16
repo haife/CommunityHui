@@ -41,6 +41,20 @@
 
     <!--首页-->
 
+    <!--预约 Appointment-->
+    <string name="appointment_submit_order_btn">提交订单</string>
+    <string name="appointment_success">预约成功</string>
+    <string name="appointment_failure">预约失败</string>
+    <string name="appointment_return_home">返回首页</string>
+    <string name="appointment_choice_again">重新选择</string>
+    <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
+    <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
+
+    <!--预约-->
+    <!--门店-->
+    <string name="store_look_detail_desc">查看详情</string>
+    <string name="store_collect_desc">收藏</string>
+    <!--门店-->
     <!--家政-->
     <string name="house_keeping_title_str">家政服务</string>
     <string name="house_keeping_nursing_subtitle">护工服务</string>

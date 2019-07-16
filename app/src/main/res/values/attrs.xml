@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--common-->
+    <attr name="app_primary_color" format="color"/>
+    <attr name="app_content_bg_color" format="color"/>
+
+    <!--自动换行布局-->
     <declare-styleable name="LineBreakLayout">
         <attr name="HorizontalSpace" format="dimension"/>
         <!--标签行距-->
         <attr name="VerticalSpace" format="dimension"/>
+        <attr name="TagsTypes" format="integer"/>
     </declare-styleable>
-    <attr name="app_primary_color" format="color"/>
-    <attr name="app_content_bg_color" format="color"/>
+
+    <!--人员列表排序-->
+    <declare-styleable name="SortState">
+        <attr name="sort_desc_state" format="boolean"/>
+    </declare-styleable>
+
+
 </resources>

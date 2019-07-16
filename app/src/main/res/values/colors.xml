@@ -5,6 +5,7 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#FE714B</color>
+    <color name="colorLight">#aaaaaa</color>
     <color name="black_color">#FF000000</color>
     <color name="write_color">#FFFFFF</color>
     <color name="window_background_color">#F9F9F9</color>
@@ -19,6 +20,7 @@
     <color name="home_color_banner_top_text">#333333</color>
     <color name="home_color_hot_service_text">#666666</color>
     <color name="home_color_officer_recommend_bg">#F8F8F8</color>
+    <color name="appointment_qualification_tv_color">#EDEDED</color>
     <!--首页-->
 
 
@@ -63,5 +65,6 @@
     <color name="colorHelper_square_alpha_background">@color/app_color_theme_4</color>
     <color name="colorHelper_square_from_ratio_background">@color/app_color_theme</color>
     <color name="colorHelper_square_to_ratio_background">@color/app_color_theme_3</color>
+
     <!--QMUI COLOR-->
 </resources>

@@ -1,4 +1,4 @@
-package com.kaiwukj.android.communityhui.mvp.ui.widget;
+package com.kaiwukj.android.communityhui.mvp.ui.widget.home;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -22,9 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
+        <activity android:name=".mvp.ui.activity.StoreActivity">
         </activity>
-        <!-- 主Activity -->
+        <activity android:name=".mvp.ui.activity.AppointmentActivity">
+        </activity>
+        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
+        </activity> <!-- 主Activity -->
         <activity android:name=".mvp.ui.activity.MainActivity">
         </activity> <!-- 登录 Activity -->
         <activity

@@ -20,15 +20,15 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/16
- * @desc 家政服务人员列表container
+ * @desc 家政人员服务列表
  */
-class HouseKeepListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
+class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
-        fun newInstance(): HouseKeepListFragment {
-            val fragment = HouseKeepListFragment()
+        fun newInstance(): HouseStaffListFragment {
+            val fragment = HouseStaffListFragment()
             return fragment
         }
     }
@@ -44,7 +44,7 @@ class HouseKeepListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKe
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_house_keep_service_list, container, false);
+        return inflater.inflate(R.layout.fragment_house_staff_list, container, false);
     }
 
     override fun initData(savedInstanceState: Bundle?) {

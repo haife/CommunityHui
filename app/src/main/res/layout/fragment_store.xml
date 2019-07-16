@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/fl_house_keeping_container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_store_list"
+        style="@style/BaseRecycleViewStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

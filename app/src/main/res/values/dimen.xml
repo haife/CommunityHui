@@ -10,6 +10,7 @@
     <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
     <dimen name="sp_36">36sp</dimen>
+    <dimen name="sp_22">22sp</dimen>
     <!--common text size end-->
     <!--text size-->
     <dimen name="home_magic_indicator_text_size">17sp</dimen>
@@ -59,17 +60,11 @@
     <!--main_screen_end-->
 
     <!-- home screen dimens start -->
-    <dimen name="home_magic_indicator_height">52dp</dimen>
+    <dimen name="home_magic_indicator_height">60dp</dimen>
     <dimen name="home_tool_bar_elevation_height">4dp</dimen>
     <dimen name="home_tool_search_btn_padding">16dp</dimen>
     <dimen name="home_recommend_shop_padding_left">20dp</dimen>
     <!-- home screen dimens end -->
-
-    <!--merchant dimen start-->
-    <dimen name="merchant_reserve_button_width">73dp</dimen>
-    <dimen name="merchant_reserve_button_height">27dp</dimen>
-    <integer name="merchant_introduce_trim_length">65</integer>
-    <!--merchant dimen end-->
 
 
 </resources>

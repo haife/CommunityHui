@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.qmuiteam.qmui.widget.QMUIEmptyView
+        android:id="@+id/empty_view_appoint_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/qmui_config_color_white"
+        android:fitsSystemWindows="true"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_appointment_result_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_appointment_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_90"
+            android:background="@mipmap/icon_appointment_success"/>
+
+        <TextView
+            android:id="@+id/tv_appointment_result_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_appointment_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_25"
+            android:text="预约成功"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_20"
+            />
+
+        <TextView
+            android:id="@+id/tv_appointment_result_hint"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_appointment_result_status"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/dp_6"
+            android:text="@string/appointment_failure_hint"
+            android:textColor="@color/common_text_slight_color"
+            android:textSize="16sp"/>
+
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/qbtn_appoint_status"
+            style="@style/QDRoundButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_140"
+            android:text="@string/appointment_return_home"
+            android:textSize="@dimen/sp_16"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
