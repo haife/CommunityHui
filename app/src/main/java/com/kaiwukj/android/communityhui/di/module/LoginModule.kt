@@ -7,6 +7,9 @@ import dagger.Provides
 import com.kaiwukj.android.communityhui.mvp.contract.LoginContract
 import com.kaiwukj.android.communityhui.mvp.model.LoginModel
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
+import com.tbruyelle.rxpermissions2.RxPermissions
+
+
 
 
 /**
@@ -30,5 +33,11 @@ class LoginModule(private val view: LoginContract.View) {
     @Provides
     fun provideLoginModel(model: LoginModel): LoginContract.Model {
         return model
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideRxPermission(): RxPermissions {
+        return RxPermissions(view.getActivity())
     }
 }

@@ -22,23 +22,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mvp.ui.activity.StoreActivity">
-        </activity>
-        <activity android:name=".mvp.ui.activity.AppointmentActivity">
-        </activity>
-        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
-        </activity> <!-- 主Activity -->
-        <activity android:name=".mvp.ui.activity.MainActivity">
-        </activity> <!-- 登录 Activity -->
         <activity
-            android:name=".mvp.ui.activity.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/LoginInputEditLayout">
+            android:name=".mvp.ui.activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".mvp.ui.activity.StoreActivity">
+        </activity>
+        <activity android:name=".mvp.ui.activity.AppointmentActivity">
+        </activity>
+        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
+        </activity> <!-- 登录 Activity -->
+        <activity
+            android:name=".mvp.ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/LoginInputEditLayout">
         </activity>
 
         <meta-data

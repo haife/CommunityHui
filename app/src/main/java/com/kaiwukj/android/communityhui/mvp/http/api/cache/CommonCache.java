@@ -1,7 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.model.api.cache;
 
 
-import com.kaiwukj.android.communityhui.mvp.model.entity.User;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.User;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +11,6 @@ import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictProvider;
 import io.rx_cache2.LifeCache;
 import io.rx_cache2.Reply;
-import io.rx_cache2.internal.RxCache;
 
 /**
  * Copyright © KaiWu Technology Company

@@ -7,11 +7,13 @@
               tools:context=".mvp.ui.fragment.HomeFragment">
 
     <TextView
+        android:id="@+id/tv_home_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
+        android:background="@color/write_color"
         android:drawableLeft="@mipmap/icon_home_address_location"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dp_14"
+        android:paddingLeft="@dimen/base_horizontal_left_margin"
         android:text="南昌市恒茂梦时代…"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>

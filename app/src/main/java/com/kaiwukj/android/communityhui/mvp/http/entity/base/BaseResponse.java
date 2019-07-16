@@ -1,4 +1,4 @@
-package com.kaiwukj.android.communityhui.mvp.model.entity;
+package com.kaiwukj.android.communityhui.mvp.http.entity.base;
 
 
 import com.kaiwukj.android.communityhui.mvp.model.api.Api;

@@ -37,7 +37,7 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "API_HOST", "\"http://nstest.noble-spirits.com\"")
+            buildConfigField("String", "API_HOST", "http://172.168.1.97:8070")
         }
 
         release {
@@ -68,6 +68,7 @@ dependencies {
     implementation rootProject.ext.dependencies["bottomnavigationviewex"]
     implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["magicindicator"]
+    implementation rootProject.ext.dependencies["sneaker"]
     //glide
     implementation rootProject.ext.dependencies["glide"]
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -84,6 +85,9 @@ dependencies {
     /*ARouter*/
     implementation rootProject.ext.dependencies["arouter"]
     kapt rootProject.ext.dependencies["arouter-compiler"]
+    //tools
+    //implementation rootProject.ext.dependencies["utilcode"]
+    implementation rootProject.ext.dependencies["smartrefreshlayout"]
     /*Adapter*/
     implementation rootProject.ext.dependencies["base-recyclerview-adapter"]
     //MVP框架

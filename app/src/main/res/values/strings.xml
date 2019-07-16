@@ -12,6 +12,12 @@
     <string name="login_agreement_desc">《用户协议》</string>
     <string name="login_input_phone_hint">请输入您的电话号码</string>
     <string name="login_input_phone_code_hint">请输入验证码</string>
+    <string name="phone_number_error_format_desc">手机号格式错误</string>
+    <string name="phone_code_empty_error_desc">请输入短信验证码</string>
+    <string name="input_phone_number">请输入手机号</string>
+    <string name="login_failure">登录失败</string>
+    <string name="login_success">登录成功</string>
+    <string name="success">Success</string>
     <!--login-->
 
     <!--main-->

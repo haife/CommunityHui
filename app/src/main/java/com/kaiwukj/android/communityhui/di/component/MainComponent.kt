@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.di.component
 
 import com.kaiwukj.android.communityhui.di.module.MainModule
 import com.kaiwukj.android.communityhui.mvp.ui.activity.MainActivity
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import dagger.Component
@@ -20,5 +19,4 @@ import dagger.Component
 @Component(modules = [MainModule::class], dependencies = [AppComponent::class])
 interface MainComponent {
     fun inject(activity: MainActivity)
-    fun inject(fragment: HomeFragment)
 }

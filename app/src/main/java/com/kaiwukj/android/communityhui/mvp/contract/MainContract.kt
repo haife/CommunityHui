@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import androidx.appcompat.app.AppCompatActivity
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
 
@@ -13,8 +14,9 @@ import com.kaiwukj.android.mcas.mvp.IView
  * @desc
  */
 interface MainContract {
-    interface View : IView{
-
+    interface View : IView {
+        fun getActivity(): AppCompatActivity
+        fun initWidget()
     }
 
     interface Model : IModel

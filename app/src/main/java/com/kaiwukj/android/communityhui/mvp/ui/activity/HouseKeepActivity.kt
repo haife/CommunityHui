@@ -56,8 +56,7 @@ class HouseKeepActivity : BaseSupportActivity<HouseKeepPresenter>(), HouseKeepCo
     override fun showMessage(message: String) {
     }
 
-    override fun launchActivity(intent: Intent) {
-    }
+
 
     override fun killMyself() {
         finish()

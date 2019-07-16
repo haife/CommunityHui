@@ -7,6 +7,9 @@ import dagger.Provides
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract
 import com.kaiwukj.android.communityhui.mvp.model.MainModel
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
+import com.tbruyelle.rxpermissions2.RxPermissions
+
+
 
 
 /**
@@ -29,5 +32,11 @@ class MainModule(private val view: MainContract.View) {
     @Provides
     fun provideMainModel(model: MainModel): MainContract.Model {
         return model
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideRxPermission(): RxPermissions {
+        return RxPermissions(view.getActivity())
     }
 }

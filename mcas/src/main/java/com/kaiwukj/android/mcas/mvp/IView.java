@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import static com.kaiwukj.android.mcas.utils.Preconditions.checkNotNull;
 
