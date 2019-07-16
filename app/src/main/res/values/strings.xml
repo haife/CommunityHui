@@ -1,4 +1,8 @@
 <resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="app_name">慧家服</string>
     <!--login-->
     <string name="login_title_desc">登录</string>
@@ -16,7 +20,31 @@
     <string name="main_bottom_menu_news_desc">消息</string>
     <string name="main_bottom_menu_mine_desc">我的</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!--main-->
+
+    <!--首页-->
+    <string name="home_banner_top_house_keeping">家政</string>
+    <string name="home_banner_top_family">居家</string>
+    <string name="home_banner_top_life">生活</string>
+    <string name="home_banner_top_refer">咨询</string>
+    <string name="home_banner_top_all">全部</string>
+    <string name="home_hot_service_desc">热门服务</string>
+    <string name="home_moon_woman_service">月嫂服务</string>
+    <string name="home_shops_recommend_desc">门店推荐</string>
+    <string name="home_officer_recommend_desc">阿姨推荐</string>
+    <string name="home_carer_service">护工</string>
+
+    <string name="home_higher_house_people_select">高级家政人员首选</string>
+    <string name="home_higher_house_people">高级家政人员</string>
+    <string name="home_higher_house_keeping_desc">高级家政</string>
+    <string name="home_shops_recommend_more_desc">查看更多</string>
+
+    <!--首页-->
+
+    <!--家政-->
+    <string name="house_keeping_title_str">家政服务</string>
+    <string name="house_keeping_nursing_subtitle">护工服务</string>
+    <string name="house_keeping_nursery_subtitle">育婴师</string>
+    <string name="house_keeping_prolactin_division_subtitle">催乳师</string>
+    <!--家政-->
 </resources>

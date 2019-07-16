@@ -67,6 +67,4 @@ public abstract class BaseSwipeBackActivity<P extends IPresenter> extends BaseSu
         return mDelegate.swipeBackPriority();
     }
 
-
-
 }

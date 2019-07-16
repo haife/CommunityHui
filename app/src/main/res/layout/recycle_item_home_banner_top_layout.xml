@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/write_color"
+              android:orientation="vertical">
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner_home"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        app:image_scale_type="center_crop"
+        app:indicator_height="@dimen/dp_8"
+        app:indicator_margin="@dimen/dp_5"
+        app:indicator_width="@dimen/dp_8"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_home_banner_top_house_keeping"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_home_navigation_house_keeping"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="@string/home_banner_top_house_keeping"
+            android:textColor="@color/home_color_banner_top_text"/>
+
+        <TextView
+            android:id="@+id/tv_home_banner_top_family"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_home_navigation_house_keeping"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="@string/home_banner_top_family"
+            android:textColor="@color/home_color_banner_top_text"/>
+
+        <TextView
+            android:id="@+id/tv_home_banner_top_life"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_home_navigation_house_keeping"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="@string/home_banner_top_life"
+            android:textColor="@color/home_color_banner_top_text"/>
+
+        <TextView
+            android:id="@+id/tv_home_banner_top_refer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_home_navigation_house_keeping"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="@string/home_banner_top_refer"
+            android:textColor="@color/home_color_banner_top_text"/>
+
+        <TextView
+            android:id="@+id/tv_home_banner_top_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_home_navigation_house_keeping"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="@string/home_banner_top_all"
+            android:textColor="@color/home_color_banner_top_text"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/window_background_color"
+        android:layout_height="@dimen/dp_10"/>
+
+</LinearLayout>

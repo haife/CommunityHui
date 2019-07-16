@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/write_color"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/base_horizontal_left_margin"
+              android:paddingRight="@dimen/base_horizontal_right_margin"
+              android:paddingBottom="@dimen/dp_40">
+
+    <TextView
+        android:id="@+id/tv_home_hot_service_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:text="@string/home_hot_service_desc"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_20"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_130"
+        android:layout_marginTop="@dimen/dp_40"
+        android:background="@color/window_background_color">
+
+        <ImageView
+            android:id="@+id/iv_home_moon_woman_service"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_home_moon_woman_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/home_moon_woman_service"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/tv_home_moon_woman_service_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_home_moon_woman_service"
+            android:layout_alignLeft="@+id/tv_home_moon_woman_service"
+            android:layout_marginTop="@dimen/dp_2"
+            android:text="@string/home_higher_house_people_select"
+            android:textColor="@color/home_color_hot_service_text"
+            android:textSize="@dimen/sp_13"/>
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/qbtn_home_hot_service_appointment"
+            style="@style/QDRoundButtonStyle"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_30"
+            android:layout_below="@+id/tv_home_moon_woman_service_tips"
+            android:layout_alignLeft="@+id/tv_home_moon_woman_service_tips"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/login_button_desc"
+            android:textSize="@dimen/sp_16"
+            app:qmui_backgroundColor="@color/common_text_dark_color"
+            app:qmui_borderColor="@color/common_text_dark_color"
+            app:qmui_radius="@dimen/dp_14"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_140"
+        android:layout_marginTop="@dimen/dp_8"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/window_background_color">
+
+            <ImageView
+                android:id="@+id/iv_home_carer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tv_home_carer_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_12"
+                android:text="@string/home_carer_service"
+                android:textColor="@color/common_text_dark_color"
+                android:textSize="@dimen/sp_16"/>
+
+            <TextView
+                android:id="@+id/tv_home_carer_service_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_home_carer_service"
+                android:layout_alignLeft="@+id/tv_home_carer_service"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="@string/home_higher_house_keeping_desc"
+                android:textColor="@color/home_color_hot_service_text"
+                android:textSize="@dimen/sp_13"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@color/window_background_color">
+
+            <ImageView
+                android:id="@+id/iv_home_child_rearing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tv_home_child_rearing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_12"
+                android:text="@string/home_carer_service"
+                android:textColor="@color/common_text_dark_color"
+                android:textSize="@dimen/sp_16"/>
+
+            <TextView
+                android:id="@+id/tv_home_child_rearing_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_home_child_rearing"
+                android:layout_alignLeft="@+id/tv_home_child_rearing"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="@string/home_higher_house_keeping_desc"
+                android:textColor="@color/home_color_hot_service_text"
+                android:textSize="@dimen/sp_13"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@color/window_background_color">
+
+            <ImageView
+                android:id="@+id/iv_home_prolactin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tv_home_prolactin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_12"
+                android:text="@string/home_carer_service"
+                android:textColor="@color/common_text_dark_color"
+                android:textSize="@dimen/sp_16"/>
+
+            <TextView
+                android:id="@+id/tv_home_prolactin_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_home_prolactin"
+                android:layout_alignLeft="@+id/tv_home_prolactin"
+                android:layout_marginTop="@dimen/dp_2"
+                android:text="@string/home_higher_house_keeping_desc"
+                android:textColor="@color/home_color_hot_service_text"
+                android:textSize="@dimen/sp_13"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

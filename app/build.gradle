@@ -66,6 +66,8 @@ dependencies {
     implementation rootProject.ext.dependencies["fragmentation-code"]
     implementation rootProject.ext.dependencies["fragmentation-swipeback"]
     implementation rootProject.ext.dependencies["bottomnavigationviewex"]
+    implementation rootProject.ext.dependencies["banner"]
+    implementation rootProject.ext.dependencies["magicindicator"]
     //glide
     implementation rootProject.ext.dependencies["glide"]
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

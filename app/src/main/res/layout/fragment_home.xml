@@ -3,16 +3,25 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               tools:context=".mvp.ui.fragment.HomeFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
+        android:drawableLeft="@mipmap/icon_home_address_location"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_14"
-        android:drawableLeft="@drawable/icon_home_address_location"
         android:text="南昌市恒茂梦时代…"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>
 
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home"
+        style="@style/BaseRecycleViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

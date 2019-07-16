@@ -11,7 +11,7 @@
         <item name="android:listPreferredItemHeightSmall">?attr/qmui_list_item_height</item>
 
         <!-- 配置qmui提供的theme -->
-        <item name="qmui_config_color_blue">@color/app_color_blue</item>
+        <item name="qmui_config_color_blue">@color/app_color_theme</item>
         <item name="qmui_round_btn_bg_color">@color/color_common_btn_theme_bg</item>
         <item name="qmui_round_btn_border_color">@color/color_common_btn_theme_border</item>
         <item name="qmui_round_btn_text_color">@color/color_common_theme_text</item>

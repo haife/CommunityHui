@@ -22,12 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-
-        <!--主Activity-->
-        <activity android:name=".mvp.ui.activity.MainActivity">
-
+        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
         </activity>
-        <!--登录 Activity-->
+        <!-- 主Activity -->
+        <activity android:name=".mvp.ui.activity.MainActivity">
+        </activity> <!-- 登录 Activity -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"

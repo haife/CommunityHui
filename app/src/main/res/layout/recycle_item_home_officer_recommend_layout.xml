@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/write_color"
+                android:paddingBottom="@dimen/dp_40">
+
+    <TextView
+        android:id="@+id/tv_home_officer_recommend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_horizontal_left_margin"
+        android:layout_marginTop="@dimen/dp_25"
+        android:text="@string/home_officer_recommend_desc"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_20"/>
+
+    <TextView
+        android:id="@+id/tv_home_officer_recommend_more"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_20"
+        android:layout_alignBaseline="@+id/tv_home_officer_recommend"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/base_horizontal_right_margin"
+        android:drawableRight="@mipmap/icon_common_next_step"
+        android:drawablePadding="@dimen/dp_8"
+        android:gravity="center_vertical"
+        android:text="@string/home_shops_recommend_more_desc"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="13sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_officer_recommend"
+        style="@style/BaseRecycleViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_home_officer_recommend"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/write_color"/>
+</RelativeLayout>
