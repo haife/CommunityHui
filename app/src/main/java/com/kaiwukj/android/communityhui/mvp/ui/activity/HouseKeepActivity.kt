@@ -1,7 +1,5 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity
 
-
-import android.content.Intent
 import android.os.Bundle
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportActivity
@@ -10,7 +8,6 @@ import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.activity_house_keep.*
 
 /**
  * Copyright © KaiWu Technology Company

@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.multi
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HRecommendBannerBean
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeRecommendData
 
 /**
  * @author Haife Android Developer

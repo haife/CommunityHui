@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.kaiwukj.android.communityhui.BuildConfig;
-import com.kaiwukj.android.communityhui.mvp.model.api.Api;
+import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.mcas.base.delegate.AppLifecycles;
 import com.kaiwukj.android.mcas.di.module.GlobalConfigModule;
 import com.kaiwukj.android.mcas.http.imageloader.GlideImageLoaderStrategy;

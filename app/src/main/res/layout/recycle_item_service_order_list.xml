@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="@dimen/dp_5"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/write_color"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/service_order_number"
+            android:textColor="@color/common_text_slight_color"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:id="@+id/tv_service_order_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="201904053291"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_14"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1px"
+        android:background="@color/write_color"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/base_horizontal_left_margin"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingRight="@dimen/base_horizontal_right_margin"
+        android:paddingBottom="@dimen/dp_20">
+
+        <ImageView
+            android:id="@+id/iv_service_order"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="@dimen/dp_90"/>
+
+        <TextView
+            android:id="@+id/iv_service_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_service_order"
+            android:layout_marginLeft="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_toRightOf="@+id/iv_service_order"
+            android:text="李慧文"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_16"/>
+
+
+        <TextView
+            android:id="@+id/iv_service_order_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_service_order_name"
+            android:layout_alignLeft="@+id/iv_service_order_name"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="6年经验丨35岁丨南昌"
+            android:textColor="@color/common_text_slight_color"
+            android:textSize="@dimen/sp_13"/>
+
+        <TextView
+            android:id="@+id/iv_service_order_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_service_order_message"
+            android:layout_alignBottom="@+id/iv_service_order"
+            android:text="南昌市青山湖区梦时代"
+            android:textColor="@color/home_color_banner_top_text"
+            android:textSize="@dimen/sp_16"/>
+
+        <TextView
+            android:id="@+id/iv_service_order_order_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/iv_service_order_name"
+            android:layout_alignParentRight="true"
+            android:text="成交量:2312单"
+            android:textColor="@color/color_common_theme_text"
+            android:textSize="@dimen/sp_13"
+            />
+    </RelativeLayout>
+</LinearLayout>

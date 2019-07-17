@@ -27,7 +27,6 @@
     <string name="main_bottom_menu_mine_desc">我的</string>
 
     <!--main-->
-
     <!--首页-->
     <string name="home_banner_top_house_keeping">家政</string>
     <string name="home_banner_top_family">居家</string>
@@ -44,12 +43,12 @@
     <string name="home_higher_house_people">高级家政人员</string>
     <string name="home_higher_house_keeping_desc">高级家政</string>
     <string name="home_shops_recommend_more_desc">查看更多</string>
-
     <!--首页-->
 
     <!--预约 Appointment-->
     <string name="appointment_submit_order_btn">提交订单</string>
     <string name="appointment_success">预约成功</string>
+    <string name="appointment_right_now">立即预约</string>
     <string name="appointment_failure">预约失败</string>
     <string name="appointment_return_home">返回首页</string>
     <string name="appointment_choice_again">重新选择</string>
@@ -67,4 +66,51 @@
     <string name="house_keeping_nursery_subtitle">育婴师</string>
     <string name="house_keeping_prolactin_division_subtitle">催乳师</string>
     <!--家政-->
+
+    <!--我的-->
+    <string name="mine_issue_number">发布</string>
+    <string name="mine_reply_number">回复</string>
+    <string name="mine_fans_number">粉丝</string>
+    <string name="mine_attention_number">关注</string>
+    <string name="mine_order_contracting">签约中</string>
+    <string name="mine_order_servicing">服务中</string>
+    <string name="mine_order_finished">已完结</string>
+    <string name="mine_order_service">服务订单</string>
+    <string name="mine_order_all">全部</string>
+    <string name="mine_address">我的地址</string>
+    <string name="mine_custom_service">联系客服</string>
+    <string name="mine_collection">我的收藏</string>
+    <string name="mine_setting">设置</string>
+    <!--我的-->
+    <!--服务订单-->
+    <string name="service_order_number">订单编号</string>
+    <string name="subordinate_the_stores">所属门店</string>
+    <string name="order_stores_phone">门店电话</string>
+
+    <string name="order_detail_interview_time">面试时间</string>
+    <string name="order_detail_service_project">服务项目</string>
+    <string name="order_detail_service_days">服务天数</string>
+    <string name="order_detail_create_time">下单时间</string>
+    <string name="order_detail_service_detail">服务地址</string>
+    <string name="order_detail_service_remark">备注</string>
+    <string name="order_detail_service_price">服务费</string>
+
+    <string name="order_professional_kill">专业技能</string>
+    <string name="order_service_attitude">服务态度</string>
+    <string name="order_power_of_chat">沟通能力</string>
+    <string name="order_professional_ethics">职业道德</string>
+    <string name="order_evaluate_submit">提交</string>
+    <!--服务订单-->
+
+    <!--我的地址-->
+    <string name="edit_mine_address">编辑地址</string>
+    <string name="edit_mine_address_name">姓名</string>
+    <string name="edit_mine_address_phone">手机号</string>
+    <string name="edit_mine_address_num">楼房-门牌号</string>
+    <string name="edit_mine_address_detail">服务地址</string>
+    <string name="edit_mine_address_name_hint">请输入姓名</string>
+    <string name="edit_mine_address_phone_hint">请输入手机号</string>
+    <string name="edit_mine_address_detail_hint">请输入详细地址</string>
+    <!--我的地址-->
+    <!---->
 </resources>

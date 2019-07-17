@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--添加服务人员输入组件-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp_55"
+              android:background="@color/write_color"
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:paddingRight="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/tv_widget_staff_message_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_weight="3.5"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/dp_16"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_14"/>
+
+    <EditText
+        android:id="@+id/et_widget_staff_message_input"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:background="@null"
+        android:hint="@string/edit_mine_address_name_hint"
+        android:textColorHint="@color/common_text_slight_color"
+        android:textSize="@dimen/sp_14"/>
+
+
+</LinearLayout>

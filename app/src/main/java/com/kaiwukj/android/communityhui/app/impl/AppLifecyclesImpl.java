@@ -10,11 +10,15 @@ import com.kaiwukj.android.communityhui.BuildConfig;
 import com.kaiwukj.android.mcas.base.delegate.AppLifecycles;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.footer.FalsifyFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Field;
 
+import androidx.multidex.MultiDex;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.unit.Subunits;
 import me.yokeyword.fragmentation.Fragmentation;
@@ -36,7 +40,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void attachBaseContext(Context base) {
-//      MultiDex.install(base);  //这里比 onCreate 先执行,常用于 MultiDex 初始化,插件化框架的初始化
+     MultiDex.install(base);  //这里比 onCreate 先执行,常用于 MultiDex 初始化,插件化框架的初始化
 
     }
 
@@ -107,6 +111,17 @@ public class AppLifecyclesImpl implements AppLifecycles {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+
+    static {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new BezierRadarHeader(context));
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
+            //指定为经典Footer，默认是 BallPulseFooter
+            return new FalsifyFooter(context);
+        });
     }
 
 

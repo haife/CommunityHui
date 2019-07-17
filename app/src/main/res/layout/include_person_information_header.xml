@@ -7,6 +7,7 @@
               android:gravity="center_horizontal"
               android:orientation="vertical"
               android:paddingTop="@dimen/dp_15">
+
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
@@ -18,7 +19,6 @@
         app:qmui_selected_border_color="?attr/qmui_config_color_gray_4"
         app:qmui_selected_border_width="1px"
         app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="所属门店"
+            android:text="@string/subordinate_the_stores"
             android:textColor="@color/home_color_hot_service_text"
             android:textSize="@dimen/sp_15"/>
 

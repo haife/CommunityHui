@@ -1,12 +1,5 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import me.yokeyword.fragmentation.ISupportFragment;
-import timber.log.Timber;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,10 +13,18 @@ import com.kaiwukj.android.communityhui.di.module.MainModule;
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.MainPresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import me.yokeyword.fragmentation.ISupportFragment;
+import timber.log.Timber;
 
 public class MainActivity extends BaseSupportActivity<MainPresenter> implements MainContract.View {
     @BindView(R.id.bnve_main_bottom_navigation)
@@ -32,7 +33,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     @Inject
     RxPermissions mRxPermissions;
 
-    private ISupportFragment[] mFragments = new ISupportFragment[1];
+    private ISupportFragment[] mFragments = new ISupportFragment[4];
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -59,7 +60,17 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     private void buildBottomMenuListener() {
         mMainBottomBnve.setOnNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
-                case R.id.home_class_page:
+                case R.id.home_home_pager:
+                    showHideFragment(mFragments[0]);
+                    break;
+                case R.id.home_circle_page:
+
+                    break;
+                case R.id.home_news:
+
+                    break;
+                case R.id.home_mine:
+                    showHideFragment(mFragments[3]);
                     break;
             }
             return true;
@@ -105,6 +116,9 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         ISupportFragment recommendFragment = findFragment(HomeFragment.class);
         if (recommendFragment == null) {
             mFragments[0] = HomeFragment.Companion.newInstance();
+            mFragments[1] = MineFragment.Companion.newInstance();
+            mFragments[2] = MineFragment.Companion.newInstance();
+            mFragments[3] = MineFragment.Companion.newInstance();
             loadMultipleRootFragment(R.id.fl_main_container, 0, mFragments);
         } else {
             mFragments[0] = findFragment(HomeFragment.class);

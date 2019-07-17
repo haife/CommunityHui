@@ -1,7 +1,12 @@
 package com.kaiwukj.android.communityhui.di.module
 
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeRecommendData
 import com.kaiwukj.android.communityhui.mvp.model.HomeModel
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import dagger.Module
 import dagger.Provides
@@ -13,10 +18,9 @@ import dagger.Provides
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/15
- * @desc  
+ * @desc
  */
 @Module
-//构建HomeModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
 class HomeModule(private val view: HomeContract.View) {
     @FragmentScope
     @Provides
@@ -29,4 +33,35 @@ class HomeModule(private val view: HomeContract.View) {
     fun provideHomeModel(model: HomeModel): HomeContract.Model {
         return model
     }
+
+    @FragmentScope
+    @Provides
+     fun provideHomeRecommendData(): HomeRecommendData {
+        return HomeRecommendData()
+    }
+
+
+    @FragmentScope
+    @Provides
+    fun provideLayoutManager(): RecyclerView.LayoutManager {
+        return object : LinearLayoutManager(view.getFragment().context) {
+            override fun getExtraLayoutSpace(state: RecyclerView.State): Int {
+                return 500
+            }
+        }
+    }
+
+    @FragmentScope
+    @Provides
+    internal fun provideRecommendDataList(): MutableList<HRecommendMultiItemEntity> {
+        return ArrayList()
+    }
+
+    @FragmentScope
+    @Provides
+    internal fun provideHRecommendAdapter(list: MutableList<HRecommendMultiItemEntity>): HRecommendAdapter {
+        return HRecommendAdapter(list, view.getFragment().context!!)
+    }
+
+
 }

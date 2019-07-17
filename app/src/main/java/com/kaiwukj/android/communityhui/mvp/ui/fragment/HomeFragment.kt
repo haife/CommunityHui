@@ -6,13 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHomeComponent
 import com.kaiwukj.android.communityhui.di.module.HomeModule
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.presenter.HomePresenter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import kotlinx.android.synthetic.main.fragment_home.*
+import javax.inject.Inject
 
 
 /**
@@ -24,8 +29,12 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @desc
  */
 class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+    @Inject
+    lateinit var mHomeAdapter: HRecommendAdapter
+
+    @Inject
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -49,7 +58,9 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        mPresenter?.processRecommendData()
+        rv_home.layoutManager = mLayoutManager
+        rv_home.adapter = mHomeAdapter;
     }
 
 
@@ -59,6 +70,13 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     override fun hideLoading() {
 
+    }
+
+
+    override
+    fun getFragment(): Fragment = this
+
+    override fun post(runnable: Runnable?) {
     }
 
     override fun showMessage(message: String) {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_130"
+                android:background="@color/write_color"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_20">
+
+    <TextView
+        android:id="@+id/tv_mine_address_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_60"
+        android:text="江西省南昌市青山湖区恒茂梦时代7号楼804室"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_18"
+        />
+
+    <TextView
+        android:id="@+id/tv_mine_address_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_mine_address_detail"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="王小二"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_15"
+        />
+
+    <TextView
+        android:id="@+id/tv_mine_address_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tv_mine_address_name"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_toRightOf="@+id/tv_mine_address_name"
+        android:text="13278974659"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_15"/>
+
+    <ImageView
+        android:id="@+id/tv_mine_address_edit"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_input_text_evaluate"/>
+</RelativeLayout>

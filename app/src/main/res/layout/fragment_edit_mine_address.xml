@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/qtb_edit_mine_address"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"
+        app:qmui_topbar_bg_color="@color/qmui_config_color_white"
+        app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
+        app:qmui_topbar_need_separator="false"/>
+
+    <com.kaiwukj.android.communityhui.mvp.ui.widget.order.EditAddressInfoWidget
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_horizontal_line_height"
+        android:background="@color/write_color"
+        app:left_str="@string/edit_mine_address"
+        app:right_str="@string/edit_mine_address_name_hint"/>
+
+    <com.kaiwukj.android.communityhui.mvp.ui.widget.order.EditAddressInfoWidget
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_horizontal_line_height"
+        android:background="@color/write_color"
+        app:left_str="@string/edit_mine_address_detail"
+        app:right_str="@string/edit_mine_address_phone_hint"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:layout_marginTop="@dimen/base_horizontal_line_height"
+        android:background="@drawable/ripper_common_click_back_ground"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="3.5"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dp_16"
+            android:text="@string/edit_mine_address_detail"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_14"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/dp_20"
+            android:layout_weight="8"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp_14"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/icon_common_next_step_dark"/>
+    </LinearLayout>
+
+    <com.kaiwukj.android.communityhui.mvp.ui.widget.order.EditAddressInfoWidget
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_horizontal_line_height"
+        android:background="@color/write_color"
+        app:left_str="@string/edit_mine_address_detail"
+        app:right_str="@string/edit_mine_address_detail_hint"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:id="@+id/qbtn_appoint_status"
+            style="@style/QDRoundButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:text="@string/appointment_return_home"
+            android:textSize="@dimen/sp_16"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

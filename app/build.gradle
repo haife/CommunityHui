@@ -37,7 +37,7 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "API_HOST", "http://172.168.1.97:8070")
+            buildConfigField("String", "API_HOST", "\"http://172.168.1.97:8070\"")
         }
 
         release {
@@ -93,6 +93,7 @@ dependencies {
     //MVP框架
     implementation project(path: ':mcas')
     //test
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation rootProject.ext.dependencies["junit"]
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]

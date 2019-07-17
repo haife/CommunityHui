@@ -10,8 +10,6 @@
         android:id="@+id/qtb_store"
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_topbar_height"
-        android:fitsSystemWindows="true"
-        app:qmui_layout_collapseMode="pin"
         app:qmui_topbar_bg_color="@color/qmui_config_color_white"
         app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
         app:qmui_topbar_need_separator="true"/>

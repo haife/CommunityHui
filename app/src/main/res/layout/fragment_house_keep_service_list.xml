@@ -87,7 +87,7 @@
                 android:text="工龄"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
-                app:sort_desc_state="false"
+                app:sort_desc_state="true"
                 />
 
             <com.kaiwukj.android.communityhui.mvp.ui.widget.home.StaffSortCheckbox
