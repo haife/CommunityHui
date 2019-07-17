@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.app.base;
 
 import android.os.Bundle;
 
-
 import com.kaiwukj.android.mcas.mvp.IPresenter;
 
 import me.yokeyword.fragmentation.SwipeBackLayout;
@@ -24,6 +23,7 @@ public abstract class BaseSwipeBackActivity<P extends IPresenter> extends BaseSu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDelegate.onCreate(savedInstanceState);
+
     }
 
     @Override

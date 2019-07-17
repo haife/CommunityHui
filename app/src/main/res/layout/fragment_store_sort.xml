@@ -17,7 +17,7 @@
         <include layout="@layout/include_store_sort_header"/>
 
         <net.lucode.hackware.magicindicator.MagicIndicator
-            android:id="@+id/magic_indicator_house_keeping_list"
+            android:id="@+id/magic_indicator_store_sort_list"
             android:layout_width="match_parent"
             android:layout_height="@dimen/home_magic_indicator_height"
             android:background="@android:color/white"
@@ -32,7 +32,7 @@
 
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager_house_keeping_list_container"
+        android:id="@+id/view_pager_store_sort_list_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"

@@ -39,7 +39,10 @@
         </activity>
         <activity android:name=".mvp.ui.activity.AppointmentActivity">
         </activity>
-        <activity android:name=".mvp.ui.activity.HouseKeepActivity">
+        <activity android:name=".mvp.ui.activity.HouseKeepActivity"
+                  android:theme="@style/SwipeBackStyle"
+            android:screenOrientation="portrait">
+
         </activity> <!-- 登录 Activity -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"

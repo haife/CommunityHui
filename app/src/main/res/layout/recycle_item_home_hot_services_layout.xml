@@ -58,8 +58,10 @@
             android:layout_below="@+id/tv_home_moon_woman_service_tips"
             android:layout_alignLeft="@+id/tv_home_moon_woman_service_tips"
             android:layout_marginTop="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_6"
+            android:paddingRight="@dimen/dp_6"
             android:text="@string/appointment_right_now"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_13"
             app:qmui_backgroundColor="@color/color_common_btn_theme_dark_bg"
             app:qmui_borderColor="@color/color_common_btn_theme_dark_bg"
             app:qmui_radius="@dimen/dp_14"/>

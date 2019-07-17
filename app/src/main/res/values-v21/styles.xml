@@ -31,11 +31,7 @@
         <item name="app_content_bg_color">@color/qmui_config_color_white</item>
     </style>
 
-    <style name="ToolBar">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:height">@dimen/base_tool_bar_height</item>
-        <item name="navigationIcon">@drawable/ic_arrow_back_black_24dp</item>
-    </style>
+
 
     <!--登录EditTextInput-->
     <style name="LoginInputEditLayout" parent="AppTheme">
@@ -88,8 +84,10 @@
 
     <style name="QDTopBar" parent="QMUI.TopBar">
         <item name="qmui_topbar_bg_color">?attr/app_primary_color</item>
-        <item name="qmui_topbar_title_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_title_text_size">@dimen/sp_16</item>
+        <item name="qmui_topbar_title_color">@color/common_text_dark_color</item>
         <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_left_back_drawable_id">@mipmap/icon_tool_bar_left_back</item>
         <item name="qmui_topbar_text_btn_color_state_list">@color/color_common_top_bar_btn</item>
         <item name="qmui_topbar_height">48dp</item>
         <item name="qmui_topbar_image_btn_height">48dp</item>
@@ -201,7 +199,7 @@
 
 
     <!--SwipeBackTheme-->
-    <style name="SwipeBackStyle" parent="QMUI.Compat.NoActionBar">
+    <style name="SwipeBackStyle" parent="AppTheme">
         <item name="android:windowIsTranslucent">true</item>
     </style>
 

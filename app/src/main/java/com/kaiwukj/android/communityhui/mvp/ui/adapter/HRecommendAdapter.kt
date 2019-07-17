@@ -3,15 +3,16 @@ package com.kaiwukj.android.communityhui.mvp.ui.adapter
 import android.content.Context
 import android.graphics.Typeface
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kaiwukj.android.communityhui.BuildConfig
 import com.kaiwukj.android.communityhui.R
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
 import com.kaiwukj.android.communityhui.utils.BannerImageLoader
 import com.youth.banner.Banner
 
@@ -49,6 +50,11 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 banner.startAutoPlay()
                 banner.setImageLoader(BannerImageLoader())
                 banner.start()
+
+                helper.getView<TextView>(R.id.tv_home_banner_top_house_keeping).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP,EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
+                }
+
             }
             HRecommendMultiItemEntity.HOT_SERVICE_TYPE -> {
 
@@ -93,6 +99,8 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
          }*/
 
 
+
+
         /**
          * 释放资源 防止内存泄露
          */
@@ -102,4 +110,6 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
 
     }
+
+
 }

@@ -20,6 +20,7 @@ android {
     }
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.kaiwukj.android.communityhui"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -86,14 +87,14 @@ dependencies {
     implementation rootProject.ext.dependencies["arouter"]
     kapt rootProject.ext.dependencies["arouter-compiler"]
     //tools
-    //implementation rootProject.ext.dependencies["utilcode"]
+
     implementation rootProject.ext.dependencies["smartrefreshlayout"]
     /*Adapter*/
     implementation rootProject.ext.dependencies["base-recyclerview-adapter"]
     //MVP框架
     implementation project(path: ':mcas')
     //test
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation "androidx.multidex:multidex:2.0.1"
     testImplementation rootProject.ext.dependencies["junit"]
     debugImplementation rootProject.ext.dependencies["canary-debug"]
     releaseImplementation rootProject.ext.dependencies["canary-release"]

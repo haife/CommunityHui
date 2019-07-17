@@ -10,7 +10,8 @@
     <ImageView
         android:id="@+id/iv_house_staff_list"
         android:layout_width="@dimen/dp_130"
-        android:layout_height="@dimen/dp_90"/>
+        android:background="@color/window_background_color"
+        android:layout_height="@dimen/dp_100"/>
 
     <TextView
         android:id="@+id/iv_house_staff_list_name"
@@ -44,6 +45,7 @@
         android:layout_alignLeft="@+id/iv_house_staff_list_message"
         android:layout_alignBottom="@+id/iv_house_staff_list"
         android:text="¥6000"
+        android:layout_marginBottom="@dimen/dp_3"
         android:textColor="@color/home_color_banner_top_text"
         android:textSize="@dimen/sp_16"/>
 

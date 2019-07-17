@@ -52,6 +52,7 @@
     <string name="appointment_failure">预约失败</string>
     <string name="appointment_return_home">返回首页</string>
     <string name="appointment_choice_again">重新选择</string>
+    <string name="appointment_staff_info_detail">阿姨详情</string>
     <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
     <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
 

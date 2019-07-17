@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.R.layout
+import com.kaiwukj.android.communityhui.R.string
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
@@ -23,9 +24,8 @@ import kotlinx.android.synthetic.main.fragment_house_keep_service.*
  * @time 2019/7/16
  * @desc 家政服务
  */
-class HouseKeepFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
+
 
     companion object {
         fun newInstance(): HouseKeepFragment {
@@ -45,13 +45,24 @@ class HouseKeepFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepCo
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_house_keep_service, container, false);
+        return attachToSwipeBack(inflater.inflate(layout.fragment_house_keep_service, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        qtb_house_keeping.setTitle(getString(R.string.house_keeping_title_str))
+        initTopBar()
+        initClick()
     }
 
+    private fun initClick() {
+        rl_house_keeping_moon_woman.setOnClickListener {
+            start(HouseKeepListFragment.newInstance())
+        }
+    }
+
+    private fun initTopBar() {
+        qtb_house_keeping.addLeftBackImageButton().setOnClickListener { killMyself() }
+        qtb_house_keeping.setTitle(getString(string.house_keeping_title_str))
+    }
 
     override fun showLoading() {
 
@@ -68,6 +79,12 @@ class HouseKeepFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepCo
     }
 
     override fun killMyself() {
-
+        activity?.finish()
     }
+
+
+    override fun post(runnable: Runnable?) {
+    }
+
+
 }

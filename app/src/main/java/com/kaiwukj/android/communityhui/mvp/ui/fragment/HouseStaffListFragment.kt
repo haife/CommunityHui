@@ -5,13 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alibaba.android.arouter.launcher.ARouter
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import kotlinx.android.synthetic.main.fragment_house_staff_list.*
 
 
 /**
@@ -23,11 +31,13 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @desc 家政人员服务列表
  */
 class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+
+    private lateinit var mHouseAdapter: HouseKeepListAdapter
 
     companion object {
-        fun newInstance(): HouseStaffListFragment {
+        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
+
+        fun newInstance(int_type: Int): HouseStaffListFragment {
             val fragment = HouseStaffListFragment()
             return fragment
         }
@@ -48,7 +58,18 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        val list2: MutableList<HRecommendMultiItemEntity> = mutableListOf()
+        for (i in 1..10) {
+            list2.add(HRecommendMultiItemEntity(""))
+        }
+        rv_staff_list_child.layoutManager = LinearLayoutManager(context)
+        rv_staff_list_child.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
+        mHouseAdapter = HouseKeepListAdapter(list2, R.layout.recycle_item_house_staff_list_layout, context!!)
+        rv_staff_list_child.adapter = mHouseAdapter
 
+        mHouseAdapter.setOnItemClickListener { adapter, view, position ->
+            ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_STAFF_LIST_URL).navigation()
+        }
     }
 
 
@@ -68,5 +89,8 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
 
     override fun killMyself() {
 
+    }
+
+    override fun post(runnable: Runnable?) {
     }
 }

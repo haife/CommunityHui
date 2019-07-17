@@ -13,3 +13,6 @@ const val LoginRouterUrl: String = "/activity/login"
 
 /*MAIN*/
 const val MainRouterUrl: String = "/activity/main"
+
+/*MAIN*/
+const val HouseKeepUrl: String = "/activity/house_keep"

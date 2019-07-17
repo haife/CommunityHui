@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 
-
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaiwukj.android.mcas.base.BaseFragment;
 import com.kaiwukj.android.mcas.mvp.IPresenter;
 
@@ -48,6 +48,7 @@ public abstract class BaseSupportFragment<P extends IPresenter> extends BaseFrag
         super.onAttach(activity);
         mDelegate.onAttach(activity);
         _mActivity = mDelegate.getActivity();
+        ARouter.getInstance().inject(this);
     }
 
     @Override

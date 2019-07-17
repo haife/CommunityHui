@@ -18,7 +18,10 @@
         android:text="南昌市恒茂梦时代…"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/window_background_color"
+        android:layout_height="@dimen/base_horizontal_line_height"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh_home"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportActivity;
@@ -26,6 +27,9 @@ import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import timber.log.Timber;
 
+import static com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt.MainRouterUrl;
+
+@Route(path = MainRouterUrl)
 public class MainActivity extends BaseSupportActivity<MainPresenter> implements MainContract.View {
     @BindView(R.id.bnve_main_bottom_navigation)
     BottomNavigationViewEx mMainBottomBnve;

@@ -9,6 +9,7 @@
               android:paddingTop="@dimen/dp_15">
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/riv_person_info_photo"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
         android:background="@mipmap/ic_launcher_round"

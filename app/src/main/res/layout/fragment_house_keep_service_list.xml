@@ -10,12 +10,13 @@
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/qtb_house_keeping"
+            android:id="@+id/qtb_house_keeping_staff_list"
             android:layout_width="match_parent"
             android:layout_height="?attr/qmui_topbar_height"
             android:fitsSystemWindows="true"
@@ -23,7 +24,7 @@
             app:qmui_layout_collapseMode="pin"
             app:qmui_topbar_bg_color="@color/qmui_config_color_white"
             app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
-            app:qmui_topbar_need_separator="false"/>
+            app:qmui_topbar_need_separator="true"/>
 
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/magic_indicator_house_keeping_list"
@@ -48,7 +49,7 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:checked="false"
-                android:drawableRight="@drawable/selector_staff_list_sort_status"
+                android:drawableTop="@drawable/selector_staff_list_sort_status"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"

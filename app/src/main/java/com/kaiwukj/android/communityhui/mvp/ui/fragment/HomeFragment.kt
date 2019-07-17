@@ -37,6 +37,8 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
 
     companion object {
+        const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
+
         fun newInstance(): HomeFragment {
             val fragment = HomeFragment()
             return fragment
@@ -60,7 +62,8 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.processRecommendData()
         rv_home.layoutManager = mLayoutManager
-        rv_home.adapter = mHomeAdapter;
+        rv_home.adapter = mHomeAdapter
+        childOnClickListener()
     }
 
 
@@ -88,4 +91,16 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
     override fun killMyself() {
 
     }
+
+    private fun childOnClickListener() {
+        mHomeAdapter.setOnItemChildClickListener { adapter, view, position ->
+
+            when (view.id) {
+                R.id.tv_home_banner_top_house_keeping -> {
+                    start(HouseKeepFragment.newInstance())
+                }
+            }
+        }
+    }
 }
+
