@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/write_color"
+    android:orientation="vertical"
+
+    >
+
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/qtb_person_home_page"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/qmui_topbar_height"
+        app:qmui_topbar_bg_color="@color/qmui_config_color_white"
+        app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
+        app:qmui_topbar_need_separator="false"/>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_person_home_page_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:id="@+id/tv_home_page_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="桃清陌"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_home_page_name"
+            android:layout_marginTop="@dimen/dp_8"
+            android:text="点击编辑昵称"
+            android:textColor="@color/common_text_slight_color"
+            android:textSize="@dimen/sp_12"/>
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/qiv_person_hom_profile_photo"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@color/window_background_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:qmui_is_circle="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_person_home_page_header">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/base_horizontal_line_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_person_home_page"
+            android:background="@color/window_background_color"/>
+
+        <TextView
+            android:id="@+id/iv_person_home_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/icon_person_home_page"
+            android:gravity="right|center_vertical"
+            android:paddingRight="@dimen/dp_16"
+            android:text="@string/mine_person_page_title"
+            android:textColor="@color/write_color"
+            android:textSize="@dimen/sp_14"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="签名"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:drawableRight="@mipmap/icon_common_next_step_dark"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="right|center_vertical"
+            android:hint="请输入15字符内的签名"
+            android:maxLines="2"
+            android:paddingLeft="@dimen/dp_50"
+            android:textColorHint="@color/common_text_slight_color"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="生日"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:drawableRight="@mipmap/icon_common_next_step_dark"
+            android:drawablePadding="@dimen/dp_8"
+            android:gravity="right|center_vertical"
+            android:hint="选择"
+            android:paddingLeft="@dimen/dp_50"
+            android:textColorHint="@color/common_text_slight_color"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="192168"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/dp_50"
+            android:textColorHint="@color/common_text_slight_color"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</LinearLayout>

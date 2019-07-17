@@ -111,6 +111,7 @@
     <string name="edit_mine_address_name_hint">请输入姓名</string>
     <string name="edit_mine_address_phone_hint">请输入手机号</string>
     <string name="edit_mine_address_detail_hint">请输入详细地址</string>
+    <string name="mine_person_page_title">我的主页</string>
     <!--我的地址-->
     <!---->
 </resources>

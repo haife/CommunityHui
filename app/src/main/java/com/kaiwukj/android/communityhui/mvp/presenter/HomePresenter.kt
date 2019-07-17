@@ -3,7 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
-import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_BANNER_TYPE
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_HOT_SERVICE
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_STORES_RECOMMEND
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_WOMAN_RECOMMEND
@@ -50,9 +49,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     fun processRecommendData() {
         //判断banner是否为空
         if (mHomeRecommendData.arr_index_banner_data != null && mHomeRecommendData.arr_index_banner_data.size !== 0) {
-            val bannerEntity = HRecommendMultiItemEntity(STRING_BANNER_TYPE)
-            hRecommendMultiItemList.add(bannerEntity)
+
         }
+        val bannerEntity = HRecommendMultiItemEntity(HRecommendMultiItemEntity.STRING_BANNER_TYPE)
+        hRecommendMultiItemList.add(bannerEntity)
         //实体类处理
         val recommendShopEntity = HRecommendMultiItemEntity(STRING_HOT_SERVICE)
         hRecommendMultiItemList.add(recommendShopEntity)

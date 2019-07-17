@@ -11,6 +11,7 @@
     <dimen name="sp_20">20sp</dimen>
     <dimen name="sp_36">36sp</dimen>
     <dimen name="sp_22">22sp</dimen>
+    <dimen name="sp_24">24sp</dimen>
     <!--common text size end-->
     <!--text size-->
     <dimen name="home_magic_indicator_text_size">17sp</dimen>

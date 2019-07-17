@@ -4,6 +4,7 @@ import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.ui.activity.EditMineInfoActivity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.EditMineAddressFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineAddressListFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.PersonHomePageFragmnt
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import dagger.Component
@@ -22,4 +23,5 @@ interface EditMineInfoComponent {
     fun inject(activity: EditMineInfoActivity)
     fun inject(activity: MineAddressListFragment)
     fun inject(activity: EditMineAddressFragment)
+    fun inject(activity: PersonHomePageFragmnt)
 }
