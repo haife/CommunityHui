@@ -17,6 +17,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_appointment_person_information.*
+import kotlinx.android.synthetic.main.include_person_information_header.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -67,6 +68,11 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
             start(AppointmentDemandFragment.newInstance())
+        }
+
+        //所属门店
+        rl_person_info_store.setOnClickListener {
+            start(StoreSortListFragment.newInstance())
         }
     }
 

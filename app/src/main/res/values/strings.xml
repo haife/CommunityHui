@@ -137,5 +137,16 @@
     <string name="edit_mine_address_detail_hint">请输入详细地址</string>
     <string name="mine_person_page_title">我的主页</string>
     <!--我的地址-->
-    <!---->
+    <!--我的收藏-->
+    <string name="mine_collection_title">收藏</string>
+    <string name="setting_title">设置</string>
+    <string name="setting_clear_cache">清理缓存</string>
+    <string name="setting_not_need_clear_cache">无需清理</string>
+    <string name="setting_clearing_cache">正在清理缓存</string>
+    <string name="setting_clearing_cache_success">清理完成</string>
+    <string name="setting_login_out">退出登录</string>
+    <string name="setting_about_company">关于我们</string>
+
+
+    <!--我的收藏-->
 </resources>

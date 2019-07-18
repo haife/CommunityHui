@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/write_color"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/base_horizontal_left_margin"
+                android:paddingRight="@dimen/base_horizontal_right_margin">
+
+    <ImageView
+        android:id="@+id/iv_store_list"
+        android:layout_width="@dimen/dp_130"
+        android:layout_height="@dimen/dp_100"
+        android:background="@color/window_background_color"/>
+
+    <TextView
+        android:id="@+id/iv_store_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_store_list"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_toRightOf="@+id/iv_store_list"
+        android:text="店铺名称"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_16"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/iv_store_list_name"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:layout_toRightOf="@+id/iv_store_list_name"
+        android:text="成交量:2312单"
+        android:textColor="@color/app_color_theme"
+        android:textSize="@dimen/sp_13"
+        />
+
+
+    <TextView
+        android:id="@+id/iv_store_list_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_store_list_name"
+        android:layout_alignLeft="@+id/iv_store_list_name"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="月嫂丨护工丨育婴师"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="@dimen/sp_13"
+        />
+
+    <TextView
+        android:id="@+id/iv_store_list_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_store_list_message"
+        android:layout_alignBottom="@+id/iv_store_list"
+        android:layout_marginBottom="@dimen/dp_6"
+        android:text="南昌市青山湖区上海路7号"
+        android:textColor="@color/home_color_banner_top_text"
+        android:textSize="@dimen/sp_16"/>
+
+
+</RelativeLayout>

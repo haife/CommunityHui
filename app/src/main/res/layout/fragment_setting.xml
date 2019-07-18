@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+        android:id="@+id/qui_group_list_setting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/qbtn_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_90"
+        android:text="@string/setting_login_out"
+        android:textColor="@color/color_login_out_bg"
+        android:textSize="@dimen/sp_16"
+        app:qmui_borderColor="@color/color_login_out_bg"
+        app:qmui_borderWidth="1px"/>
+
+
+</RelativeLayout>

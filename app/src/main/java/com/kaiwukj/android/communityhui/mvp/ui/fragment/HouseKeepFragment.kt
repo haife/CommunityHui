@@ -28,6 +28,11 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
 
 
     companion object {
+        const val MOON_WOMAN_INDEX = 0
+        const val CARER_INDEX = 1
+        const val RAISE_INDEX = 2
+        const val PROLACTIN_DIVISION_INDEX = 3
+
         fun newInstance(): HouseKeepFragment {
             val fragment = HouseKeepFragment()
             return fragment
@@ -55,7 +60,16 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
 
     private fun initClick() {
         rl_house_keeping_moon_woman.setOnClickListener {
-            start(HouseKeepListFragment.newInstance())
+            start(HouseKeepListFragment.newInstance(MOON_WOMAN_INDEX))
+        }
+        rl_house_keeping_carer.setOnClickListener {
+            start(HouseKeepListFragment.newInstance(CARER_INDEX))
+        }
+        rl_house_keeping_raise.setOnClickListener {
+            start(HouseKeepListFragment.newInstance(RAISE_INDEX))
+        }
+        rl_house_keeping_prolactin_division.setOnClickListener {
+            start(HouseKeepListFragment.newInstance(RAISE_INDEX))
         }
     }
 

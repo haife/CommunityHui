@@ -53,6 +53,7 @@
         android:background="@color/window_background_color"/>
 
     <RelativeLayout
+        android:id="@+id/rl_person_info_store"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:background="@drawable/ripper_common_click_back_ground"

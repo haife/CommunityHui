@@ -89,7 +89,10 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
                 }
                 mineCollectItem -> {
-
+                    ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
+                }
+                mineSettingItem ->{
+                    ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, SettingFragment.SETTING_FRAGMENT).navigation(context)
                 }
             }
         }

@@ -12,6 +12,7 @@ import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.qmuiteam.qmui.widget.QMUITopBar
 
 /**
  * Copyright © KaiWu Technology Company
@@ -44,7 +45,16 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         return attachToSwipeBack(inflater.inflate(R.layout.fragment_edit_mine_address, container, false))
     }
 
+
+
     override fun initData(savedInstanceState: Bundle?) {
+    }
+
+
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
     }
 
     override fun post(runnable: Runnable?) {

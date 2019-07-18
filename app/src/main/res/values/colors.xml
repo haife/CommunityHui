@@ -13,6 +13,7 @@
     <color name="magic_indicator_text_color">#FE714B</color>
     <color name="common_text_dark_color">#FF222222</color>
     <color name="common_text_slight_color">#FF999999</color>
+    <color name="common_slight_light_color">#c0999999</color>
     <color name="common_divide_line_color">#E5E5E5</color>
     <!--common-->
 

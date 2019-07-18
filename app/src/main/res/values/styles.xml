@@ -5,7 +5,6 @@
         <item name="colorPrimary">@color/write_color</item>
         <item name="android:typeface">monospace</item>
         <!-- 配置Android提供的theme -->
-        <item name="android:selectableItemBackground">@null</item>
         <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>

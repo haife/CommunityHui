@@ -17,6 +17,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiIte
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.qmuiteam.qmui.widget.QMUITopBar
 import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 
 /**
@@ -67,6 +68,13 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             start(EditMineAddressFragment.newInstance())
         }
+
+    }
+
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
 
     }
 

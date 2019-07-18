@@ -14,6 +14,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineCollectionFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ServiceOrderDetailFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ServiceOrderFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -62,6 +63,11 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
             ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT -> {
                 qtb_mine_order_info.setTitle(getString(R.string.service_order_detail_title))
                 loadRootFragment(R.id.fl_mine_order_container, ServiceOrderDetailFragment.newInstance())
+            }
+
+            MineCollectionFragment.MINE_COLLECTION_FRAGMENT -> {
+                qtb_mine_order_info.setTitle(getString(R.string.mine_collection_title))
+                loadRootFragment(R.id.fl_mine_order_container, MineCollectionFragment.newInstance())
             }
         }
 

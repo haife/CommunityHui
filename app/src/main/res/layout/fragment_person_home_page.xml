@@ -21,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_16"
             android:background="@null"
+            android:maxLength="8"
             android:hint="@string/mine_nick_name"
+            android:maxLines="1"
             android:textColor="@color/common_text_dark_color"
             android:textColorHint="@color/common_text_slight_color"
             android:textSize="@dimen/sp_24"/>

@@ -16,6 +16,7 @@ import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineAddressListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PersonHomePageFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SettingFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.activity_edit_mine_info.*
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
@@ -61,8 +62,12 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
             }
             MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT -> {
                 loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance())
-                qtb_edit_mine_info.setTitle(getString(R.string.edit_mine_address))
             }
+            SettingFragment.SETTING_FRAGMENT -> {
+                qtb_edit_mine_info.setTitle(getString(R.string.setting_title))
+                loadRootFragment(R.id.fl_edit_mine_info_container, SettingFragment.newInstance())
+            }
+
 
         }
 

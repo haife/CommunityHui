@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/window_background_color"
     android:orientation="vertical">
 
-    <com.scwang.smartrefresh.layout.header.FalsifyHeader
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_mine_address_list"
@@ -18,4 +14,4 @@
         android:overScrollMode="never"
         android:scrollbars="none"/>
 
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>
