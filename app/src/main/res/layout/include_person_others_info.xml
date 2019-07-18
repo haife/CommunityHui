@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="服务范围"
+        android:text="@string/home_staff_service_range"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 
@@ -34,7 +34,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="@dimen/dp_5"
         android:background="@color/window_background_color"/>
 
     <TextView
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="能力标签"
+        android:text="@string/home_staff_power_tags"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 

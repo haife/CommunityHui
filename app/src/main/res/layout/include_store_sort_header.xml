@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="@dimen/base_horizontal_left_margin"
     android:paddingTop="@dimen/dp_20"
     android:paddingRight="@dimen/base_horizontal_right_margin"
-    android:paddingBottom="@dimen/dp_55"
-    app:layout_scrollFlags="scroll">
+    android:paddingBottom="@dimen/dp_40"
+  >
 
     <TextView
         android:id="@+id/tv_store_sort_header"
@@ -65,6 +65,7 @@
         android:button="@null"
         android:drawableLeft="@drawable/selector_store_collection"
         android:drawablePadding="@dimen/dp_5"
+        android:background="@android:color/transparent"
         android:text="@string/store_collect_desc"
         android:textColor="@color/color_common_theme_dark_checked"
         android:textSize="@dimen/sp_15"/>

@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/icon_person_home_page"
+            android:background="@mipmap/icon_person_home_page"
             android:gravity="right|center_vertical"
             android:paddingRight="@dimen/dp_16"
             android:text="@string/mine_person_page_title"

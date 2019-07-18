@@ -46,8 +46,8 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         mContext = this;
         mDelegate.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
+        super.onCreate(savedInstanceState);
     }
 
     @Override

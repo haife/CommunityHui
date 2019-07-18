@@ -7,6 +7,8 @@
         <item name="colorPrimary">@color/write_color</item>
         <item name="android:typeface">monospace</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:selectableItemBackground">@null</item>
+        <item name="android:selectableItemBackgroundBorderless">@null</item>
         <item name="android:windowAllowEnterTransitionOverlap">false</item>
         <item name="android:windowAllowReturnTransitionOverlap">false</item>
         <!--切换动画-->

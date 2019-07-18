@@ -2,11 +2,8 @@
 <!--用户信息资历-->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/dp_40"
-          android:background="@color/appointment_qualification_tv_color"
-          android:drawableRight="@drawable/ic_qualification_info_check_normal"
+          android:layout_height="wrap_content"
           android:gravity="center"
-          android:paddingLeft="@dimen/dp_16"
           android:text="身份证"
           android:textSize="@dimen/sp_16">
 

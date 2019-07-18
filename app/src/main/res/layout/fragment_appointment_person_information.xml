@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-                                       android:layout_width="match_parent"
-                                       android:layout_height="match_parent"
-                                       xmlns:app="http://schemas.android.com/apk/res-auto">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <LinearLayout
+    <com.qmuiteam.qmui.widget.QMUITopBar
+        android:id="@+id/qtb_appointment_person_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/write_color"
-        android:orientation="vertical">
+        android:layout_height="?attr/qmui_topbar_height"
+        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll"
+        app:qmui_layout_collapseMode="pin"
+        app:qmui_topbar_bg_color="@color/qmui_config_color_white"
+        app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
+        app:qmui_topbar_need_separator="true"/>
 
-        <com.qmuiteam.qmui.widget.QMUITopBar
-            android:id="@+id/qtb_appointment_person_info"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/qmui_topbar_height"
-            android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll"
-            app:qmui_layout_collapseMode="pin"
-            app:qmui_topbar_bg_color="@color/qmui_config_color_white"
-            app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
-            app:qmui_topbar_need_separator="true"/>
-        <!--用户信息顶部布局-->
-        <include layout="@layout/include_person_information_header"/>
+            android:layout_height="match_parent"
+            android:background="@color/write_color"
+            android:orientation="vertical">
 
-        <!--用户信息资质-->
-        <include layout="@layout/include_person_qualification_info"/>
-        <!--用户信息资质-->
-        <include layout="@layout/include_person_others_info"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@color/window_background_color"/>
+            <!--用户信息顶部布局-->
+            <include layout="@layout/include_person_information_header"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_16"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_25"
-            android:text="能力标签"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_15"/>
+            <!--用户信息资质-->
+            <include layout="@layout/include_person_qualification_info"/>
+            <!--能力标签和-->
+            <include layout="@layout/include_person_others_info"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_appointment_person_info"
-            style="@style/BaseRecycleViewStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_5"
+                android:background="@color/window_background_color"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_25"
+                android:text="@string/home_user_comment"
+                android:textColor="@color/common_text_dark_color"
+                android:textSize="@dimen/sp_15"/>
 
-</androidx.core.widget.NestedScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_appointment_user_comment"
+                style="@style/BaseRecycleViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

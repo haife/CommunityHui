@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/appointment_qualification_tv_color"/>
+    <padding
+        android:bottom="@dimen/dp_4"
+        android:left="@dimen/dp_6"
+        android:right="6dp"
+        android:top="@dimen/dp_4"/>
+
+    <corners android:radius="@dimen/dp_6"/>
+
+</shape>

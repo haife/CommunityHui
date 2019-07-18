@@ -43,6 +43,10 @@
     <string name="home_higher_house_people">高级家政人员</string>
     <string name="home_higher_house_keeping_desc">高级家政</string>
     <string name="home_shops_recommend_more_desc">查看更多</string>
+    <string name="home_shops_comment_load_more">查看更多</string>
+    <string name="home_user_comment">用户评价</string>
+    <string name="home_staff_power_tags">能力标签</string>
+    <string name="home_staff_service_range">服务范围</string>
     <!--首页-->
 
     <!--预约 Appointment-->
@@ -52,7 +56,10 @@
     <string name="appointment_failure">预约失败</string>
     <string name="appointment_return_home">返回首页</string>
     <string name="appointment_choice_again">重新选择</string>
-    <string name="appointment_staff_info_detail">阿姨详情</string>
+    <string name="appointment_work_years">工作年限</string>
+    <string name="appointment_staff_info_detail">个人信息</string>
+    <string name="appointment_staff_work_info_detail">工作信息</string>
+    <string name="appointment_staff_info_aptitudes_detail">资质信息</string>
     <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
     <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
 
@@ -60,6 +67,7 @@
     <!--门店-->
     <string name="store_look_detail_desc">查看详情</string>
     <string name="store_collect_desc">收藏</string>
+    <string name="store_title">门店</string>
     <!--门店-->
     <!--家政-->
     <string name="house_keeping_title_str">家政服务</string>

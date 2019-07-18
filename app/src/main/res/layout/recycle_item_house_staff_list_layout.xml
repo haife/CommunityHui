@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_house_staff_list"
         android:layout_marginLeft="@dimen/dp_14"
-        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_3"
         android:layout_toRightOf="@+id/iv_house_staff_list"
         android:text="李慧文"
         android:textColor="@color/common_text_dark_color"

@@ -15,4 +15,7 @@ const val LoginRouterUrl: String = "/activity/login"
 const val MainRouterUrl: String = "/activity/main"
 
 /*MAIN*/
-const val HouseKeepUrl: String = "/activity/house_keep"
+const val HouseKeepUrl: String = "/activity/house/keep"
+
+/*门店列表*/
+const val StoreListURL: String = "/activity/store/list"

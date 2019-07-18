@@ -11,6 +11,7 @@ import com.kaiwukj.android.communityhui.BuildConfig
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
+import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
 import com.kaiwukj.android.communityhui.utils.BannerImageLoader
@@ -61,12 +62,16 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
             }
 
             HRecommendMultiItemEntity.STORES_RECOMMEND -> {
-
+                helper.getView<TextView>(R.id.tv_home_shops_recommend_more).setOnClickListener {
+                    ARouter.getInstance().build(StoreListURL).navigation()
+                }
             }
 
 
             HRecommendMultiItemEntity.WOMAN_RECOMMEND -> {
-
+                helper.getView<TextView>(R.id.tv_home_officer_recommend_more).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP,EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
+                }
             }
 
         }

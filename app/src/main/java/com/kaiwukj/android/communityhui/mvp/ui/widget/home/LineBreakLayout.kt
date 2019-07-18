@@ -39,7 +39,7 @@ class LineBreakLayout(context: Context, attr: AttributeSet) : ViewGroup(context,
     /**
      *设置标签
      * @param labels List<String>
-     * @param tagsTypes Int 1.资质标签 2 能力标签
+     * @param tagsTypes Int 1.资质信息 2 能力标签
      */
     fun setLabels(labels: List<String>) {
         this.tableList = labels
@@ -47,9 +47,9 @@ class LineBreakLayout(context: Context, attr: AttributeSet) : ViewGroup(context,
             for (element: String in tableList) {
                 val tv: TextView = LayoutInflater.from(context).inflate(R.layout.custom_qualification_information_widget, null) as TextView
                 if (tagsTypes == 1) {
-                    tv.setBackgroundColor(ContextCompat.getColor(context, R.color.appointment_qualification_tv_color))
+                    tv.background = ContextCompat.getDrawable(context, R.drawable.shape_home_staff_qualification_tags)
                 } else {
-                    tv.setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
+                    tv.background = ContextCompat.getDrawable(context, R.drawable.shape_home_staff_power_tags)
                 }
                 tv.text = element
                 tv.typeface = typeFaceTint

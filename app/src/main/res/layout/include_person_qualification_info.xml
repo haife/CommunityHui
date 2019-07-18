@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_16"
-        android:text="资质信息"
+        android:text="@string/appointment_staff_info_aptitudes_detail"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 
@@ -24,8 +24,8 @@
         android:layout_marginBottom="@dimen/dp_30"
         android:paddingLeft="@dimen/dp_16"
         android:paddingRight="@dimen/dp_16"
-        app:TagsTypes="1"
         app:HorizontalSpace="@dimen/dp_10"
+        app:TagsTypes="1"
         app:VerticalSpace="@dimen/dp_10"/>
 
     <View
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="工作信息"
+        android:text="@string/appointment_staff_work_info_detail"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 
@@ -51,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="工作年限"
+            android:text="@string/appointment_work_years"
             android:textColor="@color/home_color_hot_service_text"
             android:textSize="@dimen/sp_15"/>
 
@@ -60,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/base_horizontal_right_margin"
             android:text="6年"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_15"

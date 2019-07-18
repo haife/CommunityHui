@@ -6,13 +6,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
-import com.kaiwukj.android.mcas.base.BaseFragment
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import kotlinx.android.synthetic.main.fragment_store.*
 
 
 /**
@@ -23,7 +28,12 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @time 2019/7/16
  * @desc 门店列表
  */
-class StoreListFragment : BaseFragment<StorePresenter>(), StoreContract.View {
+class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+    lateinit var mStoreListAdapter: StoreListAdapter
+
+    override fun post(runnable: Runnable?) {
+    }
+
     companion object {
         fun newInstance(): StoreListFragment {
             val fragment = StoreListFragment()
@@ -46,7 +56,26 @@ class StoreListFragment : BaseFragment<StorePresenter>(), StoreContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        initTopBar()
+        val list = arrayListOf<StoreListResult>()
+        for (i in 0..10) {
+            list.add(StoreListResult())
+        }
+        rv_store_list.layoutManager = LinearLayoutManager(context!!)
+        rv_store_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
+        mStoreListAdapter = StoreListAdapter(list, R.layout.recycle_item_store_list, context!!)
 
+        rv_store_list.adapter = mStoreListAdapter
+
+        mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
+            start(StoreSortListFragment.newInstance())
+        }
+
+    }
+
+    private fun initTopBar() {
+        qtb_store_list.addLeftBackImageButton().setOnClickListener { killMyself() }
+        qtb_store_list.setTitle(getString(R.string.store_title))
     }
 
     override fun showLoading() {
@@ -64,6 +93,6 @@ class StoreListFragment : BaseFragment<StorePresenter>(), StoreContract.View {
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
 }

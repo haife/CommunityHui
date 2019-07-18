@@ -10,8 +10,8 @@
         android:id="@+id/tv_home_shops_recommend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_25"
         android:layout_marginLeft="@dimen/base_horizontal_left_margin"
+        android:layout_marginTop="@dimen/dp_25"
         android:text="@string/home_shops_recommend_desc"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_20"/>
@@ -19,16 +19,16 @@
     <TextView
         android:id="@+id/tv_home_shops_recommend_more"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_20"
-        android:layout_alignBaseline="@+id/tv_home_shops_recommend"
-        android:layout_marginRight="@dimen/base_horizontal_right_margin"
+        android:layout_height="@dimen/dp_30"
+        android:layout_alignBottom="@+id/tv_home_shops_recommend"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/base_horizontal_right_margin"
         android:drawableRight="@mipmap/icon_common_next_step"
         android:drawablePadding="@dimen/dp_8"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:text="@string/home_shops_recommend_more_desc"
         android:textColor="@color/common_text_slight_color"
-        android:textSize="13sp"/>
+        android:textSize="@dimen/sp_13"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home_shops_recommend"

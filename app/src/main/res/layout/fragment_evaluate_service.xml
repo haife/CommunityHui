@@ -216,7 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:drawableLeft="@drawable/icon_input_text_evaluate"
+            android:drawableLeft="@mipmap/icon_input_text_evaluate"
             android:drawablePadding="@dimen/dp_8"
             android:hint="聊聊您对阿姨服务的感受~"
             android:maxLines="5"
