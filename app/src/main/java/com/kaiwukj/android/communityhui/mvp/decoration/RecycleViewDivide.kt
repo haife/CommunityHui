@@ -38,11 +38,11 @@ open class RecycleViewDivide constructor(
         val childAdapterPosition = parent.getChildAdapterPosition(view)
         val lastCount = parent.adapter?.itemCount?.minus(1)
         if (childAdapterPosition == lastCount) {
-            outRect.set(0, 0, 0, 30)
+            outRect.set(0, 0, 0, mDivideHeight)
             return
         }
         if (childAdapterPosition == 0) {
-            outRect.set(0, 30, 0, 20)
+            outRect.set(0, mDivideHeight+10, 0, mDivideHeight)
             return
         }
         outRect.set(0, 0, 0, mDivideHeight)

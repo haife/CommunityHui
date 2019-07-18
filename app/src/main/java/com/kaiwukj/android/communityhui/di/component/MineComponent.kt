@@ -24,5 +24,6 @@ interface MineComponent {
     fun inject(fragment: ServiceOrderFragment)
     fun inject(fragment: ServiceOrderDetailFragment)
     fun inject(fragment: EvaluateServiceFragment)
+    fun inject(fragment: ServiceOrderListFragment)
 
 }

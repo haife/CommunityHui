@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.fragment_edit_mine_address.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -22,11 +21,10 @@ import kotlinx.android.synthetic.main.fragment_edit_mine_address.*
  * @time 2019/7/17
  * @desc  服务评价
  */
-class EditMineAddressFragment : BaseSupportFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
 
     companion object {
+        const val EDIT_MINE_ADDRESS_FRAGMENT = "EDIT_MINE_ADDRESS_FRAGMENT"
         fun newInstance(): EditMineAddressFragment {
             val fragment = EditMineAddressFragment()
             return fragment
@@ -43,11 +41,13 @@ class EditMineAddressFragment : BaseSupportFragment<EditMineInfoPresenter>(), Ed
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_edit_mine_address, container, false);
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_edit_mine_address, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        qtb_edit_mine_address.setTitle(getString(R.string.mine_address))
+    }
+
+    override fun post(runnable: Runnable?) {
     }
 
 
@@ -66,6 +66,6 @@ class EditMineAddressFragment : BaseSupportFragment<EditMineInfoPresenter>(), Ed
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
 }

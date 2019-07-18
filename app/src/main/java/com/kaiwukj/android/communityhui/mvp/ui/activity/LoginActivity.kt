@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity
 
+
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
@@ -11,16 +12,13 @@ import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.textfield.TextInputLayout
 import com.irozon.sneaker.Sneaker
-
-
+import com.kaiwukj.android.communityhui.R
+import com.kaiwukj.android.communityhui.app.constant.MainRouterUrl
+import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.di.component.DaggerLoginComponent
 import com.kaiwukj.android.communityhui.di.module.LoginModule
 import com.kaiwukj.android.communityhui.mvp.contract.LoginContract
 import com.kaiwukj.android.communityhui.mvp.presenter.LoginPresenter
-
-import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.constant.MainRouterUrl
-import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.mvp.ui.widget.login.LoginTimeCount
 import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.communityhui.utils.SPUtils
@@ -171,6 +169,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWat
             if (checkPhoneNumber(phoneNumber)) {
                 if (phoneCode.isNullOrEmpty()) showInputError(text_input_layout_phone_code, getString(R.string.phone_code_empty_error_desc))
                 // else mPresenter?.requestLogin(LoginRequest(phoneNumber, phoneCode))
+
                 launchActivity(Intent())
             }
 

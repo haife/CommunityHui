@@ -5,14 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
+import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -22,11 +27,12 @@ import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
  * @time 2019/7/17
  * @desc  我的地址
  */
-class MineAddressListFragment : BaseSupportFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
+class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
+        const val MINE_ADDRESS_LIST_FRAGMENT = "MINE_ADDRESS_LIST_FRAGMENT"
         fun newInstance(): MineAddressListFragment {
             val fragment = MineAddressListFragment()
             return fragment
@@ -48,10 +54,21 @@ class MineAddressListFragment : BaseSupportFragment<EditMineInfoPresenter>(), Ed
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        qtb_mine_service_order.setTitle(getString(R.string.mine_address))
+        val list2: MutableList<HRecommendMultiItemEntity> = mutableListOf()
+        for (i in 1..2) {
+            list2.add(HRecommendMultiItemEntity(""))
+        }
+        rv_mine_address_list.layoutManager = LinearLayoutManager(context)
+        rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
+                divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
+        val mHouseAdapter = HouseKeepListAdapter(list2, R.layout.recycle_item_mine_address_list, context!!)
+        rv_mine_address_list.adapter = mHouseAdapter
+
+        mHouseAdapter.setOnItemClickListener { adapter, view, position ->
+            start(EditMineAddressFragment.newInstance())
+        }
 
     }
-
 
     override fun showLoading() {
 
@@ -68,6 +85,6 @@ class MineAddressListFragment : BaseSupportFragment<EditMineInfoPresenter>(), Ed
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
 }

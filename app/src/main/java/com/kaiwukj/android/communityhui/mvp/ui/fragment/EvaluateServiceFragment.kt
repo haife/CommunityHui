@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -22,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
  * @time 2019/7/17
  * @desc  服务评价
  */
-class EvaluateServiceFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
     override fun post(runnable: Runnable?) {
     }
 
@@ -33,9 +32,8 @@ class EvaluateServiceFragment : BaseSupportFragment<MinePresenter>(), MineContra
         }
     }
 
-
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerMineComponent //如找不到该类,请编译一下项目
+        DaggerMineComponent
                 .builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
@@ -44,11 +42,10 @@ class EvaluateServiceFragment : BaseSupportFragment<MinePresenter>(), MineContra
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_service_all_oreder, container, false);
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_evaluate_service, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        qtb_mine_service_order.setTitle(getString(R.string.mine_order_service))
 
     }
 
@@ -68,6 +65,6 @@ class EvaluateServiceFragment : BaseSupportFragment<MinePresenter>(), MineContra
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
 }

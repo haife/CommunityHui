@@ -7,13 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
-import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
-import com.kaiwukj.android.communityhui.di.module.AppointmentModule
-import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
-import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
+import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
+import com.kaiwukj.android.communityhui.di.module.StoreModule
+import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.fragment_appointment_demand.*
+import kotlinx.android.synthetic.main.fragment_store_detail.*
+
 
 /**
  * Copyright © KaiWu Technology Company
@@ -21,46 +22,44 @@ import kotlinx.android.synthetic.main.fragment_appointment_demand.*
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/16
- * @desc
+ * @desc 门店一级推荐
  */
-class AppointmentDemandFragment : BaseSupportFragment<AppointmentPresenter>(), AppointmentContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
 
     companion object {
-        fun newInstance(): AppointmentDemandFragment {
-            val fragment = AppointmentDemandFragment()
+        fun newInstance(): StoreDetailFragment {
+            val fragment = StoreDetailFragment()
             return fragment
         }
     }
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerAppointmentComponent
+        DaggerStoreComponent
                 .builder()
                 .appComponent(appComponent)
-                .appointmentModule(AppointmentModule(this))
+                .storeModule(StoreModule(this))
                 .build()
                 .inject(this)
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_appointment_demand, container, false);
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_store_detail, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
-        qbtn_submit_order.setOnClickListener {
-            start(AppointmentResultFragment.newInstance())
-        }
     }
 
     private fun initTopBar() {
-        qtb_appointment_demand.setTitle(getString(R.string.appointment_demand_input))
-        qtb_appointment_demand.addLeftBackImageButton().setOnClickListener { killMyself() }
+        qtb_store_detail.addLeftBackImageButton().setOnClickListener { killMyself() }
+        qtb_store_detail.setTitle(getString(R.string.store_detail_title))
 
     }
 
+
+    override fun post(runnable: Runnable?) {
+    }
 
     override fun showLoading() {
 

@@ -19,3 +19,9 @@ const val HouseKeepUrl: String = "/activity/house/keep"
 
 /*门店列表*/
 const val StoreListURL: String = "/activity/store/list"
+
+/*我的模块*/
+const val MineInfoUrl: String = "/activity/mine/info"
+
+/*我的订单*/
+const val MineOrderUrl: String = "/activity/mine/order"

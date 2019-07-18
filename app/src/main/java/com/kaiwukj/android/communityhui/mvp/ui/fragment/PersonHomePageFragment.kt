@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
+import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import kotlinx.android.synthetic.main.fragment_person_home_page.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -19,15 +21,15 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/17
- * @desc  服务评价
+ * @desc  我的信息主页
  */
-class PersonHomePageFragmnt : BaseSupportFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
 
     companion object {
-        fun newInstance(): PersonHomePageFragmnt {
-            val fragment = PersonHomePageFragmnt()
+        const val PERSON_HOME_PAGE_FRAGMENT = "PERSON_HOME_PAGE_FRAGMENT"
+
+        fun newInstance(): PersonHomePageFragment {
+            val fragment = PersonHomePageFragment()
             return fragment
         }
     }
@@ -42,11 +44,19 @@ class PersonHomePageFragmnt : BaseSupportFragment<EditMineInfoPresenter>(), Edit
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_person_home_page, container, false);
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_person_home_page, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        tv_home_page_name.isEnabled = false
+        tv_click_edit_nick_name.setOnClickListener {
+            tv_home_page_name.setText("")
+            tv_home_page_name.isEnabled = true
+            tv_home_page_name.isFocusable = true
+            tv_home_page_name.isFocusableInTouchMode = true
+            tv_home_page_name.requestFocus()
+            InputMethodUtils.showSoftInput(tv_home_page_name)
+        }
     }
 
 
@@ -65,6 +75,10 @@ class PersonHomePageFragmnt : BaseSupportFragment<EditMineInfoPresenter>(), Edit
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
+
+    override fun post(runnable: Runnable?) {
+    }
+
 }

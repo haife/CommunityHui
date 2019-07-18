@@ -10,8 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
@@ -21,8 +24,8 @@ import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
-import kotlinx.android.synthetic.main.fragment_house_keep_service_list.*
 import kotlinx.android.synthetic.main.fragment_store_sort.*
+import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
@@ -43,6 +46,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
     private var mFragmentList: List<Fragment> = ArrayList()
 
     companion object {
+        const val STORE_SORT_LIST_FRAGMENT = "STORE_SORT_LIST_FRAGMENT"
         fun newInstance(): StoreSortListFragment {
             val fragment = StoreSortListFragment()
             return fragment
@@ -79,6 +83,10 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         list.add(bean4)
         initMagicIndicatorView(list)
         initTopBar()
+        //查看门店详情
+        tv_store_sort_header_look_detail.setOnClickListener {
+            ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, STORE_SORT_LIST_FRAGMENT).navigation()
+        }
     }
 
     private fun initTopBar() {
@@ -102,7 +110,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
-                simplePagerTitleView.setOnClickListener { view_pager_house_keeping_list_container.currentItem = index }
+                simplePagerTitleView.setOnClickListener { view_pager_store_sort_list_container.currentItem = index }
                 mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].int_type)
                 return simplePagerTitleView
             }
@@ -144,6 +152,6 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
     }
 
     override fun killMyself() {
-
+        activity?.onBackPressed()
     }
 }

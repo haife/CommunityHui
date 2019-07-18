@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
+import kotlinx.android.synthetic.main.fragment_service_order_detail.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -22,11 +22,13 @@ import kotlinx.android.synthetic.main.fragment_service_all_oreder.*
  * @time 2019/7/17
  * @desc 服务订单详情
  */
-class ServiceOrderDetailFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
+        const val SERVICE_ORDER_DETAIL_FRAGMENT = "SERVICE_ORDER_DETAIL_FRAGMENT"
+
         fun newInstance(): ServiceOrderDetailFragment {
             val fragment = ServiceOrderDetailFragment()
             return fragment
@@ -35,7 +37,7 @@ class ServiceOrderDetailFragment : BaseSupportFragment<MinePresenter>(), MineCon
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerMineComponent //如找不到该类,请编译一下项目
+        DaggerMineComponent
                 .builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
@@ -44,12 +46,13 @@ class ServiceOrderDetailFragment : BaseSupportFragment<MinePresenter>(), MineCon
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_service_order_detail, container, false);
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_service_order_detail, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        qtb_mine_service_order.setTitle(getString(R.string.mine_order_service))
-
+        qbtn_order_detail_bottom.setOnClickListener {
+            start(EvaluateServiceFragment.newInstance())
+        }
     }
 
 

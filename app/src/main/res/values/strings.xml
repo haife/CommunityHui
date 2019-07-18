@@ -45,8 +45,8 @@
     <string name="home_shops_recommend_more_desc">查看更多</string>
     <string name="home_shops_comment_load_more">查看更多</string>
     <string name="home_user_comment">用户评价</string>
-    <string name="home_staff_power_tags">能力标签</string>
-    <string name="home_staff_service_range">服务范围</string>
+    <string name="home_staff_power_tags">技能标签</string>
+    <string name="home_staff_service_price">服务价格</string>
     <!--首页-->
 
     <!--预约 Appointment-->
@@ -56,10 +56,16 @@
     <string name="appointment_failure">预约失败</string>
     <string name="appointment_return_home">返回首页</string>
     <string name="appointment_choice_again">重新选择</string>
-    <string name="appointment_work_years">工作年限</string>
+    <string name="appointment_nurse_years">护理经验</string>
     <string name="appointment_staff_info_detail">个人信息</string>
     <string name="appointment_staff_work_info_detail">工作信息</string>
     <string name="appointment_staff_info_aptitudes_detail">资质信息</string>
+    <string name="appointment_demand_input">需求填写</string>
+    <string name="appointment_demand_other">其他需求</string>
+    <string name="appointment_demand_days_hint">请填写服务天数</string>
+    <string name="appointment_demand_days">预计天数（天）</string>
+    <string name="appointment_demand_remark_hint">有什么其他特殊需求，可以在这些出来…</string>
+    <string name="appointment_demand_times_hint">预计服务时间</string>
     <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
     <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
 
@@ -68,6 +74,8 @@
     <string name="store_look_detail_desc">查看详情</string>
     <string name="store_collect_desc">收藏</string>
     <string name="store_title">门店</string>
+    <string name="store_detail_title">门店详情</string>
+    <string name="store_business_qualification">营业资质</string>
     <!--门店-->
     <!--家政-->
     <string name="house_keeping_title_str">家政服务</string>
@@ -90,9 +98,15 @@
     <string name="mine_custom_service">联系客服</string>
     <string name="mine_collection">我的收藏</string>
     <string name="mine_setting">设置</string>
+    <string name="mine_click_edit_nick_name">点击编辑昵称</string>
+    <string name="mine_nick_name">昵称</string>
+    <string name="mine_save_address">保存地址</string>
     <!--我的-->
     <!--服务订单-->
+    <string name="service_order_title">服务订单</string>
+    <string name="service_order_detail_title">订单详情</string>
     <string name="service_order_number">订单编号</string>
+    <string name="service_order_comment_right_now">立即评价</string>
     <string name="subordinate_the_stores">所属门店</string>
     <string name="order_stores_phone">门店电话</string>
 
@@ -113,6 +127,7 @@
 
     <!--我的地址-->
     <string name="edit_mine_address">编辑地址</string>
+    <string name="mine_address_title">我的地址</string>
     <string name="edit_mine_address_name">姓名</string>
     <string name="edit_mine_address_phone">手机号</string>
     <string name="edit_mine_address_num">楼房-门牌号</string>

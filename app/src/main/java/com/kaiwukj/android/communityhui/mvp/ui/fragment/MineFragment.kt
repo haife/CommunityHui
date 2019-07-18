@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
+import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
@@ -15,6 +19,8 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.include_mine_order_container.*
+import kotlinx.android.synthetic.main.include_mine_top_container.*
 
 
 class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
@@ -30,7 +36,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerMineComponent //如找不到该类,请编译一下项目
+        DaggerMineComponent
                 .builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
@@ -39,14 +45,28 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(com.kaiwukj.android.communityhui.R.layout.fragment_mine, container, false);
+        return inflater.inflate(R.layout.fragment_mine, container, false);
     }
 
     override fun initData(savedInstanceState: Bundle?) {
         initBottomGroupView()
+        cl_mine_head_top.setOnClickListener {
+            ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
+        }
 
+        tv_mine_order_contracting.setOnClickListener {
+            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 0).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+        }
+        tv_mine_order_servicing.setOnClickListener {
+            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 1).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+        }
+        tv_mine_order_finished.setOnClickListener {
+            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 2).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+        }
+        tv_mine_order_all.setOnClickListener {
+            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 3).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+        }
     }
-
     /**
      * 初始化GroupList
      */
@@ -63,7 +83,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         val onClickListener = View.OnClickListener { v ->
             when (v) {
                 mineAddressItem -> {
-
+                    ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT).navigation(context)
                 }
                 mineServiceItem -> {
 

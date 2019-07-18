@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smartrefresh.layout.SmartRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:srlEnablePreviewInEditMode="false">
 
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
@@ -23,11 +25,9 @@
             android:id="@+id/qui_group_list_mine"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_5"
-            />
+            android:layout_marginTop="@dimen/dp_5"/>
 
     </LinearLayout>
-
 
     <com.scwang.smartrefresh.layout.footer.FalsifyFooter
         android:layout_width="match_parent"

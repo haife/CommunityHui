@@ -42,7 +42,7 @@
         android:textSize="@dimen/sp_15"/>
 
     <ImageView
-        android:id="@+id/tv_mine_address_edit"
+        android:id="@+id/iv_mine_address_edit"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_alignParentRight="true"

@@ -63,7 +63,7 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
             HRecommendMultiItemEntity.STORES_RECOMMEND -> {
                 helper.getView<TextView>(R.id.tv_home_shops_recommend_more).setOnClickListener {
-                    ARouter.getInstance().build(StoreListURL).navigation()
+                    ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE,EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
             }
 

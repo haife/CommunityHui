@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="@string/home_staff_service_range"
+        android:text="@string/home_staff_service_price"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 

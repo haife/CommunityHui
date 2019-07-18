@@ -94,7 +94,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     private fun childOnClickListener() {
         mHomeAdapter.setOnItemChildClickListener { adapter, view, position ->
-
             when (view.id) {
                 R.id.tv_home_banner_top_house_keeping -> {
                     start(HouseKeepFragment.newInstance())
