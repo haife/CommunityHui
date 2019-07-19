@@ -13,9 +13,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-
-
-
         android:layout_height="match_parent">
 
         <TextView
@@ -120,16 +117,16 @@
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_50"
             android:layout_below="@+id/line_rv_circle_card_detail"
-            android:layout_marginTop="@dimen/dp_20">
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_50">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_height="@dimen/dp_50">
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true">
 
         </RelativeLayout>
 
