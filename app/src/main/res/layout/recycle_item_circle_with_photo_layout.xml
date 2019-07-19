@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--圈子图文混排-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/write_color"
+                android:paddingLeft="@dimen/base_horizontal_left_margin"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/base_horizontal_right_margin"
+                android:paddingBottom="@dimen/dp_20">
+
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/qriv_circle_head_photo"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:background="@color/window_background_color"
+        app:qmui_is_circle="true"/>
+
+    <TextView
+        android:id="@+id/tv_circle_nick_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/qriv_circle_head_photo"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_toRightOf="@+id/qriv_circle_head_photo"
+        android:text="满满二丁目"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_14"/>
+
+    <TextView
+        android:id="@+id/tv_circle_publish_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_circle_nick_name"
+
+        android:layout_alignLeft="@+id/tv_circle_nick_name"
+        android:layout_alignBottom="@+id/qriv_circle_head_photo"
+        android:layout_marginBottom="@dimen/dp_2"
+        android:text="07-10 16:45"
+        android:textColor="@color/common_slight_light_color"
+        android:textSize="@dimen/sp_12"/>
+
+    <TextView
+        android:id="@+id/tv_circle_type_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_8"
+        android:layout_toRightOf="@+id/tv_circle_nick_name"
+        android:background="@drawable/shape_app_theme_border"
+        android:text="二手闲置"
+        android:textColor="@color/app_color_theme"
+        android:textSize="@dimen/sp_10"/>
+
+    <TextView
+        android:id="@+id/tv_circle_message_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/qriv_circle_head_photo"
+        android:layout_marginTop="@dimen/dp_16"
+        android:text="前不久的优衣库你冲了么——你是真的热爱,还是喜欢冲呢"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_15"/>
+
+    <TextView
+        android:id="@+id/tv_circle_message_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_circle_message_title"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_toLeftOf="@+id/qriv_circle_image"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:text="阿姨15奶奶开始从事月嫂工作了，带过30个宝宝，其中有2对双胞胎3个早产生双胞胎3个早你…"
+        android:textColor="@color/home_color_hot_service_text"
+        android:textSize="@dimen/sp_15"/>
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/qriv_circle_image"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_100"
+        android:layout_alignTop="@+id/tv_circle_message_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:background="@color/window_background_color"
+        app:qmui_corner_radius="@dimen/dp_2"/>
+
+    <TextView
+        android:id="@+id/tv_circle_comment_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/qriv_circle_image"
+        android:drawableLeft="@drawable/icon_social_circle_comment"
+        android:drawableRight="@drawable/shape_social_circle_oval"
+        android:drawablePadding="@dimen/dp_5"
+        android:text="评论"
+        android:textColor="@color/common_slight_light_color"
+        android:textSize="@dimen/sp_14"/>
+
+
+    <TextView
+        android:id="@+id/tv_circle_comment_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_circle_comment_hint"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:layout_toRightOf="@+id/tv_circle_comment_hint"
+        android:text="4"
+        android:textColor="@color/common_slight_light_color"
+        android:textSize="@dimen/sp_14"/>
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/qmui_config_color_white"/>
+    <stroke
+        android:width="1px"
+        android:color="@color/app_color_theme"/>
+    <padding
+        android:bottom="@dimen/dp_4"
+        android:left="@dimen/dp_6"
+        android:right="6dp"
+        android:top="@dimen/dp_4"/>
+
+    <corners android:radius="@dimen/dp_2"/>
+
+</shape>

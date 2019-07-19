@@ -24,12 +24,16 @@
     <color name="appointment_qualification_tv_color">#EDEDED</color>
     <!--首页-->
 
+    <!--个人主页-->
+    <color name="person_home_page_man_color">#0061EB</color>
+    <color name="person_home_page_woman_color">#E23E57</color>
 
     <!--QMUI COLOR-->
     <!-- common -->
     <color name="app_color_theme">#FE714B</color>
     <color name="app_color_theme_disabled">#80FE714B</color>
     <color name="app_color_theme_pressed">#c0FE714B</color>
+    <color name="app_color_theme_gradient">#ffffb09b</color>
 
     <color name="app_color_dark">#333333</color>
     <color name="app_color_dark_disabled">#80333333</color>

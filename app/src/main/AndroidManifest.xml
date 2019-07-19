@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".mvp.ui.activity.SocialCircleActivity">
+        </activity>
 
         <meta-data
             android:name="com.kaiwukj.android.communityhui.app.impl.GlobalConfiguration"
@@ -30,50 +32,39 @@
             android:value="375"/>
         <meta-data
             android:name="design_height_in_dp"
-            android:value="667"/>
-
-        <!--启动-->
+            android:value="667"/> <!-- 启动 -->
         <activity
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <!-- 登录 -->
+        </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/LoginInputEditLayout"/>
-
-
-        <!--我的主页-->
+            android:theme="@style/LoginInputEditLayout"/> <!-- 我的主页 -->
         <activity
             android:name=".mvp.ui.activity.EditMineInfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SwipeBackStyle"/>
-        <!--我的订单及其他-->
+            android:theme="@style/SwipeBackStyle"/> <!-- 我的订单及其他 -->
         <activity
             android:name=".mvp.ui.activity.MineActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SwipeBackStyle"/>
-        <!--门店-->
+            android:theme="@style/SwipeBackStyle"/> <!-- 门店 -->
         <activity
             android:name=".mvp.ui.activity.StoreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/>
         <activity android:name=".mvp.ui.activity.AppointmentActivity">
-        </activity>
-        <!--家政-->
+        </activity> <!-- 家政 -->
         <activity
             android:name=".mvp.ui.activity.HouseKeepActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/>
-
-
     </application>
 
 </manifest>

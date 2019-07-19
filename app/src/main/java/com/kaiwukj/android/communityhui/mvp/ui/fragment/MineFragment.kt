@@ -67,6 +67,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 3).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }
     }
+
     /**
      * 初始化GroupList
      */
@@ -86,7 +87,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                     ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT).navigation(context)
                 }
                 mineServiceItem -> {
-
                 }
                 mineCollectItem -> {
                     ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)

@@ -14,8 +14,10 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMainComponent;
 import com.kaiwukj.android.communityhui.di.module.MainModule;
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.MainPresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -70,10 +72,10 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
                     showHideFragment(mFragments[0]);
                     break;
                 case R.id.home_circle_page:
-
+                    showHideFragment(mFragments[1]);
                     break;
                 case R.id.home_news:
-
+                    showHideFragment(mFragments[2]);
                     break;
                 case R.id.home_mine:
                     showHideFragment(mFragments[3]);
@@ -122,8 +124,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         ISupportFragment recommendFragment = findFragment(HomeFragment.class);
         if (recommendFragment == null) {
             mFragments[0] = HomeFragment.Companion.newInstance();
-            mFragments[1] = MineFragment.Companion.newInstance();
-            mFragments[2] = MineFragment.Companion.newInstance();
+            mFragments[1] = SocialCircleFragment.newInstance();
+            mFragments[2] = ChatMessageFragment.newInstance();
             mFragments[3] = MineFragment.Companion.newInstance();
             loadMultipleRootFragment(R.id.fl_main_container, 0, mFragments);
         } else {

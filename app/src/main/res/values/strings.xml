@@ -101,6 +101,13 @@
     <string name="mine_click_edit_nick_name">点击编辑昵称</string>
     <string name="mine_nick_name">昵称</string>
     <string name="mine_save_address">保存地址</string>
+    <string name="mine_person_gender">性别</string>
+    <string name="mine_person_man">男</string>
+    <string name="mine_person_woman">女</string>
+
+    <string name="mine_person_sign">签名</string>
+    <string name="mine_person_birthday">生日</string>
+    <string name="mine_person_phone">电话</string>
     <!--我的-->
     <!--服务订单-->
     <string name="service_order_title">服务订单</string>
@@ -146,7 +153,10 @@
     <string name="setting_clearing_cache_success">清理完成</string>
     <string name="setting_login_out">退出登录</string>
     <string name="setting_about_company">关于我们</string>
-
-
     <!--我的收藏-->
+
+    <!--社交圈子-->
+    <string name="social_circle_title">圈子</string>
+    <string name="social_circle_attention">关注</string>
+    <!--社交圈子-->
 </resources>
