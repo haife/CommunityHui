@@ -55,7 +55,7 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
         when (mTargetStr) {
             //从首页跳转而来
             HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_house_keeping_container, HouseKeepFragment.newInstance())
-            //重家政列表跳转而来
+            //从家政列表跳转而来
             HouseStaffListFragment.EXTRA_KEY_STAFF_LIST_URL -> {
                 loadRootFragment(R.id.fl_house_keeping_container, AppointmentPersonInfoFragment.newInstance())
             }
