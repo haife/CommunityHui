@@ -1,5 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.bean
 
-public class HRecommendBannerBean {
+import java.io.Serializable
+
+public class HRecommendBannerBean :Serializable{
 
 }

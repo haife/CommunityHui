@@ -32,6 +32,8 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
     lateinit var mAppManager: AppManager
 
 
+
+
     override fun onDestroy() {
         super.onDestroy();
     }

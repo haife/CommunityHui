@@ -2,17 +2,23 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_HOT_SERVICE
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_STORES_RECOMMEND
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity.Companion.STRING_WOMAN_RECOMMEND
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeRecommendData
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
 import com.kaiwukj.android.mcas.mvp.BasePresenter
+import com.kaiwukj.android.mcas.utils.RxLifecycleUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import javax.inject.Inject
 
 /**
@@ -43,18 +49,44 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     @Inject
     lateinit var mRecommendAdapter: HRecommendAdapter
 
+
+    /**
+     * 首页服务列表
+     */
+    fun requestServiceList() {
+        mModel.requestServiceList()
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
+                    override fun onNext(data: HomeServiceEntity) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.onGetServiceList(data.result)
+                            processRecommendData(data.result as List<HomeServiceEntity>)
+                        } else {
+
+                        }
+                    }
+                })
+    }
+
+
+
+
     /**
      * TODO 处理首页推荐的数据 提供给View层
      */
-    fun processRecommendData() {
+    fun processRecommendData(list: List<HomeServiceEntity>) {
         //判断banner是否为空
         if (mHomeRecommendData.arr_index_banner_data != null && mHomeRecommendData.arr_index_banner_data.size !== 0) {
 
         }
         val bannerEntity = HRecommendMultiItemEntity(HRecommendMultiItemEntity.STRING_BANNER_TYPE)
+        bannerEntity.homeServiceList = list
         hRecommendMultiItemList.add(bannerEntity)
-        //实体类处理
+        //家政服务
         val recommendShopEntity = HRecommendMultiItemEntity(STRING_HOT_SERVICE)
+        recommendShopEntity.homeServiceList = list
         hRecommendMultiItemList.add(recommendShopEntity)
         //实体类处理
         val bean = HRecommendMultiItemEntity(STRING_STORES_RECOMMEND)
@@ -64,6 +96,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
         hRecommendMultiItemList.add(bean2)
         mRecommendAdapter.notifyDataSetChanged()
     }
+
 
     override fun onDestroy() {
         super.onDestroy();

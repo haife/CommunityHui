@@ -13,6 +13,8 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHomeComponent
 import com.kaiwukj.android.communityhui.di.module.HomeModule
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HomeUiData
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.presenter.HomePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -29,12 +31,15 @@ import javax.inject.Inject
  * @desc
  */
 class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
+
+
     @Inject
     lateinit var mHomeAdapter: HRecommendAdapter
 
     @Inject
     lateinit var mLayoutManager: RecyclerView.LayoutManager
 
+    val uiData = HomeUiData()
 
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
@@ -60,7 +65,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        mPresenter?.processRecommendData()
+        mPresenter?.requestServiceList()
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
         childOnClickListener()
@@ -96,10 +101,24 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
         mHomeAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.tv_home_banner_top_house_keeping -> {
-                    start(HouseKeepFragment.newInstance())
+                    //start(HouseKeepFragment.newInstance())
                 }
             }
         }
+    }
+
+    /**
+     * 首页服务列表
+     * @param result HomeServiceEntity
+     */
+    override fun onGetServiceList(result: List<HomeServiceEntity>) {
+        uiData.homeServiceList = result
+    }
+
+    override fun onGetStoreRecommend() {
+    }
+
+    override fun onGetStaffRecommend() {
     }
 }
 

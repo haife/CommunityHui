@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.multi
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HRecommendBannerBean
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 
 /**
  * @author Haife Android Developer
@@ -9,9 +10,11 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HRecommendBannerBea
  * @since 2019-07-16
  *
  */
-class HRecommendMultiItemEntity(private val typeItemStr: String) : MultiItemEntity {
+data class HRecommendMultiItemEntity(private val typeItemStr: String) : MultiItemEntity{
 
     var bannerData: List<HRecommendBannerBean> = arrayListOf()
+
+    var homeServiceList: List<HomeServiceEntity> = arrayListOf()
 
     companion object {
         //banner

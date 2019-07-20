@@ -73,6 +73,7 @@
             android:paddingBottom="@dimen/dp_12">
 
             <TextView
+                android:id="@+id/tv_house_keeping_carer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/house_keeping_nursing_subtitle"
@@ -109,6 +110,7 @@
             android:paddingBottom="@dimen/dp_12">
 
             <TextView
+                android:id="@+id/tv_house_keeping_rearing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/house_keeping_nursery_subtitle"
@@ -144,6 +146,7 @@
             android:paddingBottom="@dimen/dp_12">
 
             <TextView
+                android:id="@+id/tv_house_keeping_prolactin_division"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/house_keeping_prolactin_division_subtitle"

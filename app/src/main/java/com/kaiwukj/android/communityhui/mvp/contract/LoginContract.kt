@@ -1,8 +1,12 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
 import androidx.fragment.app.FragmentActivity
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.LoginRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.LoginResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.LoginVerifyCodeResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
+import io.reactivex.Observable
 
 
 /**
@@ -19,11 +23,11 @@ interface LoginContract {
         fun getActivity(): FragmentActivity
         fun clickListener()
         fun loginSuccess()
+        fun sendVerifyCodeComplete()
     }
 
     interface Model : IModel {
-//        fun requestPhoneCode(request: LoginCodeRequest): Observable<BaseResponse<LoginResultBean>>
-//        fun requestLogin(request: LoginRequest): Observable<BaseResponse<LoginResultBean>>
-
+        fun requestLogin(request: LoginRequest): Observable<LoginResult>
+        fun requestVerifyCode(phone: String): Observable<LoginVerifyCodeResult>
     }
 }

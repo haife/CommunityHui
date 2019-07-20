@@ -10,6 +10,7 @@
         android:id="@+id/banner_home"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_200"
+        android:background="@color/window_background_color"
         app:image_scale_type="center_crop"
         app:indicator_height="@dimen/dp_8"
         app:indicator_margin="@dimen/dp_5"
@@ -80,7 +81,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="@color/window_background_color"
-        android:layout_height="@dimen/dp_10"/>
+        android:layout_height="@dimen/dp_10"
+        android:background="@color/window_background_color"/>
 
 </LinearLayout>

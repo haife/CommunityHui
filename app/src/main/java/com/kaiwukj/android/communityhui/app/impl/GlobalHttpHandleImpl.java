@@ -3,6 +3,8 @@ package com.kaiwukj.android.communityhui.app.impl;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.kaiwukj.android.communityhui.app.constant.SPParam;
+import com.kaiwukj.android.communityhui.utils.SPUtils;
 import com.kaiwukj.android.mcas.http.GlobalHttpHandler;
 import com.kaiwukj.android.mcas.http.log.RequestInterceptor;
 
@@ -13,6 +15,7 @@ import okhttp3.Response;
 
 /**
  * Copyright © KaiWu Technology Company
+ *
  * @author Haife
  * @job Android Development
  * @company KW | 开物科技
@@ -61,6 +64,12 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
      */
     @Override
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-        return chain.request().newBuilder().addHeader("Content-Type", "application/json").build();
+        String token = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN);
+        if (token != null && !token.equals("")) {
+            return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
+        } else {
+            return chain.request().newBuilder().addHeader("Content-Type", "application/json").build();
+        }
+
     }
 }

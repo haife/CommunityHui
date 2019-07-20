@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.launcher.ARouter
@@ -18,12 +19,14 @@ import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.di.component.DaggerLoginComponent
 import com.kaiwukj.android.communityhui.di.module.LoginModule
 import com.kaiwukj.android.communityhui.mvp.contract.LoginContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.LoginRequest
 import com.kaiwukj.android.communityhui.mvp.presenter.LoginPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.login.LoginTimeCount
 import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.communityhui.utils.SPUtils
 import com.kaiwukj.android.mcas.base.BaseActivity
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.activity_login.*
 
 
@@ -35,12 +38,12 @@ import kotlinx.android.synthetic.main.activity_login.*
  * @time 2019/7/15
  * @desc  Login Screen
  */
-class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWatcher {
+class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWatcher {
 
     private var timeCount: LoginTimeCount? = null
-    private var phoneNumber: String? = null
-    private var phoneCode: String? = null
-
+    private lateinit var phoneNumber: String
+    private lateinit var phoneCode: String
+    private var hintDialog: QMUITipDialog? = null
     override fun getActivity(): FragmentActivity = this
 
 
@@ -104,6 +107,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWat
         textInputLayout.editText?.requestFocus()
 
     }
+
     override fun afterTextChanged(s: Editable?) {
     }
 
@@ -114,29 +118,39 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWat
         text_input_layout_phone_number.isErrorEnabled = false
         text_input_layout_phone_code.isErrorEnabled = false
     }
+
     /**
      * 登录成功
      */
     override fun loginSuccess() {
         Sneaker.with(this)
                 .setTitle(getString(R.string.login_success))
+                .setHeight(ViewGroup.LayoutParams.WRAP_CONTENT)
                 .setMessage(getString(R.string.success))
-                .sneakSuccess()
+                .sneak(R.color.app_color_theme)
 
         var runnable: Runnable? = Runnable {
-            //launchActivity(Intent())
+            launchActivity(Intent())
             killMyself()
         }
         Handler().postDelayed(runnable, 2000)
     }
 
-
-    override fun showLoading() {
+    /**
+     * 验证码发送成功
+     */
+    override fun sendVerifyCodeComplete() {
+        hintDialog = QMUITipDialog.Builder(this@LoginActivity)
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+                .setTipWord(getString(R.string.setting_clearing_cache)).create()
 
     }
 
-    override fun hideLoading() {
 
+    override fun hideLoading() {
+        Handler().postDelayed({
+            hintDialog?.dismiss()
+        }, 800)
     }
 
     override fun showMessage(message: String) {
@@ -158,6 +172,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWat
             if (checkPhoneNumber(phoneNumber)) {
                 timeCount = LoginTimeCount(LoginTimeCount.MILL_IS_IN_FUTURE, LoginTimeCount.COUNT_DOWN_INTERVAL, it as? Button)
                 timeCount?.start()
+                mPresenter?.requestVerifyCode(phoneNumber)
             }
         }
 
@@ -168,9 +183,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View,TextWat
             InputMethodUtils.hideSoftInput(this)
             if (checkPhoneNumber(phoneNumber)) {
                 if (phoneCode.isNullOrEmpty()) showInputError(text_input_layout_phone_code, getString(R.string.phone_code_empty_error_desc))
-                // else mPresenter?.requestLogin(LoginRequest(phoneNumber, phoneCode))
-
-                launchActivity(Intent())
+                else mPresenter?.requestLogin(LoginRequest(phoneCode,phoneNumber))
             }
 
         }

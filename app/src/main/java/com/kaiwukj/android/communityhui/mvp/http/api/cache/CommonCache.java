@@ -1,4 +1,14 @@
+package com.kaiwukj.android.communityhui.mvp.http.api.cache;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity;
+
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.rx_cache2.DynamicKey;
+import io.rx_cache2.EvictProvider;
+import io.rx_cache2.LifeCache;
+import io.rx_cache2.Reply;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -10,6 +20,6 @@
  */
 public interface CommonCache {
 
-//    @LifeCache(duration = 5, timeUnit = TimeUnit.MINUTES)
-//    Observable<Reply<List<User>>> getUsers(Observable<List<User>> users, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+    @LifeCache(duration = 30, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<HomeServiceEntity>> getHomeServiceCache(Observable<HomeServiceEntity> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
 }

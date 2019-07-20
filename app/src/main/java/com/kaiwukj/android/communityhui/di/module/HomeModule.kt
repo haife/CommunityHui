@@ -36,7 +36,7 @@ class HomeModule(private val view: HomeContract.View) {
 
     @FragmentScope
     @Provides
-     fun provideHomeRecommendData(): HomeRecommendData {
+    fun provideHomeRecommendData(): HomeRecommendData {
         return HomeRecommendData()
     }
 
@@ -53,15 +53,16 @@ class HomeModule(private val view: HomeContract.View) {
 
     @FragmentScope
     @Provides
-    internal fun provideRecommendDataList(): MutableList<HRecommendMultiItemEntity> {
+    fun provideRecommendDataList(): MutableList<HRecommendMultiItemEntity> {
         return ArrayList()
     }
 
     @FragmentScope
     @Provides
-    internal fun provideHRecommendAdapter(list: MutableList<HRecommendMultiItemEntity>): HRecommendAdapter {
+    fun provideHRecommendAdapter(list: MutableList<HRecommendMultiItemEntity>): HRecommendAdapter {
         return HRecommendAdapter(list, view.getFragment().context!!)
     }
+
 
 
 }

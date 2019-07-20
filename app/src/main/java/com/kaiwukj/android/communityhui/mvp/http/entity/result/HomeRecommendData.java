@@ -1,6 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.Data;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HRecommendBannerBean;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * @since 2019/1/15
  * TODO: 首页推荐数据
  */
-public class HomeRecommendData extends Data<HomeRecommendData> {
+public class HomeRecommendData extends BaseRootResult<HomeRecommendData> {
     private List<HRecommendBannerBean> arr_index_banner_data;
     private List<ArrModuleDataBean> arr_module_data;
     private List<ArrTableDataBean> arr_table_data;

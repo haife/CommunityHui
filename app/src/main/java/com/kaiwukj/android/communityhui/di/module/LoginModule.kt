@@ -1,13 +1,12 @@
 package com.kaiwukj.android.communityhui.di.module
 
 
-import dagger.Module
-import dagger.Provides
-
 import com.kaiwukj.android.communityhui.mvp.contract.LoginContract
 import com.kaiwukj.android.communityhui.mvp.model.LoginModel
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.tbruyelle.rxpermissions2.RxPermissions
+import dagger.Module
+import dagger.Provides
 
 
 
@@ -21,7 +20,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions
  * @desc
  */
 @Module
-//构建LoginModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
 class LoginModule(private val view: LoginContract.View) {
     @ActivityScope
     @Provides

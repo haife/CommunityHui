@@ -35,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_25"
             android:layout_marginTop="@dimen/dp_20"
-            android:text="@string/home_moon_woman_service"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_16"/>
 
@@ -92,7 +91,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_12"
-                android:text="@string/home_carer_service"
                 android:textColor="@color/common_text_dark_color"
                 android:textSize="@dimen/sp_16"/>
 
@@ -128,7 +126,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_12"
-                android:text="@string/home_carer_service"
                 android:textColor="@color/common_text_dark_color"
                 android:textSize="@dimen/sp_16"/>
 
@@ -163,7 +160,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_12"
-                android:text="@string/home_carer_service"
                 android:textColor="@color/common_text_dark_color"
                 android:textSize="@dimen/sp_16"/>
 
