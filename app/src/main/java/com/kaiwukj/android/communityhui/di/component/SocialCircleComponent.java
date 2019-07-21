@@ -8,6 +8,8 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTopicFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleListFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCirclePersonPageFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
 
@@ -28,13 +30,12 @@ import dagger.Component;
 public interface SocialCircleComponent {
     void inject(SocialCircleActivity activity);
     void inject(SocialCircleListActivity activity);
-
     void inject(SocialCircleFragment fragment);
-
     void inject(CircleCardDetailFragment fragment);
-
     void inject(ChatMessageFragment fragment);
     void inject(PostCardTopicFragment fragment);
+    void inject(SocialCirclePersonPageFragment fragment);
+    void inject(SocialCircleListFragment fragment);
 
     @Component.Builder
     interface Builder {

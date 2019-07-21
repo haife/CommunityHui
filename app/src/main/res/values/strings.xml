@@ -173,6 +173,7 @@
     <string name="social_circle_post_action">发布</string>
     <string name="social_circle_reply_comment_hint">觉得不错说两句～</string>
     <string name="social_circle_replay_comment_send">发送</string>
+    <string name="social_circle_person_page_title">TA的主页</string>
 
     <!--社交圈子-->
 </resources>
