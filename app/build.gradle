@@ -73,6 +73,8 @@ dependencies {
     //glide
     implementation rootProject.ext.dependencies["glide"]
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     kapt rootProject.ext.dependencies["glide-compiler"]
     //dagger
     kapt rootProject.ext.dependencies["dagger2-compiler"]
@@ -87,6 +89,9 @@ dependencies {
     implementation rootProject.ext.dependencies["arouter"]
     kapt rootProject.ext.dependencies["arouter-compiler"]
     //tools
+    implementation rootProject.ext.dependencies["androideventbus"]
+    api 'com.cysion:ImagePicker:1.0.7'
+    implementation rootProject.ext.dependencies["ninegridview"]
 
     implementation rootProject.ext.dependencies["smartrefreshlayout"]
     /*Adapter*/

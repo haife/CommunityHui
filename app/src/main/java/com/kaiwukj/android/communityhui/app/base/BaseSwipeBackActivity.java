@@ -1,5 +1,7 @@
 package com.kaiwukj.android.communityhui.app.base;
 
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.kaiwukj.android.mcas.mvp.IPresenter;
@@ -23,6 +25,10 @@ public abstract class BaseSwipeBackActivity<P extends IPresenter> extends BaseSu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDelegate.onCreate(savedInstanceState);
+
+        if (android.os.Build.VERSION.SDK_INT != Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
 
     }
 

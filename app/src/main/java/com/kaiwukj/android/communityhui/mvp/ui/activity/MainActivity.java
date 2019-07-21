@@ -3,7 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -26,7 +25,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import timber.log.Timber;
@@ -135,9 +133,6 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
 
     @SuppressLint("CheckResult")
     private void requestPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-        }
         RxPermissions rxPermission = new RxPermissions(MainActivity.this);
         rxPermission
                 .requestEach(Manifest.permission.ACCESS_FINE_LOCATION,

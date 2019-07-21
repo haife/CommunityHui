@@ -4,6 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="app_name">慧家服</string>
+    <!--common-->
+    <string name="error_happen_current">发生错误</string>
+    <!--common-->
+
     <!--login-->
     <string name="login_title_desc">登录</string>
     <string name="login_button_desc">登  录</string>
@@ -158,5 +162,17 @@
     <!--社交圈子-->
     <string name="social_circle_title">圈子</string>
     <string name="social_circle_attention">关注</string>
+    <string name="social_circle_theme_card">主题帖</string>
+    <string name="social_circle_dynamic_state">圈子动态</string>
+    <string name="social_circle_hot_state">热</string>
+    <string name="social_circle_all_comment">全部评论</string>
+    <string name="social_circle_post_card_title">标题</string>
+    <string name="social_circle_post_card_content">输入你要发布帖子的名称</string>
+    <string name="social_circle_topic_type">分类</string>
+    <string name="social_circle_post_topic">发帖</string>
+    <string name="social_circle_post_action">发布</string>
+    <string name="social_circle_reply_comment_hint">觉得不错说两句～</string>
+    <string name="social_circle_replay_comment_send">发送</string>
+
     <!--社交圈子-->
 </resources>

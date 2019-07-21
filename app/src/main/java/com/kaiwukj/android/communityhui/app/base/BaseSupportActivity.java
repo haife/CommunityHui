@@ -1,11 +1,22 @@
 package com.kaiwukj.android.communityhui.app.base;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.irozon.sneaker.Sneaker;
+import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.mcas.base.BaseActivity;
 import com.kaiwukj.android.mcas.mvp.IPresenter;
+import com.kaiwukj.android.mcas.utils.McaUtils;
+
+import org.simple.eventbus.Subscriber;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +26,7 @@ import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportActivityDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
+import timber.log.Timber;
 
 /**
  * @author Eddie Android Developer
@@ -48,6 +60,8 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
         mDelegate.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
@@ -60,6 +74,17 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
     protected void onDestroy() {
         mDelegate.onDestroy();
         super.onDestroy();
+    }
+
+
+    @Subscriber
+    private void updateUser(String message) {
+        Timber.e("Event happened Error" + message);
+      //  if (ActivityUtils.getTopActivity() == this)
+            Sneaker.with(this).setTitle(McaUtils.getString(this, R.string.error_happen_current))
+                    .autoHide(true)
+                    .setMessage(message)
+                    .sneakWarning();
     }
 
     /**
@@ -189,6 +214,39 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
      */
     public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
+    }
+
+
+    /**
+     * 全透状态栏
+     */
+    protected void setStatusBarFullTransparent() {
+        if (Build.VERSION.SDK_INT >= 21) {//21表示5.0
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        } else if (Build.VERSION.SDK_INT >= 19) {//19表示4.4
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //虚拟键盘也透明
+            //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
+
+    /**
+     * 如果需要内容紧贴着StatusBar
+     * 应该在对应的xml布局文件中，设置根布局fitsSystemWindows=true。
+     */
+    private View contentViewGroup;
+
+    protected void setFitSystemWindow(boolean fitSystemWindow) {
+        if (contentViewGroup == null) {
+            contentViewGroup = ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+        }
+        contentViewGroup.setFitsSystemWindows(fitSystemWindow);
     }
 
 }

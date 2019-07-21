@@ -7,12 +7,16 @@ import android.location.LocationManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaiwukj.android.communityhui.BuildConfig;
+import com.kaiwukj.android.communityhui.utils.ImagePickerLoad;
+import com.kaiwukj.android.communityhui.utils.NineGridImageLoader;
 import com.kaiwukj.android.mcas.base.delegate.AppLifecycles;
 import com.kaiwukj.android.mcas.utils.McaUtils;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.ninegrid.NineGridView;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.FalsifyFooter;
-import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
+import com.scwang.smartrefresh.layout.header.FalsifyHeader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -28,6 +32,7 @@ import static me.jessyan.autosize.utils.LogUtils.isDebug;
 
 /**
  * Copyright © KaiWu Technology Company
+ *
  * @author Haife
  * @job Android Development
  * @company KW | 开物科技
@@ -40,7 +45,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void attachBaseContext(Context base) {
-     MultiDex.install(base);
+        MultiDex.install(base);
     }
 
     @Override
@@ -71,6 +76,18 @@ public class AppLifecyclesImpl implements AppLifecycles {
                     // Bugtags.sendException(e);
                 })
                 .install();
+
+        //图片选择器
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new ImagePickerLoad());
+        imagePicker.setShowCamera(true);
+        imagePicker.setMultiMode(true);
+        imagePicker.setCrop(false);
+        imagePicker.setSaveRectangle(true);
+        imagePicker.setOutPutX(1000);
+        imagePicker.setOutPutY(1000);
+        //九宫格图片控件
+        NineGridView.setImageLoader(new NineGridImageLoader());
 
 
     }
@@ -115,7 +132,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     static {
         //设置全局的Header构建器
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new BezierRadarHeader(context));
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> new FalsifyHeader(context));
         //设置全局的Footer构建器
         SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
             //指定为经典Footer，默认是 BallPulseFooter

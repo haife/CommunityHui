@@ -14,7 +14,7 @@ const val LoginRouterUrl: String = "/activity/login"
 /*MAIN*/
 const val MainRouterUrl: String = "/activity/main"
 
-/*MAIN*/
+/*家政*/
 const val HouseKeepUrl: String = "/activity/house/keep"
 
 /*门店列表*/
@@ -25,3 +25,10 @@ const val MineInfoUrl: String = "/activity/mine/info"
 
 /*我的订单*/
 const val MineOrderUrl: String = "/activity/mine/order"
+
+/*圈子话题圈列表*/
+const val CircleListUrl: String = "/activity/circle/list"
+
+
+/*圈子话题详情*/
+const val SocialCircleUrl: String = "/activity/social/circle"

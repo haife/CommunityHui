@@ -1,6 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootList;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 
 import java.util.List;
 
@@ -11,97 +11,71 @@ import java.util.List;
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/18
- * @desc $desc
+ * @desc https://github.com/VictorAlbertos/RxCache/issues/73
  */
-public class StoreListResult extends BaseRootList<StoreListResult> {
+public class StoreListResult extends BaseRootResult<List<StoreListResult>> {
 
+    private String address;
+    private int id;
+    private int orderNum;
+    private String storeLogoImg;
+    private String storeName;
+    private List<Integer> ids;
+    private List<String> names;
 
-    private String code;
-    private String desc;
-    private List<ResultBean> result;
-
-    public String getCode() {
-        return code;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getDesc() {
-        return desc;
+    public int getId() {
+        return id;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public int getOrderNum() {
+        return orderNum;
+    }
 
-    public static class ResultBean {
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
 
+    public String getStoreLogoImg() {
+        return storeLogoImg;
+    }
 
-        private String address;
-        private int id;
-        private int orderNum;
-        private String storeLogoImg;
-        private String storeName;
-        private List<Integer> ids;
-        private List<String> names;
+    public void setStoreLogoImg(String storeLogoImg) {
+        this.storeLogoImg = storeLogoImg;
+    }
 
-        public String getAddress() {
-            return address;
-        }
+    public String getStoreName() {
+        return storeName;
+    }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
-        public int getId() {
-            return id;
-        }
+    public List<Integer> getIds() {
+        return ids;
+    }
 
-        public void setId(int id) {
-            this.id = id;
-        }
+    public void setIds(List<Integer> ids) {
+        this.ids = ids;
+    }
 
-        public int getOrderNum() {
-            return orderNum;
-        }
+    public List<String> getNames() {
+        return names;
+    }
 
-        public void setOrderNum(int orderNum) {
-            this.orderNum = orderNum;
-        }
-
-        public String getStoreLogoImg() {
-            return storeLogoImg;
-        }
-
-        public void setStoreLogoImg(String storeLogoImg) {
-            this.storeLogoImg = storeLogoImg;
-        }
-
-        public String getStoreName() {
-            return storeName;
-        }
-
-        public void setStoreName(String storeName) {
-            this.storeName = storeName;
-        }
-
-        public List<Integer> getIds() {
-            return ids;
-        }
-
-        public void setIds(List<Integer> ids) {
-            this.ids = ids;
-        }
-
-        public List<String> getNames() {
-            return names;
-        }
-
-        public void setNames(List<String> names) {
-            this.names = names;
-        }
+    public void setNames(List<String> names) {
+        this.names = names;
     }
 }

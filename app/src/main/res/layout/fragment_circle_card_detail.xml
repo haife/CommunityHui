@@ -1,136 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--圈子图文混排-->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-                                       xmlns:app="http://schemas.android.com/apk/res-auto"
-                                       style="@style/BaseRecycleViewStyle"
-                                       android:layout_width="match_parent"
-                                       android:layout_height="wrap_content"
-                                       android:background="@color/write_color"
-                                       android:paddingLeft="@dimen/base_horizontal_left_margin"
-                                       android:paddingTop="@dimen/dp_20"
-                                       android:paddingRight="@dimen/base_horizontal_right_margin"
-                                       android:paddingBottom="@dimen/dp_20">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/smart_refresh_circle_card_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:background="@color/write_color"
+        app:srlEnablePreviewInEditMode="false">
+
+        <androidx.core.widget.NestedScrollView
+            style="@style/BaseRecycleViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/write_color">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_circle_message_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:text="前不久的优衣库你冲了么——你是真的热爱,还是喜欢冲呢"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_20"/>
+
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/qriv_circle_head_photo"
+                    android:layout_width="@dimen/dp_36"
+                    android:layout_height="@dimen/dp_36"
+                    android:layout_below="@+id/tv_circle_message_title"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@color/window_background_color"
+                    app:qmui_is_circle="true"/>
+
+                <TextView
+                    android:id="@+id/tv_circle_nick_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/qriv_circle_head_photo"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_toRightOf="@+id/qriv_circle_head_photo"
+                    android:text="满满二丁目"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_14"/>
+
+                <TextView
+                    android:id="@+id/tv_circle_publish_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_circle_nick_name"
+                    android:layout_alignLeft="@+id/tv_circle_nick_name"
+                    android:layout_alignBottom="@+id/qriv_circle_head_photo"
+                    android:layout_marginBottom="@dimen/dp_2"
+                    android:text="07-10 16:45"
+                    android:textColor="@color/common_slight_light_color"
+                    android:textSize="@dimen/sp_12"/>
+
+                <TextView
+                    android:id="@+id/tv_circle_type_tags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tv_circle_nick_name"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_toRightOf="@+id/tv_circle_nick_name"
+                    android:background="@drawable/shape_app_theme_border"
+                    android:text="二手闲置"
+                    android:textColor="@color/app_color_theme"
+                    android:textSize="@dimen/sp_10"/>
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/qbtn_login"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_alignTop="@+id/tv_circle_type_tags"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:drawableLeft="@drawable/icon_circle_add_attention"
+                    android:paddingLeft="9dp"
+                    android:text="@string/social_circle_attention"
+                    android:textColor="@color/color_common_top_bar_btn"
+                    android:textSize="@dimen/sp_12"
+                    app:qmui_backgroundColor="@color/color_common_btn_theme_bg"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_circle_message_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/qriv_circle_head_photo"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginRight="@dimen/dp_16"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="阿姨15奶奶开始从事月嫂工作了，带过30个宝宝，其中有2对双胞胎3个早产生，性格温和，待人友善，容易相处，做事认真负责，吃苦耐劳，不计较，家里有2个小孩，儿女已成家。"
+                    android:textColor="@color/home_color_hot_service_text"
+                    android:textSize="@dimen/sp_15"/>
+
+
+                <com.lzy.ninegrid.NineGridView
+                    android:id="@+id/rv_circle_card_detail_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_circle_message_content"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:background="@color/window_background_color"
+                    app:ngv_mode="grid"
+                    app:ngv_singleImageRatio="1"
+                    app:ngv_singleImageSize="@dimen/dp_150"/>
+
+                <View
+                    android:id="@+id/line_rv_circle_card_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_5"
+                    android:layout_below="@+id/rv_circle_card_detail_images"
+                    android:background="@color/window_background_color"/>
+
+                <TextView
+                    android:id="@+id/line_circle_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line_rv_circle_card_detail"
+                    android:layout_marginLeft="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:drawableRight="@drawable/shape_social_black_circle_oval"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:text="@string/social_circle_all_comment"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_15"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_circle_comment_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/line_circle_comment"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:layout_toRightOf="@+id/line_circle_comment"
+                    android:text="4"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_15"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_circle_card_detail_comment"
+                    style="@style/BaseRecycleViewStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/line_circle_comment"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/base_horizontal_line_height"
+        android:background="@color/write_color">
 
-        <TextView
-            android:id="@+id/tv_circle_message_title"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_16"
-            android:text="前不久的优衣库你冲了么——你是真的热爱,还是喜欢冲呢"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_20"/>
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/window_background_color"/>
 
-        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-            android:id="@+id/qriv_circle_head_photo"
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_36"
-            android:layout_below="@+id/tv_circle_message_title"
-            android:layout_marginTop="@dimen/dp_20"
+        <EditText
+            android:id="@+id/et_social_circle_reply_comment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_35"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toLeftOf="@+id/tv_social_circle_replay_comment_send"
             android:background="@color/window_background_color"
-            app:qmui_is_circle="true"/>
-
-        <TextView
-            android:id="@+id/tv_circle_nick_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/qriv_circle_head_photo"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_toRightOf="@+id/qriv_circle_head_photo"
-            android:text="满满二丁目"
+            android:hint="@string/social_circle_reply_comment_hint"
+            android:paddingLeft="@dimen/dp_12"
             android:textColor="@color/common_text_dark_color"
+            android:textColorHint="@color/common_text_slight_color"
             android:textSize="@dimen/sp_14"/>
 
         <TextView
-            android:id="@+id/tv_circle_publish_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_circle_nick_name"
-            android:layout_alignLeft="@+id/tv_circle_nick_name"
-            android:layout_alignBottom="@+id/qriv_circle_head_photo"
-            android:layout_marginBottom="@dimen/dp_2"
-            android:text="07-10 16:45"
-            android:textColor="@color/common_slight_light_color"
-            android:textSize="@dimen/sp_12"/>
-
-        <TextView
-            android:id="@+id/tv_circle_type_tags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_circle_nick_name"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:layout_toRightOf="@+id/tv_circle_nick_name"
-            android:background="@drawable/shape_app_theme_border"
-            android:text="二手闲置"
-            android:textColor="@color/app_color_theme"
-            android:textSize="@dimen/sp_10"/>
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/qbtn_login"
+            android:id="@+id/tv_social_circle_replay_comment_send"
             android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_25"
-            android:layout_alignTop="@+id/tv_circle_type_tags"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:drawableLeft="@drawable/icon_circle_add_attention"
-            android:paddingLeft="9dp"
-            android:text="@string/social_circle_attention"
-            android:textColor="@color/color_common_top_bar_btn"
-            android:textSize="@dimen/sp_12"
+            android:gravity="center"
+            android:text="@string/social_circle_replay_comment_send"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
             />
-
-        <TextView
-            android:id="@+id/tv_circle_message_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/qriv_circle_head_photo"
-            android:layout_marginTop="@dimen/dp_15"
-            android:layout_toLeftOf="@+id/qriv_circle_image"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:text="阿姨15奶奶开始从事月嫂工作了，带过30个宝宝，其中有2对双胞胎3个早产生，性格温和，待人友善，容易相处，做事认真负责，吃苦耐劳，不计较，家里有2个小孩，儿女已成家。"
-            android:textColor="@color/home_color_hot_service_text"
-            android:textSize="@dimen/sp_15"/>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_circle_card_detail_images"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_circle_message_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_20">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <View
-            android:id="@+id/line_rv_circle_card_detail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_5"
-            android:layout_below="@+id/rv_circle_card_detail_images"
-            android:background="@color/window_background_color"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_circle_card_detail_comment"
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line_rv_circle_card_detail"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginBottom="@dimen/dp_50">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_alignParentBottom="true">
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>

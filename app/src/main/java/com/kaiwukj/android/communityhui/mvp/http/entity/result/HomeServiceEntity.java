@@ -1,8 +1,8 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootList;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @time 2019/7/20
  * @desc $desc
  */
-public class HomeServiceEntity extends BaseRootList<HomeServiceEntity> implements Serializable {
+public class HomeServiceEntity extends BaseRootResult<List<HomeServiceEntity>> {
     private String dicValue;
     private String id;
     private String img;

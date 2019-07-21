@@ -21,8 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mvp.ui.activity.SocialCircleActivity">
-        </activity>
 
         <meta-data
             android:name="com.kaiwukj.android.communityhui.app.impl.GlobalConfiguration"
@@ -39,19 +37,15 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <!-- 登录 -->
+        </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginInputEditLayout">
-
-        </activity>
-
-        <!-- 我的主页 -->
+        </activity> <!-- 我的主页 -->
         <activity
             android:name=".mvp.ui.activity.EditMineInfoActivity"
             android:screenOrientation="portrait"
@@ -70,6 +64,15 @@
             android:name=".mvp.ui.activity.HouseKeepActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/>
+        <!--圈子-->
+        <activity android:name=".mvp.ui.activity.SocialCircleListActivity" android:screenOrientation="portrait"
+                  android:theme="@style/SwipeBackStyle">
+        </activity>
+        <!--圈子-->
+        <activity android:name=".mvp.ui.activity.SocialCircleActivity" android:screenOrientation="portrait"
+                  android:theme="@style/SwipeBackStyle">
+        </activity>
+
     </application>
 
 </manifest>

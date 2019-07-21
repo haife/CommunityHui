@@ -130,6 +130,16 @@
 
     </style>
 
+    <style name="QMUI.CollapsingTopBarLayoutExpanded">
+        <item name="android:textColor">@color/qmui_config_color_white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="QMUI.CollapsingTopBarLayoutCollapsed">
+        <item name="android:textColor">@color/qmui_config_color_white</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
     <style name="dialog_wrapper_style_63">
         <item name="android:paddingLeft">63dp</item>
         <item name="android:paddingRight">63dp</item>

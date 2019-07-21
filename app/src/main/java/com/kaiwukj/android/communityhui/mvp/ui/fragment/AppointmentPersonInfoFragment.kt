@@ -60,7 +60,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
             list.add(StoreListResult())
         }
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
-        mStoreListAdapter = StoreListAdapter(list, R.layout.recycle_item_user_comment_layout, context!!)
+        mStoreListAdapter = StoreListAdapter(list, R.layout.recycle_item_staff_comment_layout, context!!)
         rv_appointment_user_comment.adapter = mStoreListAdapter
         val footLoadView = LayoutInflater.from(context!!).inflate(R.layout.footer_comment_load_more_layout, null)
         mStoreListAdapter.addFooterView(footLoadView)

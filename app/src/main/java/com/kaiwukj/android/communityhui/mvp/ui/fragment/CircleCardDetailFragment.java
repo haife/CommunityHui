@@ -15,6 +15,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiIte
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
+import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 
 /**
@@ -37,9 +40,10 @@ import butterknife.BindView;
  * @desc 社交圈子帖子
  */
 public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCirclePresenter> implements SocialCircleContract.View {
-    @BindView(R.id.rv_social_circle)
-    RecyclerView mCircleRv;
-    private SocialCircleListAdapter mCircleListAdapter;
+    @BindView(R.id.rv_circle_card_detail_comment)
+    RecyclerView mCircleCardCommentRv;
+    private QMUITopBar mTopBar;
+    public static final String CIRCLE_CARD_DETAIL = "CIRCLE_CARD_DETAIL";
 
     public static CircleCardDetailFragment newInstance() {
         CircleCardDetailFragment fragment = new CircleCardDetailFragment();
@@ -63,14 +67,27 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        if (getActivity() != null) {
+            mTopBar = this.getActivity().findViewById(R.id.qtb_social_circle);
+            if (mTopBar != null)
+                initTopBar(mTopBar);
+        }
         List<HRecommendMultiItemEntity> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             list.add(new HRecommendMultiItemEntity(""));
         }
-        mCircleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_circle_with_photo_layout, list);
-        mCircleRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCircleRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 20, ContextCompat.getColor(getContext(), R.color.window_background_color)));
-        mCircleRv.setAdapter(mCircleListAdapter);
+        SocialCircleListAdapter circleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_card_comment_layout, list);
+        mCircleCardCommentRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mCircleCardCommentRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2,
+                ContextCompat.getColor(getContext(), R.color.common_divide_line_color)));
+        mCircleCardCommentRv.setAdapter(circleListAdapter);
+
+
+    }
+
+    private void initTopBar(QMUITopBar topBar) {
+        topBar.addLeftBackImageButton().setOnClickListener(view -> killMyself());
+        topBar.setTitle(getString(R.string.social_circle_theme_card));
     }
 
 
@@ -95,6 +112,12 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     @Override
     public void killMyself() {
 
+        getActivity().onBackPressed();
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        return new DefaultHorizontalAnimator();
     }
 
     @Override
