@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
+import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.R.layout
 import com.kaiwukj.android.communityhui.R.string
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
@@ -13,7 +16,9 @@ import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepServiceAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_house_keep_service.*
 
@@ -28,18 +33,14 @@ import kotlinx.android.synthetic.main.fragment_house_keep_service.*
  */
 class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
 
-    private var mEntity: List<HomeServiceEntity>? = null
-    private val typeFaceMediumBold = Typeface.createFromAsset(context?.assets, "PingFangSC-Medium-Bold.ttf")
+    private var mEntity: ArrayList<HomeServiceEntity> = ArrayList()
+    private var typeFaceMediumBold: Typeface? = null
+    private var serviceAdapter: HouseKeepServiceAdapter? = null
+
 
     companion object {
-        const val MOON_WOMAN_INDEX = 0
-        const val CARER_INDEX = 1
-        const val RAISE_INDEX = 2
-        const val PROLACTIN_DIVISION_INDEX = 3
-
-        fun newInstance(entity: List<HomeServiceEntity>?): HouseKeepFragment {
+        fun newInstance(): HouseKeepFragment {
             val fragment = HouseKeepFragment()
-            fragment.mEntity = entity
             return fragment
         }
     }
@@ -60,45 +61,35 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
-        initClick()
         initUi()
+        mPresenter?.requestServiceList()
     }
 
     private fun initUi() {
-        if (!mEntity.isNullOrEmpty()) {
-            tv_house_keeping_moon_woman.text = mEntity!![0].dicValue
-            tv_house_keeping_carer.text = mEntity!![1].dicValue
-            tv_house_keeping_rearing.text = mEntity!![2].dicValue
-            tv_house_keeping_prolactin_division.text = mEntity!![3].dicValue
+        serviceAdapter = HouseKeepServiceAdapter(R.layout.recycle_item_house_keep_service, mEntity, context)
+        rv_house_keep_type.layoutManager = LinearLayoutManager(context)
+        rv_house_keep_type.addItemDecoration(RecycleViewDivide(divideHeight = 20))
+        rv_house_keep_type.adapter = serviceAdapter
+
+        serviceAdapter?.setOnItemClickListener { adapter, view, position ->
+            start(HouseKeepListFragment.newInstance(mEntity[position].id,mEntity))
         }
-
-
-        tv_house_keeping_moon_woman.typeface = typeFaceMediumBold
-        tv_house_keeping_carer.typeface = typeFaceMediumBold
-        tv_house_keeping_rearing.typeface = typeFaceMediumBold
-        tv_house_keeping_prolactin_division.typeface = typeFaceMediumBold
-
     }
 
-    private fun initClick() {
-        rl_house_keeping_moon_woman.setOnClickListener {
-            start(HouseKeepListFragment.newInstance(MOON_WOMAN_INDEX))
-        }
-        rl_house_keeping_carer.setOnClickListener {
-            start(HouseKeepListFragment.newInstance(CARER_INDEX))
-        }
-        rl_house_keeping_raise.setOnClickListener {
-            start(HouseKeepListFragment.newInstance(RAISE_INDEX))
-        }
-        rl_house_keeping_prolactin_division.setOnClickListener {
-            start(HouseKeepListFragment.newInstance(RAISE_INDEX))
-        }
-    }
 
     private fun initTopBar() {
         qtb_house_keeping.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_house_keeping.setTitle(getString(string.house_keeping_title_str))
     }
+
+    override fun onGetServiceList(result: List<HomeServiceEntity>) {
+        mEntity.addAll(result)
+        serviceAdapter?.notifyDataSetChanged()
+    }
+
+    override fun onSelectStaffList(result: List<StaffListResult>) {
+    }
+
 
     override fun showLoading() {
 

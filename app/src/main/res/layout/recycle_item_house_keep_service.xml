@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_house_keeping_service_type"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_house_keeping_service_type"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/base_horizontal_left_margin"
+        android:paddingTop="@dimen/dp_20"
+        android:paddingRight="@dimen/base_horizontal_right_margin"
+        android:paddingBottom="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/tv_house_keeping_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_20"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/home_higher_house_people"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_14"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:background="@mipmap/icon_common_next_step_dark"/>
+    </RelativeLayout>
+
+</RelativeLayout>

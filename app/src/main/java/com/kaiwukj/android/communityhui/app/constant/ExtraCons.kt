@@ -11,6 +11,7 @@ class ExtraCons {
 
         /*传递给家政模块Activity 用来标识展示哪个Fragment*/
         const val EXTRA_KEY_HOUSE_KEEP: String = "EXTRA_KEY_HOUSE_KEEP"
+
         const val EXTRA_KEY_HOUSE_KEEP_ENTITY: String = "EXTRA_KEY_HOUSE_KEEP_ENTITY"
 
         /*跳转到门店模块，区分是首页还是查看门店详情*/
@@ -23,5 +24,9 @@ class ExtraCons {
         const val EXTRA_KEY_ORDER_MINE: String = "EXTRA_KEY_ORDER_MINE"
         /*跳转到我订单 选中的Item*/
         const val EXTRA_KEY_ORDER_MINE_INDEX: String = "EXTRA_KEY_ORDER_MINE_INDEX"
+
+        /*选择的阿姨用户ID*/
+        const val EXTRA_KEY_STAFF_USER_ID: String = "EXTRA_KEY_STAFF_USER_ID"
+
     }
 }

@@ -16,6 +16,8 @@ import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -32,10 +34,11 @@ import kotlinx.android.synthetic.main.fragment_house_staff_list.*
  */
 class CollectionStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
 
+
     private lateinit var mHouseAdapter: HouseKeepListAdapter
 
     companion object {
-        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
+        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"         
 
         fun newInstance(int_type: Int): CollectionStaffListFragment {
             val fragment = CollectionStaffListFragment()
@@ -70,6 +73,12 @@ class CollectionStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), H
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_STAFF_LIST_URL).navigation()
         }
+    }
+
+    override fun onSelectStaffList(result: List<StaffListResult>) {
+    }
+
+    override fun onGetServiceList(result: List<HomeServiceEntity>) {
     }
 
 

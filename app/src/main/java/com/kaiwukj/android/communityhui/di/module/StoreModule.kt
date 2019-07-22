@@ -1,7 +1,12 @@
 package com.kaiwukj.android.communityhui.di.module
 
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.model.StoreModel
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import dagger.Module
 import dagger.Provides
@@ -15,7 +20,6 @@ import dagger.Provides
  * @desc
  */
 @Module
-//构建StoreModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
 class StoreModule(private val view: StoreContract.View) {
     @ActivityScope
     @Provides
@@ -28,4 +32,28 @@ class StoreModule(private val view: StoreContract.View) {
     fun provideStoreModel(model: StoreModel): StoreContract.Model {
         return model
     }
+
+
+    @ActivityScope
+    @Provides
+    fun provideLayoutManager(): RecyclerView.LayoutManager {
+        return object : LinearLayoutManager(view.getContextView()) {
+            override fun getExtraLayoutSpace(state: RecyclerView.State): Int {
+                return 500
+            }
+        }
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideStoreList(): ArrayList<StoreListResult> {
+        return ArrayList()
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideStoreListAdapter(list: ArrayList<StoreListResult>): StoreListAdapter {
+        return StoreListAdapter(list, R.layout.recycle_item_store_list, view.getContextView()!!)
+    }
+
 }

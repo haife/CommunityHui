@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeRecommendData
 import com.kaiwukj.android.communityhui.mvp.model.HomeModel
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.scope.FragmentScope
@@ -32,12 +31,6 @@ class HomeModule(private val view: HomeContract.View) {
     @Provides
     fun provideHomeModel(model: HomeModel): HomeContract.Model {
         return model
-    }
-
-    @FragmentScope
-    @Provides
-    fun provideHomeRecommendData(): HomeRecommendData {
-        return HomeRecommendData()
     }
 
 

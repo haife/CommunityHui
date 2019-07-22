@@ -19,8 +19,6 @@ class MineAddressListAdapter(data: MutableList<HRecommendMultiItemEntity>?, layo
     private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
 
     override fun convert(helper: BaseViewHolder, item: HRecommendMultiItemEntity) {
-
-
     }
 
 

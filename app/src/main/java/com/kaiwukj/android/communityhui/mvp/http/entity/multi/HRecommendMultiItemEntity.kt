@@ -3,6 +3,8 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.multi
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HRecommendBannerBean
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 
 /**
  * @author Haife Android Developer
@@ -10,11 +12,15 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
  * @since 2019-07-16
  *
  */
-data class HRecommendMultiItemEntity(private val typeItemStr: String) : MultiItemEntity{
+data class HRecommendMultiItemEntity(private val typeItemStr: String) : MultiItemEntity {
 
     var bannerData: List<HRecommendBannerBean> = arrayListOf()
 
     var homeServiceList: List<HomeServiceEntity> = arrayListOf()
+
+    var recommendStoreList: List<StoreListResult> = arrayListOf()
+
+    var recommendStaffList: List<StaffListResult> = arrayListOf()
 
     companion object {
         //banner

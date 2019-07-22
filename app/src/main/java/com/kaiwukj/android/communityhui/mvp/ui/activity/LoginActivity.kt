@@ -10,10 +10,12 @@ import android.text.TextWatcher
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.FragmentActivity
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.textfield.TextInputLayout
 import com.irozon.sneaker.Sneaker
 import com.kaiwukj.android.communityhui.R
+import com.kaiwukj.android.communityhui.app.constant.LoginRouterUrl
 import com.kaiwukj.android.communityhui.app.constant.MainRouterUrl
 import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.di.component.DaggerLoginComponent
@@ -38,6 +40,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * @time 2019/7/15
  * @desc  Login Screen
  */
+@Route(path = LoginRouterUrl)
 class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWatcher {
 
     private var timeCount: LoginTimeCount? = null
@@ -183,7 +186,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWa
             InputMethodUtils.hideSoftInput(this)
             if (checkPhoneNumber(phoneNumber)) {
                 if (phoneCode.isNullOrEmpty()) showInputError(text_input_layout_phone_code, getString(R.string.phone_code_empty_error_desc))
-                else mPresenter?.requestLogin(LoginRequest(phoneCode,phoneNumber))
+                else mPresenter?.requestLogin(LoginRequest(phoneCode, phoneNumber))
             }
 
         }

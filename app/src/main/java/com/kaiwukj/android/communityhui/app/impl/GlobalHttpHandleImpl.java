@@ -65,11 +65,14 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
     @Override
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         String token = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN);
-        if (token != null && !token.equals("")) {
-            return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
-        } else {
-            return chain.request().newBuilder().addHeader("Content-Type", "application/json").build();
-        }
+        return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
+
+//        if (chain.request() != null && !token.equals("")) {
+//            return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
+//        } else {
+//            return chain.request().newBuilder().addHeader("Content-Type", "application/json").build();
+//            //  ARouter.getInstance().build(ARouterUrlKt.LoginRouterUrl).navigation();
+//        }
 
     }
 }

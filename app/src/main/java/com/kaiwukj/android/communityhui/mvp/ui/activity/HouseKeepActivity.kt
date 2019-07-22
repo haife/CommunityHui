@@ -11,11 +11,10 @@ import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.AppointmentPersonInfoFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepFragment
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseStaffListFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -35,9 +34,7 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
     @Autowired(name = ExtraCons.EXTRA_KEY_HOUSE_KEEP)
     @JvmField
     var mTargetStr: String? = null
-    @Autowired(name = ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY)
-    @JvmField
-    var mServiceEntity: List<HomeServiceEntity>? = null
+
 
 
     override fun setupActivityComponent(appComponent: AppComponent) {
@@ -58,11 +55,8 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
     override fun initData(savedInstanceState: Bundle?) {
         when (mTargetStr) {
             //从首页跳转而来
-            HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_house_keeping_container, HouseKeepFragment.newInstance(mServiceEntity))
-            //从家政列表跳转而来
-            HouseStaffListFragment.EXTRA_KEY_STAFF_LIST_URL -> {
-                loadRootFragment(R.id.fl_house_keeping_container, AppointmentPersonInfoFragment.newInstance())
-            }
+            HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_house_keeping_container, HouseKeepFragment.newInstance())
+
         }
 
     }
@@ -70,6 +64,12 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
 
     override fun showLoading() {
 
+    }
+
+    override fun onSelectStaffList(result: List<StaffListResult>) {
+    }
+
+    override fun onGetServiceList(result: List<HomeServiceEntity>) {
     }
 
     override fun post(runnable: Runnable?) {

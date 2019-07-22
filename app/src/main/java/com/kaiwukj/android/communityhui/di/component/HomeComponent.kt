@@ -8,7 +8,7 @@ import dagger.Component
 
 
 @FragmentScope
-@Component(modules = arrayOf(HomeModule::class), dependencies = arrayOf(AppComponent::class))
+@Component(modules = [HomeModule::class], dependencies = [AppComponent::class])
 interface HomeComponent {
     fun inject(fragment: HomeFragment)
 }

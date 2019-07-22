@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 
 /**
@@ -12,16 +13,19 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
  * @since 2019-07-16
  *
  */
-class StoreListAdapter(data: MutableList<StoreListResult>?, layoutId: Int, val context: Context) : BaseQuickAdapter<StoreListResult, BaseViewHolder>(layoutId,data) {
+class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val context: Context) : BaseQuickAdapter<StoreListResult, BaseViewHolder>(layoutId, data) {
     private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
-    private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
-
 
     override fun convert(helper: BaseViewHolder, item: StoreListResult) {
+        var shopTypeName: String? = null
+        for (index in item.names) {
+            if (index.isNotEmpty())
+                shopTypeName = "$shopTypeName\t|\t$index"
+        }
 
-
+        helper.setText(R.id.iv_store_list_name, item.storeName).setTypeface(typeFaceMedium).setText(R.id.iv_store_list_price, item.address)
+        helper.setText(R.id.iv_store_list_message, shopTypeName)
     }
-
 
 
 }

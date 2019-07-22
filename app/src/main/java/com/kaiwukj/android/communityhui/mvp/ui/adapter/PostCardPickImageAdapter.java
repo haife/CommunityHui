@@ -32,7 +32,6 @@ public class PostCardPickImageAdapter extends BaseQuickAdapter<ImageItem, BaseVi
         if (item.path!=null){
             ImageView imageView = helper.getView(R.id.iv_post_card_pick_image);
             GlideArms.with(mContext).load(item.path).centerCrop().into(imageView);
-
         }
 
 

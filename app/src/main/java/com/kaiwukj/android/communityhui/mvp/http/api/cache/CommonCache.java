@@ -1,6 +1,8 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.cache;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +22,13 @@ import io.rx_cache2.Reply;
  */
 public interface CommonCache {
 
-    @LifeCache(duration = 30, timeUnit = TimeUnit.MINUTES)
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<HomeServiceEntity>> getHomeServiceCache(Observable<HomeServiceEntity> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<StoreListResult>> getHomeStoreCache(Observable<StoreListResult> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+
+    @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<StaffListResult>> getHomeStaffCache(Observable<StaffListResult> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
 }

@@ -12,6 +12,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
 import com.kaiwukj.android.communityhui.di.module.AppointmentModule
 import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
@@ -28,13 +29,15 @@ import kotlinx.android.synthetic.main.include_person_information_header.*
  * @desc
  */
 class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter>(), AppointmentContract.View {
-
+    private var userId: Int? = null
     lateinit var mStoreListAdapter: StoreListAdapter
 
 
     companion object {
-        fun newInstance(): AppointmentPersonInfoFragment {
+        const val APPOINTMENT_PERSON_INFO_FRAGMENT = "APPOINTMENT_PERSON_INFO_FRAGMENT"
+        fun newInstance(userId: Int): AppointmentPersonInfoFragment {
             val fragment = AppointmentPersonInfoFragment()
+            fragment.userId = userId
             return fragment
         }
     }
@@ -55,6 +58,8 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
+        userId?.let { mPresenter?.requestSelectStaffDetail(it) }
+
         val list = arrayListOf<StoreListResult>()
         for (i in 0..4) {
             list.add(StoreListResult())
@@ -76,6 +81,8 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         }
     }
 
+    override fun onGetStaffDetailInfo(result: StaffInfoResult) {
+    }
 
     private fun initTopBar() {
         qtb_appointment_person_info.setTitle(getString(R.string.appointment_staff_info_detail))

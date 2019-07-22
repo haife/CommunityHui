@@ -8,13 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
@@ -39,13 +40,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  */
 class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
 
-    private var mFragmentList: List<Fragment> = ArrayList()
-    var mItemIndex = 0
+
+    private var mFragmentList: List<HouseStaffListFragment> = ArrayList()
+    var mItemIndex: String = "1"
+    private var mBarList = ArrayList<HomeServiceEntity>()
+    private var request: StoreStaffRequest = StoreStaffRequest()
 
     companion object {
-        fun newInstance(itemIndex: Int): HouseKeepListFragment {
+        fun newInstance(itemIndex: String, barList: ArrayList<HomeServiceEntity>): HouseKeepListFragment {
             val fragment = HouseKeepListFragment()
             fragment.mItemIndex = itemIndex
+            fragment.mBarList = barList
             return fragment
         }
     }
@@ -67,18 +72,30 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
-        val bean1 = BouseKeepingServiceType(1, "月嫂")
-        val bean2 = BouseKeepingServiceType(2, "护工")
-        val bean3 = BouseKeepingServiceType(1, "育婴师")
-        val bean4 = BouseKeepingServiceType(1, "催乳师")
-        val list: ArrayList<BouseKeepingServiceType> = arrayListOf()
+        initMagicIndicatorView(mBarList)
+        cb_price_sort.setOnCheckedChangeListener { compoundButton, b ->
+            request.servicePrice = b
+            requestData()
+        }
+        cb_order_number_sort.setOnCheckedChangeListener { compoundButton, b ->
+            request.serviceHome = b
+            requestData()
+        }
+        cb_order_age_sort.setOnCheckedChangeListener { compoundButton, b ->
+            request.workStartTime = b
+            requestData()
+        }
+        cb_order_grade_sort.setOnCheckedChangeListener { compoundButton, b ->
+            request.score = b
+            requestData()
+        }
+    }
 
-        list.add(bean1)
-        list.add(bean2)
-        list.add(bean3)
-        list.add(bean4)
-        initMagicIndicatorView(list)
-        view_pager_house_keeping_list_container.currentItem = mItemIndex
+    /**
+     * 请求fragment数据
+     */
+    private fun requestData() {
+        mFragmentList[view_pager_house_keeping_list_container.currentItem].sortStaffList(request)
     }
 
 
@@ -87,7 +104,13 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
         qtb_house_keeping_staff_list.setTitle(getString(R.string.house_keeping_title_str))
     }
 
-    private fun initMagicIndicatorView(magicIndicatorContentList: List<BouseKeepingServiceType>) {
+
+    override fun onSelectStaffList(result: List<StaffListResult>) {
+
+    }
+
+
+    private fun initMagicIndicatorView(magicIndicatorContentList: List<HomeServiceEntity>) {
         val mMIndicatorNavigator = CommonNavigator(context)
         mMIndicatorNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int {
@@ -97,12 +120,12 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
-                simplePagerTitleView.text = magicIndicatorContentList[index].string_name
+                simplePagerTitleView.text = magicIndicatorContentList[index].dicValue
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_house_keeping_list_container.currentItem = index }
-                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].int_type)
+                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].id)
                 return simplePagerTitleView
             }
 
@@ -114,14 +137,24 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
                 return indicator
             }
         }
-        view_pager_house_keeping_list_container.offscreenPageLimit = 1
+        view_pager_house_keeping_list_container.offscreenPageLimit = 4
         magic_indicator_house_keeping_list.navigator = mMIndicatorNavigator
         ViewPagerHelper.bind(magic_indicator_house_keeping_list, view_pager_house_keeping_list_container)
 
         //bind fragmentViewPager
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_house_keeping_list_container.adapter = homeViewPagerAdapter
+        //取下标
+        for ((index, title) in mBarList.withIndex()) {
+            if (mItemIndex == title.id) {
+                view_pager_house_keeping_list_container.currentItem = index
+            }
+        }
 
+    }
+
+    override fun onGetServiceList(result: List<HomeServiceEntity>) {
+        initMagicIndicatorView(result)
     }
 
     override fun showLoading() {

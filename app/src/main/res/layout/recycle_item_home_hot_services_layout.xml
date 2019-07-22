@@ -20,14 +20,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_130"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_40"
         android:background="@color/window_background_color">
 
         <ImageView
             android:id="@+id/iv_home_moon_woman_service"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:background="@drawable/ic_home_service_top"
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/tv_home_moon_woman_service"
@@ -83,6 +84,7 @@
             <ImageView
                 android:id="@+id/iv_home_carer"
                 android:layout_width="match_parent"
+                android:background="@drawable/ic_home_service_one"
                 android:layout_height="match_parent"/>
 
             <TextView
@@ -118,6 +120,7 @@
             <ImageView
                 android:id="@+id/iv_home_child_rearing"
                 android:layout_width="match_parent"
+                android:background="@drawable/ic_home_service_two"
                 android:layout_height="match_parent"/>
 
             <TextView
@@ -151,6 +154,7 @@
 
             <ImageView
                 android:id="@+id/iv_home_prolactin"
+                android:background="@drawable/ic_home_service_three"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

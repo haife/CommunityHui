@@ -1,7 +1,5 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
-
 import java.util.List;
 
 /**
@@ -13,8 +11,7 @@ import java.util.List;
  * @time 2019/7/18
  * @desc https://github.com/VictorAlbertos/RxCache/issues/73
  */
-public class StoreListResult extends BaseRootResult<List<StoreListResult>> {
-
+public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
     private String address;
     private int id;
     private int orderNum;

@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -32,6 +33,11 @@ import kotlinx.android.synthetic.main.fragment_store.*
  * @desc 门店列表
  */
 class CollectionStoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+    override fun getContextView(): Context? = context
+
+    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+    }
+
     lateinit var mStoreListAdapter: StoreListAdapter
 
     override fun post(runnable: Runnable?) {

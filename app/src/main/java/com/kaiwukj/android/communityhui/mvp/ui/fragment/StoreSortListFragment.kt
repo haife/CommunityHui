@@ -20,6 +20,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
@@ -44,6 +45,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * @desc 门店一级推荐
  */
 class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+
     private var mFragmentList: List<Fragment> = ArrayList()
 
     companion object {
@@ -113,7 +115,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_store_sort_list_container.currentItem = index }
-                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].int_type)
+                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].int_type.toString())
                 return simplePagerTitleView
             }
 
@@ -133,6 +135,11 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_store_sort_list_container.adapter = homeViewPagerAdapter
 
+    }
+
+    override fun getContextView(): Context? = context
+
+    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
     }
 
 

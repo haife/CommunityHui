@@ -51,7 +51,12 @@
     <string name="home_user_comment">用户评价</string>
     <string name="home_staff_power_tags">技能标签</string>
     <string name="home_staff_service_price">服务价格</string>
+    <string name="home_format_grade">%.0f 分</string>
+    <string name="home_format_staff_message">%s年经验 | %d岁 | %s</string>
+    <string name="home_format_staff_price">¥ %s</string>
+    <string name="home_format_staff_order_number">%d成交量</string>
     <!--首页-->
+
 
     <!--预约 Appointment-->
     <string name="appointment_submit_order_btn">提交订单</string>
@@ -135,7 +140,6 @@
     <string name="order_professional_ethics">职业道德</string>
     <string name="order_evaluate_submit">提交</string>
     <!--服务订单-->
-
     <!--我的地址-->
     <string name="edit_mine_address">编辑地址</string>
     <string name="mine_address_title">我的地址</string>
@@ -174,6 +178,5 @@
     <string name="social_circle_reply_comment_hint">觉得不错说两句～</string>
     <string name="social_circle_replay_comment_send">发送</string>
     <string name="social_circle_person_page_title">TA的主页</string>
-
     <!--社交圈子-->
 </resources>

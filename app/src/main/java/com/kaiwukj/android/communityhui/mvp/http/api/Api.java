@@ -26,4 +26,5 @@ package com.kaiwukj.android.communityhui.mvp.http.api;/*
 public interface Api {
     String APP_DOMAIN = "http://172.168.1.100:8070";
     String RequestSuccess = "1";
+    public static final String IMG_URL = "http://qnzhsq.kaiwumace.com/";
 }

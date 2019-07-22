@@ -4,9 +4,10 @@
               android:layout_height="wrap_content"
               android:background="@color/write_color"
               android:orientation="vertical"
-              android:paddingBottom="@dimen/dp_40">
+    >
 
     <ImageView
+        android:id="@+id/iv_shops_recommend"
         android:layout_width="@dimen/dp_160"
         android:layout_height="@dimen/dp_115"
         android:background="@color/window_background_color"/>

@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_store_detail.*
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_store_detail.*
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/16
- * @desc 门店一级推荐
+ * @desc 门店详情
  */
 class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
 
@@ -57,6 +59,10 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
 
     }
 
+    override fun getContextView(): Context? = context
+
+    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+    }
 
     override fun post(runnable: Runnable?) {
     }

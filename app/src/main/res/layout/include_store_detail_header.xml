@@ -58,17 +58,4 @@
         android:textColor="@color/color_common_theme_dark_checked"
         android:textSize="@dimen/sp_15"/>
 
-    <TextView
-        android:id="@+id/tv_store_detail_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_store_detail_header_address"
-        android:layout_marginTop="@dimen/dp_15"
-        android:lineSpacingExtra="@dimen/dp_4"
-        android:maxLines="4"
-        android:paddingRight="@dimen/dp_10"
-        android:text="店铺描述店铺描述店铺描述店铺描述店铺描述店铺描述店"
-        android:textColor="@color/common_text_dark_color"
-        android:textSize="@dimen/sp_16"
-        />
 </RelativeLayout>

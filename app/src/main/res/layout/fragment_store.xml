@@ -15,6 +15,7 @@
         app:qmui_topbar_need_separator="true"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_store_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

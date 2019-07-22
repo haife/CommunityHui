@@ -40,11 +40,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginInputEditLayout">
+
         </activity> <!-- 我的主页 -->
         <activity
             android:name=".mvp.ui.activity.EditMineInfoActivity"

@@ -13,6 +13,7 @@ import com.kaiwukj.android.communityhui.app.constant.MainRouterUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
 import com.kaiwukj.android.communityhui.di.module.AppointmentModule
 import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
 import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_appointment_success.*
@@ -26,6 +27,9 @@ import kotlinx.android.synthetic.main.fragment_appointment_success.*
  * @desc 预约结果
  */
 class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), AppointmentContract.View {
+    override fun onGetStaffDetailInfo(result: StaffInfoResult) {
+    }
+
     override fun post(runnable: Runnable?) {
     }
 

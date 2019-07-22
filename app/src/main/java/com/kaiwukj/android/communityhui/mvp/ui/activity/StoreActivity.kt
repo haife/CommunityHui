@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -14,6 +15,7 @@ import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreDetailFragment
@@ -71,6 +73,12 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
 
 
     }
+
+    override fun getContextView(): Context? = this
+
+    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+    }
+
 
 
     override fun showLoading() {

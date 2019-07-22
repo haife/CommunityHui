@@ -1,7 +1,11 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
+import io.reactivex.Observable
 
 
 /**
@@ -13,10 +17,16 @@ import com.kaiwukj.android.mcas.mvp.IView
  * @desc
  */
 interface HouseKeepContract {
-    //对于经常使用的关于UI的方法可以定义到IView中,如显示隐藏进度条,和显示文字消息
-    interface View : IView
 
-    //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
-    interface Model : IModel
+    interface View : IView {
+        fun onGetServiceList(result: List<HomeServiceEntity>)
+        fun onSelectStaffList(result: List<StaffListResult>)
+    }
+
+    interface Model : IModel {
+        fun requestServiceList(): Observable<HomeServiceEntity>
+        //选择阿姨
+        fun requestSelectStaff(request: StoreStaffRequest): Observable<StaffListResult>
+    }
 
 }

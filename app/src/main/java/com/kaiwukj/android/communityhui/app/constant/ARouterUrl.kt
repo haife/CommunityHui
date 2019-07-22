@@ -17,6 +17,9 @@ const val MainRouterUrl: String = "/activity/main"
 /*家政*/
 const val HouseKeepUrl: String = "/activity/house/keep"
 
+/*预约*/
+const val AppointmentUrl: String = "/activity/appointment"
+
 /*门店列表*/
 const val StoreListURL: String = "/activity/store/list"
 

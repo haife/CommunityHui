@@ -43,26 +43,29 @@
             android:background="@color/window_background_color"
             android:orientation="horizontal">
 
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.StaffSortCheckbox
+            <CheckBox
+                android:id="@+id/cb_price_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
                 android:button="@null"
                 android:checked="false"
-                android:drawableTop="@drawable/selector_staff_list_sort_status"
+                android:drawableRight="@drawable/selector_staff_list_sort_status"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
                 android:text="价格"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
-                app:sort_desc_state="false"
                 />
 
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.StaffSortCheckbox
+            <CheckBox
+                android:id="@+id/cb_order_number_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
                 android:button="@null"
                 android:checked="false"
                 android:drawableRight="@drawable/selector_staff_list_sort_status"
@@ -72,13 +75,14 @@
                 android:text="成交量"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
-                app:sort_desc_state="false"
                 />
 
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.StaffSortCheckbox
+            <CheckBox
+                android:id="@+id/cb_order_age_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
                 android:button="@null"
                 android:checked="false"
                 android:drawableRight="@drawable/selector_staff_list_sort_status"
@@ -88,13 +92,14 @@
                 android:text="工龄"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
-                app:sort_desc_state="true"
                 />
 
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.StaffSortCheckbox
+            <CheckBox
+                android:id="@+id/cb_order_grade_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@null"
                 android:button="@null"
                 android:checked="false"
                 android:drawableRight="@drawable/selector_staff_list_sort_status"
@@ -104,7 +109,6 @@
                 android:text="评分"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
-                app:sort_desc_state="false"
                 />
         </LinearLayout>
 

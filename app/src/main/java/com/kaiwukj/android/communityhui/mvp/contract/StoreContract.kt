@@ -1,7 +1,11 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import android.content.Context
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
+import io.reactivex.Observable
 
 
 /**
@@ -13,10 +17,13 @@ import com.kaiwukj.android.mcas.mvp.IView
  * @desc 门店模块
  */
 interface StoreContract {
-    //对于经常使用的关于UI的方法可以定义到IView中,如显示隐藏进度条,和显示文字消息
-    interface View : IView
+    interface View : IView {
+        fun getContextView():Context?
+        fun onGetStoreRecommend(list: ArrayList<StoreListResult>)
+    }
 
-    //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
-    interface Model : IModel
+    interface Model : IModel {
+        fun requestAllStoreRecommend(recommendFlg: StoreListRequest): Observable<StoreListResult>
+    }
 
 }

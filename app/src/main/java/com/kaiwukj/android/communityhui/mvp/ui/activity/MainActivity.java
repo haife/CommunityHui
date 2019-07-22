@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportActivity;
+import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.SPParam;
 import com.kaiwukj.android.communityhui.di.component.DaggerMainComponent;
 import com.kaiwukj.android.communityhui.di.module.MainModule;
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract;
@@ -17,6 +20,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
+import com.kaiwukj.android.communityhui.utils.SPUtils;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -89,6 +93,12 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
      */
     @Override
     public void initWidget() {
+        //判断token
+        String token = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN);
+        if (token == null) {
+            ARouter.getInstance().build(ARouterUrlKt.LoginRouterUrl).navigation();
+            killMyself();
+        }
         mMainBottomBnve.enableAnimation(false);
         mMainBottomBnve.enableShiftingMode(false);
         addFragment();

@@ -1,12 +1,13 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
@@ -17,7 +18,10 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.kaiwukj.android.mcas.utils.McaUtils
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.fragment_store.*
+import javax.inject.Inject
 
 
 /**
@@ -29,7 +33,16 @@ import kotlinx.android.synthetic.main.fragment_store.*
  * @desc 门店列表
  */
 class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+
+    @Inject
     lateinit var mStoreListAdapter: StoreListAdapter
+
+    @Inject
+    lateinit var mLayoutManager: RecyclerView.LayoutManager
+
+    @Inject
+    lateinit var listData: ArrayList<StoreListResult>
+
 
     override fun post(runnable: Runnable?) {
     }
@@ -43,7 +56,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerStoreComponent //如找不到该类,请编译一下项目
+        DaggerStoreComponent
                 .builder()
                 .appComponent(appComponent)
                 .storeModule(StoreModule(this))
@@ -57,20 +70,25 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
-        val list = arrayListOf<StoreListResult>()
-        for (i in 0..10) {
-            list.add(StoreListResult())
-        }
-        rv_store_list.layoutManager = LinearLayoutManager(context!!)
-        rv_store_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
-        mStoreListAdapter = StoreListAdapter(list, R.layout.recycle_item_store_list, context!!)
-
-        rv_store_list.adapter = mStoreListAdapter
-
-        mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
+        initRecycleView()
+        mPresenter?.requestAllStoreRecommend()
+        mStoreListAdapter?.setOnItemClickListener { adapter, view, position ->
             start(StoreSortListFragment.newInstance())
         }
 
+        smart_store_list.setOnRefreshListener(OnRefreshListener {  })
+
+    }
+
+    private fun initRecycleView() {
+        rv_store_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
+        McaUtils.configRecyclerView(rv_store_list, mLayoutManager)
+        rv_store_list.adapter = mStoreListAdapter
+    }
+
+    override fun getContextView(): Context? = context
+
+    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
     }
 
     private fun initTopBar() {

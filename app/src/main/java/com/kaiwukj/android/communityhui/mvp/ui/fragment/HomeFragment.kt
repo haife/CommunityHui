@@ -43,6 +43,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
+        const val RECOMMEND_FLAG = "1"
 
         fun newInstance(): HomeFragment {
             val fragment = HomeFragment()
@@ -66,6 +67,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestServiceList()
+
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
         childOnClickListener()

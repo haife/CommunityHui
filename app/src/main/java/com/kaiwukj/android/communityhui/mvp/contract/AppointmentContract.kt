@@ -1,7 +1,10 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
+import io.reactivex.Observable
 
 
 /**
@@ -13,8 +16,14 @@ import com.kaiwukj.android.mcas.mvp.IView
  * @desc
  */
 interface AppointmentContract {
-    interface View : IView
 
-    interface Model : IModel
+    interface View : IView {
+        fun onGetStaffDetailInfo(result: StaffInfoResult)
+    }
+
+    interface Model : IModel {
+        //选择阿姨
+        fun requestSelectStaffDetail(userId: Int): Observable<StaffListResult>
+    }
 
 }

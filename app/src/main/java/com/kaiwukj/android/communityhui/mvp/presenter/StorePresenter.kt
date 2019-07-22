@@ -2,11 +2,18 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
-import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
 import com.kaiwukj.android.mcas.mvp.BasePresenter
+import com.kaiwukj.android.mcas.utils.RxLifecycleUtils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import javax.inject.Inject
 
 
@@ -28,9 +35,34 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
     @Inject
     lateinit var mApplication: Application
     @Inject
-    lateinit var mImageLoader: ImageLoader
-    @Inject
     lateinit var mAppManager: AppManager
+    @Inject
+    lateinit var listData: ArrayList<StoreListResult>
+    @Inject
+    lateinit var mStoreListAdapter: StoreListAdapter
+
+    /**
+     * 推荐门店
+     * @param request StoreListRequest
+     * 是否推荐 0默认，1推荐 不传为默认所有
+     */
+    fun requestAllStoreRecommend() {
+        mModel.requestAllStoreRecommend(StoreListRequest(null))
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
+                    override fun onNext(data: StoreListResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            //所有门店
+                            listData.addAll(data.result.list)
+                            mStoreListAdapter?.notifyDataSetChanged()
+                        } else {
+
+                        }
+                    }
+                })
+    }
 
 
     override fun onDestroy() {
