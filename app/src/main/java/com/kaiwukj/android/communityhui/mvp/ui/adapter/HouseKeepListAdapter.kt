@@ -16,7 +16,6 @@ class HouseKeepListAdapter(data: MutableList<HRecommendMultiItemEntity>?, layout
     private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
     private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
 
-
     override fun convert(helper: BaseViewHolder, item: HRecommendMultiItemEntity) {
 
 

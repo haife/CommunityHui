@@ -14,6 +14,8 @@ import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
 import com.kaiwukj.android.communityhui.di.module.AppointmentModule
 import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
 import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_appointment_success.*
@@ -27,11 +29,9 @@ import kotlinx.android.synthetic.main.fragment_appointment_success.*
  * @desc 预约结果
  */
 class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), AppointmentContract.View {
-    override fun onGetStaffDetailInfo(result: StaffInfoResult) {
+    override fun onGetMyAddressList(result: MyAddressResult) {
     }
 
-    override fun post(runnable: Runnable?) {
-    }
 
     companion object {
         fun newInstance(): AppointmentResultFragment {
@@ -57,6 +57,15 @@ class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), A
         qbtn_appoint_back_home.setOnClickListener {
             ARouter.getInstance().build(MainRouterUrl).navigation(context)
         }
+    }
+
+    override fun onGetStaffCommentInfo(result: StaffCommentResult) {
+    }
+
+    override fun onGetStaffDetailInfo(result: StaffInfoResult) {
+    }
+
+    override fun post(runnable: Runnable?) {
     }
 
 

@@ -55,6 +55,9 @@
     <string name="home_format_staff_message">%s年经验 | %d岁 | %s</string>
     <string name="home_format_staff_price">¥ %s</string>
     <string name="home_format_staff_order_number">%d成交量</string>
+    <string name="home_format_staff_info_gender">雇主评分%d</string>
+    <string name="home_format_staff_info_work_time">%s年</string>
+    <string name="person_info_service_price_format">¥%d/%s</string>
     <!--首页-->
 
 
@@ -72,6 +75,8 @@
     <string name="appointment_demand_input">需求填写</string>
     <string name="appointment_demand_other">其他需求</string>
     <string name="appointment_demand_days_hint">请填写服务天数</string>
+    <string name="appointment_demand_address_hint">请添加地址</string>
+    <string name="appointment_select_service_time">选择服务时间</string>
     <string name="appointment_demand_days">预计天数（天）</string>
     <string name="appointment_demand_remark_hint">有什么其他特殊需求，可以在这些出来…</string>
     <string name="appointment_demand_times_hint">预计服务时间</string>
@@ -158,6 +163,7 @@
     <string name="setting_clear_cache">清理缓存</string>
     <string name="setting_not_need_clear_cache">无需清理</string>
     <string name="setting_clearing_cache">正在清理缓存</string>
+    <string name="setting_submitting">正在提交</string>
     <string name="setting_clearing_cache_success">清理完成</string>
     <string name="setting_login_out">退出登录</string>
     <string name="setting_about_company">关于我们</string>
@@ -178,5 +184,9 @@
     <string name="social_circle_reply_comment_hint">觉得不错说两句～</string>
     <string name="social_circle_replay_comment_send">发送</string>
     <string name="social_circle_person_page_title">TA的主页</string>
+    <string name="mine_add_address_hint">请添加地址</string>
+    <string name="mine_address_info">%s\t\t\t\t\t\t%s</string>
+
+
     <!--社交圈子-->
 </resources>

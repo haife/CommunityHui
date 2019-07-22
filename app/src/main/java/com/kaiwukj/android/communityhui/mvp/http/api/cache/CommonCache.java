@@ -31,4 +31,7 @@ public interface CommonCache {
 
     @LifeCache(duration = 2, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<StaffListResult>> getHomeStaffCache(Observable<StaffListResult> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
+
+    @LifeCache(duration = 30, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<StaffListResult>> getMyAddressCache(Observable<StaffListResult> data, DynamicKey idLastUserQueried, EvictProvider evictProvider);
 }

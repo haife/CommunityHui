@@ -16,6 +16,7 @@ import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
@@ -36,17 +37,31 @@ import kotlinx.android.synthetic.main.fragment_house_staff_list.*
  */
 class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
     private lateinit var mHouseAdapter: SelectStaffListAdapter
+    //在选择阿姨列表中请求的数据
     private var request: StoreStaffRequest = StoreStaffRequest()
+    //门店列表中查看全部技工的请求体
+    private var mShopStaffRequest: StoreListRequest? = null
     private var staffList = ArrayList<StaffListResult>()
     private var page: Int = 1
     private var isLoadMore = false
+    //用来判断是选择阿姨的列表页面还是查看门店下阿姨
+    //1:选择阿姨 2:门店阿姨
+    private var mRequestType: Int? = null
 
     companion object {
         const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
 
-        fun newInstance(int_type: String): HouseStaffListFragment {
+        fun newInstance(bean: StoreListRequest?, requestType: Int?): HouseStaffListFragment {
             val fragment = HouseStaffListFragment()
-            fragment.request.serviceTypeId = int_type.toInt()
+            fragment.mRequestType = requestType
+            when (requestType) {
+                1 -> {
+                    bean?.let { it -> it.serviceTypeId?.let { fragment.request.serviceTypeId = it } }
+                }
+                2 -> {
+                    fragment.mShopStaffRequest = bean
+                }
+            }
             return fragment
         }
     }
@@ -67,7 +82,13 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
 
 
     override fun initData(savedInstanceState: Bundle?) {
-        mPresenter?.requestSelectStaff(request)
+        when (mRequestType) {
+            1 ->   //如果是选择阿姨类型 请求此接口
+                mPresenter?.requestSelectStaff(request)
+            2 ->   //如果是查看某个门店下的所有阿姨
+                mShopStaffRequest?.let { mPresenter?.requestShopsStaffList(it) }
+        }
+
         initRecycle()
     }
 

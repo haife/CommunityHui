@@ -96,6 +96,8 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                     }
 
                     override fun onComplete() {
+                        //传递门店id则查询该门店的阿姨
+                        //serviceTypeId 服务类型
                         requestStaffRecommend(StoreListRequest(HomeFragment.RECOMMEND_FLAG))
                     }
                 })

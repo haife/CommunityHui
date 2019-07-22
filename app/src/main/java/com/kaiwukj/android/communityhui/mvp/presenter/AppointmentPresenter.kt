@@ -3,7 +3,11 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.AppointmentDemandRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
@@ -41,13 +45,34 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
     /**
      * 选择阿姨
      */
-    fun requestSelectStaffDetail(request: Int) {
-        mModel.requestSelectStaffDetail(request)
+    fun requestSelectStaffDetail(userId: Int) {
+        mModel.requestSelectStaffDetail(userId)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StaffListResult>(mErrorHandler) {
-                    override fun onNext(data: StaffListResult) {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StaffInfoResult>(mErrorHandler) {
+                    override fun onNext(data: StaffInfoResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.onGetStaffDetailInfo(data)
+                            requestUserComment(userId)
+                        } else {
+
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 选择阿姨
+     */
+    fun requestUserComment(request: Int) {
+        mModel.requestUserComment(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<StaffCommentResult>(mErrorHandler) {
+                    override fun onNext(data: StaffCommentResult) {
                         if (data.code == Api.RequestSuccess) {
                         } else {
 
@@ -55,6 +80,47 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                     }
                 })
     }
+
+    /**
+     * 获取地址
+     */
+    fun requestMyAddress(request: Int) {
+        mModel.requestMyAddress(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<MyAddressResult>(mErrorHandler) {
+                    override fun onNext(data: MyAddressResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.onGetMyAddressList(data)
+                        } else {
+
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 提交订单
+     */
+    fun requestAppointmentDate(request: AppointmentDemandRequest) {
+        mModel.requestAppointmentDate(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(data: BaseStatusResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.showMessage(data.desc)
+                        } else {
+
+                        }
+                    }
+                })
+    }
+
 
     override fun onDestroy() {
         super.onDestroy();

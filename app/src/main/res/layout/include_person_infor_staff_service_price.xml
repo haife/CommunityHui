@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+                android:paddingLeft="@dimen/base_horizontal_left_margin"
+                android:paddingRight="@dimen/base_horizontal_right_margin"
+              android:layout_height="@dimen/dp_40">
+
+    <TextView
+        android:id="@+id/tv_staff_service_price_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="月嫂"
+        android:textColor="@color/home_color_hot_service_text"
+        android:textSize="@dimen/sp_15"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_person_info_service_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/person_info_service_price_format"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_15"
+        />
+</RelativeLayout>

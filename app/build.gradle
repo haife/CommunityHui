@@ -70,6 +70,7 @@ dependencies {
     implementation rootProject.ext.dependencies["banner"]
     implementation rootProject.ext.dependencies["magicindicator"]
     implementation rootProject.ext.dependencies["sneaker"]
+    implementation rootProject.ext.dependencies["pick-view"]
     //glide
     implementation rootProject.ext.dependencies["glide"]
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

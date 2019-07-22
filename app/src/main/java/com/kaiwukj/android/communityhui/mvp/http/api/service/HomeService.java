@@ -1,7 +1,9 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.LoginVerifyCodeResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult;
 
@@ -35,13 +37,6 @@ public interface HomeService {
     Observable<StoreListResult> requestStoreRecommend(@Body RequestBody requestBody);
 
     /*
-     * 所有门店
-     */
-    @POST("/app/sc/storeService/listServiceType")
-    Observable<LoginVerifyCodeResult> requestTotalStoreList(@Body RequestBody requestBody);
-
-
-    /*
      * 阿姨推荐
      */
     @POST("/app/sc/storeService/listEmp")
@@ -57,5 +52,17 @@ public interface HomeService {
      * 技工详情
      */
     @GET("/app/sc/storeEmployee/info/{storeemployeeId}")
-    Observable<StaffListResult> requestSelectStaffDetail(@Path("storeemployeeId") String id);
+    Observable<StaffInfoResult> requestSelectStaffDetail(@Path("storeemployeeId") String id);
+
+    /**
+     * 对技工的评价
+     */
+    @POST("/app/sc/storeEmployee/empComment")
+    Observable<StaffCommentResult> requestSelectStaffComment(@Body RequestBody requestBody);
+
+    /*
+     * 提交预约订单
+     */
+    @POST("/app/sc/storeEmployee/list")
+    Observable<BaseStatusResult> requestAppointmentOrder(@Body RequestBody requestBody);
 }

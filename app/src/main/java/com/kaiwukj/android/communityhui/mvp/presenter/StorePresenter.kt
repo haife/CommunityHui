@@ -56,7 +56,31 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
                         if (data.code == Api.RequestSuccess) {
                             //所有门店
                             listData.addAll(data.result.list)
-                            mStoreListAdapter?.notifyDataSetChanged()
+                            mStoreListAdapter.notifyDataSetChanged()
+                        } else {
+
+                        }
+                    }
+                })
+    }
+
+
+    /**
+     * 门店列表
+     * @param request StoreListRequest
+     * 是否推荐 0默认，1推荐 不传为默认所有
+     * 传递门店id则查询该门店的阿姨
+     * 传递ServiceType则查询该门店的阿姨
+     */
+    fun requestStoreStaffList(request: StoreListRequest) {
+        mModel.requestAllStoreRecommend(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
+                    override fun onNext(data: StoreListResult) {
+                        if (data.code == Api.RequestSuccess) {
+                           mRootView.onGetStoreRecommend(data)
                         } else {
 
                         }
@@ -66,6 +90,6 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
 
 
     override fun onDestroy() {
-        super.onDestroy();
+        super.onDestroy()
     }
 }

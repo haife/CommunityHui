@@ -12,7 +12,6 @@
         android:id="@+id/riv_person_info_photo"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
-        android:background="@mipmap/ic_launcher_round"
         android:clickable="true"
         app:qmui_border_color="?attr/qmui_config_color_gray_6"
         app:qmui_border_width="1px"
@@ -22,28 +21,28 @@
         app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
 
     <TextView
+        android:id="@+id/tv_riv_person_info_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="李慧文"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>
 
     <TextView
+        android:id="@+id/tv_riv_person_info_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
-        android:text="6年经验丨35岁丨南昌"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"
         />
 
     <TextView
+        android:id="@+id/tv_riv_person_info_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginBottom="@dimen/dp_20"
-        android:text="雇主评分：5.0分"
         android:textColor="@color/color_common_theme_text"
         android:textSize="@dimen/sp_13"/>
 
@@ -71,13 +70,13 @@
 
 
         <TextView
+            android:id="@+id/tv_riv_person_info_below_belong_shops"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawableRight="@mipmap/icon_common_next_step"
             android:drawablePadding="@dimen/dp_6"
-            android:text="金牌月嫂家政服务店"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_15"/>
     </RelativeLayout>

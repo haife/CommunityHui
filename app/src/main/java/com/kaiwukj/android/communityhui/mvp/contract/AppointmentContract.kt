@@ -1,7 +1,10 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.AppointmentDemandRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
 import io.reactivex.Observable
@@ -19,11 +22,22 @@ interface AppointmentContract {
 
     interface View : IView {
         fun onGetStaffDetailInfo(result: StaffInfoResult)
+        fun onGetStaffCommentInfo(result: StaffCommentResult)
+        fun onGetMyAddressList(result: MyAddressResult)
     }
 
     interface Model : IModel {
-        //选择阿姨
-        fun requestSelectStaffDetail(userId: Int): Observable<StaffListResult>
+        //阿姨详情
+        fun requestSelectStaffDetail(userId: Int): Observable<StaffInfoResult>
+
+        //获取用户评价
+        fun requestUserComment(userId: Int): Observable<StaffCommentResult>
+
+        //获取地址
+        fun requestMyAddress(userId: Int): Observable<MyAddressResult>
+
+        //提交订单
+        fun requestAppointmentDate(request: AppointmentDemandRequest): Observable<BaseStatusResult>
     }
 
 }

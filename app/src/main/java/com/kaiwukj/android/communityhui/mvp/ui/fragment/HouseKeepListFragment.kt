@@ -13,6 +13,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
 import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
 import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
@@ -125,7 +126,8 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_house_keeping_list_container.currentItem = index }
-                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(magicIndicatorContentList[index].id)
+                var data = StoreListRequest(magicIndicatorContentList[index].id.toInt())
+                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(data,1)
                 return simplePagerTitleView
             }
 

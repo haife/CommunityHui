@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
@@ -27,6 +28,9 @@ interface HouseKeepContract {
         fun requestServiceList(): Observable<HomeServiceEntity>
         //选择阿姨
         fun requestSelectStaff(request: StoreStaffRequest): Observable<StaffListResult>
+
+        //查看门店阿姨
+        fun requestShopsStaffList(request: StoreListRequest): Observable<StaffListResult>
     }
 
 }

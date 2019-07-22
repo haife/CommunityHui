@@ -72,7 +72,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         initTopBar()
         initRecycleView()
         mPresenter?.requestAllStoreRecommend()
-        mStoreListAdapter?.setOnItemClickListener { adapter, view, position ->
+        mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
             start(StoreSortListFragment.newInstance())
         }
 
@@ -88,7 +88,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
     override fun getContextView(): Context? = context
 
-    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+    override fun onGetStoreRecommend(list: StoreListResult) {
     }
 
     private fun initTopBar() {

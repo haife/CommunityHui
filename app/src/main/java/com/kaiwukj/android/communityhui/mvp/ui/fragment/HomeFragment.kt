@@ -43,7 +43,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
-        const val RECOMMEND_FLAG = "1"
+        const val RECOMMEND_FLAG = 1
 
         fun newInstance(): HomeFragment {
             val fragment = HomeFragment()

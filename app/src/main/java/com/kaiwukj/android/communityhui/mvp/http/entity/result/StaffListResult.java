@@ -1,5 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseListRootResult;
+
 import java.math.BigDecimal;
 import java.util.List;
 

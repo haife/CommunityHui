@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+   >
 
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/qtb_appointment_demand"
@@ -16,151 +18,184 @@
         app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
         app:qmui_topbar_need_separator="true"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_appointment_address_container"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/write_color"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_20">
+        app:srlEnablePreviewInEditMode="false"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_appoint_demand_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_72"
-            android:lineSpacingExtra="@dimen/dp_4"
-            android:text="江西省南昌市青山湖区恒茂梦时代7号楼804室"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_18"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_below="@+id/tv_appoint_demand_address"
-            android:layout_alignLeft="@+id/tv_appoint_demand_address"
-            android:layout_marginTop="@dimen/dp_16"
-            android:text="王小二\t\t\t\t\t\t13278974659"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="15sp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@mipmap/icon_common_next_step_dark"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/write_color"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_20">
-
-        <TextView
-            android:id="@+id/tv_appoint_demand_service_times_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/appointment_demand_times_hint"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_15"/>
-
-
-        <TextView
-            android:id="@+id/tv_tv_appoint_demand_service_times"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_appoint_demand_service_times_hint"
-            android:layout_marginLeft="@dimen/dp_50"
-            android:layout_toRightOf="@+id/tv_appoint_demand_service_times_hint"
-            android:drawableRight="@drawable/icon_appoint_demand_expand_time"
-            android:drawablePadding="@dimen/dp_5"
-            android:text="2019-7-10"
-            android:textColor="@color/common_text_slight_color"
-            android:textSize="@dimen/sp_15"
-            />
-
-        <TextView
-            android:id="@+id/tv_appoint_demand_service_days_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_appoint_demand_service_times_hint"
-            android:layout_alignLeft="@+id/tv_appoint_demand_service_times_hint"
-            android:layout_marginTop="@dimen/dp_25"
-            android:text="@string/appointment_demand_days"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_15"
-            />
-
-        <EditText
-            android:id="@+id/et_appoint_demand_service_days"
+        <com.scwang.smartrefresh.layout.header.FalsifyHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_appoint_demand_service_days_hint"
-            android:layout_alignLeft="@+id/tv_tv_appoint_demand_service_times"
-            android:layout_marginRight="@dimen/dp_50"
-            android:background="@null"
-            android:hint="@string/appointment_demand_days_hint"
-            android:inputType="number"
-            android:maxLines="1"
-            android:textColorHint="@color/common_text_slight_color"
-            android:textSize="@dimen/sp_15"/>
+            android:layout_height="wrap_content"/>
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_8"
-        android:background="@color/write_color"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingTop="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_16"
-        android:paddingBottom="@dimen/dp_30">
-
-        <TextView
-            android:id="@+id/tv_appointment_demand_other_hint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/appointment_demand_other"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="15sp"/>
-
-        <EditText
-            android:id="@+id/et_appoint_demand_other_content"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tv_appointment_demand_other_hint"
-            android:layout_marginTop="@dimen/dp_14"
-            android:layout_marginBottom="@dimen/dp_100"
-            android:background="@null"
-            android:gravity="top|left"
-            android:hint="@string/appointment_demand_remark_hint"
-            android:lineSpacingExtra="@dimen/dp_4"
-            android:maxLines="5"
-            android:textColorHint="@color/common_text_slight_color"
-            android:textSize="@dimen/sp_15"/>
-
-        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/qbtn_submit_order"
-            style="@style/QDRoundButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_14"
-            android:layout_marginRight="@dimen/dp_14"
-            android:text="@string/appointment_submit_order_btn"
-            android:textSize="@dimen/sp_16"/>
-    </RelativeLayout>
+            android:orientation="vertical">
 
 
+            <RelativeLayout
+                android:id="@+id/rl_appointment_address_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/write_color"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_20">
+
+                <TextView
+                    android:id="@+id/tv_appoint_demand_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dp_72"
+                    android:lineSpacingExtra="@dimen/dp_4"
+                    android:text="江西省南昌市青山湖区恒茂梦时代7号楼804室"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_18"/>
+
+
+                <TextView
+                    android:id="@+id/tv_address_user_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_appoint_demand_address"
+                    android:layout_alignLeft="@+id/tv_appoint_demand_address"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="王小二\t\t\t\t\t\t13278974659"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="15sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@mipmap/icon_common_next_step_dark"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_add_address_hint"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:background="@drawable/ripper_common_click_back_ground"
+                android:drawableLeft="@mipmap/icon_appointment_success"
+                android:drawableRight="@mipmap/icon_common_next_step_dark"
+                android:drawablePadding="@dimen/dp_30"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+                android:text="@string/mine_add_address_hint"
+                android:textSize="@dimen/sp_18"
+                android:visibility="gone">
+
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/write_color"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_20">
+
+                <TextView
+                    android:id="@+id/tv_appoint_demand_service_times_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appointment_demand_times_hint"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_15"/>
+
+
+                <TextView
+                    android:id="@+id/tv_tv_appoint_demand_service_times"
+                    android:layout_width="@dimen/dp_160"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_appoint_demand_service_times_hint"
+                    android:layout_marginLeft="@dimen/dp_50"
+                    android:hint="@string/appointment_select_service_time"
+                    android:layout_toRightOf="@+id/tv_appoint_demand_service_times_hint"
+                    android:drawableRight="@drawable/icon_appoint_demand_expand_time"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:textColor="@color/common_text_slight_color"
+                    android:textSize="@dimen/sp_15"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_appoint_demand_service_days_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_appoint_demand_service_times_hint"
+                    android:layout_alignLeft="@+id/tv_appoint_demand_service_times_hint"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:text="@string/appointment_demand_days"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_15"
+                    />
+
+                <EditText
+                    android:id="@+id/et_appoint_demand_service_days"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_appoint_demand_service_days_hint"
+                    android:layout_alignLeft="@+id/tv_tv_appoint_demand_service_times"
+                    android:layout_marginRight="@dimen/dp_50"
+                    android:background="@null"
+                    android:hint="@string/appointment_demand_days_hint"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColorHint="@color/common_text_slight_color"
+                    android:textSize="@dimen/sp_15"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_8"
+                android:background="@color/write_color"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_30">
+
+                <TextView
+                    android:id="@+id/tv_appointment_demand_other_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/appointment_demand_other"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="15sp"/>
+
+                <EditText
+                    android:id="@+id/et_appoint_demand_other_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tv_appointment_demand_other_hint"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:layout_marginBottom="@dimen/dp_100"
+                    android:background="@null"
+                    android:gravity="top|left"
+                    android:hint="@string/appointment_demand_remark_hint"
+                    android:lineSpacingExtra="@dimen/dp_4"
+                    android:maxLines="5"
+                    android:textColorHint="@color/common_text_slight_color"
+                    android:textSize="@dimen/sp_15"/>
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/qbtn_submit_order"
+                    style="@style/QDRoundButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_14"
+                    android:layout_marginRight="@dimen/dp_14"
+                    android:text="@string/appointment_submit_order_btn"
+                    android:textSize="@dimen/sp_16"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

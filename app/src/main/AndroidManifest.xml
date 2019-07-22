@@ -35,12 +35,12 @@
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
@@ -60,19 +60,29 @@
             android:name=".mvp.ui.activity.StoreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/>
-        <activity android:name=".mvp.ui.activity.AppointmentActivity">
+        <activity
+            android:name=".mvp.ui.activity.AppointmentActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle">
+
+
         </activity> <!-- 家政 -->
         <activity
             android:name=".mvp.ui.activity.HouseKeepActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/>
         <!--圈子-->
-        <activity android:name=".mvp.ui.activity.SocialCircleListActivity" android:screenOrientation="portrait"
-                  android:theme="@style/SwipeBackStyle">
+        <activity
+            android:name=".mvp.ui.activity.SocialCircleListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle">
         </activity>
         <!--圈子-->
-        <activity android:name=".mvp.ui.activity.SocialCircleActivity" android:screenOrientation="portrait"
-                  android:theme="@style/SwipeBackStyle">
+        <activity
+            android:name=".mvp.ui.activity.SocialCircleActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle">
         </activity>
 
     </application>

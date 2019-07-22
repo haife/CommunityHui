@@ -17,7 +17,8 @@
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_store_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:srlEnablePreviewInEditMode="false">
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"

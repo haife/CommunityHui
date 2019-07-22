@@ -76,7 +76,7 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
 
     override fun getContextView(): Context? = this
 
-    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+    override fun onGetStoreRecommend(list: StoreListResult) {
     }
 
 

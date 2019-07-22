@@ -1,5 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.bean;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ import java.util.List;
  * @time 2019/7/22
  * @desc $desc
  */
-public class StaffInfoResult {
+public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
 
         private int age;
         private String avatar;
@@ -27,7 +29,7 @@ public class StaffInfoResult {
         private int storeemployeeId;
         private int worktime;
         private List<EmpCommentListBean> empCommentList;
-        private List<?> empTagList;
+        private List<String> empTagList;
         private List<EmpTypeListBean> empTypeList;
         private List<ImgListBean> imgList;
 
@@ -143,11 +145,11 @@ public class StaffInfoResult {
             this.empCommentList = empCommentList;
         }
 
-        public List<?> getEmpTagList() {
+        public List<String> getEmpTagList() {
             return empTagList;
         }
 
-        public void setEmpTagList(List<?> empTagList) {
+        public void setEmpTagList(List<String> empTagList) {
             this.empTagList = empTagList;
         }
 

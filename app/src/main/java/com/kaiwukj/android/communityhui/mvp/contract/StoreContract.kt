@@ -19,7 +19,7 @@ import io.reactivex.Observable
 interface StoreContract {
     interface View : IView {
         fun getContextView():Context?
-        fun onGetStoreRecommend(list: ArrayList<StoreListResult>)
+        fun onGetStoreRecommend(list: StoreListResult)
     }
 
     interface Model : IModel {
