@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.fragment_store_detail.*
  */
 class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
 
+
     companion object {
         fun newInstance(): StoreDetailFragment {
             val fragment = StoreDetailFragment()
@@ -61,7 +62,8 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
 
     override fun getContextView(): Context? = context
 
-    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
+
+    override fun onGetStoreRecommend(list: StoreListResult) {
     }
 
     override fun post(runnable: Runnable?) {

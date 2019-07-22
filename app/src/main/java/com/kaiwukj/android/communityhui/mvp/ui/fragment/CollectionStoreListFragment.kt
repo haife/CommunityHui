@@ -33,15 +33,7 @@ import kotlinx.android.synthetic.main.fragment_store.*
  * @desc 门店列表
  */
 class CollectionStoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
-    override fun getContextView(): Context? = context
-
-    override fun onGetStoreRecommend(list: ArrayList<StoreListResult>) {
-    }
-
     lateinit var mStoreListAdapter: StoreListAdapter
-
-    override fun post(runnable: Runnable?) {
-    }
 
     companion object {
         fun newInstance(): CollectionStoreListFragment {
@@ -81,6 +73,16 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<StorePresenter>(), Sto
 
         }
 
+    }
+
+    override fun onGetStoreRecommend(list: StoreListResult) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getContextView(): Context? = context
+
+
+    override fun post(runnable: Runnable?) {
     }
 
     private fun initTopBar() {

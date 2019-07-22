@@ -85,7 +85,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
 
         //所属门店
         rl_person_info_store.setOnClickListener {
-            start(StoreSortListFragment.newInstance())
+            start(StoreSortListFragment.newInstance(shopId))
         }
     }
 

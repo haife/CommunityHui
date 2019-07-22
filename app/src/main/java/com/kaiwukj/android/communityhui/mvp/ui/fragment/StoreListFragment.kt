@@ -73,7 +73,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         initRecycleView()
         mPresenter?.requestAllStoreRecommend()
         mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
-            start(StoreSortListFragment.newInstance())
+            start(StoreSortListFragment.newInstance(listData[position].id))
         }
 
         smart_store_list.setOnRefreshListener(OnRefreshListener {  })
