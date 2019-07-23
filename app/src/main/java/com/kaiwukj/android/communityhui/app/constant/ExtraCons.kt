@@ -36,5 +36,7 @@ class ExtraCons {
         /*选择的阿姨的服务Id*/
         const val EXTRA_KEY_STAFF_SETVIE_TYPE_ID: String = "EXTRA_KEY_STAFF_SETVIE_TYPE_ID"
 
+        const val EXTRA_KEY_POST_CARD_TYPE = "EXTRA_KEY_POST_CARD_TYPE"
+
     }
 }

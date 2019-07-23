@@ -361,6 +361,13 @@ public class McaUtils {
         return false;
     }
 
+    public static boolean isEmpty(String str) {
+        if (str.equals("") || str.equals(null)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * MD5
      *
@@ -450,12 +457,11 @@ public class McaUtils {
     }
 
     /**
-     *
      * @param id
      * @param context
      * @return
      */
-    public static String getResourcesUri(@DrawableRes int id,Context context) {
+    public static String getResourcesUri(@DrawableRes int id, Context context) {
         Resources resources = getResources(context);
         String uriPath = ContentResolver.SCHEME_ANDROID_RESOURCE + "://" +
                 resources.getResourcePackageName(id) + "/" +

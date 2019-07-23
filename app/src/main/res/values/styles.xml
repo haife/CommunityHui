@@ -26,6 +26,12 @@
 
     </style>
 
+    <style name="BootScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/app_color_theme</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
     <style name="ToolBar">
         <item name="android:background">@android:color/white</item>
         <item name="android:height">@dimen/base_tool_bar_height</item>

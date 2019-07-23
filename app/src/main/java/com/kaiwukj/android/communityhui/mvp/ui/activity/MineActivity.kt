@@ -13,6 +13,8 @@ import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineCollectionFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ServiceOrderDetailFragment
@@ -24,12 +26,16 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 @Route(path = MineOrderUrl)
 class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
+
+
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE)
     @JvmField
     var mTargetStr: String? = null
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX)
     @JvmField
-    var mItemIndex: Int = 0
+    var mItemIndex: Int? = null
+
+
 
     override fun post(runnable: Runnable?) {
     }
@@ -53,11 +59,10 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
 
-
         when (mTargetStr) {
             ServiceOrderFragment.SERVICE_ORDER_FRAGMENT -> {
                 qtb_mine_order_info.setTitle(getString(R.string.service_order_title))
-                loadRootFragment(R.id.fl_mine_order_container, ServiceOrderFragment.newInstance(mItemIndex))
+                mItemIndex?.let { ServiceOrderFragment.newInstance(it) }?.let { loadRootFragment(R.id.fl_mine_order_container, it) }
             }
 
             ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT -> {
@@ -98,6 +103,12 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
 
     override fun killMyself() {
         onBackPressedSupport()
+    }
+
+    override fun onGetMineInfo(result: MineUserInfoResult) {
+    }
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
     }
 
 }

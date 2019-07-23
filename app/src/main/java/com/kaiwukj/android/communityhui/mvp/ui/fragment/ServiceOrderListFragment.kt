@@ -17,6 +17,8 @@ import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
@@ -69,6 +71,13 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
         }
     }
 
+
+    override fun onGetMineInfo(result: MineUserInfoResult) {
+
+    }
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
+    }
 
     override fun post(runnable: Runnable?) {
     }

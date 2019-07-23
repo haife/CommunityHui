@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,8 +14,7 @@ import java.util.List;
  * @time 2019/7/23
  * @desc 帖子首页内容
  */
-public class CircleCardResult extends BaseRootResult<List<CircleCardResult>> {
-
+public class CircleCardResult extends BaseRootResult<List<CircleCardResult>> implements Serializable {
 
     private int createBy;
     private String dicCode;

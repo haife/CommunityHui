@@ -1,8 +1,11 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -37,4 +40,30 @@ public interface CircleService {
      */
     @GET("/app/sc/unote/listRecommendNote")
     Observable<CircleHotResult> requestCircleHotData();
+
+    /**
+     * 发帖
+     */
+    @POST("/app/sc/unote/save")
+    Observable<BaseStatusResult> postCardRequest(@Body RequestBody body);
+
+    /**
+     * 帖子详情
+     */
+    @POST("/app/sc/unote/save")
+    Observable<CircleCardDetailResult> requestCardDetail(@Body RequestBody body);
+
+    /**
+     * 发表评论或者回复别人
+     */
+    @POST("/app/sc/unoteComment/save")
+    Observable<BaseStatusResult> requestCommentMine(@Body RequestBody body);
+
+    /**
+     * 社区查看主页
+     * 不传递id默认查看当前用户的帖子主页个人信息，
+     * 传递id查看该用户id的帖子主页个人信息
+     */
+    @POST("/app/sc/uinfo/queryMyInfo")
+    Observable<SocialUserHomePageResult> requestSocialHomePage(@Body RequestBody body);
 }

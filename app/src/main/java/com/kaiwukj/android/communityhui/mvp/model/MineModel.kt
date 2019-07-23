@@ -2,20 +2,26 @@ package com.kaiwukj.android.communityhui.mvp.model
 
 import android.app.Application
 import com.google.gson.Gson
-
-import javax.inject.Inject
-
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService
+import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
-
+import io.reactivex.Observable
+import okhttp3.RequestBody
+import javax.inject.Inject
 
 
 @ActivityScope
 class MineModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), MineContract.Model {
+
     @Inject
     lateinit var mGson: Gson;
     @Inject
@@ -23,5 +29,26 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     override fun onDestroy() {
         super.onDestroy();
+    }
+
+    override fun requestMineInfoData(): Observable<MineUserInfoResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .requestMineInfoData())
+                .flatMap { it }
+    }
+
+    override fun requestSocialHomePage(request: SocialUserHomePageRequest): Observable<SocialUserHomePageResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService::class.java)
+                .requestSocialHomePage(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+    override fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .updatetMineInfoData(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+
+    private fun getRequestBody(postJson: String): RequestBody {
+        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
     }
 }

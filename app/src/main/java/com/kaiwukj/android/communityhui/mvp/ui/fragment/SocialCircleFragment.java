@@ -20,9 +20,11 @@ import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
@@ -101,7 +103,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         initRecycleView();
-//        mPresenter.getHomeRecommendData(request, true);
+        mPresenter.getHomeRecommendData(request, true);
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
         mRefreshView.setOnRefreshListener(refreshLayout -> {
@@ -152,6 +154,16 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         if (noData) {
             mRefreshView.finishLoadMoreWithNoMoreData();
         }
+
+    }
+
+    @Override
+    public void onGetCardDetailResult(CircleCardDetailResult result) {
+
+    }
+
+    @Override
+    public void onGetOtherHomePageData(SocialUserHomePageResult result) {
 
     }
 

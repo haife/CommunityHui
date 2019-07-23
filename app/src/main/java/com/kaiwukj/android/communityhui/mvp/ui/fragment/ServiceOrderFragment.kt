@@ -15,6 +15,8 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
@@ -37,6 +39,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * @desc  全部服务订单
  */
 class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+
     private var mFragmentList: List<Fragment> = ArrayList()
 
     var mItemIndex: Int = 0
@@ -117,7 +120,12 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
         view_pager_service_order_container.adapter = homeViewPagerAdapter
 
     }
+    override fun onGetMineInfo(result: MineUserInfoResult) {
 
+    }
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
+    }
     override fun post(runnable: Runnable?) {
     }
 

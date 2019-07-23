@@ -12,6 +12,8 @@ import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
@@ -97,6 +99,16 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
 
     @Override
     public void finishLoadMore(@Nullable boolean noData) {
+
+    }
+
+    @Override
+    public void onGetCardDetailResult(CircleCardDetailResult result) {
+
+    }
+
+    @Override
+    public void onGetOtherHomePageData(SocialUserHomePageResult result) {
 
     }
 

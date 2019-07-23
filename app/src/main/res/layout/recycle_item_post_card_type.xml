@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp_45"
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/dp_16"
+              android:paddingRight="@dimen/dp_16">
+
+    <TextView
+        android:id="@+id/tv_post_card_type"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="15sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/common_divide_line_color"
+        android:layout_height="1px"/>
+</LinearLayout>

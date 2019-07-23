@@ -12,6 +12,8 @@ import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTopicFragment;
@@ -57,7 +59,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         if (CircleCardDetailFragment.CIRCLE_CARD_DETAIL.equals(mFragmentKey)) {
-            loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance());
+            loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance(1));
         } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
         }
@@ -103,6 +105,16 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
 
     @Override
     public void finishLoadMore(@Nullable boolean noData) {
+
+    }
+
+    @Override
+    public void onGetCardDetailResult(CircleCardDetailResult result) {
+
+    }
+
+    @Override
+    public void onGetOtherHomePageData(SocialUserHomePageResult result) {
 
     }
 

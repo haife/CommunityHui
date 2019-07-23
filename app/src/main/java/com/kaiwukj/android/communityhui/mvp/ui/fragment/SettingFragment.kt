@@ -13,6 +13,8 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.utils.DataCleanManager
 import com.kaiwukj.android.communityhui.utils.DataCleanManager.getFormatSize
@@ -129,7 +131,12 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
                 .addTo(qui_group_list_setting)
 
     }
+    override fun onGetMineInfo(result: MineUserInfoResult) {
 
+    }
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
+    }
 
     override fun showLoading() {
 

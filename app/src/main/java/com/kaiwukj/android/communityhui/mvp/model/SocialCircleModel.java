@@ -5,10 +5,17 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleCardDetailRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
 import com.kaiwukj.android.mcas.integration.IRepositoryManager;
 import com.kaiwukj.android.mcas.mvp.BaseModel;
@@ -70,5 +77,34 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
     public Observable<CircleHotResult> requestCircleHotList() {
         return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestCircleHotData())
                 .flatMap((Function<Observable<CircleHotResult>, ObservableSource<CircleHotResult>>) observable -> observable);
+    }
+
+    @Override
+    public Observable<BaseStatusResult> postSocialCard(PostCardRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).postCardRequest(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<BaseStatusResult>, ObservableSource<BaseStatusResult>>) observable -> observable);
+
+    }
+
+    @Override
+    public Observable<CircleCardDetailResult> requestSocialCardDetail(int id) {
+        CircleCardDetailRequest request = new CircleCardDetailRequest(id);
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestCardDetail(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<CircleCardDetailResult>, ObservableSource<CircleCardDetailResult>>) observable -> observable);
+    }
+
+    @Override
+    public Observable<BaseStatusResult> requestCommentOther(CommentOtherRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class)
+                .requestCommentMine(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<BaseStatusResult>, ObservableSource<BaseStatusResult>>) observable -> observable);
+    }
+
+
+    @Override
+    public Observable<SocialUserHomePageResult> requestSocialHomePage(SocialUserHomePageRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class)
+                .requestSocialHomePage(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<SocialUserHomePageResult>, ObservableSource<SocialUserHomePageResult>>) observable -> observable);
     }
 }

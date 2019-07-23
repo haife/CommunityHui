@@ -14,8 +14,12 @@ import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_mine.*
@@ -24,6 +28,9 @@ import kotlinx.android.synthetic.main.include_mine_top_container.*
 
 
 class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+
+    private var userInfoResult: MineUserInfoResult? = null
+
     override fun post(runnable: Runnable?) {
     }
 
@@ -48,9 +55,17 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        mPresenter?.getMineInfoData()
         initBottomGroupView()
+        initClick()
+    }
+
+    private fun initClick() {
         cl_mine_head_top.setOnClickListener {
-            ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
+            if (userInfoResult == null) {
+                return@setOnClickListener
+            }
+            ARouter.getInstance().build(MineInfoUrl).withSerializable(ExtraCons.EXTRA_KEY_EDIT_MINE, userInfoResult).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
         }
 
         tv_mine_order_contracting.setOnClickListener {
@@ -90,7 +105,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 mineCollectItem -> {
                     ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
                 }
-                mineSettingItem ->{
+                mineSettingItem -> {
                     ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, SettingFragment.SETTING_FRAGMENT).navigation(context)
                 }
             }
@@ -106,6 +121,23 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
     }
 
+    override fun onGetMineInfo(result: MineUserInfoResult) {
+        userInfoResult = result
+        context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }
+        tv_mine_user_nick_name.text = result.nickName
+        tv_user_explain.text = result.perSign
+
+    }
+
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
+        tv_mine_card_num.text = "$result.noteCount\n发布"
+        tv_mine_card_num.text = "${result.replyCount}\n回复"
+        tv_mine_card_num.text = "${result.fansCount}\n粉丝"
+        tv_mine_card_num.text = "${result.focusedCount}\n关注"
+
+
+    }
 
     override fun showLoading() {
 

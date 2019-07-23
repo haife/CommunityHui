@@ -178,7 +178,8 @@
     <string name="social_circle_hot_state">热</string>
     <string name="social_circle_all_comment">全部评论</string>
     <string name="social_circle_post_card_title">标题</string>
-    <string name="social_circle_post_card_content">输入你要发布帖子的名称</string>
+    <string name="social_circle_post_card_title_hint">输入你要发布帖子的名称</string>
+    <string name="social_circle_post_card_content">描述帖子的内容，想表达的想法</string>
     <string name="social_circle_topic_type">分类</string>
     <string name="social_circle_post_topic">发帖</string>
     <string name="social_circle_post_action">发布</string>
@@ -186,8 +187,14 @@
     <string name="social_circle_replay_comment_send">发送</string>
     <string name="social_circle_person_page_title">TA的主页</string>
     <string name="mine_add_address_hint">请添加地址</string>
-    <string name="mine_address_info">%s\t\t\t\t\t\t%s</string>
     <string name="social_circle_comment_hint">评论</string>
+    <string name="post_card_input_title_hint">请输入标题</string>
+    <string name="post_card_input_content_hint">请输入内容</string>
+    <string name="post_card_choose_type_hint">请选择帖子分类</string>
+    <string name="mine_address_info">%s\t\t\t\t\t\t%s</string>
+    <string name="social_post_card_success">发布成功</string>
+    <string name="social_card_no_comment">暂无评论</string>
+    <string name="card_comment_floor">%d 楼</string>
 
 
     <!--社交圈子-->

@@ -13,6 +13,7 @@ import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineAddressListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PersonHomePageFragment
@@ -37,6 +38,9 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
     @JvmField
     var mTargetStr: String? = null
 
+    @Autowired(name = ExtraCons.EXTRA_KEY_EDIT_MINE)
+    @JvmField
+    var mUserInfo: MineUserInfoResult? = null
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerEditMineInfoComponent //如找不到该类,请编译一下项目
@@ -58,7 +62,7 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
         initTopBar()
         when (mTargetStr) {
             PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT -> {
-                loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance())
+                loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
             }
             MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT -> {
                 loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance())

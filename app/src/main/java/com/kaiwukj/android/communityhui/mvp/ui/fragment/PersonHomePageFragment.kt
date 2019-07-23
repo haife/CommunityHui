@@ -10,6 +10,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -24,12 +25,14 @@ import kotlinx.android.synthetic.main.fragment_person_home_page.*
  * @desc  我的信息主页
  */
 class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
+    var mUserInfo: MineUserInfoResult? = null
 
     companion object {
         const val PERSON_HOME_PAGE_FRAGMENT = "PERSON_HOME_PAGE_FRAGMENT"
 
-        fun newInstance(): PersonHomePageFragment {
+        fun newInstance(userInfo: MineUserInfoResult?): PersonHomePageFragment {
             val fragment = PersonHomePageFragment()
+            fragment.mUserInfo = userInfo
             return fragment
         }
     }

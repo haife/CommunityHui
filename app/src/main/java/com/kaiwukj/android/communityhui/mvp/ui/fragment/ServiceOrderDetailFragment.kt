@@ -10,6 +10,8 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_service_order_detail.*
@@ -54,7 +56,12 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
             start(EvaluateServiceFragment.newInstance())
         }
     }
+    override fun onGetMineInfo(result: MineUserInfoResult) {
 
+    }
+
+    override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
+    }
 
     override fun showLoading() {
 

@@ -3,7 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.model
 import android.app.Application
 import com.google.gson.Gson
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel

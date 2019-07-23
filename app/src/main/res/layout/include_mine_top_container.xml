@@ -30,12 +30,11 @@
 
 
         <TextView
-            android:id="@+id/tv_user_nick_name"
+            android:id="@+id/tv_mine_user_nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_16"
             android:layout_marginTop="@dimen/dp_8"
-            android:text="桃清陌"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_20"
             app:layout_constraintLeft_toRightOf="@+id/qiv_user_profile_photo"
@@ -46,11 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_3"
-            android:text="这个人太懒了"
             android:textColor="@color/common_text_slight_color"
             android:textSize="@dimen/sp_15"
             app:layout_constraintBottom_toBottomOf="@+id/qiv_user_profile_photo"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_user_nick_name"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_mine_user_nick_name"
             />
 
         <ImageView
@@ -73,36 +71,40 @@
         app:layout_constraintTop_toBottomOf="@+id/cl_mine_head_top">
 
         <TextView
+            android:id="@+id/tv_mine_card_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-            android:text="30\n发布"/>
+           />
 
         <TextView
+            android:id="@+id/tv_mine_reply_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-            android:text="30\n发布"/>
+           />
 
         <TextView
+            android:id="@+id/tv_mine_fans_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-            android:text="30\n发布"/>
+            />
 
         <TextView
+            android:id="@+id/tv_mine_collection_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-            android:text="30\n发布"/>
+           />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

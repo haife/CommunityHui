@@ -39,5 +39,11 @@ public interface MineService {
      * 用户信息
      */
     @GET("/app/sc/user/info")
-    Observable<MineUserInfoResult> getMineInfoData();
+    Observable<MineUserInfoResult> requestMineInfoData();
+
+    /**
+     * 用户信息
+     */
+    @POST("/app/sc/user/update")
+    Observable<BaseStatusResult> updatetMineInfoData(@Body RequestBody body);
 }

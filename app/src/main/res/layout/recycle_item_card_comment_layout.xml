@@ -10,7 +10,6 @@
         android:id="@+id/riv_card_comment_person_info_photo"
         android:layout_width="@dimen/dp_35"
         android:layout_height="@dimen/dp_35"
-        android:background="@mipmap/ic_launcher_round"
         android:clickable="true"
         app:qmui_border_color="?attr/qmui_config_color_gray_6"
         app:qmui_border_width="1px"
@@ -27,7 +26,6 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_toRightOf="@+id/riv_card_comment_person_info_photo"
-        android:text="黄四郎"
         android:textColor="@color/home_color_hot_service_text"
         android:textSize="@dimen/sp_15"
         />
@@ -51,7 +49,6 @@
         android:layout_below="@+id/tvr_card_comment_person_info_name"
         android:layout_alignLeft="@+id/tvr_card_comment_person_info_name"
         android:layout_marginTop="@dimen/dp_12"
-        android:text="服务很好，人很nice，工作能力也特别的强，下次还找她"
         android:textColor="@color/common_text_dark_color"
         />
 
@@ -62,7 +59,6 @@
         android:layout_below="@+id/tv_card_comment_person_content"
         android:layout_alignLeft="@+id/tv_card_comment_person_content"
         android:layout_marginTop="@dimen/dp_20"
-        android:text="昨天14：54"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"/>
 
@@ -74,7 +70,6 @@
         android:layout_toLeftOf="@+id/tv_card_comment_reply"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_alignBaseline="@+id/tv_card_comment_person_time"
-        android:text="2楼"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"/>
 
@@ -83,7 +78,6 @@
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_20"
         android:gravity="center|top"
-
         android:layout_alignBaseline="@+id/tv_card_comment_person_time"
         android:layout_alignParentRight="true"
         android:text="回复"

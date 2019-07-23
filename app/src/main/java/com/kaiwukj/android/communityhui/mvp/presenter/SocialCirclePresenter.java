@@ -2,12 +2,19 @@ package com.kaiwukj.android.communityhui.mvp.presenter;
 
 import android.app.Application;
 
+import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.api.Api;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
@@ -68,30 +75,28 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
      * 圈子列表
      */
     public void getHomeRecommendData(CircleHomeRequest request, boolean pullToRefresh) {
-        boolean isEvictCache = pullToRefresh;
-        mModel.requestCircleHomeList(request, isEvictCache)
+        mModel.requestCircleHomeList(request, pullToRefresh)
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
                 .subscribe(new ErrorHandleSubscriber<CircleHomeResult>(mErrorHandler) {
                     @Override
                     public void onNext(CircleHomeResult result) {
-                        if (result.getCode() == Api.RequestSuccess) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (pullToRefresh) {
+                                mDataList.clear();
+                                mRootView.finishRefresh();
+                            } else {
+                                if (request.getPages() > 1 && result.getResult().getList().size() > 0) {
+                                    mRootView.finishLoadMore(true);
+                                }
+                                mRootView.finishLoadMore(false);
+                            }
                             mDataList.addAll(result.getResult().getList());
                             mCircleListAdapter.notifyDataSetChanged();
+
                         }
-
-//                        if (pullToRefresh) {
-//                            mDataList.clear();
-//                            mRootView.finishRefresh();
-//                        } else {
-//                            if (page > 1 && result.getResult().getList().size() > 0) {
-//                                mRootView.finishLoadMore(true);
-//                            }
-//                            mRootView.finishLoadMore(false);
-//                        }
-
-
                     }
                 });
     }
@@ -105,6 +110,7 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
                 .subscribe(new ErrorHandleSubscriber<CircleCardResult>(mErrorHandler) {
                     @Override
                     public void onNext(CircleCardResult result) {
@@ -130,6 +136,83 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     }
                 });
     }
+
+    /**
+     * 发帖
+     */
+    public void postSocialCard(PostCardRequest request) {
+        mModel.postSocialCard(request).compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribe(new ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseStatusResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess))
+                            mRootView.showMessage(mRootView.getCtx().getString(R.string.social_post_card_success));
+                    }
+                });
+    }
+
+    /**
+     * 获取帖子详情
+     *
+     * @param id
+     */
+    public void requestSocialCardDetail(int id) {
+        mModel.requestSocialCardDetail(id).compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribe(new ErrorHandleSubscriber<CircleCardDetailResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(CircleCardDetailResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mRootView.onGetCardDetailResult(result.getResult());
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 发表或者回复别人的帖子
+     */
+    public void requestCommentOther(CommentOtherRequest request) {
+        mModel.requestCommentOther(request).compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribe(new ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseStatusResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mRootView.showMessage("评论成功");
+                        }
+                    }
+                });
+    }
+
+
+    /**
+     * 发表或者回复别人的帖子
+     */
+    public void requestSocialHomePage(String userId) {
+        SocialUserHomePageRequest request = new SocialUserHomePageRequest();
+        request.setId(userId);
+        mModel.requestSocialHomePage(request).compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribe(new ErrorHandleSubscriber<SocialUserHomePageResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(SocialUserHomePageResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mRootView.onGetOtherHomePageData(result.getResult());
+                        }
+                    }
+                });
+    }
+
 
     @Override
     public void onDestroy() {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--圈子图文混排-->
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/smart_refresh_circle_card_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/write_color"
+    app:srlEnablePreviewInEditMode="false">
+
+    <com.scwang.smartrefresh.layout.header.FalsifyHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_post_car_type"
+        style="@style/BaseRecycleViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_social_circle_card_content"
+        />
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

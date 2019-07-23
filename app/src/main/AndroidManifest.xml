@@ -30,16 +30,26 @@
             android:value="375"/>
         <meta-data
             android:name="design_height_in_dp"
-            android:value="667"/> <!-- 启动 -->
+            android:value="667"/>
+        <!-- 启动 -->
         <activity
-            android:name=".mvp.ui.activity.MainActivity"
+            android:name=".app.base.BootScreenActivity"
             android:launchMode="singleTask"
+            android:theme="@style/BootScreenTheme"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".mvp.ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
         </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"

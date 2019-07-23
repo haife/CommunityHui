@@ -91,4 +91,5 @@ public class SocialCircleModule {
         return new SocialCircleTopicAdapter(R.layout.recycle_item_social_circle_topic, list,view.getCtx());
     }
 
+  
 }

@@ -24,7 +24,6 @@
                 android:id="@+id/riv_circle_person_page_info_photo"
                 android:layout_width="@dimen/dp_60"
                 android:layout_height="@dimen/dp_60"
-                android:background="@mipmap/ic_launcher_round"
                 app:qmui_is_circle="true"/>
 
             <TextView
@@ -34,7 +33,6 @@
                 android:layout_alignTop="@+id/riv_circle_person_page_info_photo"
                 android:layout_marginLeft="@dimen/dp_12"
                 android:layout_toRightOf="@+id/riv_circle_person_page_info_photo"
-                android:text="满满的二丁目"
                 android:textColor="@color/common_text_dark_color"
                 android:textSize="@dimen/sp_20"
                 android:textStyle="bold"/>
