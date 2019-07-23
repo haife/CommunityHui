@@ -17,6 +17,7 @@ import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
@@ -33,6 +34,8 @@ import kotlinx.android.synthetic.main.fragment_store.*
  * @desc 门店列表
  */
 class CollectionStoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+
+
     lateinit var mStoreListAdapter: StoreListAdapter
 
     companion object {
@@ -74,7 +77,9 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<StorePresenter>(), Sto
         }
 
     }
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
 
+    }
     override fun onGetStoreRecommend(list: StoreListResult) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

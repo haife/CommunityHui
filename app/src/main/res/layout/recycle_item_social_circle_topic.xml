@@ -9,15 +9,15 @@
         android:id="@+id/iv_social_circle_topic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-     />
+        />
 
     <TextView
+        android:id="@+id/tv_social_circle_topic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_10"
-        android:text="二手闲置"
         android:textColor="@color/common_text_dark_color"
-        android:textSize="15sp"
+        android:textSize="@dimen/sp_15"
         />
 </RelativeLayout>

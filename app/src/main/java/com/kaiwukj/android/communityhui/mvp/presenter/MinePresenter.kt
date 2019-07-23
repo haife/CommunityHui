@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/17
- * @desc  
+ * @desc
  */
 @ActivityScope
 class MinePresenter
@@ -31,6 +31,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
     lateinit var mImageLoader: ImageLoader
     @Inject
     lateinit var mAppManager: AppManager
+
 
 
     override fun onDestroy() {

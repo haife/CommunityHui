@@ -14,12 +14,12 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.fragment_store.*
 import javax.inject.Inject
 
@@ -33,6 +33,8 @@ import javax.inject.Inject
  * @desc 门店列表
  */
 class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+    }
 
     @Inject
     lateinit var mStoreListAdapter: StoreListAdapter
@@ -42,8 +44,9 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
     @Inject
     lateinit var listData: ArrayList<StoreListResult>
-
-
+    private var page = 1
+    private var refresh = false
+    private var loadMore = false
     override fun post(runnable: Runnable?) {
     }
 
@@ -71,12 +74,23 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
         initRecycleView()
-        mPresenter?.requestAllStoreRecommend()
+        mPresenter?.requestAllStoreRecommend(page)
         mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
             start(StoreSortListFragment.newInstance(listData[position].id))
         }
+        smart_store_list.setOnRefreshListener {
+            page = 1
+            refresh = true
+            it.setEnableLoadMore(false)
+            mPresenter?.requestAllStoreRecommend(page)
+        }
 
-        smart_store_list.setOnRefreshListener(OnRefreshListener {  })
+        smart_store_list.setOnLoadMoreListener {
+            page++
+            loadMore = true
+            it.setEnableRefresh(false)
+            mPresenter?.requestAllStoreRecommend(page)
+        }
 
     }
 
@@ -89,6 +103,24 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
     override fun getContextView(): Context? = context
 
     override fun onGetStoreRecommend(list: StoreListResult) {
+        //所有门店
+        if (refresh) {
+            listData.clear()
+            refresh = false
+            smart_store_list.finishRefresh()
+            smart_store_list.setEnableLoadMore(true)
+        }
+
+        if (loadMore) {
+            loadMore = false
+            smart_store_list.finishLoadMore()
+            smart_store_list.setEnableRefresh(true)
+        }
+        if (loadMore && page != 1 && list.result.list.size > 0) {
+            smart_store_list.finishLoadMoreWithNoMoreData()
+        }
+        listData.addAll(list.result.list)
+        mStoreListAdapter.notifyDataSetChanged()
     }
 
     private fun initTopBar() {

@@ -1,28 +1,27 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
-import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -36,22 +35,28 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     QMUITopBar mTopBar;
     @BindView(R.id.collapsing_social_circle_top_bar_list_layout)
     QMUICollapsingTopBarLayout mCollapsingTopBarLayout;
+    @Inject
+    SocialCircleListAdapter mCircleListAdapter;
 
-    private SocialCircleListAdapter mCircleListAdapter;
+    @Autowired(name = ExtraCons.CIRCLE_TOPIC_TYPE_ID)
+    int typeId;
+
+    @Autowired(name = ExtraCons.CIRCLE_TOPIC_TYPE_TITLE)
+    String  title;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-      // McaUtils.statuInScreen(this);
+        // McaUtils.statuInScreen(this);
 
         return R.layout.activity_social_circle_list;
 
@@ -59,23 +64,19 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        setStatusBarFullTransparent();
-        setFitSystemWindow(true);
         initTopBar();
-        List<HRecommendMultiItemEntity> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new HRecommendMultiItemEntity(""));
-        }
-        mCircleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_circle_with_photo_layout, list);
-        mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
-        mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
-        mCircleListRv.setAdapter(mCircleListAdapter);
+//        mPresenter.getHomeRecommendData(typeId,1,false);
+//        mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
+//        mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
+//        mCircleListRv.setAdapter(mCircleListAdapter);
     }
 
 
     private void initTopBar() {
+        setStatusBarFullTransparent();
+        setFitSystemWindow(true);
         mTopBar.addLeftBackImageButton().setOnClickListener(v -> killMyself());
-        mCollapsingTopBarLayout.setTitle("闲置圈");
+        mCollapsingTopBarLayout.setTitle(title);
     }
 
 
@@ -90,6 +91,16 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     }
 
     @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
+
+    }
+
+    @Override
     public void killMyself() {
         onBackPressedSupport();
     }
@@ -97,5 +108,10 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     @Override
     public FragmentAnimator onCreateFragmentAnimator() {
         return new DefaultHorizontalAnimator();
+    }
+
+    @Override
+    public Context getCtx() {
+        return this;
     }
 }

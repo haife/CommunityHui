@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.bean;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult;
 
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
         private String storeName;
         private int storeemployeeId;
         private int worktime;
-        private List<EmpCommentListBean> empCommentList;
-        private List<String> empTagList;
+        public List<StaffCommentResult> empCommentList;
+        public List<String> empTagList;
         private List<EmpTypeListBean> empTypeList;
         private List<ImgListBean> imgList;
 
@@ -137,17 +138,7 @@ public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
             this.worktime = worktime;
         }
 
-        public List<EmpCommentListBean> getEmpCommentList() {
-            return empCommentList;
-        }
 
-        public void setEmpCommentList(List<EmpCommentListBean> empCommentList) {
-            this.empCommentList = empCommentList;
-        }
-
-        public List<String> getEmpTagList() {
-            return empTagList;
-        }
 
         public void setEmpTagList(List<String> empTagList) {
             this.empTagList = empTagList;
@@ -169,45 +160,7 @@ public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
             this.imgList = imgList;
         }
 
-        public static class EmpCommentListBean {
 
-            private String content;
-            private int createBy;
-            private String headImg;
-            private String nickName;
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public int getCreateBy() {
-                return createBy;
-            }
-
-            public void setCreateBy(int createBy) {
-                this.createBy = createBy;
-            }
-
-            public String getHeadImg() {
-                return headImg;
-            }
-
-            public void setHeadImg(String headImg) {
-                this.headImg = headImg;
-            }
-
-            public String getNickName() {
-                return nickName;
-            }
-
-            public void setNickName(String nickName) {
-                this.nickName = nickName;
-            }
-        }
 
         public static class EmpTypeListBean {
 

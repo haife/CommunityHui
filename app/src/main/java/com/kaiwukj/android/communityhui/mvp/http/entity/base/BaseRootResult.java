@@ -1,5 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.base;
 
+import java.io.Serializable;
+
 /**
  * Copyright © KaiWu Technology Company
  *
@@ -9,7 +11,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.base;
  * @time 2019/7/20
  * @desc $desc
  */
-public class BaseRootResult<T> {
+public class BaseRootResult<T> implements Serializable {
 
 
     /**

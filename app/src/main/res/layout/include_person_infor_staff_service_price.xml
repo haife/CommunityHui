@@ -2,8 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-                android:paddingLeft="@dimen/base_horizontal_left_margin"
-                android:paddingRight="@dimen/base_horizontal_right_margin"
               android:layout_height="@dimen/dp_40">
 
     <TextView
@@ -11,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="月嫂"
         android:textColor="@color/home_color_hot_service_text"
         android:textSize="@dimen/sp_15"
         />

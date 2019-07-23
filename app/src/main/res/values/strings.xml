@@ -52,6 +52,7 @@
     <string name="home_staff_power_tags">技能标签</string>
     <string name="home_staff_service_price">服务价格</string>
     <string name="home_format_grade">%.0f 分</string>
+    <string name="home_format_grade_comment">%d.0 分</string>
     <string name="home_format_staff_message">%s年经验 | %d岁 | %s</string>
     <string name="home_format_staff_price">¥ %s</string>
     <string name="home_format_staff_order_number">%d成交量</string>
@@ -186,6 +187,7 @@
     <string name="social_circle_person_page_title">TA的主页</string>
     <string name="mine_add_address_hint">请添加地址</string>
     <string name="mine_address_info">%s\t\t\t\t\t\t%s</string>
+    <string name="social_circle_comment_hint">评论</string>
 
 
     <!--社交圈子-->

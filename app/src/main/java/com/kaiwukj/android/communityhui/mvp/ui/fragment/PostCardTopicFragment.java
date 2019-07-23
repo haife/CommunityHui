@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.PostCardPickImageAdapter;
@@ -65,7 +67,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
@@ -183,6 +185,21 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
 
     @Override
     public void post(Runnable runnable) {
+
+    }
+
+    @Override
+    public Context getCtx() {
+        return null;
+    }
+
+    @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
 
     }
 }

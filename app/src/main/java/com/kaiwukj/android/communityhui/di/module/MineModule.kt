@@ -28,4 +28,5 @@ class MineModule(private val view: MineContract.View) {
     fun provideMineModel(model: MineModel): MineContract.Model {
         return model
     }
+
 }

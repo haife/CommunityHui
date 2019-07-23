@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity
 import com.kaiwukj.android.communityhui.app.constant.AppointmentUrl
@@ -39,11 +40,11 @@ class AppointmentActivity : BaseSwipeBackActivity<AppointmentPresenter>(), Appoi
 
     @Autowired(name = ExtraCons.EXTRA_KEY_STAFF_USER_ID)
     @JvmField
-    var userId: Int? = null
+    var userId: String? = null
 
     @Autowired(name = ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID)
     @JvmField
-    var mSetviceTypeId: Int? = null
+    var mServiceTypeId: String? = null
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerAppointmentComponent
@@ -56,18 +57,19 @@ class AppointmentActivity : BaseSwipeBackActivity<AppointmentPresenter>(), Appoi
 
 
     override fun initView(savedInstanceState: Bundle?): Int {
+        ARouter.getInstance().inject(this@AppointmentActivity)
         return R.layout.activity_appointment
     }
 
 
     override fun initData(savedInstanceState: Bundle?) {
-        loadRootFragment(R.id.fl_appointment_container, AppointmentPersonInfoFragment.newInstance(userId, mSetviceTypeId))
+        //loadRootFragment(R.id.fl_appointment_container, AppointmentPersonInfoFragment.newInstance(userId, mSetviceTypeId))
 
-        /*  when (mTargetStr) {
-              AppointmentPersonInfoFragment.APPOINTMENT_PERSON_INFO_FRAGMENT -> {
-                  loadRootFragment(R.id.fl_appointment_container, AppointmentPersonInfoFragment.newInstance(userId!!))
-              }
-          }*/
+        when (mTargetStr) {
+            AppointmentPersonInfoFragment.APPOINTMENT_PERSON_INFO_FRAGMENT -> {
+                userId?.let { loadRootFragment(R.id.fl_appointment_container, AppointmentPersonInfoFragment.newInstance(it.toInt(), mServiceTypeId?.toInt())) }
+            }
+        }
     }
 
 

@@ -1,19 +1,19 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
@@ -22,8 +22,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -55,7 +53,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
@@ -76,11 +74,11 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         for (int i = 0; i < 10; i++) {
             list.add(new HRecommendMultiItemEntity(""));
         }
-        SocialCircleListAdapter circleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_card_comment_layout, list);
-        mCircleCardCommentRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mCircleCardCommentRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2,
-                ContextCompat.getColor(getContext(), R.color.common_divide_line_color)));
-        mCircleCardCommentRv.setAdapter(circleListAdapter);
+//        SocialCircleListAdapter circleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_card_comment_layout, list);
+//        mCircleCardCommentRv.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mCircleCardCommentRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2,
+//                ContextCompat.getColor(getContext(), R.color.common_divide_line_color)));
+//        mCircleCardCommentRv.setAdapter(circleListAdapter);
 
 
     }
@@ -122,6 +120,21 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void post(Runnable runnable) {
+
+    }
+
+    @Override
+    public Context getCtx() {
+        return getContext();
+    }
+
+    @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
 
     }
 }

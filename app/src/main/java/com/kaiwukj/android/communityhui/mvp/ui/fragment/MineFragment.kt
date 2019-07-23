@@ -34,7 +34,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         }
     }
 
-
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMineComponent
                 .builder()

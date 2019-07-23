@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--用户信息资历-->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:gravity="center"
-          android:background="@color/window_background_color"
-          android:paddingLeft="@dimen/dp_16"
-          android:paddingRight="@dimen/dp_16"
-          android:paddingTop="@dimen/dp_10"
-          android:paddingBottom="@dimen/dp_10"
-          android:text="身份证"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:textColor="@color/write_color"
           android:textSize="@dimen/sp_16">
 
 

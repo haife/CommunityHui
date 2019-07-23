@@ -15,6 +15,7 @@ import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
@@ -36,10 +37,16 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  */
 @Route(path = StoreListURL)
 class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.View {
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+    }
 
     @Autowired(name = ExtraCons.EXTRA_KEY_STORE)
     @JvmField
     var mTargetStr: String? = null
+
+    @Autowired(name = ExtraCons.EXTRA_KEY_STORE_SHOP_ID)
+    @JvmField
+    var mShopId: String? = null
 
     override fun post(runnable: Runnable?) {
     }
@@ -68,7 +75,7 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
 
         when (mTargetStr) {
             HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_store_container, StoreListFragment.newInstance())
-            StoreSortListFragment.STORE_SORT_LIST_FRAGMENT -> loadRootFragment(R.id.fl_store_container, StoreDetailFragment.newInstance())
+            StoreSortListFragment.STORE_SORT_LIST_FRAGMENT -> loadRootFragment(R.id.fl_store_container, StoreDetailFragment.newInstance(mShopId?.toInt()))
         }
 
 

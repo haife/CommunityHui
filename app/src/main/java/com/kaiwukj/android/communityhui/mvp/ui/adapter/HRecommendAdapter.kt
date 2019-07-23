@@ -17,6 +17,7 @@ import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.mvp.helper.FixLinearSnapHelper
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment.Companion.HOUSE_KEEP_LIST_FRAGMENT
 import com.kaiwukj.android.communityhui.utils.DiskCacheStrategyType
 import com.kaiwukj.android.mcas.http.imageloader.ImageConfigImpl
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
@@ -65,6 +66,22 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
             }
             HRecommendMultiItemEntity.HOT_SERVICE_TYPE -> {
                 processServiceItem(item, helper)
+                helper.getView<ImageView>(R.id.iv_home_moon_woman_service).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[0].id)
+                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                }
+                helper.getView<ImageView>(R.id.iv_home_carer).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[1].id)
+                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                }
+                helper.getView<ImageView>(R.id.iv_home_child_rearing).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[2].id)
+                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                }
+                helper.getView<ImageView>(R.id.iv_home_prolactin).setOnClickListener {
+                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[3].id)
+                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                }
             }
 
             HRecommendMultiItemEntity.STORES_RECOMMEND -> {

@@ -84,8 +84,8 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
     /**
      * 获取地址
      */
-    fun requestMyAddress(request: Int) {
-        mModel.requestMyAddress(request)
+    fun requestMyAddress() {
+        mModel.requestMyAddress()
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())

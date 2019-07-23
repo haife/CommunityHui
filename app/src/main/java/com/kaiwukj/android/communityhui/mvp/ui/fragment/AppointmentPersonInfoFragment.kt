@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.include_person_information_header.*
 import kotlinx.android.synthetic.main.include_person_others_info.*
 import kotlinx.android.synthetic.main.include_person_qualification_info.*
 
+
 /**
  * Copyright © KaiWu Technology Company
  * @author Haife
@@ -40,7 +41,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private var shopId: Int? = null
     private var userId: Int? = null
     private var mServiceTypeId: Int? = null
-    lateinit var mStoreListAdapter: AppointmentCommentAdapter
+    private lateinit var mStoreListAdapter: AppointmentCommentAdapter
     private var commentList = ArrayList<StaffCommentResult>()
 
     companion object {
@@ -64,7 +65,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return attachToSwipeBack(inflater.inflate(R.layout.fragment_appointment_person_information, container, false))
+        return attachToSwipeBack(inflater.inflate(com.kaiwukj.android.communityhui.R.layout.fragment_appointment_person_information, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -73,14 +74,14 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
 
 
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
-        mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
+        mStoreListAdapter = AppointmentCommentAdapter(com.kaiwukj.android.communityhui.R.layout.recycle_item_staff_comment_layout, commentList as MutableList<StaffCommentResult>?, context!!)
         rv_appointment_user_comment.adapter = mStoreListAdapter
-        val footLoadView = LayoutInflater.from(context!!).inflate(R.layout.footer_comment_load_more_layout, null)
+        val footLoadView = LayoutInflater.from(context!!).inflate(com.kaiwukj.android.communityhui.R.layout.footer_comment_load_more_layout, null)
         mStoreListAdapter.addFooterView(footLoadView)
 
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
-            start(AppointmentDemandFragment.newInstance(userId, mServiceTypeId,shopId))
+            start(AppointmentDemandFragment.newInstance(userId, mServiceTypeId, shopId))
         }
 
         //所属门店
@@ -94,6 +95,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
      * @param result StaffInfoResult
      */
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {
+        val result: StaffInfoResult = result.result
         shopId = result.hmstoreId
         GlideArms.with(context!!).load(Api.IMG_URL + result.avatar).circleCrop().centerCrop().into(riv_person_info_photo)
         tv_riv_person_info_name.text = result.realName
@@ -104,16 +106,20 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         tv_person_info_shop_comment.text = String.format(getString(R.string.home_format_staff_info_work_time), result.evaluate)
         //资历列表
         if (result.empCommentList.isNotEmpty()) {
-            // ll_person_qualification_info_container.setLabels()
+            commentList.addAll(result.empCommentList)
+             //ll_person_qualification_info_container.setLabels()
         }
         //服务价格
         if (result.empTypeList.isNotEmpty()) {
             for (index in result.empTypeList) {
-                var itemView: RelativeLayout = LayoutInflater.from(context).inflate(R.layout.include_person_infor_staff_service_price, null) as RelativeLayout
+                val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+                lp.setMargins(0, 15, 0, 15)
+                var itemView = LayoutInflater.from(context).inflate(R.layout.include_person_infor_staff_service_price, null)
                 val nameTv = itemView.findViewById<TextView>(R.id.tv_staff_service_price_name)
                 val priceTv = itemView.findViewById<TextView>(R.id.tv_person_info_service_price)
                 nameTv.text = index.serviceType ?: ""
                 priceTv.text = String.format(getString(R.string.person_info_service_price_format), index.servicePrice, index.serviceUnit)
+                itemView.layoutParams = lp
                 ll_peron_other_info_service_price.addView(itemView)
             }
         }
@@ -125,7 +131,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     }
 
     private fun initTopBar() {
-        qtb_appointment_person_info.setTitle(getString(R.string.appointment_staff_info_detail))
+        qtb_appointment_person_info.setTitle(getString(com.kaiwukj.android.communityhui.R.string.appointment_staff_info_detail))
         qtb_appointment_person_info.addLeftBackImageButton().setOnClickListener { killMyself() }
 
     }

@@ -1,11 +1,13 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.HorizontalSpacesItemDecoration;
@@ -13,18 +15,25 @@ import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
-import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.utils.McaUtils;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,9 +56,27 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     @BindView(R.id.rv_social_circle)
     RecyclerView mCircleRv;
 
+    @BindView(R.id.smart_refresh_circle)
+    SmartRefreshLayout mRefreshView;
+
     @BindView(R.id.iv_btn_social_circle)
     ImageButton mPostTopicBt;
-    private SocialCircleListAdapter mCircleListAdapter;
+    @Inject
+    List<CircleCardResult> mCardResults;
+
+    @Inject
+    List<CircleHotResult> mHotList;
+
+    @Inject
+    List<CircleHomeResult> mDataList;
+    @Inject
+    SocialCircleListAdapter mCircleListAdapter;
+
+    @Inject
+    SocialCircleTopicAdapter mCircleTopicAdapter;
+    private TextView mHotTvTitle;
+    private int page = 1;
+    private CircleHomeRequest request = new CircleHomeRequest();
 
     public static SocialCircleFragment newInstance() {
         SocialCircleFragment fragment = new SocialCircleFragment();
@@ -61,7 +88,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
@@ -73,35 +100,60 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        List<HRecommendMultiItemEntity> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new HRecommendMultiItemEntity(""));
-        }
-        mCircleListAdapter = new SocialCircleListAdapter(R.layout.recycle_item_circle_with_photo_layout, list);
+        initRecycleView();
+//        mPresenter.getHomeRecommendData(request, true);
+        mPresenter.requestCircleCardList();
+        mPresenter.requestCircleHotList();
+        mRefreshView.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            refreshLayout.setEnableLoadMore(false);
+            mPresenter.getHomeRecommendData(request, true);
+        });
+        mRefreshView.setOnLoadMoreListener(refreshLayout -> {
+            page += 1;
+            refreshLayout.setEnableRefresh(false);
+            mPresenter.getHomeRecommendData(request, false);
+        });
+    }
+
+    private void initRecycleView() {
         mCircleRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mCircleRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
         mCircleRv.setAdapter(mCircleListAdapter);
         View topicView = LayoutInflater.from(getContext()).inflate(R.layout.header_social_circle_topic, null);
+        mHotTvTitle = topicView.findViewById(R.id.tv_social_circle_hot_title);
         mCircleListAdapter.addHeaderView(topicView);
         RecyclerView topicRv = topicView.findViewById(R.id.rv_header_circle_topic);
-        SocialCircleTopicAdapter topicAdapter = new SocialCircleTopicAdapter(R.layout.recycle_item_social_circle_topic, list);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         topicRv.addItemDecoration(new HorizontalSpacesItemDecoration(14));
         McaUtils.configRecyclerView(topicRv, manager);
-        topicRv.setAdapter(topicAdapter);
-
-        topicAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.CircleListUrl).navigation();
+        topicRv.setAdapter(mCircleTopicAdapter);
+        mCircleTopicAdapter.setOnItemClickListener((adapter, view, position) -> {
+            ARouter.getInstance().build(ARouterUrlKt.CircleListUrl).withInt(ExtraCons.CIRCLE_TOPIC_TYPE_ID, mHotList.get(position).getId())
+                    .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mHotList.get(position).getTitle()).navigation();
         });
-
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).navigation();
         });
 
         mPostTopicBt.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT).navigation());
-
     }
 
+    @Override
+    public void finishRefresh() {
+        mRefreshView.setEnableLoadMore(true);
+        mRefreshView.finishRefresh();
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
+        mRefreshView.setEnableRefresh(true);
+        mRefreshView.finishLoadMore();
+        if (noData) {
+            mRefreshView.finishLoadMoreWithNoMoreData();
+        }
+
+    }
 
     @Override
     public void showLoading() {
@@ -115,6 +167,9 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void showMessage(@NonNull String message) {
+        if (mHotList.size() > 0) {
+            mHotTvTitle.setText(mHotList.get(0).getTitle());
+        }
     }
 
     @Override
@@ -130,4 +185,11 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     public void post(Runnable runnable) {
 
     }
+
+    @Override
+    public Context getCtx() {
+        return getContext();
+    }
+
+
 }

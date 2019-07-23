@@ -58,6 +58,7 @@
                     android:padding="@dimen/dp_5">
 
                     <ImageView
+                        android:id="@+id/iv_store_detail_license"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  * @time 2019/7/20
  * @desc $desc
  */
-public class HomeServiceEntity extends BaseRootResult<List<HomeServiceEntity>> {
+public class HomeServiceEntity extends BaseRootResult<List<HomeServiceEntity>>implements Serializable {
     private String dicValue;
     private String id;
     private String img;

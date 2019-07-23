@@ -14,13 +14,15 @@ import java.util.List;
  * @desc https://github.com/VictorAlbertos/RxCache/issues/73
  */
 public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
+
+
     private String address;
     private int id;
     private int orderNum;
+    private String serviceTypeIds;
     private String storeLogoImg;
     private String storeName;
-    private List<Integer> ids;
-    private List<String> names;
+    private List<StoreSortResponseListBean> storeSortResponseList;
 
     public String getAddress() {
         return address;
@@ -46,6 +48,14 @@ public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
         this.orderNum = orderNum;
     }
 
+    public String getServiceTypeIds() {
+        return serviceTypeIds;
+    }
+
+    public void setServiceTypeIds(String serviceTypeIds) {
+        this.serviceTypeIds = serviceTypeIds;
+    }
+
     public String getStoreLogoImg() {
         return storeLogoImg;
     }
@@ -62,19 +72,60 @@ public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
         this.storeName = storeName;
     }
 
-    public List<Integer> getIds() {
-        return ids;
+    public List<StoreSortResponseListBean> getStoreSortResponseList() {
+        return storeSortResponseList;
     }
 
-    public void setIds(List<Integer> ids) {
-        this.ids = ids;
+    public void setStoreSortResponseList(List<StoreSortResponseListBean> storeSortResponseList) {
+        this.storeSortResponseList = storeSortResponseList;
     }
 
-    public List<String> getNames() {
-        return names;
-    }
+    public static class StoreSortResponseListBean {
 
-    public void setNames(List<String> names) {
-        this.names = names;
+        private int hmstoreId;
+        private int number;
+        private int recommendNum;
+        private String serviceName;
+        private int serviceTypeId;
+
+        public int getHmstoreId() {
+            return hmstoreId;
+        }
+
+        public void setHmstoreId(int hmstoreId) {
+            this.hmstoreId = hmstoreId;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        public int getRecommendNum() {
+            return recommendNum;
+        }
+
+        public void setRecommendNum(int recommendNum) {
+            this.recommendNum = recommendNum;
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
+        }
+
+        public int getServiceTypeId() {
+            return serviceTypeId;
+        }
+
+        public void setServiceTypeId(int serviceTypeId) {
+            this.serviceTypeId = serviceTypeId;
+        }
     }
 }

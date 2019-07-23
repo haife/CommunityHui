@@ -6,6 +6,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreStaffRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
@@ -40,7 +41,6 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
     @Inject
     lateinit var mAppManager: AppManager
 
-
     /**
      * 首页服务列表
      */
@@ -53,6 +53,7 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetServiceList(data.result)
+
                         } else {
 
                         }

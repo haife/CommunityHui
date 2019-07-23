@@ -1,15 +1,13 @@
 package com.kaiwukj.android.communityhui.mvp.presenter
 
 import android.app.Application
-
-import me.jessyan.rxerrorhandler.core.RxErrorHandler
-import javax.inject.Inject
-
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
 import com.kaiwukj.android.mcas.mvp.BasePresenter
+import me.jessyan.rxerrorhandler.core.RxErrorHandler
+import javax.inject.Inject
 
 
 /**
@@ -34,6 +32,24 @@ constructor(model: MainContract.Model, rootView: MainContract.View) :
     @Inject
     lateinit var mAppManager: AppManager
 
+    /**
+     * 首页服务列表
+     */
+    fun requestServiceList() {
+//        mModel.getMineInfoData()
+//                .subscribeOn(Schedulers.io())
+//                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+//                .unsubscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<MineUserInfoResult>(mErrorHandler) {
+//                    override fun onNext(data: MineUserInfoResult) {
+//                        if (data.code == Api.RequestSuccess) {
+//
+//                        } else {
+//
+//                        }
+//                    }
+//                })
+    }
 
     override fun onDestroy() {
         super.onDestroy();

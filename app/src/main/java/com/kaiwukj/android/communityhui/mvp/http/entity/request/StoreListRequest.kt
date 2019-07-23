@@ -8,4 +8,4 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request
  * @time 2019/7/22
  * @desc $desc
  */
-data class StoreListRequest(val recommendFlag: Int?, var serviceTypeId: Int? = null, var hmstoreId: Int? = null)
+data class StoreListRequest(val recommendFlag: Int?, var serviceTypeId: Int? = null, var hmstoreId: Int? = null, var page: Int? = null)

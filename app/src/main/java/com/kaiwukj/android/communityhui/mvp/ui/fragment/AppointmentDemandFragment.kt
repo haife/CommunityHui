@@ -42,10 +42,12 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     private var mUserId: Int? = null
     private var mShopID: Int? = null
     private var request: AppointmentDemandRequest = AppointmentDemandRequest()
+
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
+        const val REQUEST_ADDRESS_ID_CODE = 1
         fun newInstance(userId: Int?, serviceTypeId: Int?, shopID: Int?): AppointmentDemandFragment {
             val fragment = AppointmentDemandFragment()
             fragment.mServiceTypeId = serviceTypeId
@@ -72,8 +74,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     override fun initData(savedInstanceState: Bundle?) {
         mShopID?.let { request.hmstoreId = it }
         mUserId?.let {
-            request.storeemployeeId = it
-            mPresenter?.requestMyAddress(it)
+            mPresenter?.requestMyAddress()
         }
         mServiceTypeId?.let {
             request.serviceTypeId = it
@@ -83,43 +84,16 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         }
         initTopBar()
         initPickDate()
-
         //提交订单
-        qbtn_submit_order.setOnClickListener lable@{
-            if (mAddressId == null) {
-                showHint(getString(R.string.appointment_demand_address_hint))
-                Handler().postDelayed({
-                    hideLoading()
-                }, 800)
-                return@lable
-            }
-            if (et_appoint_demand_service_days.text.toString().isEmpty()) {
-                showHint(getString(R.string.appointment_demand_days_hint))
-                Handler().postDelayed({
-                    hideLoading()
-                }, 800)
-                return@lable
-            } else {
-                request.serviceLength = et_appoint_demand_service_days.text.toString().toInt()
-            }
+        submitOrder()
 
-            if (request.planBeginTime.toString().isEmpty()) {
-                showHint(getString(R.string.appointment_demand_days_hint))
-                Handler().postDelayed({
-                    hideLoading()
-                }, 800)
-                return@lable
-            }
-            if (et_appoint_demand_other_content.text.isNotEmpty()) {
-                request.description = et_appoint_demand_service_days.text.toString()
-            }
-            showLoading()
-            Handler().postDelayed({
-                mPresenter?.requestAppointmentDate(request)
-            }, 1000)
-
+        tv_add_address_hint.setOnClickListener {
+            startForResult(EditMineAddressFragment.newInstance(), REQUEST_ADDRESS_ID_CODE)
         }
 
+        rl_appointment_address_container.setOnClickListener {
+            startForResult(MineAddressListFragment.newInstance(), REQUEST_ADDRESS_ID_CODE)
+        }
 
     }
 
@@ -157,7 +131,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
      * @param result MyAddressResult
      */
     override fun onGetMyAddressList(result: MyAddressResult) {
-        //判断有误地址
+        //判断有无地址
         tv_add_address_hint.visibility = if (result.result.isNotEmpty()) View.GONE else View.VISIBLE
         rl_appointment_address_container.visibility = if (result.result.isNotEmpty()) View.VISIBLE else View.GONE
         if (result.result.isNotEmpty()) {
@@ -166,6 +140,45 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
             tv_address_user_info.text = String.format(getString(R.string.mine_address_info), result.result[0].name, result.result[0].phone)
         }
     }
+
+
+    private fun submitOrder() {
+        qbtn_submit_order.setOnClickListener lable@{
+            if (mAddressId == null) {
+                showHint(getString(R.string.appointment_demand_address_hint))
+                Handler().postDelayed({
+                    hideLoading()
+                }, 800)
+                return@lable
+            }
+            if (et_appoint_demand_service_days.text.toString().isEmpty()) {
+                showHint(getString(R.string.appointment_demand_days_hint))
+                Handler().postDelayed({
+                    hideLoading()
+                }, 800)
+                return@lable
+            } else {
+                request.serviceLength = et_appoint_demand_service_days.text.toString().toInt()
+            }
+
+            if (request.planBeginTime.toString().isEmpty()) {
+                showHint(getString(R.string.appointment_demand_days_hint))
+                Handler().postDelayed({
+                    hideLoading()
+                }, 800)
+                return@lable
+            }
+            if (et_appoint_demand_other_content.text.isNotEmpty()) {
+                request.description = et_appoint_demand_service_days.text.toString()
+            }
+            showLoading()
+            Handler().postDelayed({
+                mPresenter?.requestAppointmentDate(request)
+            }, 1000)
+
+        }
+    }
+
 
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {
     }
@@ -198,4 +211,6 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     override fun killMyself() {
         activity?.onBackPressed()
     }
+
+
 }

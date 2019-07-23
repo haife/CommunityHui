@@ -34,7 +34,7 @@ interface AppointmentContract {
         fun requestUserComment(userId: Int): Observable<StaffCommentResult>
 
         //获取地址
-        fun requestMyAddress(userId: Int): Observable<MyAddressResult>
+        fun requestMyAddress(): Observable<MyAddressResult>
 
         //提交订单
         fun requestAppointmentDate(request: AppointmentDemandRequest): Observable<BaseStatusResult>

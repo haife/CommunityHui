@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,7 +38,6 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
     private var typeFaceMediumBold: Typeface? = null
     private var serviceAdapter: HouseKeepServiceAdapter? = null
 
-
     companion object {
         fun newInstance(): HouseKeepFragment {
             val fragment = HouseKeepFragment()
@@ -68,11 +68,10 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
     private fun initUi() {
         serviceAdapter = HouseKeepServiceAdapter(R.layout.recycle_item_house_keep_service, mEntity, context)
         rv_house_keep_type.layoutManager = LinearLayoutManager(context)
-        rv_house_keep_type.addItemDecoration(RecycleViewDivide(divideHeight = 20))
+        rv_house_keep_type.addItemDecoration(RecycleViewDivide(divideHeight = 20, divideColor = Color.parseColor("#F9F9F9")))
         rv_house_keep_type.adapter = serviceAdapter
-
         serviceAdapter?.setOnItemClickListener { adapter, view, position ->
-            start(HouseKeepListFragment.newInstance(mEntity[position].id,mEntity))
+            start(HouseKeepListFragment.newInstance(mEntity[position].id, mEntity))
         }
     }
 

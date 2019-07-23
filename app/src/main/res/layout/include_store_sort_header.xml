@@ -15,9 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="@dimen/dp_100"
-        android:textStyle="bold"
         android:textColor="@color/home_color_banner_top_text"
         android:textSize="@dimen/sp_22"
+        android:textStyle="bold"
         />
 
     <TextView
@@ -34,23 +34,13 @@
         android:textSize="14sp"
         />
 
-    <TextView
-        android:id="@+id/tv_store_sort_header_grade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_store_sort_header"
-        android:layout_marginTop="@dimen/dp_6"
-        android:text="评分：4.7分丨09：00-22：00"
-
-        android:textColor="@color/common_text_slight_color"
-        android:textSize="@dimen/sp_13"/>
 
     <TextView
         android:id="@+id/tv_store_sort_header_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_store_sort_header_grade"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_below="@+id/tv_store_sort_header_look_detail"
+        android:layout_marginTop="@dimen/dp_25"
         android:layout_marginRight="@dimen/dp_72"
         android:drawableLeft="@mipmap/icon_home_address_location"
         android:drawablePadding="@dimen/dp_2"

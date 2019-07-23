@@ -21,6 +21,7 @@ import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
@@ -62,7 +63,6 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         }
     }
 
-
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerStoreComponent
                 .builder()
@@ -78,45 +78,51 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
-        initTopBar()
         request.hmstoreId = mShopId
-        mPresenter?.requestStoreStaffList(request)
+        mShopId?.let { mPresenter?.requestStoreDetail(it) }
         //查看门店详情
         tv_store_sort_header_look_detail.setOnClickListener {
-            ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, STORE_SORT_LIST_FRAGMENT).navigation()
+            ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, STORE_SORT_LIST_FRAGMENT)
+                    .withString(ExtraCons.EXTRA_KEY_STORE_SHOP_ID, mShopId.toString()).navigation()
         }
     }
 
     private fun initTopBar() {
         qtb_store_list_sort.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_store_list_sort.setTitle(getString(R.string.store_title))
-
     }
 
+    /**
+     * 获取门店详情
+     * @param detailResult StoreDetailResult
+     */
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+        tv_store_sort_header.text = detailResult.storeName
+        tv_store_sort_header_address.text = detailResult.address
+        cb_store_sort_header_address.isChecked = detailResult.favoriteFlag == 1
+        val listTab = ArrayList<BouseKeepingServiceType>()
+        val itemRecommend = BouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
+        listTab.add(itemRecommend)
+        //请求门店下推荐技工实体类
+        val recommend = StoreListRequest(1, serviceTypeId = null, hmstoreId = mShopId)
+        mFragmentList.add(HouseStaffListFragment.newInstance(recommend, 2))
+        val itemAll = BouseKeepingServiceType(0, getString(R.string.mine_order_all))
+        listTab.add(itemAll)
+        //请求门店下所有技工实体类
+        val all = StoreListRequest(null, serviceTypeId = null, hmstoreId = mShopId)
+        mFragmentList.add(HouseStaffListFragment.newInstance(all, 2))
+
+        for ((index, element) in detailResult.storeSortResponseList.withIndex()) {
+            val itemAll = BouseKeepingServiceType(element.serviceTypeId, element.serviceName)
+            listTab.add(itemAll)
+            val itemType = StoreListRequest(recommendFlag = null, serviceTypeId = element.serviceTypeId, hmstoreId = mShopId)
+            mFragmentList.add(HouseStaffListFragment.newInstance(itemType, 2))
+        }
+
+        initMagicIndicatorView(listTab)
+    }
 
     override fun getContextView(): Context? = context
-
-    override fun onGetStoreRecommend(list: StoreListResult) {
-        val listTab = ArrayList<BouseKeepingServiceType>()
-        //门店第一个为推荐技工
-        val item = BouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
-        listTab.add(0, item)
-        val data = StoreListRequest(1, null, mShopId)
-        mFragmentList.add(HouseStaffListFragment.newInstance(data, 2))
-
-        for ((index, id) in list.ids.withIndex()) {
-            val item = BouseKeepingServiceType(id, list.names[index])
-            listTab.add(index + 1, item)
-            val data = StoreListRequest(0, serviceTypeId = id, hmstoreId = mShopId)
-            mFragmentList.add(HouseStaffListFragment.newInstance(data, 2))
-        }
-        initMagicIndicatorView(listTab)
-
-        tv_store_sort_header.text = list.storeName
-        tv_store_sort_header_address.text = list.address
-        // tv_store_sort_header_grade.text = list.address
-
-    }
 
 
     private fun initMagicIndicatorView(magicIndicatorContentList: List<BouseKeepingServiceType>) {
@@ -135,7 +141,6 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_store_sort_list_container.currentItem = index }
-
                 return simplePagerTitleView
             }
 
@@ -154,6 +159,10 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         //bind fragmentViewPager
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_store_sort_list_container.adapter = homeViewPagerAdapter
+
+    }
+
+    override fun onGetStoreRecommend(list: StoreListResult) {
 
     }
 

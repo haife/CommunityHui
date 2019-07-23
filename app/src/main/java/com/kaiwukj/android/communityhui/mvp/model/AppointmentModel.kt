@@ -62,10 +62,9 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
      * @param userId Int
      * @return Observable<MyAddressResult>
      */
-    override fun requestMyAddress(userId: Int): Observable<MyAddressResult> {
-        var req = StaffCommentRequest(userId)
+    override fun requestMyAddress(): Observable<MyAddressResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
-                .requestMyAddress(userId))
+                .requestMyAddress())
                 .flatMap { it }
     }
 

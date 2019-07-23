@@ -17,14 +17,18 @@ class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val cont
     private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
 
     override fun convert(helper: BaseViewHolder, item: StoreListResult) {
-        var shopTypeName: String? = null
-        for (index in item.names) {
-            if (index.isNotEmpty())
-                shopTypeName = "$shopTypeName\t|\t$index"
+        var shopTypeName: String? = ""
+        var oneStr: String? = ""
+        for ((index, str) in item.storeSortResponseList.withIndex()) {
+            if (index == 0) {
+                oneStr = str.serviceName
+            } else {
+                shopTypeName = "$shopTypeName\t|\t${str.serviceName}"
+            }
         }
 
         helper.setText(R.id.iv_store_list_name, item.storeName).setTypeface(typeFaceMedium).setText(R.id.iv_store_list_price, item.address)
-        helper.setText(R.id.iv_store_list_message, shopTypeName)
+        helper.setText(R.id.iv_store_list_message, oneStr + shopTypeName)
     }
 
 

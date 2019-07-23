@@ -1,10 +1,12 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult;
 
 import io.reactivex.Observable;
@@ -65,4 +67,10 @@ public interface HomeService {
      */
     @POST("/app/sc/storeEmployee/list")
     Observable<BaseStatusResult> requestAppointmentOrder(@Body RequestBody requestBody);
+
+    /*
+     * 提交预约订单
+     */
+    @GET("/app/sc/storeService/store/{storeId}")
+    Observable<BaseRootResult<StoreDetailResult>> requestStoreDetail(@Path("storeId") int id);
 }

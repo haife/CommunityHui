@@ -127,4 +127,20 @@ public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresent
     public void post(Runnable runnable) {
 
     }
+
+    @Override
+    public Context getCtx() {
+
+        return getContext();
+    }
+
+    @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
+
+    }
 }

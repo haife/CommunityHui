@@ -35,7 +35,6 @@
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -46,7 +45,6 @@
             android:name=".mvp.ui.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginInputEditLayout">
-
         </activity> <!-- 我的主页 -->
         <activity
             android:name=".mvp.ui.activity.EditMineInfoActivity"
@@ -62,10 +60,9 @@
             android:theme="@style/SwipeBackStyle"/>
         <activity
             android:name=".mvp.ui.activity.AppointmentActivity"
-            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:configChanges="keyboard|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
-
 
         </activity> <!-- 家政 -->
         <activity

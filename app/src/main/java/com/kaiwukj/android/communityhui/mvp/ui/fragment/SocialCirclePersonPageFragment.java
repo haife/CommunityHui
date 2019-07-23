@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
@@ -69,7 +70,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
@@ -156,6 +157,16 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     }
 
     @Override
+    public void finishRefresh() {
+
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
+
+    }
+
+    @Override
     public void showMessage(@NonNull String message) {
     }
 
@@ -176,5 +187,10 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     @Override
     public void post(Runnable runnable) {
 
+    }
+
+    @Override
+    public Context getCtx() {
+        return getContext();
     }
 }

@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
@@ -42,7 +44,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
         DaggerSocialCircleComponent
                 .builder()
                 .appComponent(appComponent)
-                .view(this)
+                .socialCircleModule(new SocialCircleModule(this))
                 .build()
                 .inject(this);
     }
@@ -56,7 +58,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
     public void initData(@Nullable Bundle savedInstanceState) {
         if (CircleCardDetailFragment.CIRCLE_CARD_DETAIL.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance());
-        }else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)){
+        } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
         }
 
@@ -64,7 +66,6 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
@@ -95,5 +96,18 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
 
     }
 
+    @Override
+    public void finishRefresh() {
 
+    }
+
+    @Override
+    public void finishLoadMore(@Nullable boolean noData) {
+
+    }
+
+    @Override
+    public Context getCtx() {
+        return this.mContext;
+    }
 }

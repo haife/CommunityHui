@@ -15,6 +15,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
@@ -35,8 +36,11 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
     @JvmField
     var mTargetStr: String? = null
 
+    @Autowired(name = ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY)
+    @JvmField
+    var id: String? = null
 
-
+    private var mEntity: ArrayList<HomeServiceEntity> = ArrayList()
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerHouseKeepComponent
                 .builder()
@@ -56,8 +60,11 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
         when (mTargetStr) {
             //从首页跳转而来
             HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_house_keeping_container, HouseKeepFragment.newInstance())
-
+            HouseKeepListFragment.HOUSE_KEEP_LIST_FRAGMENT -> {
+                mPresenter?.requestServiceList()
+            }
         }
+
 
     }
 
@@ -70,6 +77,8 @@ class HouseKeepActivity : BaseSwipeBackActivity<HouseKeepPresenter>(), HouseKeep
     }
 
     override fun onGetServiceList(result: List<HomeServiceEntity>) {
+        mEntity.addAll(result)
+        id?.let { loadRootFragment(R.id.fl_house_keeping_container, HouseKeepListFragment.newInstance(it, mEntity)) }
     }
 
     override fun post(runnable: Runnable?) {

@@ -46,7 +46,7 @@ class LineBreakLayout(context: Context, attr: AttributeSet) : ViewGroup(context,
         if (labels.isNotEmpty()) {
             for (element: String in tableList) {
                 val tv: TextView = LayoutInflater.from(context).inflate(R.layout.custom_qualification_information_widget, null) as TextView
-
+                tv.background = ContextCompat.getDrawable(context, R.drawable.shape_home_staff_qualification_tags)
                 if (tagsTypes == 1) {
                     tv.background = ContextCompat.getDrawable(context, R.drawable.shape_home_staff_power_tags)
                 } else {

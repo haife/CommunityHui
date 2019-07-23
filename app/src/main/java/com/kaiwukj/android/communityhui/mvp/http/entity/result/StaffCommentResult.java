@@ -19,6 +19,24 @@ public class StaffCommentResult extends BaseRootResult<List<StaffCommentResult>>
     private String content;
     private String headImg;
     private String nickName;
+    private String createTime;
+    private int score;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public int getCreateBy() {
         return createBy;

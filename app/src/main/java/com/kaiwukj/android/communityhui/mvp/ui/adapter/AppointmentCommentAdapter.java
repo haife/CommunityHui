@@ -30,6 +30,7 @@ public class AppointmentCommentAdapter extends BaseQuickAdapter<StaffCommentResu
     protected void convert(BaseViewHolder helper, StaffCommentResult item) {
         QMUIRadiusImageView headIv = helper.getView(R.id.riv_comment_person_info_photo);
         GlideArms.with(mContext).load(Api.IMG_URL + item.getHeadImg()).circleCrop().into(headIv);
-        helper.setText(R.id.tv_rcomment_person_info_name,item.getNickName()).setText(R.id.tv_comment_person_content,item.getContent());
+        helper.setText(R.id.tv_rcomment_person_info_name, item.getNickName()).setText(R.id.tv_comment_person_content, item.getContent())
+                .setText(R.id.tv_comment_person_time, item.getCreateTime()).setText(R.id.tv_comment_person_grade, String.format(mContext.getString(R.string.home_format_grade_comment), item.getScore()));
     }
 }

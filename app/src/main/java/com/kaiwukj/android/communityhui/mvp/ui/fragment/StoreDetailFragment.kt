@@ -12,10 +12,15 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CollectionRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import kotlinx.android.synthetic.main.fragment_store_detail.*
+import kotlinx.android.synthetic.main.include_store_detail_header.*
 
 
 /**
@@ -28,10 +33,14 @@ import kotlinx.android.synthetic.main.fragment_store_detail.*
  */
 class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
 
+    var mShopId: Int? = null
+    //  1技工 2门店
+    val mTypeId: Int = 2
 
     companion object {
-        fun newInstance(): StoreDetailFragment {
+        fun newInstance(shopId: Int?): StoreDetailFragment {
             val fragment = StoreDetailFragment()
+            fragment.mShopId = shopId
             return fragment
         }
     }
@@ -52,6 +61,22 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
+        mShopId?.let {
+            mPresenter?.requestStoreDetail(it)
+        }
+        val requestColl = mShopId?.let { CollectionRequest(it, mTypeId) }
+
+        cb_store_detail_header_address.setOnCheckedChangeListener { compoundButton, b ->
+            if (b) {
+                if (requestColl != null) {
+                    mPresenter?.requestAddCollection(requestColl)
+                }
+            } else {
+                mShopId?.let { mPresenter?.requestMoveCollection(it) }
+            }
+        }
+
+
     }
 
     private fun initTopBar() {
@@ -59,6 +84,16 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
         qtb_store_detail.setTitle(getString(R.string.store_detail_title))
 
     }
+
+
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+
+        tv_store_detail_header.text = detailResult.storeName
+        tv_store_detail_header_address.text = detailResult.address
+        cb_store_detail_header_address.isChecked = detailResult.favoriteFlag == 1
+        context?.let { GlideArms.with(it).load(Api.IMG_URL + detailResult.licenseImg).centerCrop().into(iv_store_detail_license) }
+    }
+
 
     override fun getContextView(): Context? = context
 

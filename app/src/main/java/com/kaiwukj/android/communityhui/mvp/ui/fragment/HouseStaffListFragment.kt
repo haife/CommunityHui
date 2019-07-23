@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,17 +98,25 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         rv_staff_list_child.adapter = mHouseAdapter
 
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
-            Log.e("USER_ID", staffList[position].storeemployeeId.toString())
             val userID = staffList[position].storeemployeeId
+            val serviceTypeId = staffList[position].serviceTypeId
+
+
             ARouter.getInstance().build(AppointmentUrl)
                     .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, APPOINTMENT_PERSON_INFO_FRAGMENT)
-                    .withInt(ExtraCons.EXTRA_KEY_STAFF_USER_ID, userID).navigation()
+                    .withString(ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID, serviceTypeId.toString())
+                    .withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, userID.toString()).navigation()
         }
 
         smart_refresh_staff_list.setOnLoadMoreListener {
             page++
             isLoadMore = true
-            mPresenter?.requestSelectStaff(request)
+            when (mRequestType) {
+                1 ->   //如果是选择阿姨类型 请求此接口
+                    mPresenter?.requestSelectStaff(request)
+                2 ->   //如果是查看某个门店下的所有阿姨
+                    mShopStaffRequest?.let { mPresenter?.requestShopsStaffList(it) }
+            }
         }
     }
 
@@ -123,7 +130,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         request.workStartTime = req.workStartTime
         request.servicePrice = req.servicePrice
         page = 1
-        staffList.clear()
         mPresenter?.requestSelectStaff(request)
     }
 
@@ -132,10 +138,18 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
      * @param result List<StaffListResult>
      */
     override fun onSelectStaffList(result: List<StaffListResult>) {
+
+        if (isLoadMore) {
+            staffList.clear()
+            isLoadMore = false
+            smart_refresh_staff_list?.finishLoadMore()
+            if (result.isNotEmpty() && page > 1) {
+                smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
+            }
+        }
         staffList.addAll(result)
-        if (isLoadMore)
-            isLoadMore = !isLoadMore
         mHouseAdapter.notifyDataSetChanged()
+
     }
 
     override fun onGetServiceList(result: List<HomeServiceEntity>) {

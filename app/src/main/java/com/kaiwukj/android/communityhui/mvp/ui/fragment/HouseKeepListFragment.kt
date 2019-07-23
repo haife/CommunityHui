@@ -41,13 +41,13 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  */
 class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
 
-
     private var mFragmentList: List<HouseStaffListFragment> = ArrayList()
     var mItemIndex: String = "1"
     private var mBarList = ArrayList<HomeServiceEntity>()
     private var request: StoreStaffRequest = StoreStaffRequest()
 
     companion object {
+        const val HOUSE_KEEP_LIST_FRAGMENT = "HOUSE_KEEP_LIST_FRAGMENT"
         fun newInstance(itemIndex: String, barList: ArrayList<HomeServiceEntity>): HouseKeepListFragment {
             val fragment = HouseKeepListFragment()
             fragment.mItemIndex = itemIndex
@@ -126,8 +126,8 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_house_keeping_list_container.currentItem = index }
-                var data = StoreListRequest(magicIndicatorContentList[index].id.toInt())
-                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(data,1)
+                var data = StoreListRequest(0, serviceTypeId = magicIndicatorContentList[index].id.toInt())
+                mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(data, 1)
                 return simplePagerTitleView
             }
 

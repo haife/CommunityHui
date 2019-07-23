@@ -19,6 +19,8 @@ interface MainContract {
         fun initWidget()
     }
 
-    interface Model : IModel
+    interface Model : IModel {
+        //fun getMineInfoData(): Observable<MineUserInfoResult>
+    }
 
 }

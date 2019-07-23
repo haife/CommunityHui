@@ -21,11 +21,12 @@
 
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smart_refresh_home"
+        android:id="@+id/smart_refresh_circle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/tv_social_circle_title"
         android:layout_marginTop="@dimen/base_horizontal_line_height"
+
         app:srlEnablePreviewInEditMode="false">
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
