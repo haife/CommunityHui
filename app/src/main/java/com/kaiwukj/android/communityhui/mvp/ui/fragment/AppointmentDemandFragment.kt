@@ -47,7 +47,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     }
 
     companion object {
-        const val REQUEST_ADDRESS_ID_CODE = 1
+        const val REQUEST_ADDRESS_ID_CODE = 0
         fun newInstance(userId: Int?, serviceTypeId: Int?, shopID: Int?): AppointmentDemandFragment {
             val fragment = AppointmentDemandFragment()
             fragment.mServiceTypeId = serviceTypeId
@@ -86,13 +86,13 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         initPickDate()
         //提交订单
         submitOrder()
-
+        //
         tv_add_address_hint.setOnClickListener {
-            startForResult(EditMineAddressFragment.newInstance(), REQUEST_ADDRESS_ID_CODE)
+            startForResult(EditMineAddressFragment.newInstance(MyAddressResult()), REQUEST_ADDRESS_ID_CODE)
         }
 
         rl_appointment_address_container.setOnClickListener {
-            startForResult(MineAddressListFragment.newInstance(), REQUEST_ADDRESS_ID_CODE)
+            startForResult(MineAddressListFragment.newInstance(true), REQUEST_ADDRESS_ID_CODE)
         }
 
     }

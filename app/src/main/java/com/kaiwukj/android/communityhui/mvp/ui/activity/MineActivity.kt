@@ -43,6 +43,9 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
     @JvmField
     var mOrderDetailBean: OrderListResult? = null
 
+    @Autowired(name = ExtraCons.EXTRA_KEY_STAFF_USER_ID)
+    @JvmField
+    var mUserId: String? = null
 
     override fun post(runnable: Runnable?) {
     }
@@ -79,7 +82,10 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
 
             MineCollectionFragment.MINE_COLLECTION_FRAGMENT -> {
                 qtb_mine_order_info.setTitle(getString(R.string.mine_collection_title))
-                loadRootFragment(R.id.fl_mine_order_container, MineCollectionFragment.newInstance())
+                mUserId?.let {
+                    loadRootFragment(R.id.fl_mine_order_container, MineCollectionFragment.newInstance(it.toInt()))
+                }
+
             }
         }
 

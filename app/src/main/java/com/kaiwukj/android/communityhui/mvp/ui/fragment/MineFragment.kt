@@ -76,18 +76,20 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
         // 3:待服务 4：服务中 5：已完结，
         tv_mine_order_contracting.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "3").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            launcherOrderList(ServiceOrderFragment.TYPE_WAITING)
         }
         tv_mine_order_servicing.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "4").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            launcherOrderList(ServiceOrderFragment.TYPE_SERVING)
         }
         tv_mine_order_finished.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "5").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            launcherOrderList(ServiceOrderFragment.TYPE_FINISHED)
         }
         tv_mine_order_all.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "0").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            launcherOrderList(ServiceOrderFragment.TYPE_ALL)
         }
     }
+
+
 
     /**
      * 初始化GroupList
@@ -110,7 +112,10 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 mineServiceItem -> {
                 }
                 mineCollectItem -> {
-                    ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
+                    userInfoResult?.let {
+                        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID,it.id.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
+
+                    }
                 }
                 mineSettingItem -> {
                     ARouter.getInstance().build(MineInfoUrl).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, SettingFragment.SETTING_FRAGMENT).navigation(context)
@@ -141,6 +146,14 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         tv_mine_reply_num.text = "${result.replyCount}\n回复"
         tv_mine_fans_num.text = "${result.fansCount}\n粉丝"
         tv_mine_collection_num.text = "${result.focusedCount}\n关注"
+    }
+
+    /**
+     * 跳转到订单列表
+     * @param type Int
+     */
+    private fun launcherOrderList(type: Int) {
+        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, type.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
     }
 
     override fun onGetOrderList(result: OrderListResult) {

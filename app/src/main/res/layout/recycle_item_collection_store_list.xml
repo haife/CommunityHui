@@ -21,17 +21,16 @@
         android:layout_marginLeft="@dimen/dp_14"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_toRightOf="@+id/iv_store_list_collection"
-        android:text="店铺名称"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_16"/>
 
     <TextView
+        android:id="@+id/tv_store_list_order_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/iv_store_list_collection_name"
         android:layout_marginLeft="@dimen/dp_6"
         android:layout_toRightOf="@+id/iv_store_list_collection_name"
-        android:text="成交量:2312单"
         android:textColor="@color/app_color_theme"
         android:textSize="@dimen/sp_13"
         />
@@ -50,13 +49,12 @@
         />
 
     <TextView
-        android:id="@+id/iv_store_list_collection_price"
+        android:id="@+id/iv_store_list_collection_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/iv_store_list_collection_message"
         android:layout_alignBottom="@+id/iv_store_list_collection"
         android:layout_marginBottom="@dimen/dp_6"
-        android:text="南昌市青山湖区上海路7号"
         android:textColor="@color/home_color_banner_top_text"
         android:textSize="@dimen/sp_16"/>
 

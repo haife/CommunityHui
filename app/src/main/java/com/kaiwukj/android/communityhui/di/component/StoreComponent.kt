@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.di.component
 
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.ui.activity.StoreActivity
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.CollectionStoreListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreDetailFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreSortListFragment
@@ -26,5 +25,4 @@ interface StoreComponent {
     fun inject(fragment: StoreListFragment)
     fun inject(fragment: StoreSortListFragment)
     fun inject(fragment: StoreDetailFragment)
-    fun inject(fragment: CollectionStoreListFragment)
 }

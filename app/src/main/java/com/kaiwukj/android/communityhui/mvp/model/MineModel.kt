@@ -48,7 +48,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     override fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
-                .updatetMineInfoData(getRequestBody(mGson.toJson(request))))
+                .updateMineInfoData(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
 

@@ -10,7 +10,9 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -25,6 +27,8 @@ import kotlinx.android.synthetic.main.fragment_person_home_page.*
  * @desc  我的信息主页
  */
 class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
+
+
     var mUserInfo: MineUserInfoResult? = null
 
     companion object {
@@ -60,6 +64,12 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
             tv_home_page_name.requestFocus()
             InputMethodUtils.showSoftInput(tv_home_page_name)
         }
+    }
+
+    override fun onGetMyAddressList(result: MyAddressResult) {
+    }
+
+    override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
     }
 
 

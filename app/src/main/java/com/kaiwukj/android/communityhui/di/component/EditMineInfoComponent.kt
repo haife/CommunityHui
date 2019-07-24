@@ -2,10 +2,7 @@ package com.kaiwukj.android.communityhui.di.component
 
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.ui.activity.EditMineInfoActivity
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.EditMineAddressFragment
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineAddressListFragment
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineCollectionFragment
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.PersonHomePageFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.*
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import dagger.Component
@@ -22,8 +19,10 @@ import dagger.Component
 @Component(modules = [EditMineInfoModule::class], dependencies = [AppComponent::class])
 interface EditMineInfoComponent {
     fun inject(activity: EditMineInfoActivity)
-    fun inject(activity: MineAddressListFragment)
-    fun inject(activity: EditMineAddressFragment)
-    fun inject(activity: PersonHomePageFragment)
-    fun inject(activity: MineCollectionFragment)
+    fun inject(fragment: MineAddressListFragment)
+    fun inject(fragment: EditMineAddressFragment)
+    fun inject(fragment: PersonHomePageFragment)
+    fun inject(fragment: MineCollectionFragment)
+    fun inject(fragment: CollectionStaffListFragment)
+    fun inject(fragment: CollectionStoreListFragment)
 }

@@ -14,7 +14,9 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
@@ -37,12 +39,17 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * @desc  我的收藏
  */
 class MineCollectionFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
+
+
+    var mUserId = 0
     private var mFragmentList: ArrayList<Fragment> = ArrayList()
+    private val listTitle = listOf<String>("护工", "店铺")
 
     companion object {
         const val MINE_COLLECTION_FRAGMENT = "MINE_COLLECTION_FRAGMENT"
-        fun newInstance(): MineCollectionFragment {
+        fun newInstance(userId: Int): MineCollectionFragment {
             val fragment = MineCollectionFragment()
+            fragment.mUserId = userId
             return fragment
         }
     }
@@ -62,29 +69,26 @@ class MineCollectionFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
 
 
     override fun initData(savedInstanceState: Bundle?) {
-        val bean1 = BouseKeepingServiceType(1, "护工")
-        val bean2 = BouseKeepingServiceType(1, "店铺")
-        val list: ArrayList<BouseKeepingServiceType> = arrayListOf()
-
-        list.add(bean1)
-        list.add(bean2)
-        mFragmentList.add(CollectionStaffListFragment.newInstance(list[0].int_type))
-        mFragmentList.add(CollectionStoreListFragment.newInstance())
-        initMagicIndicatorView(list)
+        //1技工 2门店
+        val requestStaff = MineCollectionRequest(1, mUserId)
+        val requestStore = MineCollectionRequest(2, mUserId)
+        mFragmentList.add(CollectionStaffListFragment.newInstance(requestStaff))
+        mFragmentList.add(CollectionStoreListFragment.newInstance(requestStore))
+        initMagicIndicatorView(listTitle)
     }
 
 
-    private fun initMagicIndicatorView(magicIndicatorContentList: List<BouseKeepingServiceType>) {
+    private fun initMagicIndicatorView(strList: List<String>) {
         val mMIndicatorNavigator = CommonNavigator(context)
         mMIndicatorNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int {
-                return magicIndicatorContentList.size
+                return strList.size
             }
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-                simplePagerTitleView.text = magicIndicatorContentList[index].string_name
+                simplePagerTitleView.text = strList[index]
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 2
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
@@ -108,6 +112,13 @@ class MineCollectionFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_my_collection_container.adapter = homeViewPagerAdapter
 
+    }
+
+
+    override fun onGetMyAddressList(result: MyAddressResult) {
+    }
+
+    override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
     }
 
     override fun post(runnable: Runnable?) {

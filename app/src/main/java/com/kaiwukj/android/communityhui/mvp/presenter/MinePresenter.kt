@@ -90,7 +90,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
 
 
     /**
-     * 帖子 回复信息等
+     * 更新个人信息
      * @param userId String
      */
     fun updateMineInfoData(userInfo: MineUserInfoResult) {
@@ -127,6 +127,10 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                     }
                 })
     }
+
+
+
+
 
 
     override fun onDestroy() {

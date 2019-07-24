@@ -42,5 +42,8 @@ class ExtraCons {
         /*传递订单实体类*/
         const val EXTRA_KEY_ORDER_DETAIL_KEY = "EXTRA_KEY_ORDER_DETAIL_KEY"
 
+        /*地址选择*/
+        const val EXTRA_KEY_CHOICE_ADDRESS = "EXTRA_KEY_CHOICE_ADDRESS"
+
     }
 }

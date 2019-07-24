@@ -74,9 +74,10 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
 
         mOrderListAdapter.setOnItemClickListener { adapter, view, position ->
             //TODO 跳转订单详情
+            val order: OrderListResult = orderList[position]
             ARouter.getInstance().build(MineOrderUrl)
                     .withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT)
-                    .withSerializable(ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY, orderList[position])
+                    .withSerializable(ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY, order)
                     .navigation(context)
         }
     }

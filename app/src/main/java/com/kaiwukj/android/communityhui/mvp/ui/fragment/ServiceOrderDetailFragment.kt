@@ -10,12 +10,15 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import kotlinx.android.synthetic.main.fragment_service_order_detail.*
+import kotlinx.android.synthetic.main.include_order_detail_header.*
 
 /**
  * Copyright © KaiWu Technology Company
@@ -28,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_service_order_detail.*
 class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
 
     lateinit var orderData: OrderListResult
+    var mServiceTypeId: Int = 0
 
     companion object {
         const val SERVICE_ORDER_DETAIL_FRAGMENT = "SERVICE_ORDER_DETAIL_FRAGMENT"
@@ -55,8 +59,58 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        initClick()
+        initLayout()
+
+    }
+
+    private fun initLayout() {
+        mServiceTypeId = orderData.serviceTypeId
+        tv_custom_order_number.setRightStr(orderData.orderNo)
+        tv_custom_order_subordinate_the_stores.setRightStr(orderData.storeName)
+        tv_order_detail_user_name.text = orderData.realName
+        tv_order_the_stores_address.text = orderData.serviceAddress
+        tv_order_detail_user_grade.text = String.format(getString(R.string.home_format_order_grade), orderData.avgScore)
+        tv_order_detail_user_tags.text = String.format(getString(R.string.home_format_order_detail_message), orderData.worktime, 35, orderData.nativePlace)
+        context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(iv_order_detail_head) }
+        tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
+        tv_custom_order_service_type.setRightStr(orderData.serviceTypeName)
+        tv_custom_order_service_days.setRightStr(orderData.serviceLength.toString() + "/" + orderData.serviceTypeUnit)
+        tv_custom_order_service_days.setRightStr("${orderData.serviceLength} / ${orderData.serviceTypeUnit}")
+        tv_custom_order_service_order_time.setRightStr(orderData.createTime)
+        tv_order_detail_remark.text = orderData.description
+
+        when (mServiceTypeId) {
+            1 -> {
+                qbtn_order_detail_cancel_order.visibility = View.VISIBLE
+            }
+            2 -> {
+                //面试中
+                qbtn_order_detail_cancel_order.visibility = View.VISIBLE
+            }
+            3 -> {
+                //签约中
+            }
+            4 -> {
+                //服务中
+            }
+            5 -> {
+                //服务完成
+                qbtn_order_detail_bottom.visibility = View.VISIBLE
+            }
+            0 -> {
+                //已取消
+            }
+        }
+    }
+
+    private fun initClick() {
         qbtn_order_detail_bottom.setOnClickListener {
-            start(EvaluateServiceFragment.newInstance())
+            start(EvaluateServiceFragment.newInstance(orderData))
+        }
+
+        qbtn_order_detail_cancel_order.setOnClickListener {
+
         }
     }
 

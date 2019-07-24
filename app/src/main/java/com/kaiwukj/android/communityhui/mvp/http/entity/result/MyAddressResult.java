@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @company KW | 开物
  * @since 2019-07-22
  */
-public class MyAddressResult extends BaseRootResult<List<MyAddressResult>> {
+public class MyAddressResult extends BaseRootResult<List<MyAddressResult>> implements Serializable {
     private String area;
     private String address;
     private String phone;

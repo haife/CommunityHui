@@ -46,10 +46,14 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
     private var mFragmentList: List<Fragment> = ArrayList()
 
     var mItemIndex: Int = 0
-    val titleList: ArrayList<BouseKeepingServiceType> = arrayListOf()
+    private val titleList: ArrayList<BouseKeepingServiceType> = arrayListOf()
 
     companion object {
         const val SERVICE_ORDER_FRAGMENT = "SERVICE_ORDER_FRAGMENT"
+        const val TYPE_WAITING = 3
+        const val TYPE_SERVING = 4
+        const val TYPE_FINISHED = 5
+        const val TYPE_ALL = 0
 
         fun newInstance(itemIndex: Int): ServiceOrderFragment {
             val fragment = ServiceOrderFragment()
@@ -72,41 +76,42 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val wait = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_wait))
-        val serving = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_serving))
-        val finished = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_finish))
-        val allIn = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_all))
-        titleList.add(wait)
-        titleList.add(serving)
-        titleList.add(finished)
-        titleList.add(allIn)
-        initMagicIndicatorView(titleList)
+
+        initMagicIndicatorView()
         when (mItemIndex) {
-            0 -> view_pager_service_order_container.currentItem = 3
-            3 -> view_pager_service_order_container.currentItem = 0
-            4 -> view_pager_service_order_container.currentItem = 1
-            5 -> view_pager_service_order_container.currentItem = 2
+            TYPE_WAITING -> view_pager_service_order_container.currentItem = 3
+            TYPE_SERVING -> view_pager_service_order_container.currentItem = 0
+            TYPE_FINISHED -> view_pager_service_order_container.currentItem = 1
+            TYPE_ALL -> view_pager_service_order_container.currentItem = 2
         }
 
     }
 
 
-    private fun initMagicIndicatorView(magicIndicatorContentList: List<BouseKeepingServiceType>) {
+    private fun initMagicIndicatorView() {
+        val wait = BouseKeepingServiceType(TYPE_WAITING, getString(R.string.order_stores_wait))
+        val serving = BouseKeepingServiceType(TYPE_SERVING, getString(R.string.order_stores_serving))
+        val finished = BouseKeepingServiceType(TYPE_FINISHED, getString(R.string.order_stores_finish))
+        val allIn = BouseKeepingServiceType(TYPE_ALL, getString(R.string.order_stores_all))
+        titleList.add(wait)
+        titleList.add(serving)
+        titleList.add(finished)
+        titleList.add(allIn)
         val mMIndicatorNavigator = CommonNavigator(context)
         mMIndicatorNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int {
-                return magicIndicatorContentList.size
+                return titleList.size
             }
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
-                simplePagerTitleView.text = magicIndicatorContentList[index].string_name
+                simplePagerTitleView.text = titleList[index].string_name
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_service_order_container.currentItem = index }
-                mFragmentList = mFragmentList + ServiceOrderListFragment.newInstance(magicIndicatorContentList[index].int_type)
+                mFragmentList = mFragmentList + ServiceOrderListFragment.newInstance(titleList[index].int_type)
                 return simplePagerTitleView
             }
 

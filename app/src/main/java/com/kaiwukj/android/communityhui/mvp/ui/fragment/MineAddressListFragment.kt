@@ -10,15 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.MyAddressAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.qmuiteam.qmui.widget.QMUITopBar
 import kotlinx.android.synthetic.main.fragment_mine_address_list.*
+import me.yokeyword.fragmentation.ISupportFragment
 
 /**
  * Copyright © KaiWu Technology Company
@@ -29,13 +32,18 @@ import kotlinx.android.synthetic.main.fragment_mine_address_list.*
  * @desc  我的地址
  */
 class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+
+    lateinit var mAddressAdapter: MyAddressAdapter
+    lateinit var mAddressList: ArrayList<MyAddressResult>
+    var isChoiceAddress: Boolean = false
 
     companion object {
         const val MINE_ADDRESS_LIST_FRAGMENT = "MINE_ADDRESS_LIST_FRAGMENT"
-        fun newInstance(): MineAddressListFragment {
+        const val REQUEST_CODE_EDIT_ADDRESS = 1
+        //判断进入这个的场景是否是选择地址
+        fun newInstance(choiceAddress: Boolean): MineAddressListFragment {
             val fragment = MineAddressListFragment()
+            fragment.isChoiceAddress = choiceAddress
             return fragment
         }
     }
@@ -55,22 +63,48 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val list2: MutableList<HRecommendMultiItemEntity> = mutableListOf()
-        for (i in 1..2) {
-            list2.add(HRecommendMultiItemEntity(""))
-        }
+        mPresenter?.requestMyAddress()
         rv_mine_address_list.layoutManager = LinearLayoutManager(context)
         rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
                 divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
-        val mHouseAdapter = HouseKeepListAdapter(list2, R.layout.recycle_item_mine_address_list, context!!)
-        rv_mine_address_list.adapter = mHouseAdapter
+        mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
+        rv_mine_address_list.adapter = mAddressAdapter
 
-        mHouseAdapter.setOnItemClickListener { adapter, view, position ->
-            start(EditMineAddressFragment.newInstance())
+
+        mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when (view.id) {
+                R.id.iv_mine_address_edit -> {
+                    startForResult(EditMineAddressFragment.newInstance(mAddressList[position]), REQUEST_CODE_EDIT_ADDRESS)
+                }
+            }
+        }
+
+        mAddressAdapter.setOnItemClickListener { adapter, view, position ->
+            if (isChoiceAddress) {
+                val bundle = Bundle()
+                bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, mAddressList[position])
+                setFragmentResult(ISupportFragment.RESULT_OK, bundle)
+                killMyself()
+            }
         }
 
     }
 
+    override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
+        super.onFragmentResult(requestCode, resultCode, data)
+
+    }
+
+    override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
+    }
+
+    override fun onGetMyAddressList(result: MyAddressResult) {
+        mAddressList.addAll(result.result)
+        mAddressAdapter.notifyDataSetChanged()
+    }
+
+    override fun post(runnable: Runnable?) {
+    }
 
     override fun onSupportVisible() {
         super.onSupportVisible()

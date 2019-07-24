@@ -12,14 +12,14 @@ import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
-import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
-import com.kaiwukj.android.communityhui.di.module.HouseKeepModule
-import com.kaiwukj.android.communityhui.mvp.contract.HouseKeepContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
-import com.kaiwukj.android.communityhui.mvp.presenter.HouseKeepPresenter
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.HouseKeepListAdapter
+import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
+import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
+import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CollectionListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_house_staff_list.*
 
@@ -32,26 +32,28 @@ import kotlinx.android.synthetic.main.fragment_house_staff_list.*
  * @time 2019/7/16
  * @desc 收藏家政人员服务列表
  */
-class CollectionStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseKeepContract.View {
+class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
 
-
-    private lateinit var mHouseAdapter: HouseKeepListAdapter
+    private lateinit var mCollectionAdapter: CollectionListAdapter
+    lateinit var request: MineCollectionRequest
+    lateinit var collectionList: ArrayList<MineCollectionResult>
 
     companion object {
-        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"         
+        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
 
-        fun newInstance(int_type: Int): CollectionStaffListFragment {
+        fun newInstance(request: MineCollectionRequest): CollectionStaffListFragment {
             val fragment = CollectionStaffListFragment()
+            fragment.request = request
             return fragment
         }
     }
 
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerHouseKeepComponent
+        DaggerEditMineInfoComponent
                 .builder()
                 .appComponent(appComponent)
-                .houseKeepModule(HouseKeepModule(this))
+                .editMineInfoModule(EditMineInfoModule(this))
                 .build()
                 .inject(this)
     }
@@ -61,30 +63,27 @@ class CollectionStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), H
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val list2: MutableList<HRecommendMultiItemEntity> = mutableListOf()
-        for (i in 1..10) {
-            list2.add(HRecommendMultiItemEntity(""))
-        }
+        mPresenter?.requestMyCollection(request)
         rv_staff_list_child.layoutManager = LinearLayoutManager(context)
         rv_staff_list_child.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
-        mHouseAdapter = HouseKeepListAdapter(list2, R.layout.recycle_item_collection_store_list, context!!)
-        rv_staff_list_child.adapter = mHouseAdapter
+        mCollectionAdapter = CollectionListAdapter(collectionList, R.layout.recycle_item_collection_staff_list_layout, context!!)
+        rv_staff_list_child.adapter = mCollectionAdapter
 
-        mHouseAdapter.setOnItemClickListener { adapter, view, position ->
+        mCollectionAdapter.setOnItemClickListener { adapter, view, position ->
             ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_STAFF_LIST_URL).navigation()
         }
     }
 
-    override fun onSelectStaffList(result: List<StaffListResult>) {
+
+    override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
+        collectionList.addAll(list)
+        mCollectionAdapter.notifyDataSetChanged()
     }
 
-    override fun onGetServiceList(result: List<HomeServiceEntity>) {
+
+    override fun onGetMyAddressList(result: MyAddressResult) {
     }
 
-
-    override fun showLoading() {
-
-    }
 
     override fun hideLoading() {
 

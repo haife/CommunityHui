@@ -104,7 +104,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         initRecycleView();
-        mPresenter.getHomeRecommendData(request, true);
+        assert mPresenter != null;
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
         mRefreshView.setOnRefreshListener(refreshLayout -> {
@@ -157,6 +157,13 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
             mRefreshView.finishLoadMoreWithNoMoreData();
         }
 
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        assert mPresenter != null;
+        mPresenter.getHomeRecommendData(request, true);
     }
 
     @Override

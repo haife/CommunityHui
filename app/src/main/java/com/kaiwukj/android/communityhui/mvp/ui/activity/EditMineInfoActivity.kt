@@ -13,6 +13,8 @@ import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineAddressListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PersonHomePageFragment
@@ -33,6 +35,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  */
 @Route(path = MineInfoUrl)
 class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), EditMineInfoContract.View {
+
+
     @Autowired(name = ExtraCons.EXTRA_KEY_EDIT_MINE)
     @JvmField
     var mTargetStr: String? = null
@@ -61,10 +65,10 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
         initTopBar()
         when (mTargetStr) {
             PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT -> {
-            //    loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
+                //    loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
             }
             MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT -> {
-                loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance())
+                loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance(false))
             }
             SettingFragment.SETTING_FRAGMENT -> {
                 qtb_edit_mine_info.setTitle(getString(R.string.setting_title))
@@ -81,6 +85,11 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
         qtb_edit_mine_info.addLeftBackImageButton().setOnClickListener { killMyself() }
     }
 
+    override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
+    }
+
+    override fun onGetMyAddressList(result: MyAddressResult) {
+    }
 
     override fun showLoading() {
 

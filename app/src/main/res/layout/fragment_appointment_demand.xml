@@ -49,7 +49,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/dp_72"
                     android:lineSpacingExtra="@dimen/dp_4"
-                    android:text="江西省南昌市青山湖区恒茂梦时代7号楼804室"
                     android:textColor="@color/common_text_dark_color"
                     android:textSize="@dimen/sp_18"/>
 
@@ -61,7 +60,6 @@
                     android:layout_below="@+id/tv_appoint_demand_address"
                     android:layout_alignLeft="@+id/tv_appoint_demand_address"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:text="王小二\t\t\t\t\t\t13278974659"
                     android:textColor="@color/common_text_dark_color"
                     android:textSize="15sp"/>
 

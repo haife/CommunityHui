@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/window_background_color"
     android:orientation="vertical">
 
@@ -23,7 +24,7 @@
         android:layout_marginLeft="@dimen/dp_30"
         android:layout_marginRight="@dimen/dp_30"
         android:layout_marginBottom="@dimen/dp_30"
-        android:text="@string/mine_save_address"
+        android:text="@string/mine_add_address"
         android:textSize="@dimen/sp_16"/>
 
 </RelativeLayout>

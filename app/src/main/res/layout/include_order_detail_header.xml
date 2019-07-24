@@ -32,7 +32,7 @@
         app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
 
     <TextView
-        android:id="@+id/tv_order_detail_User_name"
+        android:id="@+id/tv_order_detail_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_12"
@@ -86,6 +86,7 @@
 
 
         <TextView
+            android:id="@+id/tv_order_the_stores_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

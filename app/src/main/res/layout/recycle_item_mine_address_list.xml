@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/dp_60"
-        android:text="江西省南昌市青山湖区恒茂梦时代7号楼804室"
+        android:maxLines="2"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"
         />
@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_mine_address_detail"
         android:layout_marginTop="@dimen/dp_16"
-        android:text="王小二"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"
         />
@@ -37,7 +36,6 @@
         android:layout_alignBaseline="@+id/tv_mine_address_name"
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_toRightOf="@+id/tv_mine_address_name"
-        android:text="13278974659"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 

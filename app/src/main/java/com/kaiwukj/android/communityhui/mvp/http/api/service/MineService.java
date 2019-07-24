@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult;
@@ -18,11 +19,25 @@ import retrofit2.http.Path;
  * @since 2019-07-22
  */
 public interface MineService {
+
     /**
-     * 技工详情
+     * 我的地址
      */
     @GET("/app/sc/uaddress/list")
     Observable<MyAddressResult> requestMyAddress();
+
+    /**
+     * 修改我的地址
+     */
+    @POST("/app/sc/uaddress/update")
+    Observable<BaseStatusResult> upDateMyAddress(@Body RequestBody body);
+
+    /**
+     * 新增
+     */
+    @POST("/app/sc/uaddress/save")
+    Observable<BaseStatusResult> addMineAddress(@Body RequestBody body);
+
 
     /**
      * 添加收藏
@@ -46,11 +61,17 @@ public interface MineService {
      * 更新用户信息
      */
     @POST("/app/sc/user/update")
-    Observable<BaseStatusResult> updatetMineInfoData(@Body RequestBody body);
+    Observable<BaseStatusResult> updateMineInfoData(@Body RequestBody body);
 
     /**
      * 订单列表
      */
     @POST("/app/sc/userOrder/myOrder")
     Observable<OrderListResult> getMineOrderData(@Body RequestBody body);
+
+    /**
+     * 收藏
+     */
+    @POST("/app/sc/favorite/favourByTypePage")
+    Observable<MineCollectionResult> getMineCollectionData(@Body RequestBody body);
 }
