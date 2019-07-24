@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
@@ -22,21 +20,26 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequ
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.kaiwukj.android.mcas.utils.McaUtils;
+import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
-import com.qmuiteam.qmui.layout.QMUIButton;
+import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -53,6 +56,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * @desc 社交圈子帖子
  */
 public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCirclePresenter> implements SocialCircleContract.View {
+
     @BindView(R.id.rv_circle_card_detail_comment)
     RecyclerView mCircleCardCommentRv;
 
@@ -72,7 +76,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     TextView mTagTv;
 
     @BindView(R.id.qbtn_collection)
-    QMUIButton mCollection;
+    QMUIRoundButton mCollection;
 
     @BindView(R.id.tv_circle_message_content)
     TextView mContentTv;
@@ -88,10 +92,9 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @BindView(R.id.rv_circle_card_detail_images)
     NineGridView mImageGroup;
-
+    private ArrayList<ImageInfo> imageInfo = new ArrayList<>();
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
-
     private List<CircleCardDetailResult.UnoteCommentListBean> mCommentListList;
     private SocialCardCommentAdapter mCommentAdapter;
     private QMUITopBar mTopBar;
@@ -131,25 +134,20 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         initTopBar(mTopBar);
         initRvItemClick();
         mCommentOtherRequest.setNoteId(mCardId);
+        mCommentListList = new ArrayList<>();
     }
 
     private void initRvItemClick() {
         mSubmitCommentTv.setOnClickListener(view -> {
             //评论别人
-            if (McaUtils.isEmpty(mCommentEt.getText().toString())){
+            if (McaUtils.isEmpty(mCommentEt.getText().toString())) {
                 return;
             }
             mCommentOtherRequest.setContent(mCommentEt.getText().toString());
 
         });
-
-        mCommentAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            switch (view.getId()) {
-                case R.id.tv_card_comment_reply:
-                    //回复别人的评论
-                    break;
-            }
-        });
+        mCircleCardCommentRv.setNestedScrollingEnabled(false);
+        mCircleCardCommentRv.setHasFixedSize(true);
     }
 
     private void initTopBar(QMUITopBar topBar) {
@@ -160,18 +158,29 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     @Override
     public void onGetCardDetailResult(CircleCardDetailResult result) {
         assert result != null;
-        //GlideArms.with(getContext()).load(Api.IMG_URL+result.)
-        //  mUserHeadIv.setText(result.getTitle());
+        GlideArms.with(getContext()).load(Api.IMG_URL + result.getHeadImg()).circleCrop().into(mUserHeadIv);
         mTitleTv.setText(result.getTitle());
-        // mNickNameTv.setText(result.geni());
+        mNickNameTv.setText(result.getNickName());
         mTimeTv.setText(result.getCreateTime());
         mTagTv.setText(result.getNoteType());
         mContentTv.setText(result.getContent());
         mCommentNumberTv.setText(result.getUnoteCommentList().size() == 0 ?
                 getString(R.string.social_card_no_comment) : String.valueOf(result.getUnoteCommentList().size()));
-        mCommentAdapter = new SocialCardCommentAdapter(R.layout.recycle_item_card_comment_layout);
-        mCircleCardCommentRv.setLayoutManager(mLayoutManager);
+        if (result.getImgList() != null) {
+            for (int i = 0; i < result.getImgList().size(); i++) {
+                ImageInfo info = new ImageInfo();
+                info.setThumbnailUrl(result.getImgList().get(i));
+                info.setBigImageUrl(result.getImgList().get(i));
+                imageInfo.add(info);
+            }
+        }
+        mImageGroup.setSingleImageSize(McaUtils.getScreenWidth(getContext()) - McaUtils.dip2px(getContext(), 32));
+        mImageGroup.setAdapter(new NineGridViewClickAdapter(getContext(), imageInfo));
+        mCommentListList.addAll(result.getUnoteCommentList());
+        mCommentAdapter = new SocialCardCommentAdapter(R.layout.recycle_item_card_comment_layout, mCommentListList, mContext);
+        mCircleCardCommentRv.setLayoutManager(new LinearLayoutManager(getContext()));
         mCircleCardCommentRv.setAdapter(mCommentAdapter);
+        mCommentAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -231,27 +240,6 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     }
 
-    /**
-     * 评论
-     */
-    class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardDetailResult.UnoteCommentListBean, BaseViewHolder> {
-
-        public SocialCardCommentAdapter(int layoutResId) {
-            super(layoutResId);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, CircleCardDetailResult.UnoteCommentListBean item) {
-            QMUIRadiusImageView headIv = helper.getView(R.id.riv_card_comment_person_info_photo);
-            GlideArms.with(getContext()).load(Api.IMG_URL + item.getReplyHeadImg()).circleCrop().into(headIv);
-            helper.setText(R.id.tvr_card_comment_person_info_name, item.getCommentatorNickName())
-                    .setText(R.id.tv_card_comment_person_content, item.getContent())
-                    .setText(R.id.tv_card_comment_person_time, item.getCreateTime())
-                    .setText(R.id.tv_card_comment_floor, String.format(getString(R.string.card_comment_floor), helper.getAdapterPosition()));
-            helper.addOnClickListener(R.id.tv_card_comment_reply);
-
-        }
-    }
 
     @Override
     public void onDestroy() {
@@ -260,3 +248,5 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     }
 
 }
+
+

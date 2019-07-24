@@ -92,6 +92,7 @@ dependencies {
     //tools
     implementation rootProject.ext.dependencies["androideventbus"]
     api 'com.cysion:ImagePicker:1.0.7'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.15'
     implementation rootProject.ext.dependencies["ninegridview"]
 
     implementation rootProject.ext.dependencies["smartrefreshlayout"]

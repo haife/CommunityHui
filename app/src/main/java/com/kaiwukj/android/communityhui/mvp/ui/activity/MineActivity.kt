@@ -14,6 +14,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.MineCollectionFragment
@@ -26,15 +27,21 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 @Route(path = MineOrderUrl)
 class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
+    override fun onGetOrderList(result: OrderListResult) {
+    }
 
 
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE)
     @JvmField
     var mTargetStr: String? = null
+
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX)
     @JvmField
-    var mItemIndex: Int? = null
+    var mItemIndex: String? = null
 
+    @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY)
+    @JvmField
+    var mOrderDetailBean: OrderListResult? = null
 
 
     override fun post(runnable: Runnable?) {
@@ -62,12 +69,12 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
         when (mTargetStr) {
             ServiceOrderFragment.SERVICE_ORDER_FRAGMENT -> {
                 qtb_mine_order_info.setTitle(getString(R.string.service_order_title))
-                mItemIndex?.let { ServiceOrderFragment.newInstance(it) }?.let { loadRootFragment(R.id.fl_mine_order_container, it) }
+                mItemIndex?.let { ServiceOrderFragment.newInstance(it.toInt()) }?.let { loadRootFragment(R.id.fl_mine_order_container, it) }
             }
 
             ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT -> {
                 qtb_mine_order_info.setTitle(getString(R.string.service_order_detail_title))
-                loadRootFragment(R.id.fl_mine_order_container, ServiceOrderDetailFragment.newInstance())
+                loadRootFragment(R.id.fl_mine_order_container, ServiceOrderDetailFragment.newInstance(mOrderDetailBean))
             }
 
             MineCollectionFragment.MINE_COLLECTION_FRAGMENT -> {

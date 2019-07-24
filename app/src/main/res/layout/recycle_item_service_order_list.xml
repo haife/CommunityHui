@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="201904053291"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_14"/>
     </RelativeLayout>
@@ -55,7 +54,6 @@
             android:layout_marginLeft="@dimen/dp_14"
             android:layout_marginTop="@dimen/dp_2"
             android:layout_toRightOf="@+id/iv_service_order"
-            android:text="李慧文"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_16"/>
 
@@ -67,7 +65,6 @@
             android:layout_below="@+id/iv_service_order_name"
             android:layout_alignLeft="@+id/iv_service_order_name"
             android:layout_marginTop="@dimen/dp_4"
-            android:text="育婴师丨1个月丨03-04 15：30"
             android:textColor="@color/common_text_slight_color"
             android:textSize="@dimen/sp_13"/>
 
@@ -77,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/iv_service_order_message"
             android:layout_alignBottom="@+id/iv_service_order"
-            android:text="南昌市青山湖区梦时代"
             android:textColor="@color/home_color_banner_top_text"
             android:textSize="@dimen/sp_16"/>
 

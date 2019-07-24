@@ -6,7 +6,6 @@ import com.kaiwukj.android.communityhui.mvp.contract.MainContract
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
-import io.reactivex.Observable
 import javax.inject.Inject
 
 

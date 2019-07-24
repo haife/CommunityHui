@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class PostCardRequest {
     private String title;
-    private Integer Integer;
+    private Integer type;
     private String content;
     private String address;
     private List<String> imgList;
@@ -23,12 +23,12 @@ public class PostCardRequest {
         this.title = title;
     }
 
-    public java.lang.Integer getInteger() {
-        return Integer;
+    public Integer getType() {
+        return type;
     }
 
-    public void setInteger(java.lang.Integer integer) {
-        Integer = integer;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getContent() {

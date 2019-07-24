@@ -18,10 +18,10 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.StoreListAdapter
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.OrderListAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_service_oreder_list.*
 
@@ -34,11 +34,18 @@ import kotlinx.android.synthetic.main.fragment_service_oreder_list.*
  * @desc  服务订单子列表
  */
 class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+
     private var mFragmentList: List<Fragment> = ArrayList()
 
+    //TODO:3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
+    private var mType: Int? = null
+    private var orderList = ArrayList<OrderListResult>()
+    lateinit var mOrderListAdapter: OrderListAdapter
+
     companion object {
-        fun newInstance(int_type: Int): ServiceOrderListFragment {
+        fun newInstance(type: Int): ServiceOrderListFragment {
             val fragment = ServiceOrderListFragment()
+            fragment.mType = type
             return fragment
         }
     }
@@ -57,18 +64,26 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val list = arrayListOf<StoreListResult>()
-        for (i in 0..10) {
-            list.add(StoreListResult())
-        }
+        mPresenter?.requestMineOrderData(mType)
+
         rv_service_order_list.layoutManager = LinearLayoutManager(context!!)
         rv_service_order_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
                 divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
-        val mStoreListAdapter = StoreListAdapter(list, R.layout.recycle_item_service_order_list, context!!)
-        rv_service_order_list.adapter = mStoreListAdapter
-        mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
-            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT).navigation(context)
+        mOrderListAdapter = OrderListAdapter(R.layout.recycle_item_service_order_list, orderList, context!!)
+        rv_service_order_list.adapter = mOrderListAdapter
+
+        mOrderListAdapter.setOnItemClickListener { adapter, view, position ->
+            //TODO 跳转订单详情
+            ARouter.getInstance().build(MineOrderUrl)
+                    .withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderDetailFragment.SERVICE_ORDER_DETAIL_FRAGMENT)
+                    .withSerializable(ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY, orderList[position])
+                    .navigation(context)
         }
+    }
+
+    override fun onGetOrderList(result: OrderListResult) {
+        orderList.addAll(result.result)
+        mOrderListAdapter.notifyDataSetChanged()
     }
 
 

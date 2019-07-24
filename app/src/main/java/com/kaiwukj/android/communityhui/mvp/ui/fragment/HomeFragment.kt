@@ -67,7 +67,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestServiceList()
-
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
         childOnClickListener()

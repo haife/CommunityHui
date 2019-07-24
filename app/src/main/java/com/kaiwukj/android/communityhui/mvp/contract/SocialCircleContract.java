@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.contract;
 
 import android.content.Context;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
@@ -59,5 +60,8 @@ public interface SocialCircleContract {
         Observable<BaseStatusResult> requestCommentOther(CommentOtherRequest request);
 
         Observable<SocialUserHomePageResult> requestSocialHomePage(SocialUserHomePageRequest request);
+
+        //获取七牛云Token
+        Observable<BaseQITokenResult> requestQIToken();
     }
 }

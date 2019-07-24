@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
@@ -36,10 +37,10 @@ public interface CircleService {
     Observable<CircleCardResult> requestCircleCardData();
 
     /*
-     * 圈子首页主题帖
+     * 热门帖子
      */
-    @GET("/app/sc/unote/listRecommendNote")
-    Observable<CircleHotResult> requestCircleHotData();
+    @POST("/app/sc/unote/listRecommendNote")
+    Observable<CircleHotResult> requestCircleHotData(@Body RequestBody body);
 
     /**
      * 发帖
@@ -50,7 +51,7 @@ public interface CircleService {
     /**
      * 帖子详情
      */
-    @POST("/app/sc/unote/save")
+    @POST("/app/sc/unote/queryNote/")
     Observable<CircleCardDetailResult> requestCardDetail(@Body RequestBody body);
 
     /**
@@ -66,4 +67,10 @@ public interface CircleService {
      */
     @POST("/app/sc/uinfo/queryMyInfo")
     Observable<SocialUserHomePageResult> requestSocialHomePage(@Body RequestBody body);
+
+    /**
+     * 获取七牛云token
+     */
+    @POST("/common/getQiNiuToken.do")
+    Observable<BaseQITokenResult> requestQiToken(@Body RequestBody body);
 }

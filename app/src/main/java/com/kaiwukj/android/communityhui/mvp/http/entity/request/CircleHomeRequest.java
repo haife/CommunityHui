@@ -13,6 +13,13 @@ public class CircleHomeRequest {
     private int type;
     private int pages;
 
+    public CircleHomeRequest() {
+    }
+
+    public CircleHomeRequest(int type) {
+        this.type = type;
+    }
+
     public int getPages() {
         return pages;
     }

@@ -6,21 +6,14 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.base;
  * @author Haife
  * @job Android Development
  * @company KW | 开物科技
- * @time 2019/7/20
+ * @time 2019/7/24
  * @desc $desc
  */
-public class BaseRootResult<T> {
-
-
-    /**
-     * code : string
-     * desc : string
-     * result : {}
-     */
+public class BaseQITokenResult {
 
     private String code;
     private String desc;
-    private T result;
+    private String result;
 
     public String getCode() {
         return code;
@@ -38,12 +31,11 @@ public class BaseRootResult<T> {
         this.desc = desc;
     }
 
-
-    public T getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(T result) {
+    public void setResult(String result) {
         this.result = result;
     }
 }

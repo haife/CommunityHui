@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,16 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
 import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
+import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
+import com.kaiwukj.android.communityhui.utils.SPUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
@@ -55,6 +59,8 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        val string = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN)
+        Log.e("Token", string)
         mPresenter?.getMineInfoData()
         initBottomGroupView()
         initClick()
@@ -68,17 +74,18 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             ARouter.getInstance().build(MineInfoUrl).withSerializable(ExtraCons.EXTRA_KEY_EDIT_MINE, userInfoResult).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
         }
 
+        // 3:待服务 4：服务中 5：已完结，
         tv_mine_order_contracting.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 0).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "3").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }
         tv_mine_order_servicing.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 1).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "4").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }
         tv_mine_order_finished.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 2).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "5").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }
         tv_mine_order_all.setOnClickListener {
-            ARouter.getInstance().build(MineOrderUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 3).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
+            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, "0").withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }
     }
 
@@ -110,7 +117,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 }
             }
         }
-
         QMUIGroupListView.newSection(context)
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(mineAddressItem, onClickListener)
@@ -131,12 +137,13 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
 
     override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
-        tv_mine_card_num.text = "$result.noteCount\n发布"
-        tv_mine_card_num.text = "${result.replyCount}\n回复"
-        tv_mine_card_num.text = "${result.fansCount}\n粉丝"
-        tv_mine_card_num.text = "${result.focusedCount}\n关注"
+        tv_mine_card_num.text = "${result.noteCount}\n发布"
+        tv_mine_reply_num.text = "${result.replyCount}\n回复"
+        tv_mine_fans_num.text = "${result.fansCount}\n粉丝"
+        tv_mine_collection_num.text = "${result.focusedCount}\n关注"
+    }
 
-
+    override fun onGetOrderList(result: OrderListResult) {
     }
 
     override fun showLoading() {

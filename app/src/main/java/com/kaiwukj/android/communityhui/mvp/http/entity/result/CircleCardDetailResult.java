@@ -15,8 +15,36 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
     private int commentNum;
     private String content;
     private String createTime;
+    private String headImg;
+    private String nickName;
+    private String statusFlag;
     private int fansFlag;
     private int id;
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getStatusFlag() {
+        return statusFlag;
+    }
+
+    public void setStatusFlag(String statusFlag) {
+        this.statusFlag = statusFlag;
+    }
+
     private String imgs;
     private String noteType;
     private String title;
@@ -139,7 +167,6 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
     }
 
     public static class UnoteCommentListBean {
-
         private String commentatorHeadImg;
         private int commentatorId;
         private String commentatorNickName;

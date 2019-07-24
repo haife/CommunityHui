@@ -4,7 +4,9 @@ import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
@@ -44,7 +46,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
 
 
     /**
-     * 获取手机验证码
+     * 获取我的信息
      * @param phoneNumber String
      */
     fun getMineInfoData() {
@@ -52,11 +54,12 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<MineUserInfoResult>(mErrorHandler) {
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<MineUserInfoResult>(mErrorHandler) {
                     override fun onNext(t: MineUserInfoResult) {
                         if (t.code == Api.RequestSuccess) {
-                            mRootView.onGetMineInfo(result = t.result)
-                            requestSocialHomePage(t.result.id.toString())
+                            mRootView.onGetMineInfo(t.result)
+                            requestSocialHomePage(null)
                         } else {
                             mRootView.showMessage(t.desc)
                         }
@@ -68,7 +71,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
      * 帖子 回复信息等
      * @param userId String
      */
-    fun requestSocialHomePage(userId: String) {
+    fun requestSocialHomePage(userId: String?) {
         val request = SocialUserHomePageRequest()
         request.id = userId
         mModel.requestSocialHomePage(request)
@@ -95,7 +98,6 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                 .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen(RetryWithDelay(3, 2))
                 .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
                     override fun onNext(result: BaseStatusResult) {
                         if (result.code == Api.RequestSuccess) {
@@ -106,7 +108,28 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
     }
 
 
+    /**
+     * 获取我的订单
+     * 3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
+     */
+    fun requestMineOrderData(typeId: Int?) {
+        var request = OrderListRequest(typeId.toString())
+        mModel.requestMineOrderData(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle<OrderListResult>(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<OrderListResult>(mErrorHandler) {
+                    override fun onNext(result: OrderListResult) {
+                        if (result.code == Api.RequestSuccess) {
+                            mRootView.onGetOrderList(result)
+                        }
+                    }
+                })
+    }
+
+
     override fun onDestroy() {
-        super.onDestroy();
+        super.onDestroy()
     }
 }

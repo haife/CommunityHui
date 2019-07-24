@@ -37,6 +37,10 @@ class ExtraCons {
         const val EXTRA_KEY_STAFF_SETVIE_TYPE_ID: String = "EXTRA_KEY_STAFF_SETVIE_TYPE_ID"
 
         const val EXTRA_KEY_POST_CARD_TYPE = "EXTRA_KEY_POST_CARD_TYPE"
+        const val EXTRA_KEY_POST_CARD_TYPE_NAME = "EXTRA_KEY_POST_CARD_TYPE_NAME"
+
+        /*传递订单实体类*/
+        const val EXTRA_KEY_ORDER_DETAIL_KEY = "EXTRA_KEY_ORDER_DETAIL_KEY"
 
     }
 }

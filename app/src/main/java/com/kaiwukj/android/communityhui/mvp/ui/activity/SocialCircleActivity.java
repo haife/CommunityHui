@@ -38,8 +38,12 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePresenter> implements SocialCircleContract.View {
     @Autowired(name = FRAGMENT_KEY)
     String mFragmentKey;
+    @Autowired(name = FRAGMENT_KEY_CARD_ID)
+    int mCardId;
 
     public static final String FRAGMENT_KEY = "FRAGMENT_KEY";
+
+    public static final String FRAGMENT_KEY_CARD_ID = "FRAGMENT_KEY_CARD_ID";
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -59,7 +63,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         if (CircleCardDetailFragment.CIRCLE_CARD_DETAIL.equals(mFragmentKey)) {
-            loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance(1));
+            loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance(mCardId));
         } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
         }

@@ -51,7 +51,6 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream>, okhttp3.Ca
         }
         Request request = requestBuilder.build();
         this.callback = callback;
-
         call = client.newCall(request);
         call.enqueue(this);
     }

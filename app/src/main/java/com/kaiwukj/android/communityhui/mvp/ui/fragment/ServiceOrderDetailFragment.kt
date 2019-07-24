@@ -11,6 +11,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -25,18 +26,20 @@ import kotlinx.android.synthetic.main.fragment_service_order_detail.*
  * @desc 服务订单详情
  */
 class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
-    override fun post(runnable: Runnable?) {
-    }
+
+    lateinit var orderData: OrderListResult
 
     companion object {
         const val SERVICE_ORDER_DETAIL_FRAGMENT = "SERVICE_ORDER_DETAIL_FRAGMENT"
 
-        fun newInstance(): ServiceOrderDetailFragment {
+        fun newInstance(mOrderDetailBean: OrderListResult?): ServiceOrderDetailFragment {
             val fragment = ServiceOrderDetailFragment()
+            if (mOrderDetailBean != null) {
+                fragment.orderData = mOrderDetailBean
+            }
             return fragment
         }
     }
-
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerMineComponent
@@ -56,6 +59,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
             start(EvaluateServiceFragment.newInstance())
         }
     }
+
     override fun onGetMineInfo(result: MineUserInfoResult) {
 
     }
@@ -79,5 +83,11 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
 
     override fun killMyself() {
 
+    }
+
+    override fun onGetOrderList(result: OrderListResult) {
+    }
+
+    override fun post(runnable: Runnable?) {
     }
 }

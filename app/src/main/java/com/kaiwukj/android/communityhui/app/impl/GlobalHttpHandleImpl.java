@@ -7,6 +7,7 @@ import com.kaiwukj.android.communityhui.app.constant.SPParam;
 import com.kaiwukj.android.communityhui.utils.SPUtils;
 import com.kaiwukj.android.mcas.http.GlobalHttpHandler;
 import com.kaiwukj.android.mcas.http.log.RequestInterceptor;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -24,6 +25,7 @@ import okhttp3.Response;
  */
 public class GlobalHttpHandleImpl implements GlobalHttpHandler {
     private Context context;
+    private QMUITipDialog hintDialog;
 
     public GlobalHttpHandleImpl(Context context) {
         this.context = context;
@@ -41,7 +43,19 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
     @Override
     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
         if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
-            //ArmsUtils.obtainAppComponentFromContext(context).gson().fromJson(httpResult, new TypeToken<>())
+//            BaseStatusResult result = McaUtils.obtainAppComponentFromContext(context).gson().fromJson(httpResult, BaseStatusResult.class);
+//            if (result.getCode().equals("2")) {
+//                //Token失效
+//                hintDialog = new QMUITipDialog.Builder(context).setTipWord(context.getString(R.string.login_out_time)).create();
+//                SPUtils.getInstance().remove(SPParam.SP_LOGIN_TOKEN);
+//                new Handler().postDelayed(() -> {
+//                    hintDialog.show();
+//                }, 1000);
+//                context.startActivity(new Intent(context, LoginActivity.class));
+//                hintDialog.dismiss();
+//            }
+
+
         }
          /* 这里如果发现 token 过期, 可以先请求最新的 token, 然后在拿新的 token 放入 Request 里去重新请求
         注意在这个回调之前已经调用过 proceed(), 所以这里必须自己去建立网络请求, 如使用 Okhttp 使用新的 Request 去请求

@@ -1,0 +1,41 @@
+package com.kaiwukj.android.communityhui.mvp.ui.adapter;
+
+import android.content.Context;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.kaiwukj.android.communityhui.R;
+import com.kaiwukj.android.communityhui.mvp.http.api.Api;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+
+import java.util.List;
+
+/**
+ * Copyright © KaiWu Technology Company
+ *
+ * @author Haife
+ * @job Android Development
+ * @company KW | 开物科技
+ * @time 2019/7/24
+ * @desc $desc
+ */
+public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardDetailResult.UnoteCommentListBean, BaseViewHolder> {
+
+    public SocialCardCommentAdapter(int layoutResId, List<CircleCardDetailResult.UnoteCommentListBean> data, Context context) {
+        super(layoutResId, data);
+        mContext = context;
+    }
+
+    @Override
+    protected void convert(BaseViewHolder helper, CircleCardDetailResult.UnoteCommentListBean item) {
+        QMUIRadiusImageView headIv = helper.getView(R.id.riv_card_comment_person_info_photo);
+        GlideArms.with(mContext).load(Api.IMG_URL + item.getReplyHeadImg()).circleCrop().into(headIv);
+        helper.setText(R.id.tvr_card_comment_person_info_name, item.getCommentatorNickName())
+                .setText(R.id.tv_card_comment_person_content, item.getContent())
+                .setText(R.id.tv_card_comment_person_time, item.getCreateTime())
+                .setText(R.id.tv_card_comment_floor, String.format(mContext.getString(R.string.card_comment_floor), helper.getAdapterPosition() + 1));
+        helper.addOnClickListener(R.id.tv_card_comment_reply);
+    }
+}

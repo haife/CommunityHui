@@ -6,7 +6,9 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
+import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 
 import java.util.List;
 
@@ -32,6 +34,6 @@ public class SocialCircleTopicAdapter extends BaseQuickAdapter<CircleCardResult,
     protected void convert(BaseViewHolder helper, CircleCardResult item) {
         ImageView iv = helper.getView(R.id.iv_social_circle_topic);
         helper.setText(R.id.tv_social_circle_topic, item.getDicValue());
-        //  GlideArms.with(mContext).load(Api.IMG_URL + item.getImg()).centerCrop().into(iv);
+          GlideArms.with(mContext).load(Api.IMG_URL + item.getImg()).centerCrop().into(iv);
     }
 }

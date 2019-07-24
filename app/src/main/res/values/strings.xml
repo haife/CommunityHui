@@ -6,6 +6,7 @@
     <string name="app_name">慧家服</string>
     <!--common-->
     <string name="error_happen_current">发生错误</string>
+    <string name="login_out_time">登录失效，请重新登陆</string>
     <!--common-->
 
     <!--login-->
@@ -130,7 +131,12 @@
     <string name="service_order_number">订单编号</string>
     <string name="service_order_comment_right_now">立即评价</string>
     <string name="subordinate_the_stores">所属门店</string>
+
     <string name="order_stores_phone">门店电话</string>
+    <string name="order_stores_wait">待服务</string>
+    <string name="order_stores_serving">服务中</string>
+    <string name="order_stores_finish">已完结</string>
+    <string name="order_stores_all">全部</string>
 
     <string name="order_detail_interview_time">面试时间</string>
     <string name="order_detail_service_project">服务项目</string>
@@ -145,6 +151,15 @@
     <string name="order_power_of_chat">沟通能力</string>
     <string name="order_professional_ethics">职业道德</string>
     <string name="order_evaluate_submit">提交</string>
+
+    <string name="order_evaluate_wait">待派单</string>
+    <string name="order_evaluate_interview">面试中</string>
+    <string name="order_evaluate_contract">签约中</string>
+    <string name="order_evaluate_serving">服务中</string>
+    <string name="order_evaluate_finish">已完成</string>
+    <string name="order_evaluate_cancel">已取消</string>
+
+
     <!--服务订单-->
     <!--我的地址-->
     <string name="edit_mine_address">编辑地址</string>
@@ -166,6 +181,7 @@
     <string name="setting_clearing_cache">正在清理缓存</string>
     <string name="setting_submitting">正在提交</string>
     <string name="setting_clearing_cache_success">清理完成</string>
+
     <string name="setting_login_out">退出登录</string>
     <string name="setting_about_company">关于我们</string>
     <!--我的收藏-->

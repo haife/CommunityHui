@@ -9,30 +9,28 @@
 
     <com.qmuiteam.qmui.widget.QMUIAppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="256dp"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
         <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
             android:id="@+id/collapsing_social_circle_top_bar_list_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:qmui_collapsedTitleGravity="center"
             app:qmui_contentScrim="?attr/qmui_config_color_blue"
             app:qmui_expandedTitleGravity="center_horizontal|bottom"
             app:qmui_expandedTitleMarginBottom="20dp"
-
             app:qmui_statusBarScrim="?attr/qmui_config_color_blue"
             android:minHeight="?attr/qmui_topbar_height">
 
             <ImageView
                 android:id="@+id/iv_qtb_social_circle_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="二手圈"
+                android:layout_height="@dimen/dp_200"
                 android:fitsSystemWindows="false"
                 android:scaleType="centerCrop"
-                android:background="@color/colorLight"
+                android:background="@mipmap/icon_social_circle_head"
                 app:qmui_layout_collapseMode="parallax"
                 app:qmui_layout_collapseParallaxMultiplier="0.7"/>
 

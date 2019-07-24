@@ -15,7 +15,6 @@
         android:id="@+id/qriv_circle_head_photo"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
-        android:background="@color/window_background_color"
         app:qmui_is_circle="true"/>
 
     <TextView
@@ -25,7 +24,6 @@
         android:layout_alignTop="@+id/qriv_circle_head_photo"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_toRightOf="@+id/qriv_circle_head_photo"
-        android:text="满满二丁目"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_14"/>
 
@@ -36,7 +34,6 @@
 
         android:layout_alignLeft="@+id/tv_circle_nick_name"
         android:layout_alignBottom="@+id/qriv_circle_head_photo"
-        android:text="07-10 16:45"
         android:textColor="@color/common_slight_light_color"
         android:textSize="@dimen/sp_12"/>
 
@@ -47,7 +44,6 @@
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_toRightOf="@+id/tv_circle_nick_name"
         android:background="@drawable/shape_app_theme_border"
-        android:text="二手闲置"
         android:textColor="@color/app_color_theme"
         android:textSize="@dimen/sp_10"/>
 
@@ -77,6 +73,7 @@
         android:id="@+id/qriv_circle_image"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_100"
+        android:layout_below="@+id/tv_circle_message_content"
         android:layout_alignTop="@+id/tv_circle_message_content"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/dp_12"
@@ -87,7 +84,8 @@
         android:id="@+id/tv_circle_comment_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/qriv_circle_image"
+        android:layout_below="@+id/tv_circle_message_content"
+        android:layout_marginTop="@dimen/dp_45"
         android:drawableLeft="@drawable/icon_social_circle_comment"
         android:drawableRight="@drawable/shape_social_circle_oval"
         android:drawablePadding="@dimen/dp_5"
@@ -102,7 +100,6 @@
         android:layout_alignBottom="@+id/tv_circle_comment_hint"
         android:layout_marginLeft="@dimen/dp_6"
         android:layout_toRightOf="@+id/tv_circle_comment_hint"
-        android:text="4"
         android:textColor="@color/common_slight_light_color"
         android:textSize="@dimen/sp_14"/>
 </RelativeLayout>

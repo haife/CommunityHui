@@ -36,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvr_card_comment_person_info_name"
         android:layout_alignParentRight="true"
-        android:text="4.2分"
         android:textColor="@color/home_color_hot_service_text"
         android:textSize="@dimen/sp_13"
         />

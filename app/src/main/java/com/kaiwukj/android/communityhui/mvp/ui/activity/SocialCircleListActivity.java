@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
@@ -12,7 +13,9 @@ import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
@@ -20,10 +23,14 @@ import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -44,7 +51,11 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     int typeId;
 
     @Autowired(name = ExtraCons.CIRCLE_TOPIC_TYPE_TITLE)
-    String  title;
+    String title;
+
+    @Inject
+    List<CircleCardResult> mCardResults;
+    private CircleHomeRequest request = new CircleHomeRequest();
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -58,8 +69,6 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
-        // McaUtils.statuInScreen(this);
-
         return R.layout.activity_social_circle_list;
 
     }
@@ -67,10 +76,11 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         initTopBar();
-//        mPresenter.getHomeRecommendData(typeId,1,false);
-//        mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
-//        mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
-//        mCircleListRv.setAdapter(mCircleListAdapter);
+        request.setType(typeId);
+        mPresenter.getHomeRecommendData(request, true);
+        mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
+        mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
+        mCircleListRv.setAdapter(mCircleListAdapter);
     }
 
 

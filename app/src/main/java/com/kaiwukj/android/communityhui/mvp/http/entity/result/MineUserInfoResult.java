@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @since 2019-07-24
  */
 public class MineUserInfoResult extends BaseRootResult<MineUserInfoResult> implements Serializable {
-
     private int gender;
     private String headImg;
     private String hxName;

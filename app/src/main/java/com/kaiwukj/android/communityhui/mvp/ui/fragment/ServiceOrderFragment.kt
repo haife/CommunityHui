@@ -16,6 +16,7 @@ import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
@@ -39,10 +40,13 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * @desc  全部服务订单
  */
 class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
+    override fun onGetOrderList(result: OrderListResult) {
+    }
 
     private var mFragmentList: List<Fragment> = ArrayList()
 
     var mItemIndex: Int = 0
+    val titleList: ArrayList<BouseKeepingServiceType> = arrayListOf()
 
     companion object {
         const val SERVICE_ORDER_FRAGMENT = "SERVICE_ORDER_FRAGMENT"
@@ -55,7 +59,7 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
     }
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerMineComponent //如找不到该类,请编译一下项目
+        DaggerMineComponent
                 .builder()
                 .appComponent(appComponent)
                 .mineModule(MineModule(this))
@@ -68,18 +72,22 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val bean1 = BouseKeepingServiceType(1, "待服务")
-        val bean2 = BouseKeepingServiceType(2, "服务中")
-        val bean3 = BouseKeepingServiceType(1, "已完结")
-        val bean4 = BouseKeepingServiceType(1, "全部")
-        val list: ArrayList<BouseKeepingServiceType> = arrayListOf()
+        val wait = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_wait))
+        val serving = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_serving))
+        val finished = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_finish))
+        val allIn = BouseKeepingServiceType(mItemIndex, getString(R.string.order_stores_all))
+        titleList.add(wait)
+        titleList.add(serving)
+        titleList.add(finished)
+        titleList.add(allIn)
+        initMagicIndicatorView(titleList)
+        when (mItemIndex) {
+            0 -> view_pager_service_order_container.currentItem = 3
+            3 -> view_pager_service_order_container.currentItem = 0
+            4 -> view_pager_service_order_container.currentItem = 1
+            5 -> view_pager_service_order_container.currentItem = 2
+        }
 
-        list.add(bean1)
-        list.add(bean2)
-        list.add(bean3)
-        list.add(bean4)
-        initMagicIndicatorView(list)
-        view_pager_service_order_container.currentItem = mItemIndex
     }
 
 
@@ -92,7 +100,7 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
                 simplePagerTitleView.text = magicIndicatorContentList[index].string_name
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
@@ -111,21 +119,22 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
             }
         }
 
-        view_pager_service_order_container.offscreenPageLimit = 1
+        view_pager_service_order_container.offscreenPageLimit = 4
         magic_indicator_service_order.navigator = mMIndicatorNavigator
         ViewPagerHelper.bind(magic_indicator_service_order, view_pager_service_order_container)
-
         //bind fragmentViewPager
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_service_order_container.adapter = homeViewPagerAdapter
 
     }
+
     override fun onGetMineInfo(result: MineUserInfoResult) {
 
     }
 
     override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
     }
+
     override fun post(runnable: Runnable?) {
     }
 

@@ -72,9 +72,10 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View) :
                 .subscribe(object : ErrorHandleSubscriber<LoginResult>(mErrorHandler) {
                     override fun onNext(t: LoginResult) {
                         if (t.code == Api.RequestSuccess) {
-                            mRootView.loginSuccess()
                             SPUtils.getInstance().put(SPParam.SP_LOGIN_PHONE, loginRequest.phoneNo)
                             SPUtils.getInstance().put(SPParam.SP_LOGIN_TOKEN, t.result)
+                            mRootView.loginSuccess()
+
                         } else {
                             mRootView.showMessage(t.desc)
                         }

@@ -3,6 +3,7 @@ package com.kaiwukj.android.communityhui.mvp.http.api.service;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -42,8 +43,14 @@ public interface MineService {
     Observable<MineUserInfoResult> requestMineInfoData();
 
     /**
-     * 用户信息
+     * 更新用户信息
      */
     @POST("/app/sc/user/update")
     Observable<BaseStatusResult> updatetMineInfoData(@Body RequestBody body);
+
+    /**
+     * 订单列表
+     */
+    @POST("/app/sc/userOrder/myOrder")
+    Observable<OrderListResult> getMineOrderData(@Body RequestBody body);
 }

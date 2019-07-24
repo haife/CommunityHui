@@ -71,6 +71,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Inject
     List<CircleHomeResult> mDataList;
+
     @Inject
     SocialCircleListAdapter mCircleListAdapter;
 
@@ -78,7 +79,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     SocialCircleTopicAdapter mCircleTopicAdapter;
     private TextView mHotTvTitle;
     private int page = 1;
-    private CircleHomeRequest request = new CircleHomeRequest();
+    private CircleHomeRequest request = new CircleHomeRequest(0);
 
     public static SocialCircleFragment newInstance() {
         SocialCircleFragment fragment = new SocialCircleFragment();
@@ -131,11 +132,12 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         McaUtils.configRecyclerView(topicRv, manager);
         topicRv.setAdapter(mCircleTopicAdapter);
         mCircleTopicAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.CircleListUrl).withInt(ExtraCons.CIRCLE_TOPIC_TYPE_ID, mHotList.get(position).getId())
+            ARouter.getInstance().build(ARouterUrlKt.CircleListUrl).withInt(ExtraCons.CIRCLE_TOPIC_TYPE_ID, mCardResults.get(position).getId())
                     .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mHotList.get(position).getTitle()).navigation();
         });
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).navigation();
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
         });
 
         mPostTopicBt.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT).navigation());

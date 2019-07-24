@@ -36,7 +36,6 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -64,6 +63,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
 
     @BindView(R.id.rl_social_circle_card_type)
     TextView mPostCardTypeTv;
+
 
     @BindView(R.id.et_social_circle_post_card_title)
     EditText mTitleEt;
@@ -117,7 +117,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
                 initTopBar(topBar);
         }
         pickItem = new ImageItem();
-        pickItem.path = McaUtils.getResourcesUri(R.mipmap.icon_tool_bar_left_back, getContext());
+        pickItem.path = McaUtils.getResourcesUri(R.drawable.icon_social_circle_add_image, getContext());
         voucherImage.add(pickItem);
         mPostCardAdapter = new PostCardPickImageAdapter(R.layout.recycle_item_post_card_pick_image, voucherImage, getContext());
         mPostCardImageRv.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -132,7 +132,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
         });
 
         mPostCardAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (voucherImage.get(position).path.equals(McaUtils.getResourcesUri(R.mipmap.icon_tool_bar_left_back, getContext()))) {
+            if (voucherImage.get(position).path.equals(McaUtils.getResourcesUri(R.drawable.icon_social_circle_add_image, getContext()))) {
                 //选择图片
                 requestPermissions();
             }
@@ -143,7 +143,9 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
     private void initTopBar(QMUITopBar topBar) {
         topBar.addLeftBackImageButton().setOnClickListener(view -> killMyself());
         topBar.setTitle(getString(R.string.social_circle_post_topic));
+
         topBar.addRightTextButton(getString(R.string.social_circle_post_action), R.id.qmui_top_right_btn).setOnClickListener(view -> {
+
             String title = mTitleEt.getText().toString();
             if (McaUtils.isEmpty(title)) {
                 showMessage(getString(R.string.post_card_input_title_hint));
@@ -156,19 +158,28 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
                 return;
             }
             mCardRequest.setContent(content);
-            if (mCardRequest.getInteger() == null) {
+            if (mCardRequest.getType() == null) {
                 showMessage(getString(R.string.post_card_choose_type_hint));
                 return;
             } else {
-                if (mCardRequest.getInteger() == -1 && mCardRequest.getInteger() == 0) {
+                if (mCardRequest.getType() == -1 && mCardRequest.getType() == 0) {
                     showMessage(getString(R.string.post_card_choose_type_hint));
                     return;
                 }
             }
             assert mPresenter != null;
-            mPresenter.postSocialCard(mCardRequest);
+            List<String> paths = new ArrayList<>();
+            voucherImage.remove(pickItem);
+            if (voucherImage.size() > 0) {
+                for (ImageItem item : voucherImage) {
+                    paths.add(item.path);
+                }
+                mPresenter.requestQIToken(mCardRequest, paths);
+            } else {
+                mPresenter.postSocialCard(mCardRequest);
+            }
 
-
+            view.setEnabled(false);
         });
     }
 
@@ -194,7 +205,9 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
         super.onFragmentResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE_TYPE) {
             int type = data.getInt(ExtraCons.EXTRA_KEY_POST_CARD_TYPE, -1);
-            mCardRequest.setInteger(type);
+            String typeStr = data.getString(ExtraCons.EXTRA_KEY_POST_CARD_TYPE_NAME);
+            mCardRequest.setType(type);
+            mPostCardTypeTv.setText(typeStr);
         }
     }
 
@@ -236,7 +249,12 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
         dialog = new QMUITipDialog.Builder(getContext()).setTipWord(message).create();
         dialog.setTitle(message);
         dialog.show();
-        new Handler().postDelayed(() -> dialog.dismiss(), 800);
+        new Handler().postDelayed(() -> {
+            dialog.dismiss();
+            if (message.equals(getString(R.string.social_post_card_success))) {
+                killMyself();
+            }
+        }, 800);
     }
 
     @Override
@@ -245,7 +263,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
 
     @Override
     public void killMyself() {
-        Objects.requireNonNull(getActivity()).onBackPressed();
+        getActivity().onBackPressed();
     }
 
     @Override

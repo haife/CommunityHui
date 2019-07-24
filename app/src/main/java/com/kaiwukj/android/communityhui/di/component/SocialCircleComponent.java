@@ -6,6 +6,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleListActivity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTopicFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTypeFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleListFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCirclePersonPageFragment;
@@ -34,4 +35,5 @@ public interface SocialCircleComponent {
     void inject(PostCardTopicFragment fragment);
     void inject(SocialCirclePersonPageFragment fragment);
     void inject(SocialCircleListFragment fragment);
+    void inject(PostCardTypeFragment fragment);
 }

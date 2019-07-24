@@ -14,6 +14,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.utils.DataCleanManager
@@ -35,6 +36,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
  * @desc  服务评价
  */
 class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
+
     private var hintDialog: QMUITipDialog? = null
 
     companion object {
@@ -115,7 +117,6 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
                         }, 500)
                     }, 1500)
 
-
                 }
                 aboutCompany -> {
 
@@ -134,6 +135,10 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
     override fun onGetMineInfo(result: MineUserInfoResult) {
 
     }
+
+    override fun onGetOrderList(result: OrderListResult) {
+    }
+
 
     override fun onGetOtherHomePageData(result: SocialUserHomePageResult) {
     }

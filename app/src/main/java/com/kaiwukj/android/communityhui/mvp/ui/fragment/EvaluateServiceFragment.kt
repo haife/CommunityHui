@@ -11,6 +11,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -24,8 +25,6 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
  * @desc  服务评价
  */
 class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
-    override fun post(runnable: Runnable?) {
-    }
 
     companion object {
         fun newInstance(): EvaluateServiceFragment {
@@ -62,6 +61,13 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
     override fun showLoading() {
 
     }
+
+    override fun onGetOrderList(result: OrderListResult) {
+    }
+
+    override fun post(runnable: Runnable?) {
+    }
+
 
     override fun hideLoading() {
 

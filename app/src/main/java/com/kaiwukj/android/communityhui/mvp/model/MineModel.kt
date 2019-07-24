@@ -6,7 +6,9 @@ import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService
 import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
@@ -21,6 +23,7 @@ import javax.inject.Inject
 class MineModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), MineContract.Model {
+
 
     @Inject
     lateinit var mGson: Gson;
@@ -42,10 +45,25 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .requestSocialHomePage(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
+
     override fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
                 .updatetMineInfoData(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
+    }
+
+    override fun requestMineOrderData(request: OrderListRequest): Observable<OrderListResult> {
+        return if (request.statusFlag == "0") {
+            request.statusFlag = null
+            Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                    .getMineOrderData(getRequestBody(mGson.toJson(request))))
+                    .flatMap { it }
+        } else {
+            Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                    .getMineOrderData(getRequestBody(mGson.toJson(request))))
+                    .flatMap { it }
+        }
+
     }
 
     private fun getRequestBody(postJson: String): RequestBody {
