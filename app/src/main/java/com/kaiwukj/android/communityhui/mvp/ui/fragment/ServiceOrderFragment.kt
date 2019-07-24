@@ -14,7 +14,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HouseKeepingServiceType
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
@@ -46,7 +46,7 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
     private var mFragmentList: List<Fragment> = ArrayList()
 
     var mItemIndex: Int = 0
-    private val titleList: ArrayList<BouseKeepingServiceType> = arrayListOf()
+    private val titleList: ArrayList<HouseKeepingServiceType> = arrayListOf()
 
     companion object {
         const val SERVICE_ORDER_FRAGMENT = "SERVICE_ORDER_FRAGMENT"
@@ -89,10 +89,10 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
 
 
     private fun initMagicIndicatorView() {
-        val wait = BouseKeepingServiceType(TYPE_WAITING, getString(R.string.order_stores_wait))
-        val serving = BouseKeepingServiceType(TYPE_SERVING, getString(R.string.order_stores_serving))
-        val finished = BouseKeepingServiceType(TYPE_FINISHED, getString(R.string.order_stores_finish))
-        val allIn = BouseKeepingServiceType(TYPE_ALL, getString(R.string.order_stores_all))
+        val wait = HouseKeepingServiceType(TYPE_WAITING, getString(R.string.order_stores_wait))
+        val serving = HouseKeepingServiceType(TYPE_SERVING, getString(R.string.order_stores_serving))
+        val finished = HouseKeepingServiceType(TYPE_FINISHED, getString(R.string.order_stores_finish))
+        val allIn = HouseKeepingServiceType(TYPE_ALL, getString(R.string.order_stores_all))
         titleList.add(wait)
         titleList.add(serving)
         titleList.add(finished)

@@ -19,7 +19,7 @@ import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.bean.BouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HouseKeepingServiceType
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
@@ -100,20 +100,20 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         tv_store_sort_header.text = detailResult.storeName
         tv_store_sort_header_address.text = detailResult.address
         cb_store_sort_header_address.isChecked = detailResult.favoriteFlag == 1
-        val listTab = ArrayList<BouseKeepingServiceType>()
-        val itemRecommend = BouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
+        val listTab = ArrayList<HouseKeepingServiceType>()
+        val itemRecommend = HouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
         listTab.add(itemRecommend)
         //请求门店下推荐技工实体类
         val recommend = StoreListRequest(1, serviceTypeId = null, hmstoreId = mShopId)
         mFragmentList.add(HouseStaffListFragment.newInstance(recommend, 2))
-        val itemAll = BouseKeepingServiceType(0, getString(R.string.mine_order_all))
+        val itemAll = HouseKeepingServiceType(0, getString(R.string.mine_order_all))
         listTab.add(itemAll)
         //请求门店下所有技工实体类
         val all = StoreListRequest(null, serviceTypeId = null, hmstoreId = mShopId)
         mFragmentList.add(HouseStaffListFragment.newInstance(all, 2))
 
         for ((index, element) in detailResult.storeSortResponseList.withIndex()) {
-            val itemAll = BouseKeepingServiceType(element.serviceTypeId, element.serviceName)
+            val itemAll = HouseKeepingServiceType(element.serviceTypeId, element.serviceName)
             listTab.add(itemAll)
             val itemType = StoreListRequest(recommendFlag = null, serviceTypeId = element.serviceTypeId, hmstoreId = mShopId)
             mFragmentList.add(HouseStaffListFragment.newInstance(itemType, 2))
@@ -125,7 +125,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
     override fun getContextView(): Context? = context
 
 
-    private fun initMagicIndicatorView(magicIndicatorContentList: List<BouseKeepingServiceType>) {
+    private fun initMagicIndicatorView(magicIndicatorContentList: List<HouseKeepingServiceType>) {
         val mMIndicatorNavigator = CommonNavigator(context)
         mMIndicatorNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int {
