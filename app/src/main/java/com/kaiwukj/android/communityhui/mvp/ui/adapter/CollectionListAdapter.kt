@@ -31,7 +31,6 @@ class CollectionListAdapter(data: ArrayList<MineCollectionResult>?, layoutId: In
                 helper.setText(R.id.iv_collection_staff_list_name, item.name)
                         .setText(R.id.iv_collection_staff_list_message, String.format(context.getString(R.string.home_format_order_detail_message), item.workLong, item.age, item.name))
                         .setText(R.id.iv_collection_staff_list_order_number, String.format(context.getString(R.string.home_format_staff_order_number), item.volume))
-
             }
 
             2 -> {

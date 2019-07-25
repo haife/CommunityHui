@@ -34,7 +34,6 @@ ext {
             //support
             "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
             "appcompat"                : "androidx.appcompat:appcompat:${androidxVersion["appcompat"]}",
-            "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",
             //network
             "retrofit"                 : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
             "retrofit-converter-gson"  : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",

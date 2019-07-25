@@ -12,7 +12,6 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -28,12 +27,9 @@
         android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-
-        android:usesCleartextTraffic="true"
         tools:replace="android:appComponentFactory">
 
         <meta-data
@@ -45,17 +41,22 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="667"/>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.kaiwukj.android.communityhui.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
         <!-- 启动 -->
         <activity
             android:name=".app.base.BootScreenActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/BootScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
 
@@ -63,6 +64,11 @@
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity> <!-- 登录 -->
         <activity
@@ -106,43 +112,8 @@
             android:theme="@style/SwipeBackStyle">
         </activity>
 
-        <!--环信-->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.kaiwukj.android.communityhui.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
-        </provider>
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false"/>
-        <meta-data
-            android:name="EASEMOB_APPKEY"
-            android:value="1115190326030529#communityhui"/>
-        <!-- 声明sdk所需的service -->
-        <service
-            android:name="com.hyphenate.chat.EMChatService"
-            android:exported="true"
-            tools:ignore="ExportedService"/>
-        <service
-            android:name="com.hyphenate.chat.EMJobService"
-            android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"/> <!-- 声明sdk所需的receiver -->
-        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
 
-                <data android:scheme="package"/>
-            </intent-filter>
-            <!-- 可选filter -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-            </intent-filter>
-        </receiver>
+
 
     </application>
 

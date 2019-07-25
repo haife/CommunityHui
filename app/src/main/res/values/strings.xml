@@ -213,10 +213,5 @@
     <string name="card_comment_floor">%d 楼</string>
     <string name="mine_address_choice_area">城市选择</string>
     <!--社交圈子-->
-    <!--环信-->
-    <string name="emojicon_test_name">示例</string>
-    <string name="title_live">互动视频</string>
-    <string name="at_your_in_group">%s在群聊中@了你</string>
-    <string name="msg_recall_by_self">您撤回了一条消息</string>
-    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
+
 </resources>
