@@ -4,7 +4,6 @@ import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
@@ -90,23 +89,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
     }
 
 
-    /**
-     * 更新个人信息
-     * @param userId String
-     */
-    fun updateMineInfoData(userInfo: MineUserInfoResult) {
-        mModel.updateMineInfoData(userInfo)
-                .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
-                    override fun onNext(result: BaseStatusResult) {
-                        if (result.code == Api.RequestSuccess) {
 
-                        }
-                    }
-                })
-    }
 
 
     /**

@@ -49,14 +49,19 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     fun requestServiceList() {
         mModel.requestServiceList()
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mRootView.showLoading() }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
-                            mRootView.onGetServiceList(data.result)
                             processRecommendData(data.result)
                         }
+                    }
+
+                    override fun onError(t: Throwable) {
+                        super.onError(t)
+                        mRootView.onResponseError()
                     }
                 })
     }
@@ -67,9 +72,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
      * @param request StoreListRequest
      * 是否推荐 0默认，1推荐 不传为默认所有
      */
-    fun requestStoreRecommend(request: StoreListRequest) {
-        mModel.requestStoreRecommend(request)
+    fun requestStoreRecommend(request: StoreListRequest, isRefresh: Boolean) {
+        mModel.requestStoreRecommend(request, isRefresh)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mRootView.showLoading() }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
@@ -78,9 +84,15 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             //推荐门店
                             val recommendStore = HRecommendMultiItemEntity(STRING_STORES_RECOMMEND)
                             recommendStore.recommendStoreList = data.result.list
-                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND,recommendStore)
+                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND, recommendStore)
                             mRecommendAdapter.notifyDataSetChanged()
                         }
+                    }
+
+                    override fun onError(t: Throwable) {
+                        super.onError(t)
+                        mRootView.onResponseError()
+                        if (isRefresh) mRootView.onResponseError()
                     }
 
                 })
@@ -92,20 +104,29 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
      * @param request StoreListRequest
      * 是否推荐 0默认，1推荐 不传为默认所有
      */
-    fun requestStaffRecommend(request: StoreListRequest) {
-        mModel.requestStaffRecommend(request)
+    fun requestStaffRecommend(request: StoreListRequest, isRefresh: Boolean) {
+        mModel.requestStaffRecommend(request, isRefresh)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
+                .doFinally {
+                    mRootView.hideLoading()
+                }
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StaffListResult>(mErrorHandler) {
                     override fun onNext(data: StaffListResult) {
                         if (data.code == Api.RequestSuccess) {
                             //推荐阿姨
                             val recommendStaff = HRecommendMultiItemEntity(STRING_WOMAN_RECOMMEND)
                             recommendStaff.recommendStaffList = data.result.list
-                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.WOMAN_RECOMMEND,recommendStaff)
+                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.WOMAN_RECOMMEND, recommendStaff)
                             mRecommendAdapter.notifyDataSetChanged()
+
                         }
+                    }
+
+                    override fun onError(t: Throwable) {
+                        super.onError(t)
+                        mRootView.onResponseError()
                     }
                 })
     }
@@ -119,7 +140,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
         //家政服务类型
         val recommendShopEntity = HRecommendMultiItemEntity(STRING_HOT_SERVICE)
         recommendShopEntity.homeServiceList = list
-        hRecommendMultiItemList.add(HRecommendMultiItemEntity.HOT_SERVICE_TYPE,recommendShopEntity)
+        hRecommendMultiItemList.add(HRecommendMultiItemEntity.HOT_SERVICE_TYPE, recommendShopEntity)
         mRecommendAdapter.notifyDataSetChanged()
     }
 

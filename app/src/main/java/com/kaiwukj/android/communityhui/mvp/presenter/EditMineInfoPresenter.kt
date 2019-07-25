@@ -3,10 +3,13 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.utils.QiNiuUtil
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
@@ -16,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import java.util.*
 import javax.inject.Inject
 
 
@@ -34,7 +38,7 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
     lateinit var mAppManager: AppManager
 
     /**
-     * 更新个人信息
+     * 我的收藏
      * @param userId String
      */
     fun requestMyCollection(request: MineCollectionRequest) {
@@ -47,6 +51,24 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                     override fun onNext(result: MineCollectionResult) {
                         if (result.code == Api.RequestSuccess) {
                             mRootView.onGetMyCollectionData(result.result.list)
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 更新个人信息
+     * @param userId String
+     */
+    fun updateMineInfoData(userInfo: MineUserInfoResult) {
+        mModel.updateMineInfoData(userInfo)
+                .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(result: BaseStatusResult) {
+                        if (result.code == Api.RequestSuccess) {
+
                         }
                     }
                 })
@@ -112,6 +134,35 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                     }
                 })
     }
+
+
+    /**
+     * 上传头像
+     */
+    fun requestQIToken(paths: String) {
+        mModel.requestQIToken()
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseQITokenResult>(mErrorHandler) {
+                    override fun onNext(data: BaseQITokenResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            val qiNiuUtil = QiNiuUtil { urls ->
+                                val imageUlrs = ArrayList<String>()
+                                for (bean in urls) {
+                                    imageUlrs.add(bean.imgUrl)
+                                    mRootView.showMessage(bean.imgUrl)
+                                }
+
+                            }
+                            //上传图片
+                            qiNiuUtil.uploadImageToQiniu(paths, data.result)
+                        }
+                    }
+                })
+    }
+
 
     override fun onDestroy() {
         super.onDestroy();

@@ -212,6 +212,8 @@
     <string name="social_card_no_comment">暂无评论</string>
     <string name="card_comment_floor">%d 楼</string>
     <string name="mine_address_choice_area">城市选择</string>
+    <string name="home_service_no_open_hint">服务暂未开通</string>
+    <string name="mine_sign_input_hint">请输入15字符内的签名</string>
     <!--社交圈子-->
 
 </resources>

@@ -79,9 +79,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .flatMap { it }
     }
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
-    }
+
 
 
 }

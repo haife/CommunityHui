@@ -13,10 +13,8 @@ import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import io.rx_cache2.DynamicKey
 import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.Reply
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -32,11 +30,6 @@ import javax.inject.Inject
 class HomeModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), HomeContract.Model {
-
-
-    private val homeDynamicKey = "HomeHotService"
-    private val homeStoreKey = "HomeStoreList"
-    private val homeStaffKey = "HomeStaffList"
     @Inject
     lateinit var mGson: Gson
     @Inject
@@ -47,7 +40,8 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestHomeServiceList())
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeServiceCache(it, DynamicKey(homeDynamicKey), EvictDynamicKey(true))
+                    mRepositoryManager.obtainCacheService(CommonCache::class.java)
+                            .getHomeServiceCache(it)
                             .map { list: Reply<HomeServiceEntity> ->
                                 list.data
                             }
@@ -55,34 +49,42 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
 
-    override fun requestStoreRecommend(recommendFlg: StoreListRequest): Observable<StoreListResult> {
+    /**
+     * 如果isRefresh为true 需要驱逐缓存
+     * @param recommendFlg StoreListRequest
+     * @param isRefresh Boolean
+     * @return Observable<StoreListResult>
+     */
+    override fun requestStoreRecommend(recommendFlg: StoreListRequest, isRefresh: Boolean): Observable<StoreListResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, DynamicKey(homeStoreKey), EvictDynamicKey(false))
+                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, EvictDynamicKey(isRefresh))
                             .map { list: Reply<StoreListResult> ->
                                 list.data
                             }
                 }
     }
 
-
-    override fun requestStaffRecommend(recommendFlg: StoreListRequest): Observable<StaffListResult> {
+    /**
+     * 如果isRefresh为true 需要驱逐缓存
+     * @param request StoreListRequest
+     * @return Observable<StaffListResult>
+     */
+    override fun requestStaffRecommend(request: StoreListRequest, isRefresh: Boolean): Observable<StaffListResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
-                .requestStaffRecommend(getRequestBody(mGson.toJson(recommendFlg))))
+                .requestStaffRecommend(getRequestBody(mGson.toJson(request))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStaffCache(it, DynamicKey(homeStaffKey), EvictDynamicKey(false))
+                    mRepositoryManager.obtainCacheService(CommonCache::class.java)
+                            .getHomeStaffCache(it, EvictDynamicKey(isRefresh))
                             .map { list: Reply<StaffListResult> ->
                                 list.data
                             }
                 }
     }
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
-    }
 
     override fun onDestroy() {
-        super.onDestroy();
+        super.onDestroy()
     }
 }

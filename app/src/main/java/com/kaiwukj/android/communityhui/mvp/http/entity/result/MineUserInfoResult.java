@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Haife Android Developer
@@ -13,6 +14,7 @@ public class MineUserInfoResult implements Serializable {
     private String hxName;
     private int id;
     private String nickName;
+    private Date birthday;
     private String perSign;
     private String phoneNo;
     private int userId;
@@ -54,6 +56,14 @@ public class MineUserInfoResult implements Serializable {
 
     public String getNickName() {
         return nickName;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public void setNickName(String nickName) {

@@ -63,10 +63,9 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
     private fun initClick() {
         cl_mine_head_top.setOnClickListener {
-            if (userInfoResult == null) {
-                return@setOnClickListener
-            }
-            ARouter.getInstance().build(MineInfoUrl).withSerializable(ExtraCons.EXTRA_KEY_EDIT_MINE, userInfoResult).withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
+            if (userInfoResult != null)
+                ARouter.getInstance().build(MineInfoUrl).withSerializable(ExtraCons.EXTRA_KEY_MINE_USER_INFO, userInfoResult)
+                        .withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
         }
 
         // 3:待服务 4：服务中 5：已完结，

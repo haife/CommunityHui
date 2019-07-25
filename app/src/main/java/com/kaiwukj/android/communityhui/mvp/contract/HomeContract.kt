@@ -13,15 +13,13 @@ import io.reactivex.Observable
 interface HomeContract {
     interface View : IView {
         fun getFragment(): Fragment
-        fun onGetServiceList(result: List<HomeServiceEntity>)
-        fun onGetStoreRecommend()
-        fun onGetStaffRecommend()
+        fun onResponseError()
     }
 
     interface Model : IModel {
         fun requestServiceList(): Observable<HomeServiceEntity>
-        fun requestStoreRecommend(recommendFlg: StoreListRequest): Observable<StoreListResult>
-        fun requestStaffRecommend(request: StoreListRequest): Observable<StaffListResult>
+        fun requestStoreRecommend(recommendFlg: StoreListRequest, isRefresh: Boolean): Observable<StoreListResult>
+        fun requestStaffRecommend(request: StoreListRequest, isRefresh: Boolean): Observable<StaffListResult>
     }
 
 }

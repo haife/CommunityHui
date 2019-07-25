@@ -19,7 +19,6 @@ import io.reactivex.Observable
 import io.rx_cache2.DynamicKey
 import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.Reply
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -27,9 +26,6 @@ import javax.inject.Inject
 class StoreModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), StoreContract.Model {
-
-
-    private val allStoreList = "AllStoreList"
     @Inject
     lateinit var mGson: Gson;
     @Inject
@@ -40,7 +36,8 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, DynamicKey(allStoreList), EvictDynamicKey(false))
+                    mRepositoryManager.obtainCacheService(CommonCache::class.java)
+                            .getHomeStoreListCache(it, DynamicKey(recommendFlg.page), EvictDynamicKey(true))
                             .map { list: Reply<StoreListResult> ->
                                 list.data
                             }
@@ -83,9 +80,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
-    }
+
 
     override fun onDestroy() {
         super.onDestroy();

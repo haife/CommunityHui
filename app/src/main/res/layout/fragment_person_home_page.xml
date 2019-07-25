@@ -44,8 +44,8 @@
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
             android:layout_alignParentRight="true"
+            android:background="@drawable/shape_user_head_oval"
             android:layout_centerVertical="true"
-            android:background="@color/window_background_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_is_circle="true"/>
@@ -93,13 +93,13 @@
             android:textSize="@dimen/sp_16"/>
 
         <EditText
+            android:id="@+id/et_person_home_page_sign"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:drawableRight="@mipmap/icon_common_next_step_dark"
             android:drawablePadding="@dimen/dp_8"
             android:gravity="right|center_vertical"
-            android:hint="请输入15字符内的签名"
+            android:hint="@string/mine_sign_input_hint"
             android:maxLines="2"
             android:paddingLeft="@dimen/dp_50"
             android:textColorHint="@color/common_text_slight_color"
@@ -121,6 +121,7 @@
             android:textSize="@dimen/sp_16"/>
 
         <RadioGroup
+            android:id="@+id/rg_person_home_sex"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
@@ -164,6 +165,7 @@
             android:textSize="@dimen/sp_16"/>
 
         <TextView
+            android:id="@+id/tv_person_home_page_birthday"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
@@ -191,6 +193,7 @@
             android:textSize="@dimen/sp_16"/>
 
         <TextView
+            android:id="@+id/tv_person_home_page_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"

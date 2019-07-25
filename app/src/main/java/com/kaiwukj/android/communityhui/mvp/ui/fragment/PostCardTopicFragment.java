@@ -143,9 +143,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
     private void initTopBar(QMUITopBar topBar) {
         topBar.addLeftBackImageButton().setOnClickListener(view -> killMyself());
         topBar.setTitle(getString(R.string.social_circle_post_topic));
-
         topBar.addRightTextButton(getString(R.string.social_circle_post_action), R.id.qmui_top_right_btn).setOnClickListener(view -> {
-
             String title = mTitleEt.getText().toString();
             if (McaUtils.isEmpty(title)) {
                 showMessage(getString(R.string.post_card_input_title_hint));
@@ -204,10 +202,13 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
     public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
         super.onFragmentResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE_TYPE) {
-            int type = data.getInt(ExtraCons.EXTRA_KEY_POST_CARD_TYPE, -1);
-            String typeStr = data.getString(ExtraCons.EXTRA_KEY_POST_CARD_TYPE_NAME);
-            mCardRequest.setType(type);
-            mPostCardTypeTv.setText(typeStr);
+            if (data != null) {
+                int type = data.getInt(ExtraCons.EXTRA_KEY_POST_CARD_TYPE, -1);
+                String typeStr = data.getString(ExtraCons.EXTRA_KEY_POST_CARD_TYPE_NAME);
+                mCardRequest.setType(type);
+                mPostCardTypeTv.setText(typeStr);
+            }
+
         }
     }
 

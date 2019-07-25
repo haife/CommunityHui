@@ -13,29 +13,46 @@
         android:layout_height="@dimen/dp_50"
         android:background="@color/write_color"
         android:gravity="center"
-        android:paddingLeft="@dimen/base_horizontal_left_margin"
         android:text="@string/main_bottom_menu_home_desc"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>
+
     <View
         android:layout_width="match_parent"
-        android:background="@color/window_background_color"
-        android:layout_height="@dimen/base_horizontal_line_height"/>
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smart_refresh_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srlEnablePreviewInEditMode="true">
+        android:layout_height="@dimen/base_horizontal_line_height"
+        android:background="@color/window_background_color"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_home"
-            style="@style/BaseRecycleViewStyle"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.qmuiteam.qmui.widget.QMUIEmptyView
+            android:id="@+id/qmui_empty_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </androidx.recyclerview.widget.RecyclerView>
+        </com.qmuiteam.qmui.widget.QMUIEmptyView>
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smart_refresh_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srlEnablePreviewInEditMode="false">
+
+            <com.scwang.smartrefresh.layout.header.BezierRadarHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_home"
+                style="@style/BaseRecycleViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+
+    </RelativeLayout>
 
 
 </LinearLayout>

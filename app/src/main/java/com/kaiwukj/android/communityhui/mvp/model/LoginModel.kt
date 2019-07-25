@@ -10,7 +10,6 @@ import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -46,7 +45,5 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
-    }
+
 }

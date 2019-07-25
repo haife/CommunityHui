@@ -27,8 +27,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 
 @Route(path = MineOrderUrl)
 class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
-    override fun onGetOrderList(result: OrderListResult) {
-    }
+
 
 
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE)
@@ -116,6 +115,9 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
 
     override fun killMyself() {
         onBackPressedSupport()
+    }
+
+    override fun onGetOrderList(result: OrderListResult) {
     }
 
     override fun onGetMineInfo(result: MineUserInfoResult) {

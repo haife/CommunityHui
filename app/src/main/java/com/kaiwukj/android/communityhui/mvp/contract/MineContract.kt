@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
@@ -30,8 +29,6 @@ interface MineContract {
         fun requestMineInfoData(): Observable<BaseRootResult<MineUserInfoResult>>
 
         fun requestSocialHomePage(request: SocialUserHomePageRequest): Observable<SocialUserHomePageResult>
-
-        fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult>
 
         fun requestMineOrderData(request: OrderListRequest): Observable<OrderListResult>
     }

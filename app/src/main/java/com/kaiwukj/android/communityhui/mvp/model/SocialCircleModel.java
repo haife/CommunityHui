@@ -26,7 +26,6 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
-import okhttp3.RequestBody;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -54,10 +53,6 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
-    }
-
-    private RequestBody getRequestBody(String postJson) {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson);
     }
 
 

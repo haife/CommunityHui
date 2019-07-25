@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
+import okhttp3.RequestBody;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -22,6 +23,10 @@ public class BaseModel implements IModel, LifecycleObserver {
 
     public BaseModel(IRepositoryManager repositoryManager) {
         this.mRepositoryManager = repositoryManager;
+    }
+
+    public RequestBody getRequestBody(String postJson) {
+        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson);
     }
 
     /**

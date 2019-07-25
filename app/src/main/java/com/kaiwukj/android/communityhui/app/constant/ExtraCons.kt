@@ -24,6 +24,8 @@ class ExtraCons {
 
         /*跳转到我的模块，个人信息模块*/
         const val EXTRA_KEY_EDIT_MINE: String = "EXTRA_KEY_EDIT_MINE"
+        /*跳转到我的模块，c传递实体类*/
+        const val EXTRA_KEY_MINE_USER_INFO: String = "EXTRA_KEY_MINE_USER_INFO"
 
         /*跳转到我订单*/
         const val EXTRA_KEY_ORDER_MINE: String = "EXTRA_KEY_ORDER_MINE"

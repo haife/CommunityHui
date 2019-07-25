@@ -13,10 +13,7 @@ import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import io.rx_cache2.DynamicKey
-import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.Reply
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -40,12 +37,13 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     lateinit var mApplication: Application;
     private val homeDynamicKey = "HomeHotService"
 
+
     override fun requestServiceList(): Observable<HomeServiceEntity> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestHomeServiceList())
                 .flatMap {
                     mRepositoryManager.obtainCacheService(CommonCache::class.java)
-                            .getHomeServiceCache(it, DynamicKey(homeDynamicKey), EvictDynamicKey(true))
+                            .getHomeServiceCache(it)
                             .map { list: Reply<HomeServiceEntity> ->
                                 list.data
                             }
@@ -78,9 +76,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
-    }
 
 
     override fun onDestroy() {

@@ -86,7 +86,6 @@ public class PostCardTypeFragment extends BaseSwipeBackFragment<SocialCirclePres
     }
 
     private void initTopBar(QMUITopBar topBar) {
-        topBar.addLeftBackImageButton().setOnClickListener(view -> getActivity().onBackPressed());
         topBar.setTitle(getString(R.string.social_circle_topic_type));
     }
 
@@ -124,6 +123,11 @@ public class PostCardTypeFragment extends BaseSwipeBackFragment<SocialCirclePres
     @Override
     public void showMessage(@NonNull String message) {
 
+    }
+
+    @Override
+    public void killMyself() {
+        getActivity().onBackPressed();
     }
 
     /**

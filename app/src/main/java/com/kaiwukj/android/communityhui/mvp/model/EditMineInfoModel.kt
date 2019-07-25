@@ -3,16 +3,18 @@ package com.kaiwukj.android.communityhui.mvp.model
 import android.app.Application
 import com.google.gson.Gson
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService
 import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -36,8 +38,10 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     lateinit var mApplication: Application
 
 
-    private fun getRequestBody(postJson: String): RequestBody {
-        return RequestBody.create(okhttp3.MediaType.parse("application/json;charset=UTF-8"), postJson)
+    override fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .updateMineInfoData(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
     }
 
     override fun requestMyCollection(request: MineCollectionRequest): Observable<MineCollectionResult> {
@@ -78,6 +82,12 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun addMyAddress(request: MyAddressResult): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
                 .addMineAddress(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+
+    override fun requestQIToken(): Observable<BaseQITokenResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService::class.java)
+                .requestQiToken(getRequestBody(mGson.toJson(Any()))))
                 .flatMap { it }
     }
 

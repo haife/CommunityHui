@@ -13,12 +13,12 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHomeComponent
 import com.kaiwukj.android.communityhui.di.module.HomeModule
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HomeUiData
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.presenter.HomePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ import javax.inject.Inject
  * @time 2019/7/15
  * @desc
  */
-class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
+class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, OnRefreshListener {
 
     @Inject
     lateinit var mHomeAdapter: HRecommendAdapter
@@ -39,15 +39,13 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
     @Inject
     lateinit var mLayoutManager: RecyclerView.LayoutManager
 
-    val uiData = HomeUiData()
 
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
         const val RECOMMEND_FLAG = 1
 
         fun newInstance(): HomeFragment {
-            val fragment = HomeFragment()
-            return fragment
+            return HomeFragment()
         }
     }
 
@@ -67,22 +65,20 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestServiceList()
-        mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG))
-        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG))
+        mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG), false)
+        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG), false)
+        smart_refresh_home.setOnRefreshListener(this)
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
-        childOnClickListener()
     }
 
-
     override fun showLoading() {
-
+        qmui_empty_view.setLoadingShowing(true)
     }
 
     override fun hideLoading() {
-
+        qmui_empty_view.hide()
     }
-
 
     override
     fun getFragment(): Fragment = this
@@ -100,24 +96,14 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     }
 
-    private fun childOnClickListener() {
-        mHomeAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when (view.id) {
-                R.id.tv_home_banner_top_house_keeping -> {
-                    //start(HouseKeepFragment.newInstance())
-                }
-            }
-        }
+    override fun onResponseError() {
+        smart_refresh_home.finishRefresh()
     }
 
-    override fun onGetServiceList(result: List<HomeServiceEntity>) {
-        uiData.homeServiceList = result
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG), true)
+        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG), true)
     }
 
-    override fun onGetStoreRecommend() {
-    }
-
-    override fun onGetStaffRecommend() {
-    }
 }
 

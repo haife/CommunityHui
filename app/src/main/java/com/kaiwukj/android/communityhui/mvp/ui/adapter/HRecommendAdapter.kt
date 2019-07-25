@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Handler
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiIte
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment.Companion.HOUSE_KEEP_LIST_FRAGMENT
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 
 /**
  * @author Haife Android Developer
@@ -28,7 +30,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment.Co
  */
 class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val context: Context) : BaseMultiItemQuickAdapter<HRecommendMultiItemEntity, BaseViewHolder>(data) {
     private val typeFaceMediumBold = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
-
+    private val hintDialog: QMUITipDialog = QMUITipDialog.Builder(context).setTipWord(context.getString(R.string.home_service_no_open_hint)).create()
     //RecycleView线程池
     private val shareRecycledViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 
@@ -55,9 +57,25 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 helper.getView<TextView>(R.id.tv_home_banner_top_house_keeping).setOnClickListener {
                     ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
+                
+                helper.getView<TextView>(R.id.tv_home_banner_top_family).setOnClickListener {
+                    showServiceNoOpenDialog()
+                }
+                helper.getView<TextView>(R.id.tv_home_banner_top_life).setOnClickListener {
+                    showServiceNoOpenDialog()
+                }
+                helper.getView<TextView>(R.id.tv_home_banner_top_refer).setOnClickListener {
+                    showServiceNoOpenDialog()
+                }
+                helper.getView<TextView>(R.id.tv_home_banner_top_all).setOnClickListener {
+                }
+
+
             }
             HRecommendMultiItemEntity.HOT_SERVICE_TYPE -> {
+
                 processServiceItem(item, helper)
+
                 helper.getView<ImageView>(R.id.iv_home_moon_woman_service).setOnClickListener {
                     launcherHouseKeepList(item.homeServiceList[0])
                 }
@@ -90,6 +108,13 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
         }
     }
+
+    //TODO("服务暂未开通")
+    private fun showServiceNoOpenDialog() {
+        hintDialog.show()
+        Handler().postDelayed({ hintDialog?.hide() }, 800)
+    }
+
 
     /**
      * 推荐横向列表

@@ -44,7 +44,7 @@ import java.util.regex.Pattern
  */
 class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
 
-    lateinit var myAddressResult: MyAddressResult
+    var myAddressResult = MyAddressResult()
     private var hintDialog: QMUITipDialog? = null
     private var options1Items: List<JsonBean> = ArrayList()
     private val options2Items = ArrayList<List<Any>>()

@@ -32,6 +32,5 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         super.onDestroy();
     }
 
-//    override fun getMineInfoData(): Observable<MineUserInfoResult> {
-//    }
+
 }
