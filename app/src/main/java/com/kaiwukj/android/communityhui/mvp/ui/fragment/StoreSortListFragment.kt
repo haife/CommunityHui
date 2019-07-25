@@ -20,6 +20,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerStoreComponent
 import com.kaiwukj.android.communityhui.di.module.StoreModule
 import com.kaiwukj.android.communityhui.mvp.contract.StoreContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HouseKeepingServiceType
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreDetailResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
@@ -29,6 +30,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerT
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
 import kotlinx.android.synthetic.main.fragment_store_sort.*
+import kotlinx.android.synthetic.main.include_store_detail_header.*
 import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -52,6 +54,8 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
     //0默认，1推荐
     private var request: StoreListRequest = StoreListRequest(RECOMMEND_FALG)
     private var mShopId: Int? = null
+    //  1技工 2门店
+    private val mTypeId: Int = 2
 
     companion object {
         const val STORE_SORT_LIST_FRAGMENT = "STORE_SORT_LIST_FRAGMENT"
@@ -88,6 +92,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
     }
 
     private fun initTopBar() {
+        empty_view_store.setLoadingShowing(true)
         qtb_store_list_sort.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_store_list_sort.setTitle(getString(R.string.store_title))
     }
@@ -97,6 +102,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
      * @param detailResult StoreDetailResult
      */
     override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+        empty_view_store.hide()
         tv_store_sort_header.text = detailResult.storeName
         tv_store_sort_header_address.text = detailResult.address
         cb_store_sort_header_address.isChecked = detailResult.favoriteFlag == 1
@@ -120,6 +126,26 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         }
 
         initMagicIndicatorView(listTab)
+        val requestCollection = mShopId?.let { CollectionRequest(it, mTypeId) }
+        cb_store_sort_header_address.setOnCheckedChangeListener { compoundButton, b ->
+            cb_store_detail_header_address.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    if (requestCollection != null) {
+                        mPresenter?.requestAddCollection(requestCollection)
+                    }
+                } else {
+                    mShopId?.let { mPresenter?.requestMoveCollection(it) }
+                }
+            }
+
+        }
+    }
+
+
+    override fun onLoadMoreFinish() {
+    }
+
+    override fun onRefreshFinish() {
     }
 
     override fun getContextView(): Context? = context

@@ -1,14 +1,10 @@
 <resources>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="app_name">慧家服</string>
     <!--common-->
     <string name="error_happen_current">发生错误</string>
     <string name="login_out_time">登录失效，请重新登陆</string>
     <!--common-->
-
     <!--login-->
     <string name="login_title_desc">登录</string>
     <string name="login_button_desc">登  录</string>
@@ -119,7 +115,7 @@
     <string name="mine_click_edit_nick_name">点击编辑昵称</string>
     <string name="mine_nick_name">昵称</string>
     <string name="mine_save_address">保存地址</string>
-    <string name="mine_add_address">➕ 新增地址</string>
+    <string name="mine_add_address">＋ 新增地址</string>
     <string name="mine_person_gender">性别</string>
     <string name="mine_person_man">男</string>
     <string name="mine_person_woman">女</string>
@@ -215,7 +211,12 @@
     <string name="social_post_card_success">发布成功</string>
     <string name="social_card_no_comment">暂无评论</string>
     <string name="card_comment_floor">%d 楼</string>
-
-
+    <string name="mine_address_choice_area">城市选择</string>
     <!--社交圈子-->
+    <!--环信-->
+    <string name="emojicon_test_name">示例</string>
+    <string name="title_live">互动视频</string>
+    <string name="at_your_in_group">%s在群聊中@了你</string>
+    <string name="msg_recall_by_self">您撤回了一条消息</string>
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
 </resources>

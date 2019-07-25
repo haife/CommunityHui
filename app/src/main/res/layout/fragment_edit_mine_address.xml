@@ -11,6 +11,7 @@
         android:id="@+id/custom_edit_address_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="@dimen/base_horizontal_line_height"
         android:background="@color/write_color"
         app:left_str="@string/edit_mine_address_name"

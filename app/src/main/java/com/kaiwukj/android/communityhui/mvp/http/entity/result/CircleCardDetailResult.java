@@ -166,7 +166,7 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
         this.unoteCommentList = unoteCommentList;
     }
 
-    public static class UnoteCommentListBean {
+    public static class UnoteCommentListBean  {
         private String commentatorHeadImg;
         private int commentatorId;
         private String commentatorNickName;

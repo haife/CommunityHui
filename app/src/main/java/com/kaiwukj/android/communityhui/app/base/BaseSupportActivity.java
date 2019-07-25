@@ -80,11 +80,10 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
     @Subscriber
     private void updateUser(String message) {
         Timber.e("Event happened Error" + message);
-      //  if (ActivityUtils.getTopActivity() == this)
-            Sneaker.with(this).setTitle(McaUtils.getString(this, R.string.error_happen_current))
-                    .autoHide(true)
-                    .setMessage(message)
-                    .sneakWarning();
+        Sneaker.with(this).setTitle(McaUtils.getString(this, R.string.error_happen_current))
+                .autoHide(true)
+                .setMessage(message)
+                .sneak(getColor(R.color.app_color_theme));
     }
 
     /**

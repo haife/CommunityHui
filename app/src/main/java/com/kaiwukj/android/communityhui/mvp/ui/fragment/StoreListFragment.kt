@@ -33,9 +33,6 @@ import javax.inject.Inject
  * @desc 门店列表
  */
 class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
-    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
-    }
-
     @Inject
     lateinit var mStoreListAdapter: StoreListAdapter
 
@@ -75,6 +72,10 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         initTopBar()
         initRecycleView()
         mPresenter?.requestAllStoreRecommend(page)
+        processRecycle()
+    }
+
+    private fun processRecycle() {
         mStoreListAdapter.setOnItemClickListener { adapter, view, position ->
             start(StoreSortListFragment.newInstance(listData[position].id))
         }
@@ -84,14 +85,12 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
             it.setEnableLoadMore(false)
             mPresenter?.requestAllStoreRecommend(page)
         }
-
         smart_store_list.setOnLoadMoreListener {
             page++
             loadMore = true
             it.setEnableRefresh(false)
             mPresenter?.requestAllStoreRecommend(page)
         }
-
     }
 
     private fun initRecycleView() {
@@ -117,13 +116,16 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
             smart_store_list.setEnableRefresh(true)
         }
         if (loadMore && page != 1 && list.result.list.size > 0) {
+            smart_store_list.finishLoadMore()
             smart_store_list.finishLoadMoreWithNoMoreData()
         }
         listData.addAll(list.result.list)
         mStoreListAdapter.notifyDataSetChanged()
+        empty_view_store.hide()
     }
 
     private fun initTopBar() {
+        empty_view_store.setLoadingShowing(true)
         qtb_store_list.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_store_list.setTitle(getString(R.string.store_title))
     }
@@ -145,4 +147,14 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
     override fun killMyself() {
         activity?.onBackPressed()
     }
+
+    override fun onRefreshFinish() {
+    }
+
+    override fun onLoadMoreFinish() {
+    }
+
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
+    }
+
 }

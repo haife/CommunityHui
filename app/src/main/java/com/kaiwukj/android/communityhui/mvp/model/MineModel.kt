@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService
 import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
@@ -34,7 +35,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         super.onDestroy();
     }
 
-    override fun requestMineInfoData(): Observable<MineUserInfoResult> {
+    override fun requestMineInfoData(): Observable<BaseRootResult<MineUserInfoResult>> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
                 .requestMineInfoData())
                 .flatMap { it }

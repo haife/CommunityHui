@@ -51,6 +51,7 @@
                 app:left_str="@string/order_detail_create_time"/>
 
             <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                android:id="@+id/tv_custom_order_detail_store_address"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_35"
                 app:left_str="@string/order_detail_service_detail"/>
@@ -66,7 +67,6 @@
                 android:layout_marginTop="@dimen/dp_5"
                 android:background="@color/write_color"
                 android:orientation="vertical">
-
 
                 <TextView
                     android:layout_width="match_parent"

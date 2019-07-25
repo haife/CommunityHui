@@ -2,24 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_5">
+                android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_home_officer_recommend"
         android:layout_width="@dimen/dp_160"
-        android:layout_height="@dimen/dp_115"
-        android:layout_margin="3dp"
-        android:background="@color/window_background_color"/>
+        android:layout_height="@dimen/dp_115"/>
 
     <TextView
         android:id="@+id/tv_home_officer_recommend_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_home_officer_recommend"
-        android:layout_alignLeft="@+id/iv_home_officer_recommend"
         android:layout_marginTop="@dimen/dp_10"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"
@@ -39,22 +33,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_home_officer_grade"
-        android:layout_alignLeft="@+id/iv_home_officer_recommend"
         android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginBottom="@dimen/dp_15"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_12"
         />
 
-    <TextView
-        android:id="@+id/tv_home_officer_recommend_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_home_officer_message"
-        android:layout_alignLeft="@+id/iv_home_officer_recommend"
-        android:layout_alignRight="@+id/iv_home_officer_recommend"
-        android:layout_marginTop="@dimen/dp_16"
-        android:maxLines="3"
-        android:textColor="@color/home_color_banner_top_text"
-        android:textSize="@dimen/sp_13"
-        />
 </RelativeLayout>

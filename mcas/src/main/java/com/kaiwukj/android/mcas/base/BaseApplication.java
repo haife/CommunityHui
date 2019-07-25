@@ -21,6 +21,11 @@ import androidx.annotation.NonNull;
 public class BaseApplication extends Application implements App {
     private AppLifecycles mAppDelegate;
 
+    private static BaseApplication instance;
+
+    public static BaseApplication getInstance() {
+        return instance;
+    }
     /**
      * 这里会在 {@link BaseApplication#onCreate} 之前被调用,可以做一些较早的初始化
      * 常用于 MultiDex 以及插件化框架的初始化
@@ -38,6 +43,7 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate(this);
     }

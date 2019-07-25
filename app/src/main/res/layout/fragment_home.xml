@@ -12,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:background="@color/write_color"
-        android:drawableLeft="@mipmap/icon_home_address_location"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:paddingLeft="@dimen/base_horizontal_left_margin"
-        android:text="南昌市恒茂梦时代…"
+        android:text="@string/main_bottom_menu_home_desc"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"/>
     <View

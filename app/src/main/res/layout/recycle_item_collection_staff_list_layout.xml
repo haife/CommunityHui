@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/write_color"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/base_horizontal_left_margin"
@@ -10,8 +11,8 @@
     <ImageView
         android:id="@+id/iv_collection_staff_list"
         android:layout_width="@dimen/dp_130"
-        android:background="@color/window_background_color"
-        android:layout_height="@dimen/dp_100"/>
+        android:layout_height="@dimen/dp_100"
+        android:background="@color/window_background_color"/>
 
     <TextView
         android:id="@+id/iv_collection_staff_list_name"

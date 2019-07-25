@@ -11,6 +11,7 @@ kapt {
 }
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
@@ -98,6 +99,14 @@ dependencies {
     implementation rootProject.ext.dependencies["smartrefreshlayout"]
     /*Adapter*/
     implementation rootProject.ext.dependencies["base-recyclerview-adapter"]
+    /*环信*/
+    implementation 'com.google.android.gms:play-services-base:11.4.0'
+    implementation 'com.google.firebase:firebase-messaging:11.4.0'
+    implementation 'com.parse:parse-android:1.13.1'
+    // meizu push
+    implementation 'com.meizu.flyme.internet:push-internal:3.7.0@aar' //配置集成sdk
+    implementation 'com.j256.ormlite:ormlite-android:5.0'
+    implementation project(':easeui')
     //MVP框架
     implementation project(path: ':mcas')
     //test

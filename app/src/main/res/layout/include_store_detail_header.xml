@@ -44,6 +44,7 @@
         android:drawablePadding="@dimen/dp_5"
         android:text="@string/store_collect_desc"
         android:textColor="@color/color_common_theme_dark_checked"
-        android:textSize="@dimen/sp_15"/>
+        android:textSize="@dimen/sp_15"
+        android:visibility="gone"/>
 
 </RelativeLayout>

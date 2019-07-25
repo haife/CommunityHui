@@ -69,7 +69,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         tv_custom_order_number.setRightStr(orderData.orderNo)
         tv_custom_order_subordinate_the_stores.setRightStr(orderData.storeName)
         tv_order_detail_user_name.text = orderData.realName
-        tv_order_the_stores_address.text = orderData.serviceAddress
+        tv_order_the_stores_phone.text = orderData.phoneNo
         tv_order_detail_user_grade.text = String.format(getString(R.string.home_format_order_grade), orderData.avgScore)
         tv_order_detail_user_tags.text = String.format(getString(R.string.home_format_order_detail_message), orderData.worktime, 35, orderData.nativePlace)
         context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(iv_order_detail_head) }
@@ -79,7 +79,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         tv_custom_order_service_days.setRightStr("${orderData.serviceLength} / ${orderData.serviceTypeUnit}")
         tv_custom_order_service_order_time.setRightStr(orderData.createTime)
         tv_order_detail_remark.text = orderData.description
-
+        tv_custom_order_detail_store_address.setRightStr(orderData.serviceAddress)
         when (mServiceTypeId) {
             1 -> {
                 qbtn_order_detail_cancel_order.visibility = View.VISIBLE

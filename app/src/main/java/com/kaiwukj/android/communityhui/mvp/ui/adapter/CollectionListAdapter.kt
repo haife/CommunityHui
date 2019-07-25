@@ -39,10 +39,16 @@ class CollectionListAdapter(data: ArrayList<MineCollectionResult>?, layoutId: In
                 val image = helper.getView<ImageView>(R.id.iv_store_list_collection)
                 val tvTags = helper.getView<TextView>(R.id.iv_store_list_collection_message)
                 var shopTypeName: String? = ""
-                for (string in item.serviceNames) {
-                    shopTypeName = "$shopTypeName\t|\t$string"
+                var oneStr: String? = ""
+                for ((index, string) in item.serviceNames.withIndex()) {
+                    if (index == 0) {
+                        oneStr = string
+                    } else {
+                        shopTypeName = "$shopTypeName\t|\t$string"
+                    }
+
                 }
-                tvTags.text = shopTypeName
+                tvTags.text = oneStr + shopTypeName
                 GlideArms.with(context).load(Api.IMG_URL + item.icon).centerCrop().into(image)
                 helper.setText(R.id.iv_store_list_collection_name, item.name)
                         .setText(R.id.iv_store_list_collection_address, item.address)

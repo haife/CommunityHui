@@ -20,9 +20,13 @@ import io.reactivex.Observable
  * @time 2019/7/16
  * @desc 门店模块
  */
-interface StoreContract {
+
+
+interface  StoreContract {
     interface View : IView {
         fun getContextView(): Context?
+        fun onRefreshFinish()
+        fun onLoadMoreFinish()
         fun onGetStoreRecommend(list: StoreListResult)
         fun onGetStoreDetail(detailResult: StoreDetailResult)
     }
@@ -32,6 +36,7 @@ interface StoreContract {
         fun requestStoreDetail(id: Int): Observable<BaseRootResult<StoreDetailResult>>
         //添加收藏
         fun requestAddCollection(request: CollectionRequest): Observable<BaseStatusResult>
+
         //取消收藏
         fun requestMoveCollection(id: Int): Observable<BaseStatusResult>
     }

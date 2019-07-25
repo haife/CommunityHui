@@ -23,8 +23,8 @@
         android:id="@+id/tv_mine_address_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_mine_address_detail"
         android:layout_marginTop="@dimen/dp_16"
+        android:layout_alignBottom="@+id/iv_mine_address_edit"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"
         />

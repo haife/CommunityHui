@@ -80,6 +80,10 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
                     .withSerializable(ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY, order)
                     .navigation(context)
         }
+
+        smart_refresh_order_list.setOnRefreshListener {
+
+        }
     }
 
     override fun onGetOrderList(result: OrderListResult) {

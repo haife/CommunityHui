@@ -3,8 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -23,7 +21,6 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreDetailFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreListFragment
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreSortListFragment
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import kotlinx.android.synthetic.main.activity_store.*
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator
 import me.yokeyword.fragmentation.anim.FragmentAnimator
 
@@ -37,8 +34,6 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
  */
 @Route(path = StoreListURL)
 class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.View {
-    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
-    }
 
     @Autowired(name = ExtraCons.EXTRA_KEY_STORE)
     @JvmField
@@ -67,14 +62,9 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
 
 
     override fun initData(savedInstanceState: Bundle?) {
-        empty_view_store.setLoadingShowing(true)
-        Handler().postDelayed(Runnable {
-            empty_view_store.hide()
-            fl_store_container.visibility = View.VISIBLE
-        }, 1000)
-
         when (mTargetStr) {
             HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_store_container, StoreListFragment.newInstance())
+
             StoreSortListFragment.STORE_SORT_LIST_FRAGMENT -> loadRootFragment(R.id.fl_store_container, StoreDetailFragment.newInstance(mShopId?.toInt()))
         }
 
@@ -104,6 +94,15 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
 
     override fun killMyself() {
         finish()
+    }
+
+    override fun onRefreshFinish() {
+    }
+
+    override fun onLoadMoreFinish() {
+    }
+
+    override fun onGetStoreDetail(detailResult: StoreDetailResult) {
     }
 
     override fun onCreateFragmentAnimator(): FragmentAnimator {

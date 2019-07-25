@@ -36,12 +36,15 @@ import java.util.concurrent.Executors;
 import androidx.core.content.FileProvider;
 
 /**
- * @author Haife Android Developer
- * @company KW | 开物
- * @since 2019-07-16
+ * Copyright © KaiWu Technology Company
+ *
+ * @author Haife
+ * @job Android Development
+ * @company KW | 开物科技
+ * @time 2019/7/25
+ * @desc $desc
  */
-public final class Utils {
-
+public class Utils {
     private static final String PERMISSION_ACTIVITY_CLASS_NAME =
             "com.blankj.utilcode.util.PermissionUtils$PermissionActivity";
 
@@ -297,7 +300,7 @@ public final class Utils {
 
         @Override
         public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-           // LanguageUtils.applyLanguage(activity);
+            // LanguageUtils.applyLanguage(activity);
             setAnimatorsEnabled();
             setTopActivity(activity);
         }

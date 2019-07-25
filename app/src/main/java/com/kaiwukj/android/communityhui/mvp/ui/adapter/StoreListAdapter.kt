@@ -19,14 +19,11 @@ class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val cont
     override fun convert(helper: BaseViewHolder, item: StoreListResult) {
         var shopTypeName: String? = ""
         var oneStr: String? = ""
-        for ((index, str) in item.storeSortResponseList.withIndex()) {
-            if (index == 0) {
+        for ((index, str: StoreListResult.StoreSortResponseListBean) in item.storeSortResponseList.withIndex()) {
+            if (index == 0)
                 oneStr = str.serviceName
-            } else {
-                shopTypeName = "$shopTypeName\t|\t${str.serviceName}"
-            }
+            else shopTypeName = "$shopTypeName\t|\t${str.serviceName}"
         }
-
         helper.setText(R.id.iv_store_list_name, item.storeName).setTypeface(typeFaceMedium).setText(R.id.iv_store_list_price, item.address)
         helper.setText(R.id.iv_store_list_message, oneStr + shopTypeName)
     }

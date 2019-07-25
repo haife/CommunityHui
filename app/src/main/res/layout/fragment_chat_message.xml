@@ -7,7 +7,6 @@
               tools:context=".mvp.ui.fragment.ChatMessageFragment">
 
 
-
     <net.lucode.hackware.magicindicator.MagicIndicator
         android:id="@+id/magic_indicator_chat_message"
         android:layout_width="match_parent"

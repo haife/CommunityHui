@@ -100,7 +100,6 @@ class HRecommendChildAdapter(val list: HRecommendMultiItemEntity, val context: C
         var recommendStaffNameTv: TextView = itemView!!.findViewById(R.id.tv_home_officer_recommend_name)
         var recommendStaffGradeTv: TextView = itemView!!.findViewById(R.id.tv_home_officer_grade)
         var recommendStaffMessageTv: TextView = itemView!!.findViewById(R.id.tv_home_officer_message)
-        var recommendStaffAddressTv: TextView = itemView!!.findViewById(R.id.tv_home_officer_recommend_address)
     }
 
 }

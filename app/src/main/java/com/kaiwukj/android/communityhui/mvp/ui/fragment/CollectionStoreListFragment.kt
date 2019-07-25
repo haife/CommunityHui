@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
@@ -35,7 +34,7 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>
 
     private lateinit var mCollectionAdapter: CollectionListAdapter
     lateinit var request: MineCollectionRequest
-    lateinit var collectionList: ArrayList<MineCollectionResult>
+    var collectionList = ArrayList<MineCollectionResult>()
 
     companion object {
         fun newInstance(requestStore: MineCollectionRequest): CollectionStoreListFragment {
@@ -62,7 +61,6 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestMyCollection(request)
         rv_collection_store_list.layoutManager = LinearLayoutManager(context)
-        rv_collection_store_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
         mCollectionAdapter = CollectionListAdapter(collectionList, R.layout.recycle_item_collection_store_list, context!!)
         rv_collection_store_list.adapter = mCollectionAdapter
     }

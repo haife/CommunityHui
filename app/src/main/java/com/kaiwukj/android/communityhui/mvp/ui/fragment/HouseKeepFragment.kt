@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
-import com.kaiwukj.android.communityhui.R.layout
 import com.kaiwukj.android.communityhui.R.string
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHouseKeepComponent
@@ -33,7 +32,6 @@ import kotlinx.android.synthetic.main.fragment_house_keep_service.*
  * @desc 家政服务
  */
 class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
-
     private var mEntity: ArrayList<HomeServiceEntity> = ArrayList()
     private var typeFaceMediumBold: Typeface? = null
     private var serviceAdapter: HouseKeepServiceAdapter? = null
@@ -45,7 +43,6 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
         }
     }
 
-
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerHouseKeepComponent
                 .builder()
@@ -56,7 +53,7 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return attachToSwipeBack(inflater.inflate(layout.fragment_house_keep_service, container, false))
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_house_keep_service, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -71,7 +68,7 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
         rv_house_keep_type.addItemDecoration(RecycleViewDivide(divideHeight = 20, divideColor = Color.parseColor("#F9F9F9")))
         rv_house_keep_type.adapter = serviceAdapter
         serviceAdapter?.setOnItemClickListener { adapter, view, position ->
-            start(HouseKeepListFragment.newInstance(mEntity[position].id, mEntity))
+            start(HouseKeepListFragment.newInstance(mEntity[position].id.toString(), mEntity))
         }
     }
 
@@ -88,7 +85,6 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
 
     override fun onSelectStaffList(result: List<StaffListResult>) {
     }
-
 
     override fun showLoading() {
 
@@ -107,7 +103,6 @@ class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeep
     override fun killMyself() {
         activity?.finish()
     }
-
 
     override fun post(runnable: Runnable?) {
     }

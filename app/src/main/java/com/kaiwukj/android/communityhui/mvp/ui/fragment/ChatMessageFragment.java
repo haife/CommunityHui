@@ -73,6 +73,7 @@ public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresent
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        mHomeFragmentList.add(ChatFragment.newInstance());
         List<String> magicIndicatorContentList = new ArrayList<>();
         magicIndicatorContentList.add("消息");
         magicIndicatorContentList.add("通知");

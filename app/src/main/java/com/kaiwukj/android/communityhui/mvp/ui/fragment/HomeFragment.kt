@@ -14,6 +14,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerHomeComponent
 import com.kaiwukj.android.communityhui.di.module.HomeModule
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.HomeUiData
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.presenter.HomePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
@@ -31,7 +32,6 @@ import javax.inject.Inject
  * @desc
  */
 class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
-
 
     @Inject
     lateinit var mHomeAdapter: HRecommendAdapter
@@ -67,6 +67,8 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
 
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestServiceList()
+        mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG))
+        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG))
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
         childOnClickListener()
@@ -108,10 +110,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View {
         }
     }
 
-    /**
-     * 首页服务列表
-     * @param result HomeServiceEntity
-     */
     override fun onGetServiceList(result: List<HomeServiceEntity>) {
         uiData.homeServiceList = result
     }

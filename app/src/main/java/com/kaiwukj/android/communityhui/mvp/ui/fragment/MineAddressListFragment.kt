@@ -23,6 +23,7 @@ import com.qmuiteam.qmui.widget.QMUITopBar
 import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 import me.yokeyword.fragmentation.ISupportFragment
 
+
 /**
  * Copyright © KaiWu Technology Company
  * @author Haife
@@ -34,7 +35,7 @@ import me.yokeyword.fragmentation.ISupportFragment
 class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
 
     lateinit var mAddressAdapter: MyAddressAdapter
-    lateinit var mAddressList: ArrayList<MyAddressResult>
+    var mAddressList = ArrayList<MyAddressResult>()
     var isChoiceAddress: Boolean = false
 
     companion object {
@@ -66,14 +67,14 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         mPresenter?.requestMyAddress()
         rv_mine_address_list.layoutManager = LinearLayoutManager(context)
         rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
-                divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
+                divideColor = ContextCompat.getColor(context!!,R.color.window_background_color)))
         mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
         rv_mine_address_list.adapter = mAddressAdapter
 
 
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
-                R.id.iv_mine_address_edit -> {
+               R.id.iv_mine_address_edit -> {
                     startForResult(EditMineAddressFragment.newInstance(mAddressList[position]), REQUEST_CODE_EDIT_ADDRESS)
                 }
             }
@@ -88,11 +89,16 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
             }
         }
 
+        qbtn_add_address.setOnClickListener {
+            startForResult(EditMineAddressFragment.newInstance(MyAddressResult()), REQUEST_CODE_EDIT_ADDRESS)
+        }
+
     }
 
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
         super.onFragmentResult(requestCode, resultCode, data)
-
+        mAddressList.clear()
+        mPresenter?.requestMyAddress()
     }
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
@@ -108,9 +114,10 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
+        activity?.findViewById<QMUITopBar>(com.kaiwukj.android.communityhui.R.id.qtb_edit_mine_info)?.setTitle(getString(com.kaiwukj.android.communityhui.R.string.mine_address_title))
 
     }
+
 
     override fun showLoading() {
 

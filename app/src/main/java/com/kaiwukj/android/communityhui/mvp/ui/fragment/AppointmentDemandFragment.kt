@@ -114,7 +114,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
                 request.planBeginTime = date
             }).setCancelColor(ContextCompat.getColor(context!!, R.color.common_text_slight_color))
                     .isCyclic(false)
-                    .setRangDate(Calendar.getInstance(), calendar)//起始终止年月日设定
+                    .setRangDate(Calendar.getInstance(), calendar)
                     .setSubmitColor(ContextCompat.getColor(context!!, R.color.app_color_theme))
                     .setLineSpacingMultiplier(1.8f)
                     .build().show()

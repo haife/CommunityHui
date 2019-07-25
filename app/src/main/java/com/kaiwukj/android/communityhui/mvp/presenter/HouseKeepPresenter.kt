@@ -52,9 +52,6 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetServiceList(data.result)
-
-                        } else {
-
                         }
                     }
                 })
@@ -72,8 +69,6 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
                     override fun onNext(data: StaffListResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onSelectStaffList(data.result.list)
-                        } else {
-
                         }
                     }
                 })
@@ -91,8 +86,6 @@ constructor(model: HouseKeepContract.Model, rootView: HouseKeepContract.View) :
                     override fun onNext(data: StaffListResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onSelectStaffList(data.result.list)
-                        } else {
-
                         }
                     }
                 })

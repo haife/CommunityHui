@@ -28,3 +28,7 @@
 # 如果使用了 byType 的方式获取 Service，需添加下面规则，保护接口
 -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
 #--------------------ARouter----------------------------------
+-keep class com.hyphenate.** {*;}
+-dontwarn  com.hyphenate.**
+-keep class com.superrtc.** {*;}
+-dontwarn  com.superrtc.**

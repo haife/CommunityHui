@@ -24,6 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="8"
+        android:saveEnabled="false"
         android:background="@null"
         android:hint="@string/edit_mine_address_name_hint"
         android:textColorHint="@color/common_text_slight_color"

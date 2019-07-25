@@ -11,7 +11,6 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
-import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment
 import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.mvp.BasePresenter
@@ -44,7 +43,6 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     @Inject
     lateinit var mRecommendAdapter: HRecommendAdapter
 
-
     /**
      * 首页服务列表
      */
@@ -58,16 +56,8 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetServiceList(data.result)
                             processRecommendData(data.result)
-                        } else {
-
                         }
                     }
-
-                    override fun onComplete() {
-                        requestStoreRecommend(StoreListRequest(HomeFragment.RECOMMEND_FLAG))
-                    }
-
-
                 })
     }
 
@@ -88,18 +78,11 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             //推荐门店
                             val recommendStore = HRecommendMultiItemEntity(STRING_STORES_RECOMMEND)
                             recommendStore.recommendStoreList = data.result.list
-                            hRecommendMultiItemList.add(recommendStore)
+                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND,recommendStore)
                             mRecommendAdapter.notifyDataSetChanged()
-                        } else {
-
                         }
                     }
 
-                    override fun onComplete() {
-                        //传递门店id则查询该门店的阿姨
-                        //serviceTypeId 服务类型
-                        requestStaffRecommend(StoreListRequest(HomeFragment.RECOMMEND_FLAG))
-                    }
                 })
     }
 
@@ -120,10 +103,8 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             //推荐阿姨
                             val recommendStaff = HRecommendMultiItemEntity(STRING_WOMAN_RECOMMEND)
                             recommendStaff.recommendStaffList = data.result.list
-                            hRecommendMultiItemList.add(recommendStaff)
+                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.WOMAN_RECOMMEND,recommendStaff)
                             mRecommendAdapter.notifyDataSetChanged()
-                        } else {
-
                         }
                     }
                 })
@@ -134,16 +115,13 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
      */
     fun processRecommendData(list: List<HomeServiceEntity>) {
         val bannerEntity = HRecommendMultiItemEntity(HRecommendMultiItemEntity.STRING_BANNER_TYPE)
-        hRecommendMultiItemList.add(bannerEntity)
+        hRecommendMultiItemList.add(HRecommendMultiItemEntity.BANNER_TYPE, bannerEntity)
         //家政服务类型
         val recommendShopEntity = HRecommendMultiItemEntity(STRING_HOT_SERVICE)
         recommendShopEntity.homeServiceList = list
-        hRecommendMultiItemList.add(recommendShopEntity)
+        hRecommendMultiItemList.add(HRecommendMultiItemEntity.HOT_SERVICE_TYPE,recommendShopEntity)
         mRecommendAdapter.notifyDataSetChanged()
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy();
-    }
 }

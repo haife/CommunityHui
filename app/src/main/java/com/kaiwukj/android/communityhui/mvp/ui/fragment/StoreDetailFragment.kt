@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.main.include_store_detail_header.*
  * @desc 门店详情
  */
 class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract.View {
-
     var mShopId: Int? = null
     //  1技工 2门店
     val mTypeId: Int = 2
@@ -64,19 +63,17 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
         mShopId?.let {
             mPresenter?.requestStoreDetail(it)
         }
-        val requestColl = mShopId?.let { CollectionRequest(it, mTypeId) }
+        val requestCollection = mShopId?.let { CollectionRequest(it, mTypeId) }
 
         cb_store_detail_header_address.setOnCheckedChangeListener { compoundButton, b ->
             if (b) {
-                if (requestColl != null) {
-                    mPresenter?.requestAddCollection(requestColl)
+                if (requestCollection != null) {
+                    mPresenter?.requestAddCollection(requestCollection)
                 }
             } else {
                 mShopId?.let { mPresenter?.requestMoveCollection(it) }
             }
         }
-
-
     }
 
     private fun initTopBar() {
@@ -85,13 +82,17 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
 
     }
 
-
     override fun onGetStoreDetail(detailResult: StoreDetailResult) {
-
         tv_store_detail_header.text = detailResult.storeName
         tv_store_detail_header_address.text = detailResult.address
         cb_store_detail_header_address.isChecked = detailResult.favoriteFlag == 1
         context?.let { GlideArms.with(it).load(Api.IMG_URL + detailResult.licenseImg).centerCrop().into(iv_store_detail_license) }
+    }
+
+    override fun onRefreshFinish() {
+    }
+
+    override fun onLoadMoreFinish() {
     }
 
 

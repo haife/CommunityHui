@@ -53,7 +53,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListResult, BaseView
             case 4:
                 mType.setText(mContext.getString(R.string.order_evaluate_serving));
                 break;
-            case 6:
+            case 5:
                 mType.setText(mContext.getString(R.string.order_evaluate_finish));
                 break;
             case 0:

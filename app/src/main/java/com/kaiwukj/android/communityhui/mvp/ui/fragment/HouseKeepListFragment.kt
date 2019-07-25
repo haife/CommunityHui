@@ -148,7 +148,7 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
         view_pager_house_keeping_list_container.adapter = homeViewPagerAdapter
         //取下标
         for ((index, title) in mBarList.withIndex()) {
-            if (mItemIndex == title.id) {
+            if (mItemIndex == title.id.toString()) {
                 view_pager_house_keeping_list_container.currentItem = index
             }
         }

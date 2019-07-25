@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult;
@@ -55,7 +56,7 @@ public interface MineService {
      * 用户信息
      */
     @GET("/app/sc/user/info")
-    Observable<MineUserInfoResult> requestMineInfoData();
+    Observable<BaseRootResult<MineUserInfoResult>> requestMineInfoData();
 
     /**
      * 更新用户信息

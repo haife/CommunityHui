@@ -16,12 +16,9 @@ import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
 import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.mvp.helper.FixLinearSnapHelper
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment.Companion.HOUSE_KEEP_LIST_FRAGMENT
-import com.kaiwukj.android.communityhui.utils.DiskCacheStrategyType
-import com.kaiwukj.android.mcas.http.imageloader.ImageConfigImpl
-import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
-import com.kaiwukj.android.mcas.utils.McaUtils
 
 /**
  * @author Haife Android Developer
@@ -31,10 +28,6 @@ import com.kaiwukj.android.mcas.utils.McaUtils
  */
 class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val context: Context) : BaseMultiItemQuickAdapter<HRecommendMultiItemEntity, BaseViewHolder>(data) {
     private val typeFaceMediumBold = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
-    private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
-    private var imageLoader: ImageLoader? = McaUtils.obtainAppComponentFromContext(context).imageLoader()
-    private val bannerUrls: ArrayList<String> = arrayListOf()
-    //private var recommendRestaurantAdapter: HRecommendChildAdapter? = null
 
     //RecycleView线程池
     private val shareRecycledViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
@@ -62,33 +55,26 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 helper.getView<TextView>(R.id.tv_home_banner_top_house_keeping).setOnClickListener {
                     ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
-
             }
             HRecommendMultiItemEntity.HOT_SERVICE_TYPE -> {
                 processServiceItem(item, helper)
                 helper.getView<ImageView>(R.id.iv_home_moon_woman_service).setOnClickListener {
-                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[0].id)
-                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                    launcherHouseKeepList(item.homeServiceList[0])
                 }
                 helper.getView<ImageView>(R.id.iv_home_carer).setOnClickListener {
-                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[1].id)
-                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                    launcherHouseKeepList(item.homeServiceList[1])
                 }
                 helper.getView<ImageView>(R.id.iv_home_child_rearing).setOnClickListener {
-                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[2].id)
-                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                    launcherHouseKeepList(item.homeServiceList[2])
                 }
                 helper.getView<ImageView>(R.id.iv_home_prolactin).setOnClickListener {
-                    ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, item.homeServiceList[3].id)
-                            .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
+                    launcherHouseKeepList(item.homeServiceList[3])
                 }
             }
 
             HRecommendMultiItemEntity.STORES_RECOMMEND -> {
-                //推荐门店填充布局
                 val shopRv = helper.getView<RecyclerView>(R.id.rv_home_shops_recommend)
                 initRecycle(shopRv, item)
-
                 helper.getView<TextView>(R.id.tv_home_shops_recommend_more).setOnClickListener {
                     ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
@@ -97,7 +83,6 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
             HRecommendMultiItemEntity.WOMAN_RECOMMEND -> {
                 val staffRv = helper.getView<RecyclerView>(R.id.rv_home_officer_recommend)
                 initRecycle(staffRv, item)
-                FixLinearSnapHelper().attachToRecyclerView(staffRv)
                 helper.getView<TextView>(R.id.tv_home_officer_recommend_more).setOnClickListener {
                     ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
@@ -108,16 +93,17 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
     /**
      * 推荐横向列表
-     * @param staffRv RecyclerView
+     * @param recyclerView RecyclerView
      * @param item HRecommendMultiItemEntity
      */
-    private fun initRecycle(staffRv: RecyclerView, item: HRecommendMultiItemEntity) {
-        staffRv.addItemDecoration(HorizontalSpacesDecoration(10))
-        var horizontalLM = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    private fun initRecycle(recyclerView: RecyclerView, item: HRecommendMultiItemEntity) {
+        recyclerView.addItemDecoration(HorizontalSpacesDecoration(20))
+        val horizontalLM = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val childAdapter = HRecommendChildAdapter(item, context)
-        McaUtils.configRecyclerView(staffRv, horizontalLM)
-
-        staffRv.adapter = childAdapter
+        recyclerView.layoutManager = horizontalLM
+        recyclerView.onFlingListener = null
+        FixLinearSnapHelper().attachToRecyclerView(recyclerView)
+        recyclerView.adapter = childAdapter
     }
 
     /**
@@ -134,20 +120,14 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
         helper.setTypeface(typeFaceMediumBold, R.id.tv_home_moon_woman_service, R.id.tv_home_carer_service, R.id.tv_home_child_rearing, R.id.tv_home_prolactin)
     }
 
-
     /**
-     * 加载图片
-     * @param intoIv ImageView
-     * @param drawableRes Int
-     * @param imageUrl String
+     * 跳转到家政列表
+     * @param entity HomeServiceEntity
      */
-    fun loadImage(intoIv: ImageView, imageUrl: String, isRadius: Boolean = false) {
-        imageLoader?.loadImage(context, ImageConfigImpl.builder().url(imageUrl)
-                .cacheStrategy(DiskCacheStrategyType.All).imageView(intoIv)
-                .isCenterCrop(true)
-                .build())
+    private fun launcherHouseKeepList(entity: HomeServiceEntity) {
+        ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP_ENTITY, entity.id.toString())
+                .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, HOUSE_KEEP_LIST_FRAGMENT).navigation()
     }
-
 
     /**
      * 释放资源 防止内存泄露

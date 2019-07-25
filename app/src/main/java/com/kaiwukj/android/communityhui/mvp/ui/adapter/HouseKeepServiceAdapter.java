@@ -6,13 +6,12 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
-import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity;
-import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -30,9 +29,24 @@ public class HouseKeepServiceAdapter extends BaseQuickAdapter<HomeServiceEntity,
 
     @Override
     protected void convert(BaseViewHolder helper, HomeServiceEntity item) {
-        ImageView ima = helper.getView(R.id.iv_house_keeping_service_type);
+        ImageView serviceIv = helper.getView(R.id.iv_house_keeping_service_type);
         helper.setText(R.id.tv_house_keeping_service_type, item.getDicValue());
-        GlideArms.with(mContext).load(Api.IMG_URL + item.getImg()).centerCrop().into(ima);
+        // GlideArms.with(mContext).load(Api.IMG_URL + item.getImg()).centerCrop().into(ima);
+        switch (item.getId()) {
+            case 1:
+                serviceIv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.bg_house_keeping_moon_woman));
+                break;
+            case 2:
+                serviceIv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.bg_house_keeping_raise));
+                break;
+            case 3:
+                serviceIv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.bg_house_keeping_carer));
+                break;
+            case 4:
+                serviceIv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.bg_house_keeping_prolactin_division));
+                break;
+        }
+
     }
 
 

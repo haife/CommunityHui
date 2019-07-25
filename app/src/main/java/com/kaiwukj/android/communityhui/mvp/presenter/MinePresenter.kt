@@ -3,6 +3,7 @@ package com.kaiwukj.android.communityhui.mvp.presenter
 import android.app.Application
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
@@ -55,8 +56,8 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : ErrorHandleSubscriber<MineUserInfoResult>(mErrorHandler) {
-                    override fun onNext(t: MineUserInfoResult) {
+                .subscribe(object : ErrorHandleSubscriber<BaseRootResult<MineUserInfoResult>>(mErrorHandler) {
+                    override fun onNext(t: BaseRootResult<MineUserInfoResult>) {
                         if (t.code == Api.RequestSuccess) {
                             mRootView.onGetMineInfo(t.result)
                             requestSocialHomePage(null)
@@ -127,10 +128,6 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                     }
                 })
     }
-
-
-
-
 
 
     override fun onDestroy() {

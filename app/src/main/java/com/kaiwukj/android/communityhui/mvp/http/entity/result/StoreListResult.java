@@ -82,35 +82,10 @@ public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
 
     public static class StoreSortResponseListBean {
 
-        private int hmstoreId;
-        private int number;
-        private int recommendNum;
+
         private String serviceName;
         private int serviceTypeId;
 
-        public int getHmstoreId() {
-            return hmstoreId;
-        }
-
-        public void setHmstoreId(int hmstoreId) {
-            this.hmstoreId = hmstoreId;
-        }
-
-        public int getNumber() {
-            return number;
-        }
-
-        public void setNumber(int number) {
-            this.number = number;
-        }
-
-        public int getRecommendNum() {
-            return recommendNum;
-        }
-
-        public void setRecommendNum(int recommendNum) {
-            this.recommendNum = recommendNum;
-        }
 
         public String getServiceName() {
             return serviceName;

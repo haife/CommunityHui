@@ -79,14 +79,12 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
 
         initMagicIndicatorView()
         when (mItemIndex) {
-            TYPE_WAITING -> view_pager_service_order_container.currentItem = 3
-            TYPE_SERVING -> view_pager_service_order_container.currentItem = 0
-            TYPE_FINISHED -> view_pager_service_order_container.currentItem = 1
-            TYPE_ALL -> view_pager_service_order_container.currentItem = 2
+            TYPE_WAITING -> view_pager_service_order_container.currentItem = 0
+            TYPE_SERVING -> view_pager_service_order_container.currentItem = 1
+            TYPE_FINISHED -> view_pager_service_order_container.currentItem = 2
+            TYPE_ALL -> view_pager_service_order_container.currentItem = 3
         }
-
     }
-
 
     private fun initMagicIndicatorView() {
         val wait = HouseKeepingServiceType(TYPE_WAITING, getString(R.string.order_stores_wait))
@@ -123,7 +121,6 @@ class ServiceOrderFragment : BaseSupportFragment<MinePresenter>(), MineContract.
                 return indicator
             }
         }
-
         view_pager_service_order_container.offscreenPageLimit = 4
         magic_indicator_service_order.navigator = mMIndicatorNavigator
         ViewPagerHelper.bind(magic_indicator_service_order, view_pager_service_order_container)

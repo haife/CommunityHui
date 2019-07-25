@@ -25,7 +25,7 @@ public class MyAddressAdapter extends BaseQuickAdapter<MyAddressResult, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, MyAddressResult item) {
-        helper.setText(R.id.tv_mine_address_detail, item.getAddress()).setText(R.id.tv_mine_address_name, item.getName())
+        helper.setText(R.id.tv_mine_address_detail, item.getArea() + "\t" + item.getAddress()).setText(R.id.tv_mine_address_name, item.getName())
                 .setText(R.id.tv_mine_address_phone, item.getPhone());
         helper.addOnClickListener(R.id.iv_mine_address_edit);
     }

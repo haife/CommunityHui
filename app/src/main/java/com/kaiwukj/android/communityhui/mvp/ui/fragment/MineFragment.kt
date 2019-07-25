@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
 import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
-import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
@@ -21,7 +19,6 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResul
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
-import com.kaiwukj.android.communityhui.utils.SPUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
@@ -59,8 +56,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        val string = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN)
-        Log.e("Token", string)
         mPresenter?.getMineInfoData()
         initBottomGroupView()
         initClick()
@@ -90,7 +85,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
 
-
     /**
      * 初始化GroupList
      */
@@ -113,7 +107,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 }
                 mineCollectItem -> {
                     userInfoResult?.let {
-                        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID,it.id.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
+                        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, it.userId.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
 
                     }
                 }

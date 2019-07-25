@@ -39,6 +39,7 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
      */
     fun requestMyCollection(request: MineCollectionRequest) {
         mModel.requestMyCollection(request)
+                .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle<MineCollectionResult>(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

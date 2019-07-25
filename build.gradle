@@ -5,6 +5,8 @@ buildscript {
     repositories {
         google()
         jcenter()
+        //如果需要使用华为推送HMS，则需要加上此句
+        maven { url 'http://developer.huawei.com/repo'}
 
     }
     dependencies {

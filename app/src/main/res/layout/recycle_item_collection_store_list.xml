@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
                 android:background="@color/write_color"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/base_horizontal_left_margin"
@@ -43,7 +44,6 @@
         android:layout_below="@+id/iv_store_list_collection_name"
         android:layout_alignLeft="@+id/iv_store_list_collection_name"
         android:layout_marginTop="@dimen/dp_4"
-        android:text="月嫂丨护工丨育婴师"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"
         />

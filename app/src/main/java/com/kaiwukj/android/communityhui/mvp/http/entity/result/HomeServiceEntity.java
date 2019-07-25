@@ -16,23 +16,25 @@ import java.util.List;
  */
 public class HomeServiceEntity extends BaseRootResult<List<HomeServiceEntity>>implements Serializable {
     private String dicValue;
-    private String id;
+    private int id;
     private String img;
 
     public String getDicValue() {
         return dicValue;
     }
 
-    public void setDicValue(String dicValue) {
-        this.dicValue = dicValue;
-    }
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public void setDicValue(String dicValue) {
+        this.dicValue = dicValue;
     }
 
     public String getImg() {

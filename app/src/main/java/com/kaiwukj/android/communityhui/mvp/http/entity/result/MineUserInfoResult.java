@@ -1,7 +1,5 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
-
 import java.io.Serializable;
 
 /**
@@ -9,7 +7,7 @@ import java.io.Serializable;
  * @company KW | 开物
  * @since 2019-07-24
  */
-public class MineUserInfoResult extends BaseRootResult<MineUserInfoResult> implements Serializable {
+public class MineUserInfoResult implements Serializable {
     private int gender;
     private String headImg;
     private String hxName;

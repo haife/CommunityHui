@@ -58,8 +58,9 @@ public class EditAddressInfoWidget extends LinearLayout {
         array.recycle();
     }
 
-    public void setContentText(String str) {
+    public void setEdText(String str) {
         mMessageEt.setText(str);
+
     }
 
     public String getContentText() {

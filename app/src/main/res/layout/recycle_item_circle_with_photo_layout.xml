@@ -78,6 +78,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/dp_12"
         android:background="@color/window_background_color"
+        app:qmui_border_color="@color/window_background_color"
         app:qmui_corner_radius="@dimen/dp_2"/>
 
     <TextView

@@ -4,8 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.location.LocationManager;
+import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
 import com.kaiwukj.android.communityhui.BuildConfig;
 import com.kaiwukj.android.communityhui.utils.ImagePickerLoad;
 import com.kaiwukj.android.communityhui.utils.NineGridImageLoader;
@@ -42,6 +47,18 @@ import static me.jessyan.autosize.utils.LogUtils.isDebug;
 public class AppLifecyclesImpl implements AppLifecycles {
     private RefWatcher mRefWatcher;
     private LocationManager mLocationManager;
+    /**
+     * 屏幕宽度
+     */
+    public static int screenWidth;
+    /**
+     * 屏幕高度
+     */
+    public static int screenHeight;
+    /**
+     * 屏幕密度
+     */
+    public static float screenDensity;
 
     @Override
     public void attachBaseContext(Context base) {
@@ -89,9 +106,53 @@ public class AppLifecyclesImpl implements AppLifecycles {
         //九宫格图片控件
         NineGridView.setImageLoader(new NineGridImageLoader());
 
+        //环信初始化
+        DemoHelper.getInstance().init(application);
 
+        initScreenSize(application);
+
+        //init demo helper
+        EMOptions options = new EMOptions();
+        // 默认添加好友时，是不需要验证的，改成需要验证
+        options.setAcceptInvitationAlways(false);
+        // 是否自动将消息附件上传到环信服务器，默认为True是使用环信服务器上传下载，如果设为 false，需要开发者自己处理附件消息的上传和下载
+        options.setAutoTransferMessageAttachments(true);
+        // 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
+        options.setAutoDownloadThumbnail(true);
+        //初始化
+        EMClient.getInstance().init(application, options);
+        //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
+        EMClient.getInstance().setDebugMode(true);
+
+        //登录
+        EMClient.getInstance().login("phfwlh", "123456", new EMCallBack() {//回调
+            @Override
+            public void onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                Log.e("main", "登录聊天服务器失败！");
+                Log.e("message", message);
+            }
+        });
     }
 
+    /**
+     * 初始化当前设备屏幕宽高
+     */
+    private void initScreenSize(Application application) {
+        DisplayMetrics curMetrics = application.getResources().getDisplayMetrics();
+        screenWidth = curMetrics.widthPixels;
+        screenHeight = curMetrics.heightPixels;
+        screenDensity = curMetrics.density;
+    }
 
     private void initLeakCanary(Application application) {
         //LeakCanary 内存泄露检查

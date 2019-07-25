@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
-import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
@@ -36,7 +35,7 @@ class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>()
 
     private lateinit var mCollectionAdapter: CollectionListAdapter
     lateinit var request: MineCollectionRequest
-    lateinit var collectionList: ArrayList<MineCollectionResult>
+     var collectionList = ArrayList<MineCollectionResult>()
 
     companion object {
         const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
@@ -65,7 +64,6 @@ class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>()
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestMyCollection(request)
         rv_staff_list_child.layoutManager = LinearLayoutManager(context)
-        rv_staff_list_child.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
         mCollectionAdapter = CollectionListAdapter(collectionList, R.layout.recycle_item_collection_staff_list_layout, context!!)
         rv_staff_list_child.adapter = mCollectionAdapter
 

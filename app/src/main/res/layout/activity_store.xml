@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-
-    <com.qmuiteam.qmui.widget.QMUIEmptyView
-        android:id="@+id/empty_view_store"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"/>
-
     <FrameLayout
         android:id="@+id/fl_store_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

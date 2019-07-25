@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
@@ -26,7 +27,7 @@ interface MineContract {
     }
 
     interface Model : IModel {
-        fun requestMineInfoData(): Observable<MineUserInfoResult>
+        fun requestMineInfoData(): Observable<BaseRootResult<MineUserInfoResult>>
 
         fun requestSocialHomePage(request: SocialUserHomePageRequest): Observable<SocialUserHomePageResult>
 

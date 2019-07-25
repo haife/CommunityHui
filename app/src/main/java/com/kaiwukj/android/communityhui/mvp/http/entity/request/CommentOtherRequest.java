@@ -7,9 +7,9 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request;
  */
 public class CommentOtherRequest {
     private int noteId;
-    private int commentatorId;
-    private int replyId;
+    private String commentatorId;
     private String content;
+
 
     public int getNoteId() {
         return noteId;
@@ -19,20 +19,12 @@ public class CommentOtherRequest {
         this.noteId = noteId;
     }
 
-    public int getCommentatorId() {
+    public String getCommentatorId() {
         return commentatorId;
     }
 
-    public void setCommentatorId(int commentatorId) {
+    public void setCommentatorId(String commentatorId) {
         this.commentatorId = commentatorId;
-    }
-
-    public int getReplyId() {
-        return replyId;
-    }
-
-    public void setReplyId(int replyId) {
-        this.replyId = replyId;
     }
 
     public String getContent() {

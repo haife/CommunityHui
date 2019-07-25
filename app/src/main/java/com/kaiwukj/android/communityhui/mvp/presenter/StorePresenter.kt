@@ -51,7 +51,7 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
      * 是否推荐 0默认，1推荐 不传为默认所有
      */
     fun requestAllStoreRecommend(page: Int) {
-        mModel.requestAllStoreRecommend(StoreListRequest(null, page))
+        mModel.requestAllStoreRecommend(StoreListRequest(page = page))
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
