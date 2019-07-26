@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
@@ -17,6 +18,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePag
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTopicFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCirclePersonPageFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 
 import androidx.annotation.NonNull;
@@ -40,7 +42,8 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
     String mFragmentKey;
     @Autowired(name = FRAGMENT_KEY_CARD_ID)
     int mCardId;
-
+    @Autowired(name = ExtraCons.EXTRA_KEY_USER_ID)
+    int mUserId;
     public static final String FRAGMENT_KEY = "FRAGMENT_KEY";
 
     public static final String FRAGMENT_KEY_CARD_ID = "FRAGMENT_KEY_CARD_ID";
@@ -66,6 +69,8 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
             loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance(mCardId));
         } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
+        } else if (SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT.equals(mFragmentKey)) {
+            loadRootFragment(R.id.fl_social_circle_container, SocialCirclePersonPageFragment.newInstance(String.valueOf(mUserId)));
         }
 
     }

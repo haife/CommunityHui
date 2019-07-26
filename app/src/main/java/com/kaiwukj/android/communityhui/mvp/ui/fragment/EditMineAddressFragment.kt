@@ -84,6 +84,7 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun initData(savedInstanceState: Bundle?) {
         initClick()
         mHandler.sendEmptyMessage(MSG_LOAD_DATA)
+
         if (!McaUtils.isEmpty(myAddressResult.name)) {
             //编辑地址
             custom_edit_address_name.setEdText(myAddressResult.name)

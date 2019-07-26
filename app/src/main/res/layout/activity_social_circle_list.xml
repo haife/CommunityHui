@@ -35,7 +35,7 @@
                 app:qmui_layout_collapseParallaxMultiplier="0.7"/>
 
             <com.qmuiteam.qmui.widget.QMUITopBar
-                android:id="@+id/qtb_social_circle_list"
+                android:id="@+id/qtb_social_circle_top"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/qmui_topbar_height"
                 android:fitsSystemWindows="true"
@@ -46,10 +46,22 @@
         </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
     </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_refresh_social_circle_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_social_circle_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kaiwukj.android.communityhui.R;
@@ -17,6 +18,7 @@ import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
@@ -27,10 +29,12 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
+import com.qmuiteam.qmui.widget.QMUIEmptyView;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +43,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -57,8 +60,17 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  */
 public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCirclePresenter> implements SocialCircleContract.View {
 
+    @BindView(R.id.smart_refresh_card_detail)
+    SmartRefreshLayout mSmartRefresh;
+
+    @BindView(R.id.qmui_empty_view_card_detail)
+    QMUIEmptyView mEmptyView;
+
     @BindView(R.id.rv_circle_card_detail_comment)
     RecyclerView mCircleCardCommentRv;
+
+    @BindView(R.id.rl_circle_detail_container)
+    RelativeLayout mCircleCardContainer;
 
     @BindView(R.id.tv_circle_message_title)
     TextView mTitleTv;
@@ -95,12 +107,14 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private ArrayList<ImageInfo> imageInfo = new ArrayList<>();
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
-    private List<CircleCardDetailResult.UnoteCommentListBean> mCommentListList;
-    private SocialCardCommentAdapter mCommentAdapter;
+    @Inject
+    List<CircleCardCommentResult> mCommentListList;
+    @Inject
+    SocialCardCommentAdapter mCommentAdapter;
     private QMUITopBar mTopBar;
     private NineGridIvAdapter mGridIvAdapter;
     public static final String CIRCLE_CARD_DETAIL = "CIRCLE_CARD_DETAIL";
-
+    private int page = 1;
     private int mCardId;
     private QMUITipDialog dialog;
 
@@ -128,7 +142,9 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         assert mPresenter != null;
+        mCircleCardContainer.setVisibility(View.GONE);
         mPresenter.requestSocialCardDetail(mCardId);
+        mPresenter.requestCommentList(mCardId, page);
         assert getActivity() != null;
         mTopBar = this.getActivity().findViewById(R.id.qtb_social_circle);
         mCommentListList = new ArrayList<>();
@@ -139,8 +155,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private void initRvItemClick() {
         mCircleCardCommentRv.setNestedScrollingEnabled(false);
         mCircleCardCommentRv.setHasFixedSize(true);
-        mCommentAdapter = new SocialCardCommentAdapter(R.layout.recycle_item_card_comment_layout, mCommentListList, mContext);
-        mCircleCardCommentRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        McaUtils.configRecyclerView(mCircleCardCommentRv, mLayoutManager);
         mCircleCardCommentRv.setAdapter(mCommentAdapter);
 
         mSubmitCommentTv.setOnClickListener(view -> {
@@ -172,12 +187,11 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         mTimeTv.setText(result.getCreateTime());
         mTagTv.setText(result.getNoteType());
         mContentTv.setText(result.getContent());
-        mCommentNumberTv.setText(result.getUnoteCommentList().size() == 0 ? getString(R.string.social_card_no_comment) : String.valueOf(result.getUnoteCommentList().size()));
+        mCommentNumberTv.setText(mCommentListList.size() == 0 ? getString(R.string.social_card_no_comment) : String.valueOf(mCommentListList.size()));
         if (mGridIvAdapter == null) {
             initGroupImageAdapter(result);
         }
-        mCommentListList.addAll(result.getUnoteCommentList());
-        mCommentAdapter.notifyDataSetChanged();
+
     }
 
     /**
@@ -206,14 +220,15 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     }
 
-
     @Override
     public void showLoading() {
+        mEmptyView.setLoadingShowing(true);
     }
 
     @Override
     public void hideLoading() {
-
+        mCircleCardContainer.setVisibility(View.VISIBLE);
+        mEmptyView.hide();
     }
 
     @Override
@@ -259,7 +274,9 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void finishLoadMore(@Nullable boolean noData) {
-
+        mSmartRefresh.finishLoadMore();
+        if (noData)
+            mSmartRefresh.finishLoadMoreWithNoMoreData();
     }
 
 

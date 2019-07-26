@@ -38,7 +38,7 @@ import java.util.Map;
  * conversation list fragment
  *
  */
-public class EaseConversationListFragment extends EaseBaseFragment{
+public class EaseConversationListFragment extends EaseBaseFragment {
 	private final static int MSG_REFRESH = 2;
     protected EditText query;
     protected ImageButton clearSearch;

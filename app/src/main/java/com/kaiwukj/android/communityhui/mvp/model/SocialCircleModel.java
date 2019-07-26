@@ -11,6 +11,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleCardDetail
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
@@ -57,7 +58,7 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
 
 
     @Override
-    public Observable<CircleHomeResult> requestCircleHomeList(CircleHomeRequest request, boolean refresh) {
+    public Observable<CircleHomeResult> requestCircleHomeList(CircleHomeRequest request) {
         if (request.getType() == 0) {
             return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestCircleHomeData(getRequestBody(mGson.toJson(new Object()))))
                     .flatMap((Function<Observable<CircleHomeResult>, ObservableSource<CircleHomeResult>>) observable -> observable);
@@ -93,6 +94,13 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
         CircleCardDetailRequest request = new CircleCardDetailRequest(id);
         return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestCardDetail(getRequestBody(mGson.toJson(request))))
                 .flatMap((Function<Observable<CircleCardDetailResult>, ObservableSource<CircleCardDetailResult>>) observable -> observable);
+    }
+
+    @Override
+    public Observable<CircleCardCommentResult> requestCommentList(int id,int page) {
+        CircleCardDetailRequest request = new CircleCardDetailRequest(id,page);
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryCommentList(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<CircleCardCommentResult>, ObservableSource<CircleCardCommentResult>>) observable -> observable);
     }
 
 

@@ -362,7 +362,7 @@ public class McaUtils {
     }
 
     public static boolean isEmpty(String str) {
-        if (str.equals("") || str.equals(null)) {
+        if (str == null || "".equals(str)) {
             return true;
         }
         return false;

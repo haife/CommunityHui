@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -29,6 +30,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.widget.home.CircleScrollView;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -55,6 +57,7 @@ import butterknife.BindView;
  * @desc 社交圈子
  */
 public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresenter> implements SocialCircleContract.View {
+
     @BindView(R.id.rv_social_circle)
     RecyclerView mCircleRv;
 
@@ -63,6 +66,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @BindView(R.id.iv_btn_social_circle)
     ImageButton mPostTopicBt;
+
     @Inject
     List<CircleCardResult> mCardResults;
 
@@ -78,15 +82,14 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     @Inject
     SocialCircleTopicAdapter mCircleTopicAdapter;
     private TextView mHotTvTitle;
+    private CircleScrollView mHotContainer;
     private int page = 1;
     private CircleHomeRequest request = new CircleHomeRequest(0);
     //是否在 Visibility 刷新数据
     public static boolean isRefreshList = false;
 
     public static SocialCircleFragment newInstance() {
-        SocialCircleFragment fragment = new SocialCircleFragment();
-        return fragment;
-
+        return new SocialCircleFragment();
     }
 
     @Override
@@ -111,21 +114,8 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mPresenter.getHomeRecommendData(request, true);
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
-        mRefreshView.setOnRefreshListener(refreshLayout -> {
-            page = 1;
-            refreshLayout.setEnableLoadMore(false);
-            mHotList.clear();
-            mCardResults.clear();
-            mPresenter.getHomeRecommendData(request, true);
-            mPresenter.requestCircleCardList();
-            mPresenter.requestCircleHotList();
-        });
-        mRefreshView.setOnLoadMoreListener(refreshLayout -> {
-            page += 1;
-            refreshLayout.setEnableRefresh(false);
-            request.setPages(page);
-            mPresenter.getHomeRecommendData(request, false);
-        });
+
+
     }
 
     private void initRecycleView() {
@@ -133,8 +123,8 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mCircleRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
         mCircleRv.setAdapter(mCircleListAdapter);
         View topicView = LayoutInflater.from(getContext()).inflate(R.layout.header_social_circle_topic, null);
-        mHotTvTitle = topicView.findViewById(R.id.tv_social_circle_hot_title);
         mCircleListAdapter.addHeaderView(topicView);
+        mHotContainer = topicView.findViewById(R.id.custom_circle_scroll_hot_container);
         RecyclerView topicRv = topicView.findViewById(R.id.rv_header_circle_topic);
         LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         topicRv.addItemDecoration(new HorizontalSpacesItemDecoration(14));
@@ -147,6 +137,31 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
                     .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
+        });
+
+        mCircleListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            //点击头衔跳转到个人首页
+            if (view.getId() == R.id.qriv_circle_head_photo) {
+                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT)
+                        .withInt(ExtraCons.EXTRA_KEY_USER_ID, mDataList.get(position).getUserId()).navigation();
+            }
+        });
+        mRefreshView.setOnRefreshListener(refreshLayout -> {
+            page = 1;
+            refreshLayout.setEnableLoadMore(false);
+            mHotList.clear();
+            mCardResults.clear();
+            assert mPresenter != null;
+            mPresenter.getHomeRecommendData(request, true);
+            mPresenter.requestCircleCardList();
+            mPresenter.requestCircleHotList();
+        });
+        mRefreshView.setOnLoadMoreListener(refreshLayout -> {
+            page += 1;
+            refreshLayout.setEnableRefresh(false);
+            request.setPages(page);
+            assert mPresenter != null;
+            mPresenter.getHomeRecommendData(request, false);
         });
 
         mPostTopicBt.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT).navigation());
@@ -186,12 +201,19 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
-
     }
 
     @Override
     public void showLoading() {
-
+        for (int i = 0; i <mHotList.size() ; i++) {
+            final int position = i;
+            RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.custom_social_circle_hot_item, null);
+            mHotTvTitle = itemView.findViewById(R.id.tv_social_circle_hot_title);
+            mHotTvTitle.setText(mHotList.get(i).getTitle());
+            itemView.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mHotList.get(position).getId()).navigation());
+            mHotContainer.addView(itemView);
+        }
     }
 
     @Override
@@ -201,9 +223,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void showMessage(@NonNull String message) {
-        if (mHotList.size() > 0) {
-            mHotTvTitle.setText(mHotList.get(0).getTitle());
-        }
+
     }
 
     @Override

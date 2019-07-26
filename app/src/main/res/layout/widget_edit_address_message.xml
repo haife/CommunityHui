@@ -23,6 +23,8 @@
         android:id="@+id/et_widget_staff_message_input"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:maxLines="1"
+        android:imeOptions="actionNext"
         android:layout_weight="8"
         android:saveEnabled="false"
         android:background="@null"

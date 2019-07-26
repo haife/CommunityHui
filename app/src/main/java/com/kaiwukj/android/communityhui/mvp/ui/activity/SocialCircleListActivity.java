@@ -22,6 +22,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout;
 import com.qmuiteam.qmui.widget.QMUITopBar;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
@@ -40,10 +41,12 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCirclePresenter> implements SocialCircleContract.View {
     @BindView(R.id.rv_social_circle_list)
     RecyclerView mCircleListRv;
-    @BindView(R.id.qtb_social_circle_list)
+    @BindView(R.id.qtb_social_circle_top)
     QMUITopBar mTopBar;
     @BindView(R.id.collapsing_social_circle_top_bar_list_layout)
     QMUICollapsingTopBarLayout mCollapsingTopBarLayout;
+    @BindView(R.id.smart_refresh_social_circle_list)
+    SmartRefreshLayout mSmartRefreshLayout;
     @Inject
     SocialCircleListAdapter mCircleListAdapter;
 
@@ -55,6 +58,7 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
 
     @Inject
     List<CircleCardResult> mCardResults;
+    private int page = 1;
     private CircleHomeRequest request = new CircleHomeRequest();
 
     @Override
@@ -77,10 +81,23 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     public void initData(@Nullable Bundle savedInstanceState) {
         initTopBar();
         request.setType(typeId);
-        mPresenter.getHomeRecommendData(request, true);
+        request.setPages(page);
+        assert mPresenter != null;
+        mPresenter.getHomeRecommendData(request, false);
+        initRecycle();
+
+    }
+
+    private void initRecycle() {
         mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
         mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
         mCircleListRv.setAdapter(mCircleListAdapter);
+        mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
+            page += 1;
+            request.setPages(page);
+            assert mPresenter != null;
+            mPresenter.getHomeRecommendData(request, false);
+        });
     }
 
 
@@ -108,7 +125,11 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     }
 
     @Override
-    public void finishLoadMore(@Nullable boolean noData) {
+    public void finishLoadMore(boolean noData) {
+        if (noData)
+            mSmartRefreshLayout.finishLoadMoreWithNoMoreData();
+        else
+            mSmartRefreshLayout.finishLoadMore();
 
     }
 

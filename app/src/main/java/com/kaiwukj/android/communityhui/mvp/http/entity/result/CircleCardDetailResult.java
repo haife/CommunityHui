@@ -52,7 +52,6 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
     private String updateTime;
     private int userId;
     private List<String> imgList;
-    private List<UnoteCommentListBean> unoteCommentList;
 
     public String getAddress() {
         return address;
@@ -158,122 +157,7 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
         this.imgList = imgList;
     }
 
-    public List<UnoteCommentListBean> getUnoteCommentList() {
-        return unoteCommentList;
-    }
 
-    public void setUnoteCommentList(List<UnoteCommentListBean> unoteCommentList) {
-        this.unoteCommentList = unoteCommentList;
-    }
 
-    public static class UnoteCommentListBean  {
-        private String commentatorHeadImg;
-        private int commentatorId;
-        private String commentatorNickName;
-        private String content;
-        private String createTime;
-        private int id;
-        private int landlordFlag;
-        private int noteId;
-        private String replyHeadImg;
-        private int replyId;
-        private String replyNickName;
-        private String updateTime;
 
-        public String getCommentatorHeadImg() {
-            return commentatorHeadImg;
-        }
-
-        public void setCommentatorHeadImg(String commentatorHeadImg) {
-            this.commentatorHeadImg = commentatorHeadImg;
-        }
-
-        public int getCommentatorId() {
-            return commentatorId;
-        }
-
-        public void setCommentatorId(int commentatorId) {
-            this.commentatorId = commentatorId;
-        }
-
-        public String getCommentatorNickName() {
-            return commentatorNickName;
-        }
-
-        public void setCommentatorNickName(String commentatorNickName) {
-            this.commentatorNickName = commentatorNickName;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getLandlordFlag() {
-            return landlordFlag;
-        }
-
-        public void setLandlordFlag(int landlordFlag) {
-            this.landlordFlag = landlordFlag;
-        }
-
-        public int getNoteId() {
-            return noteId;
-        }
-
-        public void setNoteId(int noteId) {
-            this.noteId = noteId;
-        }
-
-        public String getReplyHeadImg() {
-            return replyHeadImg;
-        }
-
-        public void setReplyHeadImg(String replyHeadImg) {
-            this.replyHeadImg = replyHeadImg;
-        }
-
-        public int getReplyId() {
-            return replyId;
-        }
-
-        public void setReplyId(int replyId) {
-            this.replyId = replyId;
-        }
-
-        public String getReplyNickName() {
-            return replyNickName;
-        }
-
-        public void setReplyNickName(String replyNickName) {
-            this.replyNickName = replyNickName;
-        }
-
-        public String getUpdateTime() {
-            return updateTime;
-        }
-
-        public void setUpdateTime(String updateTime) {
-            this.updateTime = updateTime;
-        }
-    }
 }

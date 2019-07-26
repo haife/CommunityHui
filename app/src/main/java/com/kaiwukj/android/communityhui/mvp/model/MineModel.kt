@@ -25,6 +25,7 @@ class MineModel
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), MineContract.Model {
 
 
+
     @Inject
     lateinit var mGson: Gson;
     @Inject
@@ -47,7 +48,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
 
-
     override fun requestMineOrderData(request: OrderListRequest): Observable<OrderListResult> {
         return if (request.statusFlag == "0") {
             request.statusFlag = null
@@ -60,6 +60,12 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                     .flatMap { it }
         }
 
+    }
+
+    override fun requestLoginOut(): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .requestLogout(getRequestBody(mGson.toJson(Any()))))
+                .flatMap { it }
     }
 
 }

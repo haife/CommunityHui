@@ -26,44 +26,16 @@
         android:textSize="@dimen/sp_18"
         android:textStyle="bold"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_social_circle_hot_state"
+    <com.kaiwukj.android.communityhui.mvp.ui.widget.home.CircleScrollView
+        android:id="@+id/custom_circle_scroll_hot_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:layout_below="@+id/tv_social_circle_dynamic_state"
-        android:layout_marginTop="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_10"
-        android:background="@drawable/ripper_common_click_back_ground"
-        android:clickable="true"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16">
-
-        <TextView
-            android:id="@+id/tv_social_circle_hot_state"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:layout_centerVertical="true"
-            android:background="@color/app_color_theme"
-            android:gravity="center"
-            android:text="@string/social_circle_hot_state"
-            android:textColor="@color/write_color"
-            android:textSize="@dimen/sp_13"
-            />
-
-        <TextView
-            android:id="@+id/tv_social_circle_hot_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_toRightOf="@+id/tv_social_circle_hot_state"
-            android:drawableRight="@mipmap/icon_common_next_step_dark"
-            android:gravity="center_vertical"
-            android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_15"
-            />
+        android:layout_below="@+id/tv_social_circle_dynamic_state"
+        android:layout_marginTop="@dimen/dp_10"/>
 
 
-    </RelativeLayout>
+
 
 
 </RelativeLayout>

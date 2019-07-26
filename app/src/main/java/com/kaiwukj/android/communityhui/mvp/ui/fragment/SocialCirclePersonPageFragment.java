@@ -14,7 +14,6 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
-import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
@@ -114,7 +113,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
 
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
-        GlideArms.with(getContext()).load(Api.IMG_URL + result.getHeadImg()).centerCrop().into(mHeadIv);
+        GlideArms.with(getContext()).load(result.getHeadImg()).centerCrop().into(mHeadIv);
         mNameTv.setText(result.getNickName());
         mSignTv.setText(result.getPerSign());
         List<String> list = new ArrayList<>();

@@ -85,12 +85,5 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
         String token = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN);
         return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
 
-//        if (chain.request() != null && !token.equals("")) {
-//            return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
-//        } else {
-//            return chain.request().newBuilder().addHeader("Content-Type", "application/json").build();
-//            //  ARouter.getInstance().build(ARouterUrlKt.LoginRouterUrl).navigation();
-//        }
-
     }
 }

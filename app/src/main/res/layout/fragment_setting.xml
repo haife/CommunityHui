@@ -12,7 +12,7 @@
         android:layout_height="match_parent"/>
 
     <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-        android:id="@+id/qbtn_login"
+        android:id="@+id/qbtn_login_out"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
 

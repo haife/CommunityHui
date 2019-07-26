@@ -35,21 +35,22 @@ public class SocialCircleListAdapter extends BaseQuickAdapter<CircleHomeResult, 
 
     @Override
     protected void convert(BaseViewHolder helper, CircleHomeResult item) {
-
         helper.setText(R.id.tv_circle_nick_name, item.getNickName()).setText(R.id.tv_circle_publish_time, item.getCreateTime())
                 .setText(R.id.tv_circle_message_title, item.getTitle()).setText(R.id.tv_circle_message_content, item.getContent())
                 .setText(R.id.tv_circle_type_tags, item.getNoteType())
                 .setText(R.id.tv_circle_comment_number, String.valueOf(item.getCommentNum())).setText(R.id.tv_circle_comment_hint, mContext.getString(R.string.social_circle_comment_hint));
         TextView typeTv = helper.getView(R.id.tv_circle_type_tags);
         typeTv.setVisibility(McaUtils.isEmpty(item.getNoteType()) ? View.GONE : View.VISIBLE);
-        ImageView iv = helper.getView(R.id.qriv_circle_head_photo);
+        ImageView headIv = helper.getView(R.id.qriv_circle_head_photo);
         ImageView qriv_circle_image = helper.getView(R.id.qriv_circle_image);
-        GlideArms.with(mContext).load(Api.IMG_URL + item.getHeadImg()).circleCrop().into(iv);
+        GlideArms.with(mContext).load(Api.IMG_URL + item.getHeadImg()).circleCrop().into(headIv);
         if (item.getImgList() != null && item.getImgList().size() > 0) {
             GlideArms.with(mContext).load(Api.IMG_URL + item.getImgList().get(0)).centerCrop().into(qriv_circle_image);
             qriv_circle_image.setVisibility(View.VISIBLE);
         } else {
             qriv_circle_image.setVisibility(View.GONE);
         }
+
+        helper.addOnClickListener(R.id.qriv_circle_head_photo);
     }
 }

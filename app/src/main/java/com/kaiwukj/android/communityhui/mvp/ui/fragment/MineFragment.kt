@@ -88,7 +88,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             launcherOrderList(ServiceOrderFragment.TYPE_ALL)
         }
 
-        refresh_view_mine.setOnRefreshListener {
+        smart_refresh_view_mine.setOnRefreshListener {
             mPresenter?.getMineInfoData()
         }
     }
@@ -174,7 +174,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         tv_mine_user_nick_name.text = result.nickName
         tv_user_explain.text = result.perSign
         if (refreshUserInfo) refreshUserInfo = false
-        refresh_view_mine.finishRefresh()
+        smart_refresh_view_mine.finishRefresh()
     }
 
 
@@ -201,7 +201,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun hideLoading() {
-
+        smart_refresh_view_mine.finishRefresh()
     }
 
     override fun showMessage(message: String) {

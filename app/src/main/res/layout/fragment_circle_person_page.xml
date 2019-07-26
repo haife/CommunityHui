@@ -23,6 +23,7 @@
             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                 android:id="@+id/riv_circle_person_page_info_photo"
                 android:layout_width="@dimen/dp_60"
+                android:background="@drawable/shape_user_head_oval"
                 android:layout_height="@dimen/dp_60"
                 app:qmui_is_circle="true"/>
 

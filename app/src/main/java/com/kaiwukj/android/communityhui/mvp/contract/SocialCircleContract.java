@@ -7,6 +7,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
@@ -40,12 +41,13 @@ public interface SocialCircleContract {
 
         void onGetCardDetailResult(CircleCardDetailResult result);
 
+
         void onGetOtherHomePageData(SocialUserHomePageResult result);
     }
 
     interface Model extends IModel {
 
-        Observable<CircleHomeResult> requestCircleHomeList(CircleHomeRequest request, boolean isRefresh);
+        Observable<CircleHomeResult> requestCircleHomeList(CircleHomeRequest request);
 
         Observable<CircleCardResult> requestCircleCardList();
 
@@ -53,8 +55,9 @@ public interface SocialCircleContract {
 
         Observable<BaseStatusResult> postSocialCard(PostCardRequest request);
 
-
         Observable<CircleCardDetailResult> requestSocialCardDetail(int id);
+
+        Observable<CircleCardCommentResult> requestCommentList(int id, int page);
 
         //发表评论或者回复他人
         Observable<BaseStatusResult> requestCommentOther(CommentOtherRequest request);

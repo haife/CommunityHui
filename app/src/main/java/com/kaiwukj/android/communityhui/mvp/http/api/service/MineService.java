@@ -75,4 +75,11 @@ public interface MineService {
      */
     @POST("/app/sc/favorite/favourByTypePage")
     Observable<MineCollectionResult> getMineCollectionData(@Body RequestBody body);
+
+
+    /**
+     * 退出登录
+     */
+    @POST("/app/sc/logout")
+    Observable<BaseStatusResult> requestLogout(@Body RequestBody body);
 }

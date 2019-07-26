@@ -60,19 +60,19 @@ public class ResponseErrorListenerImpl implements ResponseErrorListener {
         } else if (t instanceof JsonParseException || t instanceof ParseException || t instanceof JSONException || t instanceof JsonIOException) {
             msg = "数据解析错误";
         } else if (t instanceof CompositeException) {
-            for (int i = 0; i < ((CompositeException) t).getExceptions().size(); i++) {
-                Throwable throwable = ((CompositeException) t).getExceptions().get(i);
-                if (throwable instanceof UnknownHostException) {
-                    msg = "网络异常，请检查网络设置";
-                } else if (throwable instanceof SocketTimeoutException) {
-                    msg = "请求网络超时";
-                } else if (throwable instanceof HttpException) {
-                    HttpException httpException = (HttpException) t;
-                    msg = convertStatusCode(httpException);
-                } else if (throwable instanceof JsonParseException || t instanceof ParseException || t instanceof JSONException || t instanceof JsonIOException) {
-                    msg = "数据解析错误";
-                }
-            }
+//            for (int i = 0; i < ((CompositeException) t).getExceptions().size(); i++) {
+//                Throwable throwable = ((CompositeException) t).getExceptions().get(i);
+//                if (throwable instanceof UnknownHostException) {
+//                    msg = "网络异常，请检查网络设置";
+//                } else if (throwable instanceof SocketTimeoutException) {
+//                    msg = "请求网络超时";
+//                } else if (throwable instanceof HttpException) {
+//                    HttpException httpException = (HttpException) t;
+//                    msg = convertStatusCode(httpException);
+//                } else if (throwable instanceof JsonParseException || t instanceof ParseException || t instanceof JSONException || t instanceof JsonIOException) {
+//                    msg = "数据解析错误";
+//                }
+//            }
         }
         EventBus.getDefault().post(msg);
     }

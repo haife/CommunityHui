@@ -47,5 +47,8 @@ class ExtraCons {
         /*地址选择*/
         const val EXTRA_KEY_CHOICE_ADDRESS = "EXTRA_KEY_CHOICE_ADDRESS"
 
+        /*用于传递用户ID*/
+        const val EXTRA_KEY_USER_ID = "EXTRA_KEY_USER_ID"
+
     }
 }

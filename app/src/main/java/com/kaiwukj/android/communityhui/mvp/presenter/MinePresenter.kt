@@ -1,14 +1,18 @@
 package com.kaiwukj.android.communityhui.mvp.presenter
 
 import android.app.Application
+import android.content.Intent
+import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
+import com.kaiwukj.android.communityhui.utils.SPUtils
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
 import com.kaiwukj.android.mcas.integration.AppManager
@@ -54,6 +58,9 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
+                .doFinally {
+                    mRootView.hideLoading()
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : ErrorHandleSubscriber<BaseRootResult<MineUserInfoResult>>(mErrorHandler) {
                     override fun onNext(t: BaseRootResult<MineUserInfoResult>) {
@@ -89,9 +96,6 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
     }
 
 
-
-
-
     /**
      * 获取我的订单
      * 3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
@@ -113,7 +117,24 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
+    /**
+     * 退出登录
+     */
+    fun requestLoginOut() {
+        mModel.requestLoginOut()
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(result: BaseStatusResult) {
+                        if (result.code == Api.RequestSuccess) {
+                            SPUtils.getInstance().remove(SPParam.SP_LOGIN_TOKEN)
+                            mRootView.launchActivity(Intent())
+                        }
+                    }
+                })
     }
+
+
 }

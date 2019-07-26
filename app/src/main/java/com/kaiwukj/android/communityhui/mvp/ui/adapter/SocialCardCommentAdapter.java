@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.mvp.http.api.Api;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
@@ -23,15 +23,15 @@ import java.util.List;
  * @time 2019/7/24
  * @desc $desc
  */
-public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardDetailResult.UnoteCommentListBean, BaseViewHolder> {
+public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardCommentResult, BaseViewHolder> {
 
-    public SocialCardCommentAdapter(int layoutResId, List<CircleCardDetailResult.UnoteCommentListBean> data, Context context) {
+    public SocialCardCommentAdapter(int layoutResId, List<CircleCardCommentResult> data, Context context) {
         super(layoutResId, data);
         mContext = context;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CircleCardDetailResult.UnoteCommentListBean item) {
+    protected void convert(BaseViewHolder helper, CircleCardCommentResult item) {
         QMUIRadiusImageView headIv = helper.getView(R.id.riv_card_comment_person_info_photo);
         TextView floorTv = helper.getView(R.id.tv_card_comment_floor);
         floorTv.setVisibility(item.getLandlordFlag() == 1 ? View.VISIBLE : View.GONE);

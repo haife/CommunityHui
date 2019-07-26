@@ -50,7 +50,6 @@ public class EditAddressInfoWidget extends LinearLayout {
         View widgetView = LayoutInflater.from(context).inflate(R.layout.widget_edit_address_message, this);
         ButterKnife.bind(this, widgetView);
         TypedArray array = context.obtainStyledAttributes(attr, R.styleable.TextInfoWidget);
-
         String leftStr = array.getString(R.styleable.TextInfoWidget_left_str);
         String rightStr = array.getString(R.styleable.TextInfoWidget_right_str);
         mMessageType.setText(leftStr);

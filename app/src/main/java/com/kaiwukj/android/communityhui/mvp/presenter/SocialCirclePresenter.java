@@ -11,12 +11,14 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.bean.SubImageBean;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
 import com.kaiwukj.android.communityhui.utils.QiNiuUtil;
@@ -64,9 +66,12 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     List<CircleHomeResult> mDataList;
     @Inject
     SocialCircleListAdapter mCircleListAdapter;
-
     @Inject
     SocialCircleTopicAdapter mCircleTopicAdapter;
+    @Inject
+    private List<CircleCardCommentResult> mCommentListList;
+    @Inject
+    private SocialCardCommentAdapter mCommentAdapter;
 
     @Inject
     public SocialCirclePresenter(SocialCircleContract.Model model, SocialCircleContract.View rootView) {
@@ -78,10 +83,16 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
      * 圈子列表
      */
     public void getHomeRecommendData(CircleHomeRequest request, boolean pullToRefresh) {
-        mModel.requestCircleHomeList(request, pullToRefresh)
+        mModel.requestCircleHomeList(request)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
+                .doFinally(() -> {
+                    if (pullToRefresh)
+                        mRootView.finishRefresh();
+                    else
+                        mRootView.finishLoadMore(false);
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new ErrorHandleSubscriber<CircleHomeResult>(mErrorHandler) {
                     @Override
@@ -102,6 +113,8 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
 
                         }
                     }
+
+
                 });
     }
 
@@ -137,7 +150,7 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(CircleHotResult result) {
                         mHotList.addAll(result.getResult().getList());
-                        mRootView.showMessage("");
+                        mRootView.showLoading();
                     }
                 });
     }
@@ -168,7 +181,9 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     public void requestSocialCardDetail(int id) {
         mModel.requestSocialCardDetail(id)
                 .subscribeOn(Schedulers.io())
-                .unsubscribeOn(Schedulers.io())
+                .doOnSubscribe(disposable -> {
+                    mRootView.showLoading();
+                }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<CircleCardDetailResult>(mErrorHandler) {
@@ -180,6 +195,36 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     }
                 });
     }
+
+    /**
+     * 获取帖子的评论列表
+     *
+     * @param id 帖子ID
+     */
+    public void requestCommentList(int id, int page) {
+        mModel.requestCommentList(id, page)
+                .subscribeOn(Schedulers.io())
+                .doFinally(() -> {
+                    mRootView.hideLoading();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<CircleCardCommentResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(CircleCardCommentResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (page > 1 && result.getResult().getList().size() == 0) {
+                                //加载完全部数据
+                                mRootView.finishLoadMore(true);
+                            }
+                            mRootView.finishLoadMore(false);
+                            mCommentListList.addAll(result.getResult().getList());
+                            mCommentAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+    }
+
 
     /**
      * 发表或者回复别人的帖子

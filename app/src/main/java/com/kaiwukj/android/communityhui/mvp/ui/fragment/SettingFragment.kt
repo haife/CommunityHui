@@ -17,6 +17,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResul
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
+import com.kaiwukj.android.communityhui.mvp.ui.activity.LoginActivity
 import com.kaiwukj.android.communityhui.utils.DataCleanManager
 import com.kaiwukj.android.communityhui.utils.DataCleanManager.getFormatSize
 import com.kaiwukj.android.mcas.di.component.AppComponent
@@ -42,8 +43,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
     companion object {
         const val SETTING_FRAGMENT = "SETTING_FRAGMENT"
         fun newInstance(): SettingFragment {
-            val fragment = SettingFragment()
-            return fragment
+            return SettingFragment()
         }
     }
 
@@ -76,10 +76,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
         val cacheSizeTv = loadingViewContainer.findViewById<TextView>(R.id.tv_cache_size)
         val loadingView = loadingViewContainer.findViewById<QMUILoadingView>(R.id.load_view_cache)
         clearCacheItem.addAccessoryCustomView(loadingViewContainer)
-        var cacheSize: Long = DataCleanManager.getFolderSize(context!!.cacheDir)
-        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
-            cacheSize += DataCleanManager.getFolderSize(context!!.externalCacheDir)
-        }
+        val cacheSize: Long = calculatorCacheSize()
 
         cacheSizeTv.text = getFormatSize(cacheSize.toDouble()).toString()
 
@@ -91,6 +88,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
                 clearCacheItem -> {
                     if (cacheSize != 0L) {
                         hintDialog = QMUITipDialog.Builder(context).setTipWord(getString(R.string.setting_clearing_cache)).create()
+                        DataCleanManager.cleanApplicationData(context)
                     } else {
                         hintDialog = QMUITipDialog.Builder(context).setTipWord(getString(R.string.setting_not_need_clear_cache)).create()
                         hintDialog?.show()
@@ -105,8 +103,8 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
                     hintDialog?.show()
                     loadingView.start()
                     Handler().postDelayed({
-                        DataCleanManager.cleanApplicationData(context)
                         loadingView.stop()
+                        val cacheSize: Long = calculatorCacheSize()
                         cacheSizeTv.text = getFormatSize(cacheSize.toDouble()).toString()
                         loadingView.visibility = View.GONE
                         cacheSizeTv.visibility = View.VISIBLE
@@ -132,6 +130,15 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
                 .addTo(qui_group_list_setting)
 
     }
+
+    private fun calculatorCacheSize(): Long {
+        var cacheSize: Long = DataCleanManager.getFolderSize(context!!.cacheDir)
+        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+            cacheSize += DataCleanManager.getFolderSize(context!!.externalCacheDir)
+        }
+        return cacheSize
+    }
+
     override fun onGetMineInfo(result: MineUserInfoResult) {
 
     }
@@ -155,6 +162,9 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
     }
 
     override fun launchActivity(intent: Intent) {
+        intent.setClass(context!!, LoginActivity::class.java)
+        startActivity(intent)
+        activity?.finish()
     }
 
     override fun post(runnable: Runnable?) {

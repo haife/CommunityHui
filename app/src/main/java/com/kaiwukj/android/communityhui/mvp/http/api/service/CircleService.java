@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
@@ -53,6 +54,12 @@ public interface CircleService {
      */
     @POST("/app/sc/unote/queryNote/")
     Observable<CircleCardDetailResult> requestCardDetail(@Body RequestBody body);
+
+    /**
+     * 某个帖子对应的所有评论
+     */
+    @POST("app/sc/unoteComment/queryCommentList")
+    Observable<CircleCardCommentResult> queryCommentList(@Body RequestBody body);
 
     /**
      * 发表评论或者回复别人

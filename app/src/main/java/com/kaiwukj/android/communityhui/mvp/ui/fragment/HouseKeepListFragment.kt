@@ -37,7 +37,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/16
- * @desc 家政服务人员列表container
+ * @desc 家政服务人员列表
  */
 class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
 

@@ -2,10 +2,12 @@ package com.kaiwukj.android.communityhui.di.module;
 
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
 import com.kaiwukj.android.communityhui.mvp.model.SocialCircleModel;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
@@ -85,11 +87,23 @@ public class SocialCircleModule {
     SocialCircleListAdapter provideCircleAdapter(List<CircleHomeResult> list) {
         return new SocialCircleListAdapter(R.layout.recycle_item_circle_with_photo_layout, list, view.getCtx());
     }
+
     @ActivityScope
     @Provides
     SocialCircleTopicAdapter provideTopicAdapter(List<CircleCardResult> list) {
-        return new SocialCircleTopicAdapter(R.layout.recycle_item_social_circle_topic, list,view.getCtx());
+        return new SocialCircleTopicAdapter(R.layout.recycle_item_social_circle_topic, list, view.getCtx());
     }
 
-  
+    @ActivityScope
+    List<CircleCardCommentResult> provideCommentList() {
+        return new ArrayList<>();
+    }
+
+    @ActivityScope
+    @Provides
+    SocialCardCommentAdapter provideCommentAdapter(List<CircleCardCommentResult> list) {
+        return new SocialCardCommentAdapter(R.layout.recycle_item_card_comment_layout, list, view.getCtx());
+    }
+
+
 }

@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.location.LocationManager;
-import android.util.DisplayMetrics;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hyphenate.chat.EMClient;
@@ -121,15 +120,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
         EaseUI.getInstance().init(application.getApplicationContext(), options);
     }
 
-    /**
-     * 初始化当前设备屏幕宽高
-     */
-    private void initScreenSize(Application application) {
-        DisplayMetrics curMetrics = application.getResources().getDisplayMetrics();
-        screenWidth = curMetrics.widthPixels;
-        screenHeight = curMetrics.heightPixels;
-        screenDensity = curMetrics.density;
-    }
 
     private void initLeakCanary(Application application) {
         //LeakCanary 内存泄露检查
