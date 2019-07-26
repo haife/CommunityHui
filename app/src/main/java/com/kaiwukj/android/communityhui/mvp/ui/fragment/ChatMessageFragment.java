@@ -9,12 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
-import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
-import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.di.component.DaggerChatComponent;
+import com.kaiwukj.android.communityhui.mvp.contract.ChatContract;
+import com.kaiwukj.android.communityhui.mvp.presenter.ChatPresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
@@ -47,9 +47,11 @@ import butterknife.BindView;
  * @time 2019/7/19
  * @desc 消息
  */
-public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresenter> implements SocialCircleContract.View {
+public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> implements ChatContract.View {
+
     @BindView(R.id.magic_indicator_chat_message)
     MagicIndicator mChatMagicIndicator;
+
     @BindView(R.id.view_pager_chat_message_container)
     ViewPager mChatPagerContainer;
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
@@ -63,7 +65,12 @@ public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresent
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-
+        DaggerChatComponent
+                .builder()
+                .appComponent(appComponent)
+                .view(this)
+                .build()
+                .inject(this);
     }
 
     @Override
@@ -111,11 +118,11 @@ public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresent
                 return indicator;
             }
         });
-        mHomeFragmentList.add(ChatListFragment.newInstance());
-        mHomeFragmentList.add(ChatListFragment.newInstance());
+
         mChatMagicIndicator.setNavigator(mMIndicatorNavigator);
         ViewPagerHelper.bind(mChatMagicIndicator, mChatPagerContainer);
-
+        mHomeFragmentList.add(ChatListFragment.newInstance());
+        mHomeFragmentList.add(EaseConversationListFragment.newInstance());
         HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getFragmentManager(), mHomeFragmentList);
         mChatPagerContainer.setAdapter(homeViewPagerAdapter);
     }
@@ -130,29 +137,5 @@ public class ChatMessageFragment extends BaseSupportFragment<SocialCirclePresent
 
     }
 
-    @Override
-    public Context getCtx() {
 
-        return getContext();
-    }
-
-    @Override
-    public void finishRefresh() {
-
-    }
-
-    @Override
-    public void finishLoadMore(@Nullable boolean noData) {
-
-    }
-
-    @Override
-    public void onGetCardDetailResult(CircleCardDetailResult result) {
-
-    }
-
-    @Override
-    public void onGetOtherHomePageData(SocialUserHomePageResult result) {
-
-    }
 }

@@ -32,6 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".mvp.ui.activity.ChatActivity">
+        </activity>
 
         <meta-data
             android:name="com.kaiwukj.android.communityhui.app.impl.GlobalConfiguration"
@@ -42,6 +44,7 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="667"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.kaiwukj.android.communityhui.fileProvider"
@@ -50,8 +53,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"/>
-        </provider>
-        <!-- 启动 -->
+        </provider> <!-- 启动 -->
         <activity
             android:name=".app.base.BootScreenActivity"
             android:launchMode="singleTask"
@@ -62,15 +64,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
-
-
         <activity
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-
         </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
@@ -94,28 +92,47 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
-
         </activity> <!-- 家政 -->
         <activity
             android:name=".mvp.ui.activity.HouseKeepActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/SwipeBackStyle"/>
-        <!--圈子-->
+            android:theme="@style/SwipeBackStyle"/> <!-- 圈子 -->
         <activity
             android:name=".mvp.ui.activity.SocialCircleListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
-        </activity>
-        <!--圈子-->
+        </activity> <!-- 圈子 -->
         <activity
             android:name=".mvp.ui.activity.SocialCircleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
-        </activity>
+        </activity> <!-- 设置环信应用的AppKey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="1115190326030529#communityhui"/> <!-- 声明SDK所需的service SDK核心功能 -->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true"/>
+        <service
+            android:name="com.hyphenate.chat.EMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"/> <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
 
+                <data android:scheme="package"/>
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
 
-
-
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false"/>
     </application>
 
 </manifest>

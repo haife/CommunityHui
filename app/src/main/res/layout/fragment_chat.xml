@@ -4,9 +4,13 @@
     android:id="@+id/smart_refresh_view_chat"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:srlEnableNestedScrolling="true"
     app:srlEnableLoadMore="false"
+    app:srlEnableNestedScrolling="true"
     app:srlHeaderMaxDragRate="2.5">
+
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chat_contract"

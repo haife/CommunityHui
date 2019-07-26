@@ -24,7 +24,7 @@ package com.kaiwukj.android.communityhui.mvp.http.api;/*
  * @desc 存放一些与 API 有关的东西,如请求地址,请求码等
  */
 public interface Api {
-    String APP_DOMAIN = "http://172.168.1.100:8070";
+    String APP_DOMAIN = "http://172.168.1.112:8070";
     String RequestSuccess = "1";
-    String IMG_URL = "http://qnzhsq.kaiwumace.com/";
+    String IMG_URL = "";
 }

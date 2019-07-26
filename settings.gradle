@@ -1,1 +1,1 @@
-include ':app', ':mcas'
+include ':app', ':mcas', ':easeui'

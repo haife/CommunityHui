@@ -65,7 +65,10 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         initWidget();
         requestPermissions();
         buildBottomMenuListener();
+
     }
+
+
 
     private void buildBottomMenuListener() {
         mMainBottomBnve.setOnNavigationItemSelectedListener(menuItem -> {

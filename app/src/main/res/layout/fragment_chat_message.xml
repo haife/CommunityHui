@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:orientation="vertical"
               android:layout_height="match_parent"
+              android:orientation="vertical"
               tools:context=".mvp.ui.fragment.ChatMessageFragment">
 
 
@@ -18,8 +18,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager_chat_message_container"
-        style="@style/BaseRecycleViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
 
 </LinearLayout>

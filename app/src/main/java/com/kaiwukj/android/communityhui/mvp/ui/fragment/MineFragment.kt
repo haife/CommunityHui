@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.launcher.ARouter
+import com.hyphenate.EMCallBack
+import com.hyphenate.chat.EMClient
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
@@ -26,6 +28,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.include_mine_order_container.*
 import kotlinx.android.synthetic.main.include_mine_top_container.*
+import timber.log.Timber
 
 
 class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
@@ -90,6 +93,25 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         }
     }
 
+    /**
+     * 环信初始化登录
+     */
+    private fun initHx() {
+        EMClient.getInstance().login(userInfoResult?.hxName, "kaiwu2019", object : EMCallBack {
+            override fun onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups()
+                EMClient.getInstance().chatManager().loadAllConversations()
+                Timber.e("登录聊天服务器成功！")
+            }
+
+            override fun onProgress(progress: Int, status: String) {
+            }
+
+            override fun onError(code: Int, message: String) {
+                Timber.e("登录聊天服务器失败！")
+            }
+        })
+    }
 
     /**
      * 初始化GroupList
@@ -144,18 +166,15 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
      * @param result MineUserInfoResult
      */
     override fun onGetMineInfo(result: MineUserInfoResult) {
-        refresh_view_mine.finishRefresh()
         userInfoResult = result
-        if (result.nickName.isNotEmpty()) {
-            tv_mine_user_nick_name.text = result.phoneNo
-        }
-        if (result.perSign.isEmpty()) {
-            tv_user_explain.text = getString(R.string.user_info_no_setting)
-        }
+        if (!refreshUserInfo) initHx()
+        if (result.perSign.isNullOrEmpty()) tv_user_explain.text = getString(R.string.user_info_no_setting)
+
         context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }
         tv_mine_user_nick_name.text = result.nickName
         tv_user_explain.text = result.perSign
         if (refreshUserInfo) refreshUserInfo = false
+        refresh_view_mine.finishRefresh()
     }
 
 

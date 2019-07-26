@@ -121,7 +121,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         }
         listData.addAll(list.result.list)
         mStoreListAdapter.notifyDataSetChanged()
-        empty_view_store.hide()
+       // empty_view_store.hide()
     }
 
     private fun initTopBar() {
