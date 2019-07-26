@@ -10,13 +10,10 @@
         android:id="@+id/riv_card_comment_person_info_photo"
         android:layout_width="@dimen/dp_35"
         android:layout_height="@dimen/dp_35"
+        android:background="@drawable/shape_user_head_oval"
         android:clickable="true"
-        app:qmui_border_color="?attr/qmui_config_color_gray_6"
-        app:qmui_border_width="1px"
         app:qmui_is_circle="true"
-        app:qmui_selected_border_color="?attr/qmui_config_color_gray_4"
-        app:qmui_selected_border_width="1px"
-        app:qmui_selected_mask_color="?attr/qmui_config_color_gray_8"/>
+        />
 
     <TextView
         android:id="@+id/tvr_card_comment_person_info_name"
@@ -28,6 +25,24 @@
         android:layout_toRightOf="@+id/riv_card_comment_person_info_photo"
         android:textColor="@color/home_color_hot_service_text"
         android:textSize="@dimen/sp_15"
+        />
+
+    <TextView
+        android:id="@+id/tvr_card_comment_person_floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tvr_card_comment_person_info_name"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_toRightOf="@+id/tvr_card_comment_person_info_name"
+        android:background="@color/app_color_theme"
+        android:paddingLeft="@dimen/dp_3"
+        android:paddingTop="@dimen/dp_2"
+        android:paddingRight="@dimen/dp_3"
+        android:paddingBottom="@dimen/dp_2"
+        android:text="@string/card_comment_floor_home"
+        android:textColor="@color/write_color"
+        android:textSize="@dimen/sp_10"
+        android:visibility="gone"
         />
 
     <TextView
@@ -66,9 +81,9 @@
         android:id="@+id/tv_card_comment_floor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/tv_card_comment_reply"
-        android:layout_marginTop="@dimen/dp_5"
         android:layout_alignBaseline="@+id/tv_card_comment_person_time"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_toLeftOf="@+id/tv_card_comment_reply"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"/>
 
@@ -76,9 +91,9 @@
         android:id="@+id/tv_card_comment_reply"
         android:layout_width="@dimen/dp_50"
         android:layout_height="@dimen/dp_20"
-        android:gravity="center|top"
         android:layout_alignBaseline="@+id/tv_card_comment_person_time"
         android:layout_alignParentRight="true"
+        android:gravity="center|top"
         android:text="回复"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"/>

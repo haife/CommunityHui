@@ -9,6 +9,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRe
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
+import com.kaiwukj.android.communityhui.mvp.listener.OnSubDataUpdateListener
 import com.kaiwukj.android.communityhui.utils.QiNiuUtil
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
@@ -62,18 +63,20 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
      */
     fun updateMineInfoData(userInfo: MineUserInfoResult) {
         mModel.updateMineInfoData(userInfo)
+                .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
                     override fun onNext(result: BaseStatusResult) {
                         if (result.code == Api.RequestSuccess) {
-
+                            mRootView.showLoading()
+                        } else {
+                            mRootView.hideLoading()
                         }
                     }
                 })
     }
-
 
     /**
      * 获取地址
@@ -148,14 +151,13 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                 .subscribe(object : ErrorHandleSubscriber<BaseQITokenResult>(mErrorHandler) {
                     override fun onNext(data: BaseQITokenResult) {
                         if (data.code == Api.RequestSuccess) {
-                            val qiNiuUtil = QiNiuUtil { urls ->
+                            var qiNiuUtil = QiNiuUtil(OnSubDataUpdateListener { urls ->
                                 val imageUlrs = ArrayList<String>()
-                                for (bean in urls) {
+                                for (bean in urls.orEmpty()) {
                                     imageUlrs.add(bean.imgUrl)
                                     mRootView.showMessage(bean.imgUrl)
                                 }
-
-                            }
+                            })
                             //上传图片
                             qiNiuUtil.uploadImageToQiniu(paths, data.result)
                         }

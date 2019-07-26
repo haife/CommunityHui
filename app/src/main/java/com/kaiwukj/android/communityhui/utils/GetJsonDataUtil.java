@@ -17,7 +17,6 @@ import java.io.InputStreamReader;
 
 public class GetJsonDataUtil {
 
-
     public String getJson(Context context,String fileName) {
 
         StringBuilder stringBuilder = new StringBuilder();

@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/dp_25"
-    android:paddingTop="@dimen/dp_40"
     android:background="@color/write_color"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp_40"
+    android:paddingBottom="@dimen/dp_25">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_mine_head_top"
@@ -23,7 +23,7 @@
             android:id="@+id/qiv_user_profile_photo"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
-            android:background="@color/window_background_color"
+            android:background="@drawable/shape_user_head_oval"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_is_circle="true"/>
@@ -77,7 +77,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-           />
+            />
 
         <TextView
             android:id="@+id/tv_mine_reply_num"
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-           />
+            />
 
         <TextView
             android:id="@+id/tv_mine_fans_num"
@@ -104,7 +104,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/dp_5"
-           />
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -181,6 +181,8 @@
     <string name="setting_clearing_cache">正在清理缓存</string>
     <string name="setting_submitting">正在提交</string>
     <string name="setting_clearing_cache_success">清理完成</string>
+    <string name="setting_update_info_success">编辑成功</string>
+    <string name="setting_update_info_failure">编辑失败</string>
 
     <string name="setting_login_out">退出登录</string>
     <string name="setting_about_company">关于我们</string>
@@ -214,6 +216,9 @@
     <string name="mine_address_choice_area">城市选择</string>
     <string name="home_service_no_open_hint">服务暂未开通</string>
     <string name="mine_sign_input_hint">请输入15字符内的签名</string>
+    <string name="user_info_save">保存</string>
+    <string name="user_info_no_setting">未设置</string>
+    <string name="card_comment_floor_home">楼主</string>
     <!--社交圈子-->
 
 </resources>

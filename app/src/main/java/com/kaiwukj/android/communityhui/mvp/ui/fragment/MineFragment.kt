@@ -31,14 +31,15 @@ import kotlinx.android.synthetic.main.include_mine_top_container.*
 class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
     private var userInfoResult: MineUserInfoResult? = null
+    //是否刷新个人信息
+    private var refreshUserInfo = false
 
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
         fun newInstance(): MineFragment {
-            val fragment = MineFragment()
-            return fragment
+            return MineFragment()
         }
     }
 
@@ -63,9 +64,11 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
     private fun initClick() {
         cl_mine_head_top.setOnClickListener {
-            if (userInfoResult != null)
+            if (userInfoResult != null) {
+                refreshUserInfo = true
                 ARouter.getInstance().build(MineInfoUrl).withSerializable(ExtraCons.EXTRA_KEY_MINE_USER_INFO, userInfoResult)
                         .withString(ExtraCons.EXTRA_KEY_EDIT_MINE, PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT).navigation(context)
+            }
         }
 
         // 3:待服务 4：服务中 5：已完结，
@@ -80,6 +83,10 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         }
         tv_mine_order_all.setOnClickListener {
             launcherOrderList(ServiceOrderFragment.TYPE_ALL)
+        }
+
+        refresh_view_mine.setOnRefreshListener {
+            mPresenter?.getMineInfoData()
         }
     }
 
@@ -106,7 +113,8 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 }
                 mineCollectItem -> {
                     userInfoResult?.let {
-                        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, it.userId.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
+                        ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, it.userId.toString())
+                                .withString(ExtraCons.EXTRA_KEY_ORDER_MINE, MineCollectionFragment.MINE_COLLECTION_FRAGMENT).navigation(context)
 
                     }
                 }
@@ -125,12 +133,29 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
     }
 
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        if (refreshUserInfo)
+            mPresenter?.getMineInfoData()
+    }
+
+    /**
+     * 获取个人信息
+     * @param result MineUserInfoResult
+     */
     override fun onGetMineInfo(result: MineUserInfoResult) {
+        refresh_view_mine.finishRefresh()
         userInfoResult = result
+        if (result.nickName.isNotEmpty()) {
+            tv_mine_user_nick_name.text = result.phoneNo
+        }
+        if (result.perSign.isEmpty()) {
+            tv_user_explain.text = getString(R.string.user_info_no_setting)
+        }
         context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }
         tv_mine_user_nick_name.text = result.nickName
         tv_user_explain.text = result.perSign
-
+        if (refreshUserInfo) refreshUserInfo = false
     }
 
 

@@ -3,14 +3,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/write_color"
-                android:paddingTop="@dimen/dp_10"
-                android:paddingBottom="@dimen/dp_25">
+
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_header_circle_topic"
         style="@style/BaseRecycleViewStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"/>
+        android:layout_height="@dimen/dp_55"
+        android:layout_marginTop="@dimen/dp_10"/>
 
 
     <TextView
@@ -25,33 +26,44 @@
         android:textSize="@dimen/sp_18"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/tv_social_circle_hot_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_social_circle_dynamic_state"
-        android:layout_alignLeft="@+id/tv_social_circle_dynamic_state"
-        android:layout_marginTop="@dimen/dp_25"
-        android:background="@color/app_color_theme"
-        android:padding="@dimen/dp_2"
-        android:text="@string/social_circle_hot_state"
-        android:textColor="@color/write_color"
-        android:textSize="@dimen/sp_13"
-        />
-
-    <TextView
-        android:id="@+id/tv_social_circle_hot_title"
+    <RelativeLayout
+        android:id="@+id/rl_social_circle_hot_state"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/dp_40"
         android:layout_below="@+id/tv_social_circle_dynamic_state"
-        android:layout_marginLeft="@dimen/dp_8"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_16"
-        android:layout_toRightOf="@+id/tv_social_circle_hot_state"
-        android:drawableRight="@mipmap/icon_common_next_step_dark"
-        android:gravity="center_vertical"
-        android:textColor="@color/common_text_dark_color"
-        android:textSize="@dimen/sp_15"
-        />
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@drawable/ripper_common_click_back_ground"
+        android:clickable="true"
+        android:paddingLeft="@dimen/dp_16"
+        android:paddingRight="@dimen/dp_16">
+
+        <TextView
+            android:id="@+id/tv_social_circle_hot_state"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20"
+            android:layout_centerVertical="true"
+            android:background="@color/app_color_theme"
+            android:gravity="center"
+            android:text="@string/social_circle_hot_state"
+            android:textColor="@color/write_color"
+            android:textSize="@dimen/sp_13"
+            />
+
+        <TextView
+            android:id="@+id/tv_social_circle_hot_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toRightOf="@+id/tv_social_circle_hot_state"
+            android:drawableRight="@mipmap/icon_common_next_step_dark"
+            android:gravity="center_vertical"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_15"
+            />
+
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

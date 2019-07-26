@@ -111,6 +111,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         smart_refresh_staff_list.setOnLoadMoreListener {
             page++
             isLoadMore = true
+            request.pages = page
             when (mRequestType) {
                 1 ->   //如果是选择阿姨类型 请求此接口
                     mPresenter?.requestSelectStaff(request)
@@ -125,11 +126,12 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
      * @param request StoreStaffRequest
      */
     fun sortStaffList(req: StoreStaffRequest) {
+        page = 1
+        request.pages = page
         request.score = req.score
         request.serviceHome = req.serviceHome
         request.workStartTime = req.workStartTime
         request.servicePrice = req.servicePrice
-        page = 1
         mPresenter?.requestSelectStaff(request)
     }
 
@@ -138,14 +140,13 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
      * @param result List<StaffListResult>
      */
     override fun onSelectStaffList(result: List<StaffListResult>) {
-
         if (isLoadMore) {
-            staffList.clear()
-            isLoadMore = false
             smart_refresh_staff_list?.finishLoadMore()
-            if (result.isNotEmpty() && page > 1) {
-                smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
-            }
+            if (result.isEmpty() && page > 1) smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
+            isLoadMore = false
+        }
+        if (page == 1) {
+            staffList.clear()
         }
         staffList.addAll(result)
         mHouseAdapter.notifyDataSetChanged()

@@ -10,5 +10,6 @@ public class SPParam {
     /*登录手机号*/
     public static final String SP_LOGIN_PHONE = "SP_LOGIN_PHONE";
     public static final String SP_LOGIN_TOKEN = "SP_LOGIN_TOKEN";
+    public static final String SP_ALIAS = "SP_ALIAS";
     public static final String SP_LOGIN_SUCCESS_CODE = "SP_LOGIN_SUCCESS_CODE";
 }

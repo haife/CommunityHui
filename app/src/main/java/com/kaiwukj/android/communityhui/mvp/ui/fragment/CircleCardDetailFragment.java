@@ -20,13 +20,13 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequ
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.NineGridIvAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
-import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -98,7 +98,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private List<CircleCardDetailResult.UnoteCommentListBean> mCommentListList;
     private SocialCardCommentAdapter mCommentAdapter;
     private QMUITopBar mTopBar;
-
+    private NineGridIvAdapter mGridIvAdapter;
     public static final String CIRCLE_CARD_DETAIL = "CIRCLE_CARD_DETAIL";
 
     private int mCardId;
@@ -131,10 +131,9 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         mPresenter.requestSocialCardDetail(mCardId);
         assert getActivity() != null;
         mTopBar = this.getActivity().findViewById(R.id.qtb_social_circle);
+        mCommentListList = new ArrayList<>();
         initTopBar(mTopBar);
         initRvItemClick();
-
-        mCommentListList = new ArrayList<>();
     }
 
     private void initRvItemClick() {
@@ -174,7 +173,9 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         mTagTv.setText(result.getNoteType());
         mContentTv.setText(result.getContent());
         mCommentNumberTv.setText(result.getUnoteCommentList().size() == 0 ? getString(R.string.social_card_no_comment) : String.valueOf(result.getUnoteCommentList().size()));
-        initGroupImageAdapter(result);
+        if (mGridIvAdapter == null) {
+            initGroupImageAdapter(result);
+        }
         mCommentListList.addAll(result.getUnoteCommentList());
         mCommentAdapter.notifyDataSetChanged();
     }
@@ -192,11 +193,13 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
                 info.setBigImageUrl(result.getImgList().get(i));
                 imageInfo.add(info);
             }
+            //单张图片的大小
+            mGridIvAdapter = new NineGridIvAdapter(getContext(), imageInfo);
             mImageGroup.setSingleImageSize(McaUtils.getScreenWidth(getContext()) - McaUtils.dip2px(getContext(), 32));
-            mImageGroup.setAdapter(new NineGridViewClickAdapter(getContext(), imageInfo));
-            mImageGroup.setEnabled(false);
+            mImageGroup.setAdapter(mGridIvAdapter);
         }
     }
+
 
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {

@@ -82,7 +82,7 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
         }
 
         smart_refresh_order_list.setOnRefreshListener {
-
+            smart_refresh_order_list.finishRefresh()
         }
     }
 

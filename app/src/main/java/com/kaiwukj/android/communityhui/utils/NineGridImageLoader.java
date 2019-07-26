@@ -23,6 +23,7 @@ public class NineGridImageLoader implements NineGridView.ImageLoader {
                 .into(imageView);
     }
 
+
     @Override
     public Bitmap getCacheImage(String url) {
         return null;

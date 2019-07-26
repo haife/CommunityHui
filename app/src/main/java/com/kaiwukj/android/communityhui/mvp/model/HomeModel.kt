@@ -13,7 +13,6 @@ import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.Reply
 import javax.inject.Inject
 
@@ -59,10 +58,11 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, EvictDynamicKey(isRefresh))
-                            .map { list: Reply<StoreListResult> ->
-                                list.data
-                            }
+                    it
+//                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, DynamicKey("Recommend"), EvictDynamicKey(isRefresh))
+//                            .map { list: Reply<StoreListResult> ->
+//                                list.data
+//                            }
                 }
     }
 
@@ -75,11 +75,12 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestStaffRecommend(getRequestBody(mGson.toJson(request))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java)
-                            .getHomeStaffCache(it, EvictDynamicKey(isRefresh))
-                            .map { list: Reply<StaffListResult> ->
-                                list.data
-                            }
+                    it
+//                    mRepositoryManager.obtainCacheService(CommonCache::class.java)
+//                            .getHomeStaffCache(it, DynamicKey("Recommend"), EvictDynamicKey(isRefresh))
+//                            .map { list: Reply<StaffListResult> ->
+//                                list.data
+                    //                           }
                 }
     }
 

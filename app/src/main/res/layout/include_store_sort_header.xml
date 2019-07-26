@@ -48,7 +48,7 @@
         android:textSize="@dimen/sp_13"/>
 
     <CheckBox
-        android:id="@+id/cb_store_sort_header_address"
+        android:id="@+id/cb_store_sort_header_collection"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_30"
         android:layout_alignParentRight="true"

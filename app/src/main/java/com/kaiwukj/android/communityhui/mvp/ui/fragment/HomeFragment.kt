@@ -66,7 +66,9 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestServiceList()
         mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG), false)
-        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG), false)
+        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG), false
+
+        )
         smart_refresh_home.setOnRefreshListener(this)
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter

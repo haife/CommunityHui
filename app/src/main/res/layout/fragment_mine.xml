@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh_view_mine"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:srlEnablePreviewInEditMode="false">
 
-    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+    <com.scwang.smartrefresh.layout.header.BezierRadarHeader
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

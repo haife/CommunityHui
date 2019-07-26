@@ -18,9 +18,14 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.result
  * @constructor
  */
 data class LoginResult(
-        val code: String,
-        val desc: String,
-        val result: String
+    val code: String,
+    val desc: String,
+    val result: MyResult
+)
+
+data class MyResult(
+    val alias: String,
+    val token: String
 )
 
 data class LoginVerifyCodeResult(
@@ -29,5 +34,9 @@ data class LoginVerifyCodeResult(
     val result: Result
 )
 
-class Result(
+data class Result(
+        val alias: String,
+        val token: String
 )
+
+

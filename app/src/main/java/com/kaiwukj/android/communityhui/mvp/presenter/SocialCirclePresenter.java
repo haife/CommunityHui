@@ -90,13 +90,14 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                             if (pullToRefresh) {
                                 mDataList.clear();
                                 mRootView.finishRefresh();
+                                mDataList.addAll(result.getResult().getList());
                             } else {
-                                if (request.getPages() > 1 && result.getResult().getList().size() > 0) {
+                                if (request.getPages() > 1 && result.getResult().getList().size() > 0)
                                     mRootView.finishLoadMore(true);
-                                }
+                                else
+                                    mDataList.addAll(result.getResult().getList());
                                 mRootView.finishLoadMore(false);
                             }
-                            mDataList.addAll(result.getResult().getList());
                             mCircleListAdapter.notifyDataSetChanged();
 
                         }

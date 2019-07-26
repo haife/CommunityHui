@@ -1,6 +1,8 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,7 +33,9 @@ public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardDetailR
     @Override
     protected void convert(BaseViewHolder helper, CircleCardDetailResult.UnoteCommentListBean item) {
         QMUIRadiusImageView headIv = helper.getView(R.id.riv_card_comment_person_info_photo);
-        GlideArms.with(mContext).load(Api.IMG_URL + item.getReplyHeadImg()).circleCrop().into(headIv);
+        TextView floorTv = helper.getView(R.id.tv_card_comment_floor);
+        floorTv.setVisibility(item.getLandlordFlag() == 1 ? View.VISIBLE : View.GONE);
+        GlideArms.with(mContext).load(Api.IMG_URL + item.getCommentatorHeadImg()).into(headIv);
         helper.setText(R.id.tvr_card_comment_person_info_name, item.getCommentatorNickName())
                 .setText(R.id.tv_card_comment_person_content, item.getContent())
                 .setText(R.id.tv_card_comment_person_time, item.getCreateTime())

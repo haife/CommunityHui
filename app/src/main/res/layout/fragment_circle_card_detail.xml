@@ -163,7 +163,7 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        <com.scwang.smartrefresh.layout.footer.FalsifyFooter
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

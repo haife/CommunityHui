@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,11 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.isseiaoki.simplecropview.FreeCropImageView
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.R.color
-import com.kaiwukj.android.communityhui.R.layout
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
+import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
@@ -28,6 +29,8 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.lzy.imagepicker.ImagePicker
 import com.lzy.imagepicker.bean.ImageItem
 import com.lzy.imagepicker.ui.ImageGridActivity
+import com.qmuiteam.qmui.widget.QMUITopBar
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_person_home_page.*
 import java.text.SimpleDateFormat
@@ -45,6 +48,8 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     private val formatter = SimpleDateFormat("yyyy-MM-dd")
 
     var mUserInfo: MineUserInfoResult? = MineUserInfoResult()
+
+    private var hintDialog: QMUITipDialog? = null
 
     companion object {
         const val PERSON_HOME_PAGE_FRAGMENT = "PERSON_HOME_PAGE_FRAGMENT"
@@ -67,7 +72,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return attachToSwipeBack(inflater.inflate(layout.fragment_person_home_page, container, false))
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_person_home_page, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -91,7 +96,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
             TimePickerBuilder(context, OnTimeSelectListener
             { date, v ->
                 tv_person_home_page_birthday.text = formatter.format(date)
-                mUserInfo?.birthday = date
+                mUserInfo?.birthday = formatter.format(date)
             }).setCancelColor(ContextCompat.getColor(context!!, color.common_text_slight_color))
                     .isCyclic(false)
                     .setSubmitColor(ContextCompat.getColor(context!!, color.app_color_theme))
@@ -111,16 +116,18 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
         }
     }
 
-    override fun onSupportInvisible() {
-        super.onSupportInvisible()
-        mUserInfo?.let { mPresenter?.updateMineInfoData(it) }
-    }
 
     private fun initLayout() {
+        val topBar: QMUITopBar = activity!!.findViewById(R.id.qtb_edit_mine_info)
+        topBar.addRightTextButton(getString(R.string.user_info_save), R.id.qmui_top_right_btn).setOnClickListener {
+            mUserInfo?.let { it1 -> mPresenter?.updateMineInfoData(it1) }
+        }
         mUserInfo?.let {
             tv_home_page_name.setText(it.nickName)
             et_person_home_page_sign.setText(it.perSign)
             tv_person_home_page_phone.text = it.phoneNo
+            tv_person_home_page_birthday.text = it.birthday
+            context?.let { it1 -> GlideArms.with(it1).load(Api.IMG_URL + it.headImg).into(qiv_person_hom_profile_photo) }
             if (it.gender == 1)
                 rg_person_home_sex.check(R.id.rb_person_home_page_man)
             else
@@ -134,7 +141,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {
             val listImg = data!!.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS) as ArrayList<ImageItem>
-            context?.let { GlideArms.with(it).load(listImg[0].path).into(qiv_person_hom_profile_photo) }
+            GlideArms.with(context!!).load(listImg[0].path).into(qiv_person_hom_profile_photo)
             mPresenter?.requestQIToken(listImg[0].path)
         }
     }
@@ -173,11 +180,19 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
 
 
     override fun showLoading() {
-
+        hintDialog = QMUITipDialog.Builder(context).setTipWord(getString(R.string.setting_update_info_success)).create()
+        hintDialog?.show()
+        Handler().postDelayed({
+            hintDialog?.dismiss()
+        }, 1000)
     }
 
     override fun hideLoading() {
-
+        hintDialog = QMUITipDialog.Builder(context).setTipWord(getString(R.string.setting_update_info_failure)).create()
+        hintDialog?.show()
+        Handler().postDelayed({
+            hintDialog?.dismiss()
+        }, 1000)
     }
 
     override fun showMessage(message: String) {

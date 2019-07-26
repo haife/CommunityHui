@@ -253,6 +253,7 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
         new Handler().postDelayed(() -> {
             dialog.dismiss();
             if (message.equals(getString(R.string.social_post_card_success))) {
+                SocialCircleFragment.isRefreshList = true;
                 killMyself();
             }
         }, 800);

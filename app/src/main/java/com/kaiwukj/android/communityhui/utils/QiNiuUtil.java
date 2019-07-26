@@ -25,7 +25,7 @@ public class QiNiuUtil {
     }
 
     private List<SubImageBean> urls = new ArrayList<>();
-    private List<String> filePaths;
+    private List<String> filePaths = new ArrayList<>();
     private int i = 0;
 
     public void uploadImagesToQiniu(List<String> filePaths, String token) {
@@ -34,6 +34,7 @@ public class QiNiuUtil {
     }
 
     public void uploadImageToQiniu(String filePath, String token) {
+        this.filePaths.add(filePath);
         uploadImage(filePath, token);
     }
 

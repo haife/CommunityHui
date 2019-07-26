@@ -73,7 +73,8 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View) :
                     override fun onNext(t: LoginResult) {
                         if (t.code == Api.RequestSuccess) {
                             SPUtils.getInstance().put(SPParam.SP_LOGIN_PHONE, loginRequest.phoneNo)
-                            SPUtils.getInstance().put(SPParam.SP_LOGIN_TOKEN, t.result)
+                            SPUtils.getInstance().put(SPParam.SP_LOGIN_TOKEN, t.result.token)
+                            SPUtils.getInstance().put(SPParam.SP_ALIAS, t.result.alias)
                             mRootView.loginSuccess()
 
                         } else {

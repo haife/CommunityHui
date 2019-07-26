@@ -30,7 +30,6 @@ import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerT
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
 import kotlinx.android.synthetic.main.fragment_store_sort.*
-import kotlinx.android.synthetic.main.include_store_detail_header.*
 import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -105,7 +104,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         empty_view_store.hide()
         tv_store_sort_header.text = detailResult.storeName
         tv_store_sort_header_address.text = detailResult.address
-        cb_store_sort_header_address.isChecked = detailResult.favoriteFlag == 1
+        cb_store_sort_header_collection.isChecked = detailResult.favoriteFlag == 1
         val listTab = ArrayList<HouseKeepingServiceType>()
         val itemRecommend = HouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
         listTab.add(itemRecommend)
@@ -124,18 +123,15 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
             val itemType = StoreListRequest(recommendFlag = null, serviceTypeId = element.serviceTypeId, hmstoreId = mShopId)
             mFragmentList.add(HouseStaffListFragment.newInstance(itemType, 2))
         }
-
         initMagicIndicatorView(listTab)
         val requestCollection = mShopId?.let { CollectionRequest(it, mTypeId) }
-        cb_store_sort_header_address.setOnCheckedChangeListener { compoundButton, b ->
-            cb_store_detail_header_address.setOnCheckedChangeListener { compoundButton, b ->
-                if (b) {
+        cb_store_sort_header_collection.setOnClickListener {
+                if (cb_store_sort_header_collection.isChecked) {
+                    mShopId?.let { mPresenter?.requestMoveCollection(it) }
+                } else {
                     if (requestCollection != null) {
                         mPresenter?.requestAddCollection(requestCollection)
                     }
-                } else {
-                    mShopId?.let { mPresenter?.requestMoveCollection(it) }
-                }
             }
 
         }

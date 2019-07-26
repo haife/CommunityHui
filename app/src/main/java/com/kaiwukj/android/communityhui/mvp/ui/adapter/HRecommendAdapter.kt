@@ -33,6 +33,8 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
     private val hintDialog: QMUITipDialog = QMUITipDialog.Builder(context).setTipWord(context.getString(R.string.home_service_no_open_hint)).create()
     //RecycleView线程池
     private val shareRecycledViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    private var childStoreAdapter: HRecommendChildAdapter? = null
+    private var childStaffAdapter: HRecommendChildAdapter? = null
 
     init {
         addItemType(HRecommendMultiItemEntity.BANNER_TYPE, R.layout.recycle_item_home_banner_top_layout)
@@ -57,7 +59,7 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 helper.getView<TextView>(R.id.tv_home_banner_top_house_keeping).setOnClickListener {
                     ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
-                
+
                 helper.getView<TextView>(R.id.tv_home_banner_top_family).setOnClickListener {
                     showServiceNoOpenDialog()
                 }
@@ -92,7 +94,11 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
             HRecommendMultiItemEntity.STORES_RECOMMEND -> {
                 val shopRv = helper.getView<RecyclerView>(R.id.rv_home_shops_recommend)
-                initRecycle(shopRv, item)
+                if (childStoreAdapter == null) {
+                    shopRv.addItemDecoration(HorizontalSpacesDecoration(40))
+                }
+                childStoreAdapter = HRecommendChildAdapter(item, context)
+                initRecycle(shopRv, childStoreAdapter!!)
                 helper.getView<TextView>(R.id.tv_home_shops_recommend_more).setOnClickListener {
                     ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
@@ -100,7 +106,11 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
 
             HRecommendMultiItemEntity.WOMAN_RECOMMEND -> {
                 val staffRv = helper.getView<RecyclerView>(R.id.rv_home_officer_recommend)
-                initRecycle(staffRv, item)
+                if (childStaffAdapter == null) {
+                    staffRv.addItemDecoration(HorizontalSpacesDecoration(40))
+                }
+                childStaffAdapter = HRecommendChildAdapter(item, context)
+                initRecycle(staffRv, childStaffAdapter!!)
                 helper.getView<TextView>(R.id.tv_home_officer_recommend_more).setOnClickListener {
                     ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_HOME_FRAGMENT_URL).navigation()
                 }
@@ -121,10 +131,8 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
      * @param recyclerView RecyclerView
      * @param item HRecommendMultiItemEntity
      */
-    private fun initRecycle(recyclerView: RecyclerView, item: HRecommendMultiItemEntity) {
-        recyclerView.addItemDecoration(HorizontalSpacesDecoration(20))
+    private fun initRecycle(recyclerView: RecyclerView, childAdapter: HRecommendChildAdapter) {
         val horizontalLM = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val childAdapter = HRecommendChildAdapter(item, context)
         recyclerView.layoutManager = horizontalLM
         recyclerView.onFlingListener = null
         FixLinearSnapHelper().attachToRecyclerView(recyclerView)

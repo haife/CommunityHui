@@ -80,10 +80,13 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     private TextView mHotTvTitle;
     private int page = 1;
     private CircleHomeRequest request = new CircleHomeRequest(0);
+    //是否在 Visibility 刷新数据
+    public static boolean isRefreshList = false;
 
     public static SocialCircleFragment newInstance() {
         SocialCircleFragment fragment = new SocialCircleFragment();
         return fragment;
+
     }
 
     @Override
@@ -105,12 +108,17 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     public void initData(@Nullable Bundle savedInstanceState) {
         initRecycleView();
         assert mPresenter != null;
+        mPresenter.getHomeRecommendData(request, true);
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
         mRefreshView.setOnRefreshListener(refreshLayout -> {
             page = 1;
             refreshLayout.setEnableLoadMore(false);
+            mHotList.clear();
+            mCardResults.clear();
             mPresenter.getHomeRecommendData(request, true);
+            mPresenter.requestCircleCardList();
+            mPresenter.requestCircleHotList();
         });
         mRefreshView.setOnLoadMoreListener(refreshLayout -> {
             page += 1;
@@ -134,7 +142,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         topicRv.setAdapter(mCircleTopicAdapter);
         mCircleTopicAdapter.setOnItemClickListener((adapter, view, position) -> {
             ARouter.getInstance().build(ARouterUrlKt.CircleListUrl).withInt(ExtraCons.CIRCLE_TOPIC_TYPE_ID, mCardResults.get(position).getId())
-                    .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mHotList.get(position).getTitle()).navigation();
+                    .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mCardResults.get(position).getDicValue()).navigation();
         });
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
@@ -153,8 +161,8 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     @Override
     public void finishLoadMore(@Nullable boolean noData) {
         mRefreshView.setEnableRefresh(true);
-        mRefreshView.finishLoadMore();
         if (noData) {
+            mRefreshView.finishLoadMore();
             mRefreshView.finishLoadMoreWithNoMoreData();
         }
 
@@ -164,7 +172,11 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     public void onSupportVisible() {
         super.onSupportInvisible();
         assert mPresenter != null;
-        mPresenter.getHomeRecommendData(request, true);
+        if (isRefreshList) {
+            mDataList.clear();
+            isRefreshList = false;
+            mPresenter.getHomeRecommendData(request, true);
+        }
     }
 
     @Override

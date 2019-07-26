@@ -15,24 +15,6 @@ import java.util.List;
  */
 public class CircleHotResult extends BaseListRootResult<List<CircleHotResult>> {
 
-    /**
-     * address :
-     * commentNum : 0
-     * content :
-     * headImg :
-     * id : 1
-     * imgs :
-     * nickName :
-     * noteNum : 0
-     * noteType :
-     * perSign :
-     * recommendFlag : 0
-     * reportedCount : 0
-     * title : 测
-     * type : 0
-     * userId : 21
-     */
-
     private String address;
     private int commentNum;
     private String content;

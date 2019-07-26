@@ -31,10 +31,10 @@ data class HRecommendMultiItemEntity(private val typeItemStr: String) : MultiIte
         const val STRING_HOT_SERVICE = "string_hot_service"
 
         //店铺推荐
-        const val STORES_RECOMMEND = 3
+        const val STORES_RECOMMEND = 2
         const val STRING_STORES_RECOMMEND = "string_stores_recommend"
         //阿姨推荐
-        const val WOMAN_RECOMMEND = 4
+        const val WOMAN_RECOMMEND = 3
         const val STRING_WOMAN_RECOMMEND = "woman_recommend"
 
         //没有定义的type

@@ -27,7 +27,7 @@ public interface CommonCache {
 
     /*首页推荐门店数据*/
     @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<StoreListResult>> getHomeStoreCache(Observable<StoreListResult> data, EvictProvider evictProvider);
+    Observable<Reply<StoreListResult>> getHomeStoreCache(Observable<StoreListResult> data, DynamicKey key, EvictProvider evictProvider);
 
     /*首页推荐门店数据 具备分页功能*/
     @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
@@ -35,7 +35,7 @@ public interface CommonCache {
 
     /*首页推荐服务员数据 具备分页功能*/
     @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<StaffListResult>> getHomeStaffCache(Observable<StaffListResult> data, EvictProvider evictProvider);
+    Observable<Reply<StaffListResult>> getHomeStaffCache(Observable<StaffListResult> data, DynamicKey key, EvictProvider evictProvider);
 
     /*首页推荐服务员数据 具备分页功能*/
     @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
