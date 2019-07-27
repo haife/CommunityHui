@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
-import com.isseiaoki.simplecropview.FreeCropImageView
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.R.color
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
@@ -29,6 +28,7 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.lzy.imagepicker.ImagePicker
 import com.lzy.imagepicker.bean.ImageItem
 import com.lzy.imagepicker.ui.ImageGridActivity
+import com.lzy.imagepicker.view.CropImageView
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -54,7 +54,6 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     companion object {
         const val PERSON_HOME_PAGE_FRAGMENT = "PERSON_HOME_PAGE_FRAGMENT"
         private val REQUEST_CODE_CHOOSE_IMAGE = 1
-        private val REQUEST_CODE_CHOOSE_TYPE = 2
         fun newInstance(userInfo: MineUserInfoResult?): PersonHomePageFragment {
             val fragment = PersonHomePageFragment()
             fragment.mUserInfo = userInfo
@@ -159,11 +158,12 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
                         // 用户已经同意该权限
                         val intent = Intent(context, ImageGridActivity::class.java)
                         startActivityForResult(intent, REQUEST_CODE_CHOOSE_IMAGE)
-                        ImagePicker.getInstance().isMultiMode = false;
-                        ImagePicker.getInstance().setFreeCrop(true, FreeCropImageView.CropMode.FREE)
+                       val imagePick =  ImagePicker.getInstance()
+                        imagePick.isMultiMode = false
+                        imagePick.isCrop = true
+                        imagePick.style = CropImageView.Style.CIRCLE
                     } else if (permission.shouldShowRequestPermissionRationale) {
                         // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-
                     } else {
                         // 用户拒绝了该权限，并且选中『不再询问』
 

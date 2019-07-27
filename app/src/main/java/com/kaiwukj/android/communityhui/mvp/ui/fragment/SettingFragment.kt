@@ -62,6 +62,10 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
 
     override fun initData(savedInstanceState: Bundle?) {
         initBottomGroupView()
+        //退出登录
+        qbtn_login_out.setOnClickListener {
+            mPresenter?.requestLoginOut()
+        }
     }
 
 
@@ -77,9 +81,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
         val loadingView = loadingViewContainer.findViewById<QMUILoadingView>(R.id.load_view_cache)
         clearCacheItem.addAccessoryCustomView(loadingViewContainer)
         val cacheSize: Long = calculatorCacheSize()
-
         cacheSizeTv.text = getFormatSize(cacheSize.toDouble()).toString()
-
         val aboutCompany = qui_group_list_setting.createItemView(getString(R.string.setting_about_company))
         aboutCompany.accessoryType = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
 
@@ -163,6 +165,8 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
 
     override fun launchActivity(intent: Intent) {
         intent.setClass(context!!, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         activity?.finish()
     }

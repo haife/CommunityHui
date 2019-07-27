@@ -35,6 +35,7 @@ import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -87,6 +88,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
     private CircleHomeRequest request = new CircleHomeRequest(0);
     //是否在 Visibility 刷新数据
     public static boolean isRefreshList = false;
+    private List<View> hotListView = new ArrayList<>();
 
     public static SocialCircleFragment newInstance() {
         return new SocialCircleFragment();
@@ -104,6 +106,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_social_circle, container, false);
     }
 
@@ -114,8 +117,6 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mPresenter.getHomeRecommendData(request, true);
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
-
-
     }
 
     private void initRecycleView() {
@@ -205,15 +206,18 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void showLoading() {
-        for (int i = 0; i <mHotList.size() ; i++) {
+        for (int i = 0; i < mHotList.size(); i++) {
             final int position = i;
             RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.custom_social_circle_hot_item, null);
             mHotTvTitle = itemView.findViewById(R.id.tv_social_circle_hot_title);
             mHotTvTitle.setText(mHotList.get(i).getTitle());
-            itemView.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
-                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mHotList.get(position).getId()).navigation());
-            mHotContainer.addView(itemView);
+            hotListView.add(itemView);
         }
+        mHotContainer.setViews(hotListView);
+        mHotContainer.setOnItemClickListener((position, view) -> {
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mHotList.get(position).getId()).navigation();
+        });
     }
 
     @Override

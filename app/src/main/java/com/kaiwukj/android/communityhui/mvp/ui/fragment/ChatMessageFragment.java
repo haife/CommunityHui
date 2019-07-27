@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerChatComponent;
@@ -37,6 +37,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.ISupportFragment;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -54,7 +56,9 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
 
     @BindView(R.id.view_pager_chat_message_container)
     ViewPager mChatPagerContainer;
+    private ISupportFragment[] mFragments = new ISupportFragment[2];
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
+    private ChatListFragment mChatListFragment;
 
     public static ChatMessageFragment newInstance() {
         Bundle args = new Bundle();
@@ -62,6 +66,7 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -75,8 +80,11 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat_message, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat_message, null);
+        ButterKnife.bind(this, view);
+        return view;
     }
+
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -104,8 +112,9 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
                 simplePagerTitleView.setText(magicIndicatorContentList.get(index));
                 simplePagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.home_color_hot_service_text));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.common_text_dark_color));
-                simplePagerTitleView.setOnClickListener(v -> mChatPagerContainer.setCurrentItem(index));
+                //  simplePagerTitleView.setOnClickListener(v -> mChatPagerContainer.setCurrentItem(index));
                 return simplePagerTitleView;
+
             }
 
             @Override
@@ -119,12 +128,27 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
             }
         });
 
+        mChatListFragment = ChatListFragment.newInstance();
+        mHomeFragmentList.add(mChatListFragment);
         mChatMagicIndicator.setNavigator(mMIndicatorNavigator);
         ViewPagerHelper.bind(mChatMagicIndicator, mChatPagerContainer);
-        mHomeFragmentList.add(ChatListFragment.newInstance());
-        mHomeFragmentList.add(EaseConversationListFragment.newInstance());
-        HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getFragmentManager(), mHomeFragmentList);
+        HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getChildFragmentManager(), mHomeFragmentList);
         mChatPagerContainer.setAdapter(homeViewPagerAdapter);
+    }
+
+
+
+    @Override
+    public void post(Runnable runnable) {
+    }
+
+    @Override
+    public void showLoading() {
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 
     @Override
@@ -133,9 +157,12 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
     }
 
     @Override
-    public void post(Runnable runnable) {
+    public void launchActivity(@NonNull Intent intent) {
 
     }
 
+    @Override
+    public void killMyself() {
 
+    }
 }

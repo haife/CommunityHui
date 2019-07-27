@@ -64,6 +64,7 @@ class StoreActivity : BaseSwipeBackActivity<StorePresenter>(), StoreContract.Vie
     override fun initData(savedInstanceState: Bundle?) {
         when (mTargetStr) {
             HomeFragment.EXTRA_KEY_HOME_FRAGMENT_URL -> loadRootFragment(R.id.fl_store_container, StoreListFragment.newInstance())
+            StoreSortListFragment.FRAGMENT_KEY_STORE_SORT_LIST -> loadRootFragment(R.id.fl_store_container, StoreSortListFragment.newInstance(mShopId?.toInt()))
             StoreSortListFragment.STORE_SORT_LIST_FRAGMENT -> loadRootFragment(R.id.fl_store_container, StoreDetailFragment.newInstance(mShopId?.toInt()))
         }
     }

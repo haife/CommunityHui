@@ -33,7 +33,6 @@ import me.yokeyword.fragmentation.ISupportFragment
  * @desc  我的地址
  */
 class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
-
     lateinit var mAddressAdapter: MyAddressAdapter
     var mAddressList = ArrayList<MyAddressResult>()
     var isChoiceAddress: Boolean = false
@@ -67,23 +66,25 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         mPresenter?.requestMyAddress()
         rv_mine_address_list.layoutManager = LinearLayoutManager(context)
         rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
-                divideColor = ContextCompat.getColor(context!!,R.color.window_background_color)))
+                divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
         mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
         rv_mine_address_list.adapter = mAddressAdapter
-
-
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
-               R.id.iv_mine_address_edit -> {
-                    startForResult(EditMineAddressFragment.newInstance(mAddressList[position]), REQUEST_CODE_EDIT_ADDRESS)
+                R.id.iv_mine_address_edit -> {
+                    val address: MyAddressResult = mAddressList[position]
+                    address.isFromToAppointment = true
+                    startForResult(EditMineAddressFragment.newInstance(address), REQUEST_CODE_EDIT_ADDRESS)
                 }
             }
         }
 
         mAddressAdapter.setOnItemClickListener { adapter, view, position ->
             if (isChoiceAddress) {
+                val address: MyAddressResult = mAddressList[position]
+                address.isFromToAppointment = true
                 val bundle = Bundle()
-                bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, mAddressList[position])
+                bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, address)
                 setFragmentResult(ISupportFragment.RESULT_OK, bundle)
                 killMyself()
             }
@@ -114,8 +115,13 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        activity?.findViewById<QMUITopBar>(com.kaiwukj.android.communityhui.R.id.qtb_edit_mine_info)?.setTitle(getString(com.kaiwukj.android.communityhui.R.string.mine_address_title))
-
+        if (isChoiceAddress) {
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.visibility = View.GONE
+            qtb_mine_address_list.visibility = View.VISIBLE
+            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
+        } else {
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
+        }
     }
 
 

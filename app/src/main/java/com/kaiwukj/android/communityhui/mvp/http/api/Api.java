@@ -14,6 +14,8 @@ package com.kaiwukj.android.communityhui.mvp.http.api;/*
  * limitations under the License.
  */
 
+import com.kaiwukj.android.communityhui.BuildConfig;
+
 /**
  * Copyright © KaiWu Technology Company
  *
@@ -24,7 +26,8 @@ package com.kaiwukj.android.communityhui.mvp.http.api;/*
  * @desc 存放一些与 API 有关的东西,如请求地址,请求码等
  */
 public interface Api {
-    String APP_DOMAIN = "http://172.168.1.112:8070";
+    String APP_DOMAIN = BuildConfig.API_HOST;
     String RequestSuccess = "1";
     String IMG_URL = "";
+    String QI_IMG = "http://qnzhsq.kaiwumace.com/";
 }

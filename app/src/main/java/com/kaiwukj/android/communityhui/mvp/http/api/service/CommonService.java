@@ -1,4 +1,4 @@
-package com.kaiwukj.android.communityhui.mvp.model.api.service;
+package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
 /**
  * Copyright © KaiWu Technology Company

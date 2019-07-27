@@ -37,13 +37,14 @@
 
         </net.lucode.hackware.magicindicator.MagicIndicator>
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/rg_choice_sort_type"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:background="@color/window_background_color"
             android:orientation="horizontal">
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/cb_price_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -55,12 +56,12 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:text="价格"
+                android:text="@string/home_staff_price"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
                 />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/cb_order_number_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -72,12 +73,12 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:text="成交量"
+                android:text="@string/home_format_staff_number"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
                 />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/cb_order_age_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -89,12 +90,12 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:text="工龄"
+                android:text="@string/home_carer_work_year"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
                 />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/cb_order_grade_sort"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -106,11 +107,11 @@
                 android:gravity="center"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:text="评分"
+                android:text="@string/home_carer_gender"
                 android:textColor="@color/color_common_theme_checked_text"
                 android:textSize="@dimen/sp_15"
                 />
-        </LinearLayout>
+        </RadioGroup>
 
     </com.google.android.material.appbar.AppBarLayout>
 

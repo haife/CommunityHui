@@ -13,6 +13,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
 import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
+import com.kaiwukj.android.communityhui.app.constant.SocialCircleUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
@@ -21,6 +22,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResul
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
+import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
@@ -37,10 +39,13 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     //是否刷新个人信息
     private var refreshUserInfo = false
 
+
     override fun post(runnable: Runnable?) {
     }
 
     companion object {
+        var CHOICE_INDEX = 0
+
         fun newInstance(): MineFragment {
             return MineFragment()
         }
@@ -56,7 +61,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_mine, container, false);
+        return inflater.inflate(R.layout.fragment_mine, container, false)
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -74,6 +79,25 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             }
         }
 
+        tv_mine_card_num.setOnClickListener {
+            CHOICE_INDEX = 0
+            launcherPersonPage()
+
+        }
+        tv_mine_reply_num.setOnClickListener {
+            CHOICE_INDEX = 1
+            launcherPersonPage()
+        }
+        tv_mine_fans_num.setOnClickListener {
+            CHOICE_INDEX = 2
+            launcherPersonPage()
+        }
+        tv_mine_collection_num.setOnClickListener {
+            CHOICE_INDEX = 3
+            launcherPersonPage()
+
+        }
+
         // 3:待服务 4：服务中 5：已完结，
         tv_mine_order_contracting.setOnClickListener {
             launcherOrderList(ServiceOrderFragment.TYPE_WAITING)
@@ -89,8 +113,19 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         }
 
         smart_refresh_view_mine.setOnRefreshListener {
+            refreshUserInfo = true
             mPresenter?.getMineInfoData()
         }
+    }
+
+    /**
+     * 跳转到个人主页
+     * @param url String
+     */
+    private fun launcherPersonPage() {
+        if (userInfoResult != null)
+            ARouter.getInstance().build(SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT)
+                    .withInt(ExtraCons.EXTRA_KEY_USER_ID, userInfoResult!!.userId).navigation()
     }
 
     /**
@@ -108,7 +143,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             }
 
             override fun onError(code: Int, message: String) {
-                Timber.e("登录聊天服务器失败！")
+                Timber.e("登录聊天服务器失败！" + message)
             }
         })
     }
@@ -167,13 +202,16 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
      */
     override fun onGetMineInfo(result: MineUserInfoResult) {
         userInfoResult = result
-        if (!refreshUserInfo) initHx()
-        if (result.perSign.isNullOrEmpty()) tv_user_explain.text = getString(R.string.user_info_no_setting)
+        if (refreshUserInfo) {
+            refreshUserInfo = false
+        } else {
+            initHx()
+        }
+        tv_user_explain.text = if (result.perSign.isNullOrEmpty()) getString(R.string.user_info_no_setting) else result.perSign
 
         context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }
         tv_mine_user_nick_name.text = result.nickName
-        tv_user_explain.text = result.perSign
-        if (refreshUserInfo) refreshUserInfo = false
+
         smart_refresh_view_mine.finishRefresh()
     }
 

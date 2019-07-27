@@ -6,6 +6,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+
     <com.qmuiteam.qmui.widget.QMUITopBar
         android:id="@+id/qtb_store_list"
         android:layout_width="match_parent"
@@ -14,6 +15,13 @@
         app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
         app:qmui_topbar_need_separator="true"/>
 
+    <com.qmuiteam.qmui.widget.QMUIEmptyView
+        android:id="@+id/empty_view_store"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/qtb_store_list"
+        android:background="@color/qmui_config_color_white"
+        android:fitsSystemWindows="true"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_store_list"
@@ -38,12 +46,5 @@
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <com.qmuiteam.qmui.widget.QMUIEmptyView
-        android:id="@+id/empty_view_store"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/qtb_store_list"
-        android:background="@color/qmui_config_color_white"
-        android:fitsSystemWindows="true"/>
 
 </RelativeLayout>

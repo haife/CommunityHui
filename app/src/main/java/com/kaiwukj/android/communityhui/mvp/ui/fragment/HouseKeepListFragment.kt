@@ -74,23 +74,11 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
         initMagicIndicatorView(mBarList)
-        cb_price_sort.setOnCheckedChangeListener { compoundButton, b ->
-            request.servicePrice = b
-            requestData()
-        }
-        cb_order_number_sort.setOnCheckedChangeListener { compoundButton, b ->
-            request.serviceHome = b
-            requestData()
-        }
-        cb_order_age_sort.setOnCheckedChangeListener { compoundButton, b ->
-            request.workStartTime = b
-            requestData()
-        }
-        cb_order_grade_sort.setOnCheckedChangeListener { compoundButton, b ->
-            request.score = b
-            requestData()
-        }
+
+        choiceSortListener()
+
     }
+
 
     /**
      * 请求fragment数据
@@ -153,6 +141,40 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
             }
         }
 
+    }
+
+    private fun choiceSortListener() {
+        rg_choice_sort_type.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                R.id.cb_price_sort -> {
+                    request.servicePrice = true
+                    request.serviceHome = false
+                    request.workStartTime = false
+                    request.score = false
+                }
+                R.id.cb_order_number_sort -> {
+                    request.servicePrice = false
+                    request.serviceHome = true
+                    request.workStartTime = false
+                    request.score = false
+                }
+                R.id.cb_order_age_sort -> {
+                    request.servicePrice = false
+                    request.serviceHome = false
+                    request.workStartTime = true
+                    request.score = false
+                }
+                R.id.cb_order_grade_sort -> {
+                    request.servicePrice = false
+                    request.serviceHome = false
+                    request.workStartTime = false
+                    request.score = true
+                }
+            }
+
+            requestData()
+
+        }
     }
 
     override fun onGetServiceList(result: List<HomeServiceEntity>) {

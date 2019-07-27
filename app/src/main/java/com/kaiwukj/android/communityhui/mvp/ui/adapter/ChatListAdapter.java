@@ -1,21 +1,16 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.hyphenate.chat.EMChatRoom;
-import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.EaseUI;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;
-import com.hyphenate.easeui.model.EaseAtMessageHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
@@ -46,28 +41,9 @@ public class ChatListAdapter extends BaseQuickAdapter<EMConversation, BaseViewHo
         TextView message = helper.getView(R.id.message);
         TextView time = helper.getView(R.id.time);
         ImageView msg_state = helper.getView(R.id.msg_state);
-        if (item.getType() == EMConversation.EMConversationType.GroupChat) {
-
-            String groupId = item.conversationId();
-            if (EaseAtMessageHelper.get().hasAtMeMsg(groupId)) {
-                helper.getView(R.id.mentioned).setVisibility(View.VISIBLE);
-            } else {
-                helper.getView(R.id.mentioned).setVisibility(View.GONE);
-            }
-            // group message, show group avatar
-            ((EaseImageView) helper.getView(R.id.avatar)).setImageResource(R.drawable.ease_group_icon);
-            EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
-            name.setText(group != null ? group.getGroupName() : username);
-        } else if (item.getType() == EMConversation.EMConversationType.ChatRoom) {
-            avatar.setImageResource(R.drawable.ease_group_icon);
-            EMChatRoom room = EMClient.getInstance().chatroomManager().getChatRoom(username);
-            name.setText(room != null && !TextUtils.isEmpty(room.getName()) ? room.getName() : username);
-            helper.getView(R.id.mentioned).setVisibility(View.GONE);
-        } else {
-            EaseUserUtils.setUserAvatar(mContext, username, avatar);
-            EaseUserUtils.setUserNick(username, name);
-            helper.getView(R.id.mentioned).setVisibility(View.GONE);
-        }
+        EaseUserUtils.setUserAvatar(mContext, username, avatar);
+        EaseUserUtils.setUserNick(username, name);
+        helper.getView(R.id.mentioned).setVisibility(View.GONE);
         EaseAvatarOptions avatarOptions = EaseUI.getInstance().getAvatarOptions();
         if (avatarOptions != null && avatar instanceof EaseImageView) {
             EaseImageView avatarView = ((EaseImageView) avatar);

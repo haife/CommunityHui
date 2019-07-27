@@ -103,7 +103,6 @@ public abstract class ClientModule {
                 builder.addInterceptor(interceptor);
             }
         }
-
         //为 OkHttp 设置默认的线程池
         builder.dispatcher(new Dispatcher(executorService));
 

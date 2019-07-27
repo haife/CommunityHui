@@ -13,7 +13,7 @@ import com.kaiwukj.android.mcas.di.scope.FragmentScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import io.rx_cache2.EvictDynamicKey
+import io.rx_cache2.EvictProvider
 import io.rx_cache2.Reply
 import javax.inject.Inject
 
@@ -59,7 +59,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
-                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, EvictDynamicKey(isRefresh))
+                    mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, EvictProvider(isRefresh))
                             .map { list: Reply<StoreListResult> ->
                                 list.data
                             }
@@ -76,7 +76,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .requestStaffRecommend(getRequestBody(mGson.toJson(request))))
                 .flatMap {
                     mRepositoryManager.obtainCacheService(CommonCache::class.java)
-                            .getHomeStaffCache(it, EvictDynamicKey(isRefresh))
+                            .getHomeStaffCache(it, EvictProvider(isRefresh))
                             .map { list: Reply<StaffListResult> ->
                                 list.data
                             }

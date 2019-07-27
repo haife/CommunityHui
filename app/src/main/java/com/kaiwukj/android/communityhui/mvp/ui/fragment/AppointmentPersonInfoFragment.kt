@@ -65,7 +65,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return attachToSwipeBack(inflater.inflate(com.kaiwukj.android.communityhui.R.layout.fragment_appointment_person_information, container, false))
+        return attachToSwipeBack(inflater.inflate(R.layout.fragment_appointment_person_information, container, false))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -74,9 +74,9 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
 
 
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
-        mStoreListAdapter = AppointmentCommentAdapter(com.kaiwukj.android.communityhui.R.layout.recycle_item_staff_comment_layout, commentList as MutableList<StaffCommentResult>?, context!!)
+        mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList as MutableList<StaffCommentResult>?, context!!)
         rv_appointment_user_comment.adapter = mStoreListAdapter
-        val footLoadView = LayoutInflater.from(context!!).inflate(com.kaiwukj.android.communityhui.R.layout.footer_comment_load_more_layout, null)
+        val footLoadView = LayoutInflater.from(context!!).inflate(R.layout.footer_comment_load_more_layout, null)
         mStoreListAdapter.addFooterView(footLoadView)
 
         //立即预约 需要传递哪种服务类型

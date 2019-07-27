@@ -39,7 +39,8 @@
     <string name="home_shops_recommend_desc">门店推荐</string>
     <string name="home_officer_recommend_desc">阿姨推荐</string>
     <string name="home_carer_service">护工</string>
-
+    <string name="home_carer_work_year">工龄</string>
+    <string name="home_carer_gender">评分</string>
     <string name="home_higher_house_people_select">高级家政人员首选</string>
     <string name="home_higher_house_people">高级家政人员</string>
     <string name="home_higher_house_keeping_desc">高级家政</string>
@@ -48,6 +49,7 @@
     <string name="home_user_comment">用户评价</string>
     <string name="home_staff_power_tags">技能标签</string>
     <string name="home_staff_service_price">服务价格</string>
+    <string name="home_staff_price">价格</string>
     <string name="home_format_grade">%.0f 分</string>
     <string name="home_format_order_grade">%s 分</string>
     <string name="home_format_grade_comment">%d.0 分</string>
@@ -55,6 +57,7 @@
     <string name="home_format_order_detail_message">%d年经验 | %d岁 | %s</string>
     <string name="home_format_staff_price">¥ %s</string>
     <string name="home_format_staff_order_number">%d成交量</string>
+    <string name="home_format_staff_number">成交量</string>
     <string name="home_format_staff_info_gender">雇主评分%d</string>
     <string name="home_format_staff_info_work_time">%s年</string>
     <string name="person_info_service_price_format">¥%d/%s</string>
@@ -119,7 +122,6 @@
     <string name="mine_person_gender">性别</string>
     <string name="mine_person_man">男</string>
     <string name="mine_person_woman">女</string>
-
     <string name="mine_person_sign">签名</string>
     <string name="mine_person_birthday">生日</string>
     <string name="mine_person_phone">电话</string>

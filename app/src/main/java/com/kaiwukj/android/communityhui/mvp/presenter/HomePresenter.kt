@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.presenter
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
@@ -42,15 +43,18 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     lateinit var hRecommendMultiItemList: MutableList<HRecommendMultiItemEntity>
     @Inject
     lateinit var mRecommendAdapter: HRecommendAdapter
+    @Inject
+    lateinit var mapData: HashMap<Int, MultiItemEntity>
 
     /**
      * 首页服务列表
      */
-    fun requestServiceList() {
+    fun requestServiceList(request: StoreListRequest, isRefresh: Boolean) {
         mModel.requestServiceList()
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
+                .doFinally { requestStoreRecommend(request, isRefresh) }
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
@@ -76,7 +80,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .doFinally { mRootView.onResponseError() }
+                .doFinally {
+                    mRootView.onResponseError()
+                    requestStaffRecommend(request, isRefresh)
+                }
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
                     override fun onNext(data: StoreListResult) {
                         if (data.code == Api.RequestSuccess) {
@@ -135,7 +142,8 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
      */
     fun processRecommendData(list: List<HomeServiceEntity>) {
         val bannerEntity = HRecommendMultiItemEntity(HRecommendMultiItemEntity.STRING_BANNER_TYPE)
-        hRecommendMultiItemList.add(HRecommendMultiItemEntity.BANNER_TYPE, bannerEntity)
+        hRecommendMultiItemList.add(bannerEntity)
+        mapData.put(HRecommendMultiItemEntity.BANNER_TYPE, bannerEntity)
         //家政服务类型
         val recommendShopEntity = HRecommendMultiItemEntity(STRING_HOT_SERVICE)
         recommendShopEntity.homeServiceList = list

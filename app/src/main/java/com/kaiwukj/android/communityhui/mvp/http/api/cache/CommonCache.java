@@ -22,23 +22,23 @@ import io.rx_cache2.Reply;
  */
 public interface CommonCache {
     /*获取服务列表 不需要手动驱逐缓存*/
-    @LifeCache(duration = 2, timeUnit = TimeUnit.HOURS)
+    @LifeCache(duration = 10, timeUnit = TimeUnit.HOURS)
     Observable<Reply<HomeServiceEntity>> getHomeServiceCache(Observable<HomeServiceEntity> data);
 
     /*首页推荐门店数据*/
-    @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
+    @LifeCache(duration = 3, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<StoreListResult>> getHomeStoreCache(Observable<StoreListResult> data, EvictProvider evictProvider);
 
-    /*首页推荐门店数据 具备分页功能*/
-    @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
-    Observable<Reply<StoreListResult>> getHomeStoreListCache(Observable<StoreListResult> data, DynamicKey key, EvictProvider evictProvider);
+    /*首页全部门店数据 具备分页功能*/
+    @LifeCache(duration = 3, timeUnit = TimeUnit.MINUTES)
+    Observable<Reply<StoreListResult>> getHomeStoreListCache(Observable<StoreListResult> data, DynamicKey key);
 
-    /*首页推荐服务员数据 具备分页功能*/
-    @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
+    /*首页推荐服务员数据*/
+    @LifeCache(duration = 3, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<StaffListResult>> getHomeStaffCache(Observable<StaffListResult> data, EvictProvider evictProvider);
 
     /*首页推荐服务员数据 具备分页功能*/
-    @LifeCache(duration = 10, timeUnit = TimeUnit.MINUTES)
+    @LifeCache(duration = 3, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<StaffListResult>> getHomeStaffListCache(Observable<StaffListResult> data, DynamicKey key, EvictProvider evictProvider);
 
 }

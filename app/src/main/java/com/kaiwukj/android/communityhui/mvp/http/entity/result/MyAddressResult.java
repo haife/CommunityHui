@@ -17,6 +17,17 @@ public class MyAddressResult extends BaseRootResult<List<MyAddressResult>> imple
     private String name;
     private int communityId;
 
+    //如果是预约过来的需要传递
+    private boolean isFromToAppointment = false;
+
+    public boolean isFromToAppointment() {
+        return isFromToAppointment;
+    }
+
+    public void setFromToAppointment(boolean fromToAppointment) {
+        isFromToAppointment = fromToAppointment;
+    }
+
     public String getArea() {
         return area;
     }

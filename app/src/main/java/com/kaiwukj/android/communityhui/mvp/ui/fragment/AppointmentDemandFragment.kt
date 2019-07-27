@@ -88,7 +88,9 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         submitOrder()
         //
         tv_add_address_hint.setOnClickListener {
-            startForResult(EditMineAddressFragment.newInstance(MyAddressResult()), REQUEST_ADDRESS_ID_CODE)
+            val address = MyAddressResult()
+            address.isFromToAppointment = true
+            startForResult(EditMineAddressFragment.newInstance(address), REQUEST_ADDRESS_ID_CODE)
         }
 
         rl_appointment_address_container.setOnClickListener {

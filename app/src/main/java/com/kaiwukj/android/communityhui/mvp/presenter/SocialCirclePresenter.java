@@ -69,9 +69,9 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     @Inject
     SocialCircleTopicAdapter mCircleTopicAdapter;
     @Inject
-    private List<CircleCardCommentResult> mCommentListList;
+    List<CircleCardCommentResult> mCommentListList;
     @Inject
-    private SocialCardCommentAdapter mCommentAdapter;
+    SocialCardCommentAdapter mCommentAdapter;
 
     @Inject
     public SocialCirclePresenter(SocialCircleContract.Model model, SocialCircleContract.View rootView) {
@@ -131,8 +131,11 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                 .subscribe(new ErrorHandleSubscriber<CircleCardResult>(mErrorHandler) {
                     @Override
                     public void onNext(CircleCardResult result) {
-                        mCardResults.addAll(result.getResult());
-                        mCircleTopicAdapter.notifyDataSetChanged();
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mCardResults.addAll(result.getResult());
+                            mCircleTopicAdapter.notifyDataSetChanged();
+                        }
+
                     }
                 });
     }
@@ -149,8 +152,10 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                 .subscribe(new ErrorHandleSubscriber<CircleHotResult>(mErrorHandler) {
                     @Override
                     public void onNext(CircleHotResult result) {
-                        mHotList.addAll(result.getResult().getList());
-                        mRootView.showLoading();
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mHotList.addAll(result.getResult().getList());
+                            mRootView.showLoading();
+                        }
                     }
                 });
     }
@@ -185,6 +190,9 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     mRootView.showLoading();
                 }).subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> {
+                    mRootView.hideLoading();
+                })
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<CircleCardDetailResult>(mErrorHandler) {
                     @Override
@@ -204,9 +212,6 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     public void requestCommentList(int id, int page) {
         mModel.requestCommentList(id, page)
                 .subscribeOn(Schedulers.io())
-                .doFinally(() -> {
-                    mRootView.hideLoading();
-                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .subscribe(new ErrorHandleSubscriber<CircleCardCommentResult>(mErrorHandler) {

@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.di.module
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.model.HomeModel
@@ -47,7 +48,7 @@ class HomeModule(private val view: HomeContract.View) {
     @FragmentScope
     @Provides
     fun provideRecommendDataList(): MutableList<HRecommendMultiItemEntity> {
-        return ArrayList()
+        return mutableListOf()
     }
 
     @FragmentScope
@@ -57,5 +58,9 @@ class HomeModule(private val view: HomeContract.View) {
     }
 
 
-
+    @FragmentScope
+    @Provides
+    fun provideHomeMap(): HashMap<Int,MultiItemEntity> {
+        return HashMap()
+    }
 }

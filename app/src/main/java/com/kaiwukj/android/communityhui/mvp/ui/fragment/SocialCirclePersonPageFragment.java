@@ -21,6 +21,7 @@ import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
+import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
@@ -168,6 +169,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
                 ScaleTransitionPagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(getContext());
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
                 simplePagerTitleView.setText(magicIndicatorContentList.get(index));
+                simplePagerTitleView.setWidth(McaUtils.getScreenWidth(context) / 4);
                 simplePagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.home_color_hot_service_text));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.common_text_dark_color));
                 simplePagerTitleView.setOnClickListener(view -> mPersonContainer.setCurrentItem(index));
@@ -188,7 +190,6 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
 
         mPersonPageMagic.setNavigator(mMIndicatorNavigator);
         ViewPagerHelper.bind(mPersonPageMagic, mPersonContainer);
-
         //bind fragmentViewPager
         HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getChildFragmentManager(), mFragmentList);
         mPersonContainer.setAdapter(homeViewPagerAdapter);

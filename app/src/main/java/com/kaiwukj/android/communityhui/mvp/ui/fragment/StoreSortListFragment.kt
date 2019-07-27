@@ -58,6 +58,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
 
     companion object {
         const val STORE_SORT_LIST_FRAGMENT = "STORE_SORT_LIST_FRAGMENT"
+        const val FRAGMENT_KEY_STORE_SORT_LIST = "FRAGMENT_KEY_STORE_SORT_LIST"
         const val RECOMMEND_FALG = 1
         fun newInstance(shopId: Int?): StoreSortListFragment {
             val fragment = StoreSortListFragment()

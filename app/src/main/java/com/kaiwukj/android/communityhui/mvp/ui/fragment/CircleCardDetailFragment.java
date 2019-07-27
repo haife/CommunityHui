@@ -167,7 +167,8 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             mCommentOtherRequest.setContent(mCommentEt.getText().toString());
             assert mPresenter != null;
             mPresenter.requestCommentOther(mCommentOtherRequest);
-            mCommentAdapter.notifyDataSetChanged();
+            mCommentListList.clear();
+            mPresenter.requestCommentList(mCardId, page);
         });
 
     }

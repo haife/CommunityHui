@@ -33,13 +33,12 @@ android {
             }
         }
     }
-
-
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "API_HOST", "\"http://172.168.1.97:8070\"")
+            buildConfigField("String", "API_HOST", "\"http://172.168.1.112:8070\"")
+
         }
 
         release {
@@ -49,8 +48,19 @@ android {
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+//            applicationVariants.all { variant ->
+//                variant.outputs.all { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "novel_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//                        outputFileName = fileName
+//                    }
+//                }
+//            }
         }
     }
+
 }
 
 dependencies {
@@ -90,7 +100,7 @@ dependencies {
     kapt rootProject.ext.dependencies["arouter-compiler"]
     //tools
     implementation rootProject.ext.dependencies["androideventbus"]
-    api('com.cysion:ImagePicker:1.0.7'){
+    api('com.cysion:ImagePicker:1.0.7') {
         exclude group: 'com.android.support'
     }
     /*七牛云*/

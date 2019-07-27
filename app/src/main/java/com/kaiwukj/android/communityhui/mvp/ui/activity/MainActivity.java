@@ -136,7 +136,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         if (recommendFragment == null) {
             mFragments[0] = HomeFragment.Companion.newInstance();
             mFragments[1] = SocialCircleFragment.newInstance();
-            mFragments[2] = ChatMessageFragment.newInstance();
+            mFragments[2] =  ChatMessageFragment.newInstance();
             mFragments[3] = MineFragment.Companion.newInstance();
             loadMultipleRootFragment(R.id.fl_main_container, 0, mFragments);
         }

@@ -43,7 +43,6 @@ import java.util.regex.Pattern
  * @desc  服务评价
  */
 class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
-
     var myAddressResult = MyAddressResult()
     private var hintDialog: QMUITipDialog? = null
     private var options1Items: List<JsonBean> = ArrayList()
@@ -84,7 +83,7 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun initData(savedInstanceState: Bundle?) {
         initClick()
         mHandler.sendEmptyMessage(MSG_LOAD_DATA)
-
+        myAddressResult.isFromToAppointment
         if (!McaUtils.isEmpty(myAddressResult.name)) {
             //编辑地址
             custom_edit_address_name.setEdText(myAddressResult.name)
@@ -149,7 +148,14 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(com.kaiwukj.android.communityhui.R.string.edit_mine_address))
+        if (myAddressResult.isFromToAppointment){
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.visibility = View.GONE
+            qtb_mine_address.visibility = View.VISIBLE
+            qtb_mine_address.setTitle(getString(R.string.edit_mine_address))
+        }else{
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
+        }
+
     }
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {

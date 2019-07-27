@@ -95,6 +95,7 @@ public class SocialCircleModule {
     }
 
     @ActivityScope
+    @Provides
     List<CircleCardCommentResult> provideCommentList() {
         return new ArrayList<>();
     }

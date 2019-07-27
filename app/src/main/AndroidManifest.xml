@@ -32,8 +32,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mvp.ui.activity.ChatActivity">
-        </activity>
+
 
         <meta-data
             android:name="com.kaiwukj.android.communityhui.app.impl.GlobalConfiguration"
@@ -59,17 +58,17 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/BootScreenTheme">
-
-        </activity>
-        <activity
-            android:name=".mvp.ui.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".mvp.ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
         </activity> <!-- 登录 -->
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
@@ -78,6 +77,7 @@
         </activity> <!-- 我的主页 -->
         <activity
             android:name=".mvp.ui.activity.EditMineInfoActivity"
+            android:configChanges="keyboard|keyboardHidden|navigation"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"/> <!-- 我的订单及其他 -->
         <activity
@@ -103,6 +103,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
         </activity> <!-- 圈子 -->
+
+        <activity android:name=".mvp.ui.activity.ChatActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/SwipeBackStyle">
+        </activity>
         <activity
             android:name=".mvp.ui.activity.SocialCircleActivity"
             android:screenOrientation="portrait"

@@ -17,7 +17,6 @@ import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
 import io.rx_cache2.DynamicKey
-import io.rx_cache2.EvictDynamicKey
 import io.rx_cache2.Reply
 import javax.inject.Inject
 
@@ -37,7 +36,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
                     mRepositoryManager.obtainCacheService(CommonCache::class.java)
-                            .getHomeStoreListCache(it, DynamicKey(recommendFlg.page), EvictDynamicKey(true))
+                            .getHomeStoreListCache(it, DynamicKey(recommendFlg.page))
                             .map { list: Reply<StoreListResult> ->
                                 list.data
                             }
@@ -83,6 +82,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
 
     override fun onDestroy() {
-        super.onDestroy();
+        super.onDestroy()
     }
 }

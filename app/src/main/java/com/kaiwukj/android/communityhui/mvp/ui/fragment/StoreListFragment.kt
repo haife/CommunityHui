@@ -49,8 +49,7 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
     companion object {
         fun newInstance(): StoreListFragment {
-            val fragment = StoreListFragment()
-            return fragment
+            return StoreListFragment()
         }
     }
 
@@ -121,21 +120,22 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         }
         listData.addAll(list.result.list)
         mStoreListAdapter.notifyDataSetChanged()
-       // empty_view_store.hide()
     }
 
     private fun initTopBar() {
-        empty_view_store.setLoadingShowing(true)
+
         qtb_store_list.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_store_list.setTitle(getString(R.string.store_title))
     }
 
     override fun showLoading() {
-
+        empty_view_store.setLoadingShowing(true)
+        rv_store_list.visibility = View.GONE
     }
 
     override fun hideLoading() {
-
+        empty_view_store.hide()
+        rv_store_list.visibility = View.VISIBLE
     }
 
     override fun showMessage(message: String) {

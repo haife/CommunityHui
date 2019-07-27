@@ -48,8 +48,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     private var mRequestType: Int? = null
 
     companion object {
-        const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
-
         fun newInstance(bean: StoreListRequest?, requestType: Int?): HouseStaffListFragment {
             val fragment = HouseStaffListFragment()
             fragment.mRequestType = requestType
@@ -64,7 +62,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
             return fragment
         }
     }
-
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerHouseKeepComponent
@@ -100,8 +97,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             val userID = staffList[position].storeemployeeId
             val serviceTypeId = staffList[position].serviceTypeId
-
-
             ARouter.getInstance().build(AppointmentUrl)
                     .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, APPOINTMENT_PERSON_INFO_FRAGMENT)
                     .withString(ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID, serviceTypeId.toString())

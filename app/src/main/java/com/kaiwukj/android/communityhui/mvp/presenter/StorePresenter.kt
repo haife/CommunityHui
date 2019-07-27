@@ -53,14 +53,21 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
     fun requestAllStoreRecommend(page: Int) {
         mModel.requestAllStoreRecommend(StoreListRequest(page = page))
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    if (page != 1)
+                        mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally {
+                    if (page != 1)
+                        mRootView.hideLoading()
+                }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
+                .subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
                     override fun onNext(data: StoreListResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetStoreRecommend(data)
-                        } else {
-
                         }
                     }
                 })

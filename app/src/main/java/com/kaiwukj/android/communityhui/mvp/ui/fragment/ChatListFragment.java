@@ -1,22 +1,13 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
@@ -24,7 +15,6 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.easeui.widget.EaseConversationList;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.app.constant.Constant;
@@ -62,6 +52,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
     RecyclerView mChatListRv;
     @BindView(R.id.smart_refresh_view_chat)
     SmartRefreshLayout smart_refresh_view_chat;
+
     private final static int MSG_REFRESH = 2;
     protected List<EMConversation> conversationList = new ArrayList<>();
     private boolean isConflict;
@@ -243,28 +234,23 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
         }
     };
 
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        this.hidden = hidden;
-//        if (!hidden && !isConflict) {
-//            refresh();
-//        }
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        if (!hidden) {
-//              refresh()
-//        }
-//    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        this.hidden = hidden;
+        if (!hidden && !isConflict) {
+            refresh();
+        }
+    }
 
     @Override
-    public void onSupportVisible() {
-        super.onSupportVisible();
-        refresh();
+    public void onResume() {
+        super.onResume();
+        if (!hidden) {
+            refresh();
+        }
     }
+
 
     @Override
     public void onDestroy() {

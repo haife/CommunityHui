@@ -8,9 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
+import com.kaiwukj.android.communityhui.app.constant.AppointmentUrl
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.StoreListURL
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.AppointmentPersonInfoFragment
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.StoreSortListFragment
 import com.kaiwukj.android.communityhui.utils.DiskCacheStrategyType
 import com.kaiwukj.android.mcas.http.imageloader.ImageConfigImpl
 import com.kaiwukj.android.mcas.http.imageloader.ImageLoader
@@ -56,6 +62,10 @@ class HRecommendChildAdapter(val list: HRecommendMultiItemEntity, val context: C
         loadImage(holder.recommendShopIv, storeListResult.storeLogoImg)
         holder.recommendShopNameTv.text = storeListResult.storeName
         holder.recommendShopAddressTv.text = storeListResult.address
+        holder.itemView.setOnClickListener {
+            ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, StoreSortListFragment.FRAGMENT_KEY_STORE_SORT_LIST)
+                    .withString(ExtraCons.EXTRA_KEY_STORE_SHOP_ID, storeListResult.id.toString()).navigation()
+        }
     }
 
     private fun bindStaffRecommendViewHolder(holder: RecommendStaffViewHolder, position: Int) {
@@ -65,6 +75,12 @@ class HRecommendChildAdapter(val list: HRecommendMultiItemEntity, val context: C
         holder.recommendStaffGradeTv.text = String.format(context.getString(R.string.home_format_grade), staffListResult.avgScore)
         holder.recommendStaffMessageTv.text = String.format(context.getString(R.string.home_format_staff_message),
                 staffListResult.worktime, staffListResult.age, staffListResult.nativePlace)
+        holder.itemView.setOnClickListener {
+            ARouter.getInstance().build(AppointmentUrl)
+                    .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, AppointmentPersonInfoFragment.APPOINTMENT_PERSON_INFO_FRAGMENT)
+                    .withString(ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID, staffListResult.serviceTypeId.toString())
+                    .withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, staffListResult.storeemployeeId.toString()).navigation()
+        }
     }
 
     /**
