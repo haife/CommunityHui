@@ -73,6 +73,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     TextView mSignTv;
 
 
+
     public static final String SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT = "SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT";
     private List<Fragment> mFragmentList = new ArrayList<>();
     private String mUserId;

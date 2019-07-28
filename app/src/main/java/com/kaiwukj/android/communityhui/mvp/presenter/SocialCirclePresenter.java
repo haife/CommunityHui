@@ -302,6 +302,8 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     }
 
 
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
