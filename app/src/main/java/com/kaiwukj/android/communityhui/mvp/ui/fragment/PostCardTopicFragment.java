@@ -222,6 +222,9 @@ public class PostCardTopicFragment extends BaseSwipeBackFragment<SocialCirclePre
                 .subscribe(permission -> {
                     if (permission.granted) {
                         // 用户已经同意该权限
+                        ImagePicker imagePick = ImagePicker.getInstance();
+                        imagePick.isFreeCrop = false;
+                        imagePick.setMultiMode(true);
                         Intent intent = new Intent(getContext(), ImageGridActivity.class);
                         startActivityForResult(intent, REQUEST_CODE_CHOOSE_IMAGE);
                     } else if (permission.shouldShowRequestPermissionRationale) {

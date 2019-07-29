@@ -9,6 +9,16 @@ public class MineCollectionRequest {
     private String fromType;
     private int typeId;
     private int userId;
+    private int pageNum = 1;
+
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
 
     public MineCollectionRequest(int typeId, int userId) {
         this.typeId = typeId;

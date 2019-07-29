@@ -15,6 +15,7 @@ public class MyAddressResult extends BaseRootResult<List<MyAddressResult>> imple
     private String address;
     private String phone;
     private String name;
+    private int id;
     private int communityId;
 
     //如果是预约过来的需要传递
@@ -26,6 +27,14 @@ public class MyAddressResult extends BaseRootResult<List<MyAddressResult>> imple
 
     public void setFromToAppointment(boolean fromToAppointment) {
         isFromToAppointment = fromToAppointment;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getArea() {

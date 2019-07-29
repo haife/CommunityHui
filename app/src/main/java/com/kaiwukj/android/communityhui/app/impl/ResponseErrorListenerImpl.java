@@ -53,8 +53,10 @@ public class ResponseErrorListenerImpl implements ResponseErrorListener {
         String msg = "未知错误";
         if (t instanceof UnknownHostException) {
             msg = "网络异常，请检查网络设置";
+            EventBus.getDefault().post(msg);
         } else if (t instanceof SocketTimeoutException) {
             msg = "请求网络超时";
+            EventBus.getDefault().post(msg);
         } else if (t instanceof HttpException) {
             HttpException httpException = (HttpException) t;
             msg = convertStatusCode(httpException);
@@ -64,8 +66,9 @@ public class ResponseErrorListenerImpl implements ResponseErrorListener {
 
         } else if (t instanceof ConnectException) {
             msg = "服务器连接失败";
+            EventBus.getDefault().post(msg);
         }
-        EventBus.getDefault().post(msg);
+
     }
 
     private String convertStatusCode(HttpException httpException) {

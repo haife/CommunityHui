@@ -63,7 +63,6 @@ class AppointmentActivity : BaseSwipeBackActivity<AppointmentPresenter>(), Appoi
 
 
     override fun initData(savedInstanceState: Bundle?) {
-
         when (mTargetStr) {
             AppointmentPersonInfoFragment.APPOINTMENT_PERSON_INFO_FRAGMENT -> {
                 userId?.let { loadRootFragment(R.id.fl_appointment_container, AppointmentPersonInfoFragment.newInstance(it.toInt(), mServiceTypeId?.toInt())) }

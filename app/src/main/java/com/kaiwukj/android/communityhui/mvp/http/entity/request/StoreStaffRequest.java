@@ -15,16 +15,16 @@ public class StoreStaffRequest {
     public boolean workStartTime;
     public boolean score;
     public boolean servicePrice;
-    private int pages;
+    private int pageNum;
     private int pageSize = 10;
 
 
-    public int getPages() {
-        return pages;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
     public int getServiceTypeId() {

@@ -7,6 +7,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailR
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 
 import io.reactivex.Observable;
@@ -80,4 +81,23 @@ public interface CircleService {
      */
     @POST("/common/getQiNiuToken.do")
     Observable<BaseQITokenResult> requestQiToken(@Body RequestBody body);
+
+    /**
+     * 圈子我的主页帖子
+     */
+    @POST("/app/sc/unote/queryMyNoteList")
+    Observable<CircleHomeResult> queryMyNoteList(@Body RequestBody body);
+
+    /**
+     * 查询粉丝
+     */
+    @POST("/app/sc/unote/queryMyNoteList")
+    Observable<MyFansListResult> queryFansList(@Body RequestBody body);
+
+    /**
+     * 关注
+     */
+    @POST("/app/sc/unote/queryMyNoteList")
+    Observable<MyFansListResult> queryMyAttentionList(@Body RequestBody body);
+
 }

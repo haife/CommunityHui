@@ -65,7 +65,7 @@ public interface HomeService {
     /*
      * 提交预约订单
      */
-    @POST("/app/sc/storeEmployee/list")
+    @POST("/app/sc/userOrder/save")
     Observable<BaseStatusResult> requestAppointmentOrder(@Body RequestBody requestBody);
 
     /*

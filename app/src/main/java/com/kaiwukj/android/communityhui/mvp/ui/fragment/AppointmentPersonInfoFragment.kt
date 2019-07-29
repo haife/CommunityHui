@@ -72,12 +72,12 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         initTopBar()
         userId?.let { mPresenter?.requestSelectStaffDetail(it) }
 
-
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
         mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList as MutableList<StaffCommentResult>?, context!!)
         rv_appointment_user_comment.adapter = mStoreListAdapter
         val footLoadView = LayoutInflater.from(context!!).inflate(R.layout.footer_comment_load_more_layout, null)
         mStoreListAdapter.addFooterView(footLoadView)
+
 
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
@@ -107,7 +107,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         //资历列表
         if (result.empCommentList.isNotEmpty()) {
             commentList.addAll(result.empCommentList)
-             //ll_person_qualification_info_container.setLabels()
+            //ll_person_qualification_info_container.setLabels()
         }
         //服务价格
         if (result.empTypeList.isNotEmpty()) {

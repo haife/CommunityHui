@@ -36,7 +36,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
                 .flatMap {
                     mRepositoryManager.obtainCacheService(CommonCache::class.java)
-                            .getHomeStoreListCache(it, DynamicKey(recommendFlg.page))
+                            .getHomeStoreListCache(it, DynamicKey(recommendFlg.pageNum))
                             .map { list: Reply<StoreListResult> ->
                                 list.data
                             }

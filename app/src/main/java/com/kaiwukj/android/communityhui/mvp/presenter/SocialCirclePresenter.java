@@ -9,6 +9,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.SubImageBean;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
@@ -16,6 +17,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailR
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
@@ -254,9 +256,9 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     /**
      * 获取个人主页
      */
-    public void requestSocialHomePage(String userId) {
+    public void requestSocialHomePage(int userId) {
         SocialUserHomePageRequest request = new SocialUserHomePageRequest();
-        request.setId(userId);
+        request.setId(String.valueOf(userId));
         mModel.requestSocialHomePage(request)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
@@ -289,7 +291,7 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                             QiNiuUtil qiNiuUtil = new QiNiuUtil(urls -> {
                                 List<String> imageUlrs = new ArrayList<>();
                                 for (SubImageBean bean : urls) {
-                                    imageUlrs.add(bean.getImgUrl());
+                                    imageUlrs.add(Api.QI_IMG + bean.getImgUrl());
                                 }
                                 request.setImgList(imageUlrs);
                                 postSocialCard(request);
@@ -302,6 +304,61 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     }
 
 
+    /**
+     * 获取圈子TA的主页帖子
+     */
+    public void queryCircleMyNoteList(CirclePersonPageRequest request) {
+        mModel.queryCircleMyNoteList(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<CircleHomeResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(CircleHomeResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取圈子TA的粉丝
+     */
+    public void queryFansList(CirclePersonPageRequest request) {
+        mModel.queryFansList(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<MyFansListResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(MyFansListResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 获取圈子TA的关注
+     */
+    public void queryMyAttentionList(CirclePersonPageRequest request) {
+        mModel.queryMyAttentionList(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<MyFansListResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(MyFansListResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+
+                        }
+                    }
+                });
+    }
 
 
     @Override

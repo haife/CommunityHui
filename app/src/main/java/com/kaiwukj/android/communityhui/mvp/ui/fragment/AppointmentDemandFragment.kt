@@ -12,6 +12,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons.Companion.EXTRA_KEY_CHOICE_ADDRESS
 import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
 import com.kaiwukj.android.communityhui.di.module.AppointmentModule
 import com.kaiwukj.android.communityhui.mvp.contract.AppointmentContract
@@ -57,7 +58,6 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         }
     }
 
-
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerAppointmentComponent
                 .builder()
@@ -79,9 +79,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         mServiceTypeId?.let {
             request.serviceTypeId = it
         }
-        mAddressId?.let {
-            request.addressId = it
-        }
+
         initTopBar()
         initPickDate()
         //提交订单
@@ -113,7 +111,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
             TimePickerBuilder(context, OnTimeSelectListener
             { date, v ->
                 tv_tv_appoint_demand_service_times.text = formatter.format(date)
-                request.planBeginTime = date
+                request.planBeginTime = formatter.format(date)
             }).setCancelColor(ContextCompat.getColor(context!!, R.color.common_text_slight_color))
                     .isCyclic(false)
                     .setRangDate(Calendar.getInstance(), calendar)
@@ -129,7 +127,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     }
 
     /**
-     * 获取到门店地址
+     * 获取到我的地址
      * @param result MyAddressResult
      */
     override fun onGetMyAddressList(result: MyAddressResult) {
@@ -137,12 +135,22 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         tv_add_address_hint.visibility = if (result.result.isNotEmpty()) View.GONE else View.VISIBLE
         rl_appointment_address_container.visibility = if (result.result.isNotEmpty()) View.VISIBLE else View.GONE
         if (result.result.isNotEmpty()) {
-            mAddressId = result.result[0].communityId
+            mAddressId = result.result[0].id
             tv_appoint_demand_address.text = result.result[0].address
             tv_address_user_info.text = String.format(getString(R.string.mine_address_info), result.result[0].name, result.result[0].phone)
         }
     }
 
+    override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
+        super.onFragmentResult(requestCode, resultCode, data)
+        val myAddress: MyAddressResult? = data?.getSerializable(EXTRA_KEY_CHOICE_ADDRESS) as MyAddressResult
+        if (myAddress != null && myAddress.id != 0) {
+            mAddressId = myAddress.id
+            tv_appoint_demand_address.text = myAddress.address
+            tv_address_user_info.text = String.format(getString(R.string.mine_address_info), myAddress.name, myAddress.phone)
+        }
+
+    }
 
     private fun submitOrder() {
         qbtn_submit_order.setOnClickListener lable@{
@@ -152,6 +160,8 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
                     hideLoading()
                 }, 800)
                 return@lable
+            } else {
+                request.addressId = mAddressId!!.toInt()
             }
             if (et_appoint_demand_service_days.text.toString().isEmpty()) {
                 showHint(getString(R.string.appointment_demand_days_hint))

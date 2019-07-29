@@ -1,4 +1,4 @@
-package com.kaiwukj.android.communityhui.mvp.http.entity.request;
+package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseListRootResult;
 

@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
+import com.kaiwukj.android.communityhui.app.constant.AppointmentUrl
 import com.kaiwukj.android.communityhui.app.constant.ExtraCons
-import com.kaiwukj.android.communityhui.app.constant.HouseKeepUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.CollectionListAdapter
@@ -35,7 +35,7 @@ class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>()
 
     private lateinit var mCollectionAdapter: CollectionListAdapter
     lateinit var request: MineCollectionRequest
-     var collectionList = ArrayList<MineCollectionResult>()
+    var collectionList = ArrayList<MineCollectionResult>()
 
     companion object {
         const val EXTRA_KEY_STAFF_LIST_URL = "HOUSE_STAFF_LIST"
@@ -64,14 +64,17 @@ class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>()
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestMyCollection(request)
         rv_staff_list_child.layoutManager = LinearLayoutManager(context)
-        mCollectionAdapter = CollectionListAdapter(collectionList, R.layout.recycle_item_collection_staff_list_layout, context!!)
+
+        mCollectionAdapter = CollectionListAdapter(request.typeId, collectionList, R.layout.recycle_item_collection_staff_list_layout, context!!)
         rv_staff_list_child.adapter = mCollectionAdapter
 
         mCollectionAdapter.setOnItemClickListener { adapter, view, position ->
-            ARouter.getInstance().build(HouseKeepUrl).withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, EXTRA_KEY_STAFF_LIST_URL).navigation()
+            val userID = collectionList[position].favoriteId
+            ARouter.getInstance().build(AppointmentUrl)
+                    .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, AppointmentPersonInfoFragment.APPOINTMENT_PERSON_INFO_FRAGMENT)
+                    .withString(ExtraCons.EXTRA_KEY_STAFF_USER_ID, userID.toString()).navigation()
         }
     }
-
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
         collectionList.addAll(list)

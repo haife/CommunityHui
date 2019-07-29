@@ -12,7 +12,7 @@
         android:id="@+id/tv_circle_person_reply_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="5dp"
+        android:lineSpacingMultiplier="1.3"
         android:text="前不久的优衣库你冲了么——你是真的热爱,还是喜欢冲呢"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>

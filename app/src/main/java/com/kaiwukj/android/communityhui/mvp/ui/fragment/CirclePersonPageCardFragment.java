@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
@@ -32,6 +33,7 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
     @BindView(R.id.rv_circle_parson_page_card)
     RecyclerView mCardRv;
     private int mUserId;
+    private CirclePersonPageRequest request = new CirclePersonPageRequest();
 
     public static CirclePersonPageCardFragment newInstance(int userId) {
         Bundle args = new Bundle();
@@ -74,13 +76,15 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_circle_person_page_card, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         return view;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        assert mPresenter != null;
+        request.setReplyId(mUserId);
+        mPresenter.queryCircleMyNoteList(request);
     }
 
     @Override

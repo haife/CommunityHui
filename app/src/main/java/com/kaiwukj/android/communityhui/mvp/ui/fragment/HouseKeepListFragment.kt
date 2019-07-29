@@ -74,7 +74,6 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()
         initMagicIndicatorView(mBarList)
-
         choiceSortListener()
 
     }

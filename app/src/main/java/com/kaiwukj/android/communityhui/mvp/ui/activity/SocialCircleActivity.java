@@ -69,7 +69,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
             loadRootFragment(R.id.fl_social_circle_container, CircleCardDetailFragment.newInstance(mCardId));
         } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
-        } else if (SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT.equals(mFragmentKey)) {
+        } else if (SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, SocialCirclePersonPageFragment.newInstance(String.valueOf(mUserId)));
         }
 

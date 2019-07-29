@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 
 /**
@@ -17,13 +17,12 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
  * @since 2019-07-16
  *
  */
-class CollectionListAdapter(data: ArrayList<MineCollectionResult>?, layoutId: Int, val context: Context) : BaseQuickAdapter<MineCollectionResult, BaseViewHolder>(layoutId, data) {
+class CollectionListAdapter(typeId: Int, data: ArrayList<MineCollectionResult>?, layoutId: Int, val context: Context) : BaseQuickAdapter<MineCollectionResult, BaseViewHolder>(layoutId, data) {
     private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
     private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
-
+    private val mTypeId:Int = typeId
     override fun convert(helper: BaseViewHolder, item: MineCollectionResult) {
-        when (item.id) {
-
+        when (mTypeId) {
             1 -> {
                 val image = helper.getView<ImageView>(R.id.iv_collection_staff_list)
                 //收藏的护工

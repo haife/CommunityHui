@@ -5,6 +5,7 @@ import android.content.Context;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
@@ -12,6 +13,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailR
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.mcas.mvp.IModel;
@@ -66,5 +68,14 @@ public interface SocialCircleContract {
 
         //获取七牛云Token
         Observable<BaseQITokenResult> requestQIToken();
+
+        //获取Ta发布的帖子
+        Observable<CircleHomeResult> queryCircleMyNoteList(CirclePersonPageRequest request);
+
+        //获取TA的粉丝
+        Observable<MyFansListResult> queryFansList(CirclePersonPageRequest request);
+
+        //获取Ta的关注
+        Observable<MyFansListResult> queryMyAttentionList(CirclePersonPageRequest request);
     }
 }

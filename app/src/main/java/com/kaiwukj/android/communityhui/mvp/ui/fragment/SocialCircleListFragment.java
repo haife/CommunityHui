@@ -99,7 +99,7 @@ public class SocialCircleListFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void killMyself() {
-        onBackPressedSupport();
+        getActivity().onBackPressed();
     }
 
     @Override

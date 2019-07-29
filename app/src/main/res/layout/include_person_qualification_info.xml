@@ -61,7 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/base_horizontal_right_margin"
-            android:text="6年"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_15"
             />

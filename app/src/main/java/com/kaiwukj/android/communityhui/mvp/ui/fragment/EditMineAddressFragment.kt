@@ -20,15 +20,15 @@ import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.JsonBean
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.utils.GetJsonDataUtil
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
-import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_edit_mine_address.*
+import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 import me.yokeyword.fragmentation.ISupportFragment
 import org.json.JSONArray
 import java.util.regex.Pattern
@@ -148,14 +148,9 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        if (myAddressResult.isFromToAppointment){
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.visibility = View.GONE
-            qtb_mine_address.visibility = View.VISIBLE
-            qtb_mine_address.setTitle(getString(R.string.edit_mine_address))
-        }else{
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
-        }
-
+        qtb_mine_address_list.visibility = View.VISIBLE
+        qtb_mine_address_list.setTitle(getString(R.string.edit_mine_address))
+        qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { onBackPressedSupport() }
     }
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {

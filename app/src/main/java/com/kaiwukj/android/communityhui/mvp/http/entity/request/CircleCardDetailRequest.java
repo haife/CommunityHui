@@ -8,7 +8,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request;
 public class CircleCardDetailRequest {
 
     private int noteId;
-    private int pages;
+    private int pageNum;
 
     public CircleCardDetailRequest(int noteId) {
         this.noteId = noteId;
@@ -16,15 +16,15 @@ public class CircleCardDetailRequest {
 
     public CircleCardDetailRequest(int noteId, int pages) {
         this.noteId = noteId;
-        this.pages = pages;
+        this.pageNum = pages;
     }
 
-    public int getPages() {
-        return pages;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
     public int getNoteId() {

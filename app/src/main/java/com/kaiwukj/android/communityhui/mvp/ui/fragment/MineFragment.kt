@@ -124,7 +124,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
      */
     private fun launcherPersonPage() {
         if (userInfoResult != null)
-            ARouter.getInstance().build(SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT)
+            ARouter.getInstance().build(SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
                     .withInt(ExtraCons.EXTRA_KEY_USER_ID, userInfoResult!!.userId).navigation()
     }
 

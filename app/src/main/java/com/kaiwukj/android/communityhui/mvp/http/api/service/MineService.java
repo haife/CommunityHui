@@ -2,7 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.http.api.service;
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult;

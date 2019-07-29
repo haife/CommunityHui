@@ -8,7 +8,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope

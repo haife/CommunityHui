@@ -1,7 +1,5 @@
 package com.kaiwukj.android.communityhui.utils;
 
-
-import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.SubImageBean;
 import com.kaiwukj.android.communityhui.mvp.listener.OnSubDataUpdateListener;
 import com.qiniu.android.http.ResponseInfo;
@@ -36,7 +34,8 @@ public class QiNiuUtil {
 
     public void uploadImageToQiniu(String filePath, String token) {
         this.filePaths.add(filePath);
-        uploadImage(filePath, token);
+        uploadImage(filePaths.get(0), token);
+
     }
 
     /**
@@ -49,10 +48,7 @@ public class QiNiuUtil {
         UploadManager uploadManager = new UploadManager();
         // 设置图片名字
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        String key = Api.QI_IMG + "icon_" + sdf.format(new Date()) + ".jpg";
-
-//        LogUtils.i("key ---> " + key);
-//        LogUtils.i("filePath ---> " + filePath);
+        String key = "icon_" + sdf.format(new Date()) + ".jpg";
 
         uploadManager.put(filePath, key, token, new UpCompletionHandler() {
             @Override

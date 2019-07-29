@@ -96,7 +96,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
 
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             val userID = staffList[position].storeemployeeId
-            val serviceTypeId = staffList[position].serviceTypeId
+            val serviceTypeId = mRequestType
             ARouter.getInstance().build(AppointmentUrl)
                     .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, APPOINTMENT_PERSON_INFO_FRAGMENT)
                     .withString(ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID, serviceTypeId.toString())
@@ -106,7 +106,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         smart_refresh_staff_list.setOnLoadMoreListener {
             page++
             isLoadMore = true
-            request.pages = page
+            request.pageNum = page
             when (mRequestType) {
                 1 ->   //如果是选择阿姨类型 请求此接口
                     mPresenter?.requestSelectStaff(request)
@@ -122,7 +122,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
      */
     fun sortStaffList(req: StoreStaffRequest) {
         page = 1
-        request.pages = page
+        request.pageNum = page
         request.score = req.score
         request.serviceHome = req.serviceHome
         request.workStartTime = req.workStartTime

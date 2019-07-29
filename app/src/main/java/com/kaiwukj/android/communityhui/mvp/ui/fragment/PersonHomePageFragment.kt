@@ -18,7 +18,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
@@ -28,7 +28,6 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.lzy.imagepicker.ImagePicker
 import com.lzy.imagepicker.bean.ImageItem
 import com.lzy.imagepicker.ui.ImageGridActivity
-import com.lzy.imagepicker.view.CropImageView
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -156,12 +155,11 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
                 .subscribe { permission ->
                     if (permission.granted) {
                         // 用户已经同意该权限
+                        val imagePick = ImagePicker.getInstance()
+                        imagePick.isMultiMode = false
+                        imagePick.isFreeCrop = true
                         val intent = Intent(context, ImageGridActivity::class.java)
                         startActivityForResult(intent, REQUEST_CODE_CHOOSE_IMAGE)
-                       val imagePick =  ImagePicker.getInstance()
-                        imagePick.isMultiMode = false
-                        imagePick.isCrop = true
-                        imagePick.style = CropImageView.Style.CIRCLE
                     } else if (permission.shouldShowRequestPermissionRationale) {
                         // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
                     } else {
@@ -196,7 +194,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     }
 
     override fun showMessage(message: String) {
-        mUserInfo?.headImg = message
+        mUserInfo?.headImg = Api.QI_IMG + message
     }
 
     override fun launchActivity(intent: Intent) {

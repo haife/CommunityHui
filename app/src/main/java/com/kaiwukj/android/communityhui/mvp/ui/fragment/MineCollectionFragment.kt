@@ -15,7 +15,7 @@ import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
@@ -43,7 +43,7 @@ class MineCollectionFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
 
     var mUserId = 0
     private var mFragmentList: ArrayList<Fragment> = ArrayList()
-    private val listTitle = listOf<String>("护工", "店铺")
+    private val listTitle = listOf("护工", "店铺")
 
     companion object {
         const val MINE_COLLECTION_FRAGMENT = "MINE_COLLECTION_FRAGMENT"

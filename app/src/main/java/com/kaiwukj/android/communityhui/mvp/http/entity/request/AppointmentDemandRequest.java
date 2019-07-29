@@ -1,7 +1,5 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.request;
 
-import java.util.Date;
-
 /**
  * @author Haife Android Developer
  * @company KW | 开物
@@ -10,7 +8,7 @@ import java.util.Date;
 public class AppointmentDemandRequest {
     private int serviceTypeId;
     private int addressId;
-    private Date planBeginTime;
+    private String planBeginTime;
     private int serviceLength;
     private int hmstoreId;
     private int storeemployeeId;
@@ -32,11 +30,11 @@ public class AppointmentDemandRequest {
         this.addressId = addressId;
     }
 
-    public Date getPlanBeginTime() {
+    public String getPlanBeginTime() {
         return planBeginTime;
     }
 
-    public void setPlanBeginTime(Date planBeginTime) {
+    public void setPlanBeginTime(String planBeginTime) {
         this.planBeginTime = planBeginTime;
     }
 

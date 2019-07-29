@@ -14,7 +14,7 @@ import com.kaiwukj.android.communityhui.app.constant.ExtraCons
 import com.kaiwukj.android.communityhui.di.component.DaggerEditMineInfoComponent
 import com.kaiwukj.android.communityhui.di.module.EditMineInfoModule
 import com.kaiwukj.android.communityhui.mvp.contract.EditMineInfoContract
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.MyAddressAdapter
@@ -33,6 +33,7 @@ import me.yokeyword.fragmentation.ISupportFragment
  * @desc  我的地址
  */
 class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), EditMineInfoContract.View {
+
     lateinit var mAddressAdapter: MyAddressAdapter
     var mAddressList = ArrayList<MyAddressResult>()
     var isChoiceAddress: Boolean = false
@@ -69,6 +70,8 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
         mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
         rv_mine_address_list.adapter = mAddressAdapter
+
+
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_mine_address_edit -> {
@@ -78,7 +81,6 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 }
             }
         }
-
         mAddressAdapter.setOnItemClickListener { adapter, view, position ->
             if (isChoiceAddress) {
                 val address: MyAddressResult = mAddressList[position]
@@ -86,7 +88,7 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 val bundle = Bundle()
                 bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, address)
                 setFragmentResult(ISupportFragment.RESULT_OK, bundle)
-                killMyself()
+                activity?.onBackPressed()
             }
         }
 
@@ -113,18 +115,6 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun post(runnable: Runnable?) {
     }
 
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        if (isChoiceAddress) {
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.visibility = View.GONE
-            qtb_mine_address_list.visibility = View.VISIBLE
-            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
-        } else {
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
-        }
-    }
-
-
     override fun showLoading() {
 
     }
@@ -139,7 +129,23 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun launchActivity(intent: Intent) {
     }
 
-    override fun killMyself() {
-        activity?.onBackPressed()
+    override fun onSupportVisible() {
+        if (isChoiceAddress) {
+            qtb_mine_address_list.visibility = View.VISIBLE
+            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
+            qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { onBackPressedSupport() }
+        } else {
+            qtb_mine_address_list.visibility = View.GONE
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { onBackPressedSupport() }
+        }
+    }
+
+
+    override fun onBackPressedSupport(): Boolean {
+        val bundle = Bundle()
+        bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, MyAddressResult())
+        setFragmentResult(ISupportFragment.RESULT_OK, bundle)
+        return false
     }
 }

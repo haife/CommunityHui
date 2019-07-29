@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.kaiwukj.android.communityhui.R;
@@ -17,7 +18,6 @@ import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
@@ -26,7 +26,6 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITopBar;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
@@ -41,7 +40,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -58,7 +56,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  */
 public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<SocialCirclePresenter> implements SocialCircleContract.View {
     @BindView(R.id.view_pager_circle_person_page_container)
-    ViewPager mPersonContainer;
+    FrameLayout mPersonContainer;
 
     @BindView(R.id.magic_indicator_circle_person_page)
     MagicIndicator mPersonPageMagic;
@@ -73,14 +71,13 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     TextView mSignTv;
 
 
-
-    public static final String SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT = "SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT";
+    public static final String SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT = "SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT";
     private List<Fragment> mFragmentList = new ArrayList<>();
-    private String mUserId;
+    private int mUserId;
 
     public static SocialCirclePersonPageFragment newInstance(String userId) {
         SocialCirclePersonPageFragment fragment = new SocialCirclePersonPageFragment();
-        fragment.mUserId = userId;
+        fragment.mUserId = Integer.parseInt(userId);
         return fragment;
     }
 
@@ -123,8 +120,8 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         list.add(result.getReplyCount() + "\n回复");
         list.add(result.getFocusedCount() + "\n关注");
         list.add(result.getFansCount() + "\n粉丝");
-        mFragmentList.add(SocialCircleListFragment.newInstance());
-        mFragmentList.add(SocialCircleListFragment.newInstance());
+        mFragmentList.add(CirclePersonPageCardFragment.newInstance(mUserId));
+        mFragmentList.add(CirclePersonPageReplyFragment.newInstance(mUserId));
         mFragmentList.add(SocialCircleListFragment.newInstance());
         mFragmentList.add(SocialCircleListFragment.newInstance());
         initMagicIndicatorView(list);
@@ -173,7 +170,8 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
                 simplePagerTitleView.setWidth(McaUtils.getScreenWidth(context) / 4);
                 simplePagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.home_color_hot_service_text));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.common_text_dark_color));
-                simplePagerTitleView.setOnClickListener(view -> mPersonContainer.setCurrentItem(index));
+                simplePagerTitleView.setOnClickListener(view -> {
+                });
                 return simplePagerTitleView;
             }
 
@@ -190,10 +188,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
 
 
         mPersonPageMagic.setNavigator(mMIndicatorNavigator);
-        ViewPagerHelper.bind(mPersonPageMagic, mPersonContainer);
-        //bind fragmentViewPager
-        HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getChildFragmentManager(), mFragmentList);
-        mPersonContainer.setAdapter(homeViewPagerAdapter);
+
     }
 
     @Override

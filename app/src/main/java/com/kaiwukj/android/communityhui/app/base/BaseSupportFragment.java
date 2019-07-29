@@ -112,9 +112,6 @@ public abstract class BaseSupportFragment<P extends IPresenter> extends BaseFrag
     }
 
 
-
-
-
     /**
      * If you want to call the start()/pop()/showHideFragment() on the onCreateXX/onActivityCreated,
      * call this method to deliver the transaction to the queue.

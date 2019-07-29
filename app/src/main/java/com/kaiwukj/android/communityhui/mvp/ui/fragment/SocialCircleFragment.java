@@ -143,7 +143,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mCircleListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             //点击头衔跳转到个人首页
             if (view.getId() == R.id.qriv_circle_head_photo) {
-                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGEF_RAGMENT)
+                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
                         .withInt(ExtraCons.EXTRA_KEY_USER_ID, mDataList.get(position).getUserId()).navigation();
             }
         });

@@ -6,7 +6,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionRequest
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.MineCollectionResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.listener.OnSubDataUpdateListener
@@ -20,7 +20,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
-import java.util.*
 import javax.inject.Inject
 
 
@@ -152,9 +151,7 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                     override fun onNext(data: BaseQITokenResult) {
                         if (data.code == Api.RequestSuccess) {
                             var qiNiuUtil = QiNiuUtil(OnSubDataUpdateListener { urls ->
-                                val imageUlrs = ArrayList<String>()
                                 for (bean in urls.orEmpty()) {
-                                    imageUlrs.add(bean.imgUrl)
                                     mRootView.showMessage(bean.imgUrl)
                                 }
                             })

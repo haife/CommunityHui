@@ -98,7 +98,7 @@
                 android:textColor="@color/common_text_dark_color"
                 android:textSize="16sp"/>
 
-            <view
+            <View
                 android:layout_width="@dimen/base_horizontal_line_height"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_8"
