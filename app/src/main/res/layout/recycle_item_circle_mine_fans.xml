@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--圈子图文混排-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/adaptive_75dp"
+                android:background="@drawable/ripper_common_click_back_ground"
+                android:clickable="true"
+                android:paddingLeft="@dimen/dp_16"
+                android:paddingRight="@dimen/dp_16"
+    >
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/riv_circle_person_page_info_photo"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_45"
+        android:layout_centerVertical="true"
+        android:background="@drawable/shape_user_head_oval"
+        app:qmui_is_circle="true"/>
+
+    <TextView
+        android:id="@+id/riv_circle_person_page_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/riv_circle_person_page_info_photo"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_toRightOf="@+id/riv_circle_person_page_info_photo"
+        android:textColor="@color/common_text_dark_color"
+        android:textSize="@dimen/sp_16"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_circle_person_page_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/riv_circle_person_page_name"
+        android:layout_alignBottom="@+id/riv_circle_person_page_info_photo"
+        android:maxLines="2"
+        android:text="这个人太懒了，什么都没留下～"
+        android:textColor="@color/common_text_slight_color"
+        android:textSize="@dimen/sp_13"/>
+
+    <ImageView
+        android:id="@+id/tv_circle_person_page_add_friend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>

@@ -81,7 +81,7 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     public void initData(@Nullable Bundle savedInstanceState) {
         initTopBar();
         request.setType(typeId);
-        request.setPages(page);
+        request.setPageNum(page);
         assert mPresenter != null;
         mPresenter.getHomeRecommendData(request, false);
         initRecycle();
@@ -94,7 +94,7 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
         mCircleListRv.setAdapter(mCircleListAdapter);
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             page += 1;
-            request.setPages(page);
+            request.setPageNum(page);
             assert mPresenter != null;
             mPresenter.getHomeRecommendData(request, false);
         });

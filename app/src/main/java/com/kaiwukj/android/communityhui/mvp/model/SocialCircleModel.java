@@ -18,6 +18,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.PersonPageCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
@@ -134,6 +135,13 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
     public Observable<CircleHomeResult> queryCircleMyNoteList(CirclePersonPageRequest request) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyNoteList(getRequestBody(mGson.toJson(request))))
                 .flatMap((Function<Observable<CircleHomeResult>, ObservableSource<CircleHomeResult>>) observable -> observable);
+    }
+
+    @Override
+    public Observable<PersonPageCardCommentResult> queryReplyList(CirclePersonPageRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryReplyList(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<PersonPageCardCommentResult>, ObservableSource<PersonPageCardCommentResult>>) observable -> observable);
+
     }
 
 

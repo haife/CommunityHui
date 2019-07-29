@@ -122,8 +122,8 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         list.add(result.getFansCount() + "\n粉丝");
         mFragmentList.add(CirclePersonPageCardFragment.newInstance(mUserId));
         mFragmentList.add(CirclePersonPageReplyFragment.newInstance(mUserId));
-        mFragmentList.add(SocialCircleListFragment.newInstance());
-        mFragmentList.add(SocialCircleListFragment.newInstance());
+        mFragmentList.add(CirclePersonMyFansFragment.newInstance(mUserId, 0));
+        mFragmentList.add(CirclePersonMyFansFragment.newInstance(mUserId, 1));
         initMagicIndicatorView(list);
     }
 

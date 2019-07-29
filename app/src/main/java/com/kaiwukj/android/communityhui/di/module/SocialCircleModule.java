@@ -6,7 +6,12 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardComment
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.PersonPageCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.model.SocialCircleModel;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonMyFansAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonPageCardAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonPageCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
@@ -106,5 +111,37 @@ public class SocialCircleModule {
         return new SocialCardCommentAdapter(R.layout.recycle_item_card_comment_layout, list, view.getCtx());
     }
 
+    /*---------------------TA的主页------------------------*/
+
+    @ActivityScope
+    @Provides
+    CirclePersonPageCardAdapter provideCirclePersonPageCardAdapter(List<CircleHomeResult> list) {
+        return new CirclePersonPageCardAdapter(R.layout.recycle_item_circle_person_card, list, view.getCtx());
+    }
+
+    @ActivityScope
+    @Provides
+    List<PersonPageCardCommentResult> providePersonPageCommentList() {
+        return new ArrayList<>();
+    }
+
+    @ActivityScope
+    @Provides
+    CirclePersonPageCommentAdapter provideCirclePersonPageCommentAdapter(List<PersonPageCardCommentResult> list) {
+        return new CirclePersonPageCommentAdapter(R.layout.recycle_item_circle_person_reply, list, view.getCtx());
+    }
+
+
+    @ActivityScope
+    @Provides
+    List<MyFansListResult> providePersonFansCommentList() {
+        return new ArrayList<>();
+    }
+
+    @ActivityScope
+    @Provides
+    CirclePersonMyFansAdapter provideCircleFansAdapter(List<MyFansListResult> list) {
+        return new CirclePersonMyFansAdapter(R.layout.recycle_item_circle_mine_fans, list, view.getCtx());
+    }
 
 }

@@ -18,8 +18,11 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHotResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.PersonPageCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonMyFansAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonPageCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleTopicAdapter;
@@ -76,6 +79,17 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
     SocialCardCommentAdapter mCommentAdapter;
 
     @Inject
+    List<PersonPageCardCommentResult> mPageCardCommentList;
+    @Inject
+    CirclePersonPageCommentAdapter mPageCommentAdapter;
+
+    @Inject
+    List<MyFansListResult> mFansList;
+    @Inject
+    CirclePersonMyFansAdapter mFansAdapter;
+
+
+    @Inject
     public SocialCirclePresenter(SocialCircleContract.Model model, SocialCircleContract.View rootView) {
         super(model, rootView);
     }
@@ -105,7 +119,7 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                                 mRootView.finishRefresh();
                                 mDataList.addAll(result.getResult().getList());
                             } else {
-                                if (request.getPages() > 1 && result.getResult().getList().size() > 0)
+                                if (request.getPageNum() > 1 && result.getResult().getList().size() > 0)
                                     mRootView.finishLoadMore(true);
                                 else
                                     mDataList.addAll(result.getResult().getList());
@@ -254,28 +268,6 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
 
 
     /**
-     * 获取个人主页
-     */
-    public void requestSocialHomePage(int userId) {
-        SocialUserHomePageRequest request = new SocialUserHomePageRequest();
-        request.setId(String.valueOf(userId));
-        mModel.requestSocialHomePage(request)
-                .subscribeOn(Schedulers.io())
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new ErrorHandleSubscriber<SocialUserHomePageResult>(mErrorHandler) {
-                    @Override
-                    public void onNext(SocialUserHomePageResult result) {
-                        if (result.getCode().equals(Api.RequestSuccess)) {
-                            mRootView.onGetOtherHomePageData(result.getResult());
-                        }
-                    }
-                });
-    }
-
-
-    /**
      * 获取七牛云Token
      */
     public void requestQIToken(PostCardRequest request, List<String> paths) {
@@ -305,6 +297,28 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
 
 
     /**
+     * 获取个人主页用户信息
+     */
+    public void requestSocialHomePage(int userId) {
+        SocialUserHomePageRequest request = new SocialUserHomePageRequest();
+        request.setId(String.valueOf(userId));
+        mModel.requestSocialHomePage(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<SocialUserHomePageResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(SocialUserHomePageResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mRootView.onGetOtherHomePageData(result.getResult());
+                        }
+                    }
+                });
+    }
+
+
+    /**
      * 获取圈子TA的主页帖子
      */
     public void queryCircleMyNoteList(CirclePersonPageRequest request) {
@@ -317,10 +331,55 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(CircleHomeResult result) {
                         if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (request.getPageNum() > 1 && result.getResult().getList().size() > 0)
+                                mRootView.finishLoadMore(true);
+                            else
+                                mDataList.addAll(result.getResult().getList());
+
+                            mRootView.finishLoadMore(false);
+                            mCircleListAdapter.notifyDataSetChanged();
+
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.finishLoadMore(false);
                     }
                 });
     }
+
+    /**
+     * 获取圈子TA的主页回复
+     */
+    public void queryReplyList(CirclePersonPageRequest request) {
+        mModel.queryReplyList(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<PersonPageCardCommentResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(PersonPageCardCommentResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (request.getPageNum() > 1 && result.getResult().size() > 0)
+                                mRootView.finishLoadMore(true);
+                            else
+                                mPageCardCommentList.addAll(result.getResult());
+                            mRootView.finishLoadMore(false);
+                            mPageCommentAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.finishLoadMore(false);
+                    }
+                });
+    }
+
 
     /**
      * 获取圈子TA的粉丝
@@ -335,8 +394,21 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(MyFansListResult result) {
                         if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (request.getPageNum() > 1 && result.getResult().getList().size() > 0)
+                                mRootView.finishLoadMore(true);
+                            else
+                                mFansList.addAll(result.getResult().getList());
 
+                            mRootView.finishLoadMore(false);
+                            mFansAdapter.notifyDataSetChanged();
                         }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.finishLoadMore(false);
                     }
                 });
     }
@@ -354,8 +426,20 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(MyFansListResult result) {
                         if (result.getCode().equals(Api.RequestSuccess)) {
+                            if (request.getPageNum() > 1 && result.getResult().getList().size() > 0)
+                                mRootView.finishLoadMore(true);
+                            else
+                                mFansList.addAll(result.getResult().getList());
 
+                            mRootView.finishLoadMore(false);
+                            mFansAdapter.notifyDataSetChanged();
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.finishLoadMore(false);
                     }
                 });
     }

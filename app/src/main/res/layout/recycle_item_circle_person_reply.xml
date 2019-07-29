@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.3"
-        android:text="前不久的优衣库你冲了么——你是真的热爱,还是喜欢冲呢"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"/>
 
@@ -30,7 +29,7 @@
         android:textSize="@dimen/sp_14"/>
 
     <TextView
-        android:id="@+id/tv_circle_person_reply_"
+        android:id="@+id/tv_circle_person_reply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tv_circle_person_reply_time"
@@ -41,9 +40,10 @@
         android:textSize="@dimen/sp_14"/>
 
     <TextView
+        android:id="@+id/tv_circle_person_reply_topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_circle_person_reply_"
+        android:layout_below="@+id/tv_circle_person_reply"
         android:layout_marginTop="@dimen/dp_15"
         android:background="@color/window_background_color"
         android:drawableRight="@mipmap/icon_common_next_step_dark"

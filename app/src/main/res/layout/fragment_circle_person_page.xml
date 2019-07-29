@@ -1,120 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--圈子图文混排-->
-<com.scwang.smartrefresh.layout.SmartRefreshLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/smart_refresh_circle_person_page"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:srlEnablePreviewInEditMode="false">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/ll_circle_person_page_bottom"
-            android:overScrollMode="never"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:id="@+id/ll_circle_person_page_msg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/write_color"
-                    android:padding="@dimen/dp_20">
-
-                    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                        android:id="@+id/riv_circle_person_page_info_photo"
-                        android:layout_width="@dimen/dp_60"
-                        android:layout_height="@dimen/dp_60"
-                        android:background="@drawable/shape_user_head_oval"
-                        app:qmui_is_circle="true"/>
-
-                    <TextView
-                        android:id="@+id/riv_circle_person_page_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/riv_circle_person_page_info_photo"
-                        android:layout_marginLeft="@dimen/dp_12"
-                        android:layout_toRightOf="@+id/riv_circle_person_page_info_photo"
-                        android:textColor="@color/common_text_dark_color"
-                        android:textSize="@dimen/sp_20"
-                        android:textStyle="bold"/>
-
-
-                    <TextView
-                        android:id="@+id/riv_circle_person_page_sign"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/riv_circle_person_page_name"
-                        android:layout_alignLeft="@+id/riv_circle_person_page_name"
-                        android:layout_marginTop="@dimen/dp_6"
-                        android:maxLines="2"
-                        android:text="这个人太懒了，什么都没留下～"
-                        android:textColor="@color/common_text_slight_color"
-                        android:textSize="@dimen/sp_14"/>
-                </RelativeLayout>
-
-                <net.lucode.hackware.magicindicator.MagicIndicator
-                    android:id="@+id/magic_indicator_circle_person_page"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/home_magic_indicator_height"
-                    android:background="@color/write_color"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"/>
-
-                <FrameLayout
-                    android:id="@+id/view_pager_circle_person_page_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_5"/>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_circle_person_page_bottom"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:id="@+id/ll_circle_person_page_bottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/ripper_common_click_back_ground"
-                android:gravity="center"
-                android:text="加关注"
-                android:textColor="@color/common_text_dark_color"
-                android:textSize="16sp"/>
+            <RelativeLayout
+                android:id="@+id/ll_circle_person_page_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/write_color"
+                android:padding="@dimen/dp_20">
 
-            <View
-                android:layout_width="@dimen/base_horizontal_line_height"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:background="@color/common_divide_line_color"/>
+                <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                    android:id="@+id/riv_circle_person_page_info_photo"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/shape_user_head_oval"
+                    app:qmui_is_circle="true"/>
 
-            <TextView
-                android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/riv_circle_person_page_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/riv_circle_person_page_info_photo"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:layout_toRightOf="@+id/riv_circle_person_page_info_photo"
+                    android:textColor="@color/common_text_dark_color"
+                    android:textSize="@dimen/sp_20"
+                    android:textStyle="bold"/>
+
+
+                <TextView
+                    android:id="@+id/riv_circle_person_page_sign"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/riv_circle_person_page_name"
+                    android:layout_alignLeft="@+id/riv_circle_person_page_name"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:maxLines="2"
+                    android:text="这个人太懒了，什么都没留下～"
+                    android:textColor="@color/common_text_slight_color"
+                    android:textSize="@dimen/sp_14"/>
+            </RelativeLayout>
+
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/magic_indicator_circle_person_page"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/home_magic_indicator_height"
+                android:background="@color/write_color"
+                android:overScrollMode="never"
+                android:scrollbars="none"/>
+
+            <FrameLayout
+                android:id="@+id/view_pager_circle_person_page_container"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/ripper_common_click_back_ground"
-                android:gravity="center"
-                android:text="发消息"
-                android:textColor="@color/common_text_dark_color"
-                android:textSize="16sp"/>
+                android:layout_marginTop="@dimen/dp_5"/>
+
         </LinearLayout>
-    </RelativeLayout>
 
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_circle_person_page_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripper_common_click_back_ground"
+            android:gravity="center"
+            android:text="加关注"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+
+        <View
+            android:layout_width="@dimen/base_horizontal_line_height"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:background="@color/common_divide_line_color"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/ripper_common_click_back_ground"
+            android:gravity="center"
+            android:text="发消息"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="16sp"/>
+    </LinearLayout>
+</RelativeLayout>

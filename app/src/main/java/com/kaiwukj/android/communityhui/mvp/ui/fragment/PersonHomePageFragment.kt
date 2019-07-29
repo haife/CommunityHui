@@ -118,7 +118,9 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     private fun initLayout() {
         val topBar: QMUITopBar = activity!!.findViewById(R.id.qtb_edit_mine_info)
         topBar.addRightTextButton(getString(R.string.user_info_save), R.id.qmui_top_right_btn).setOnClickListener {
+            it.isEnabled = false
             mUserInfo?.let { it1 -> mPresenter?.updateMineInfoData(it1) }
+            it.isEnabled = true
         }
         mUserInfo?.let {
             tv_home_page_name.setText(it.nickName)

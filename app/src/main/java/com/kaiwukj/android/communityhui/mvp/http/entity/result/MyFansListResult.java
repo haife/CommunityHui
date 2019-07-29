@@ -1,6 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseListRootResult;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @time 2019/7/29
  * @desc $desc
  */
-public class MyFansListResult extends BaseRootResult<List<MyFansListResult>> {
+public class MyFansListResult extends BaseListRootResult<List<MyFansListResult>> {
 
 
 

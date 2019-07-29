@@ -160,7 +160,7 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
         mRefreshView.setOnLoadMoreListener(refreshLayout -> {
             page += 1;
             refreshLayout.setEnableRefresh(false);
-            request.setPages(page);
+            request.setPageNum(page);
             assert mPresenter != null;
             mPresenter.getHomeRecommendData(request, false);
         });

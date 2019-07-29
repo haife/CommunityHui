@@ -8,19 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
-import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
-import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
-import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonPageCardAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonMyFansAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -39,36 +36,47 @@ import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * 圈子个人中心帖子
+ * 圈子个人中心回复
  */
-public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirclePresenter> implements SocialCircleContract.View {
+public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCirclePresenter> implements SocialCircleContract.View {
 
-    @Inject
-    CirclePersonPageCardAdapter mCardAdapter;
-
-    @Inject
-    List<CircleHomeResult> mCardList;
+    @BindView(R.id.rv_circle_parson_page_card)
+    RecyclerView mFansRv;
 
     @Inject
     RecyclerView.LayoutManager mLayoutManager;
 
-    @BindView(R.id.rv_circle_parson_page_card)
-    RecyclerView mCardRv;
-
     @BindView(R.id.smart_refresh_circle_person_page)
     SmartRefreshLayout mSmartRefresh;
 
-    private int pageNum = 1;
-    private int mUserId;
-    private CirclePersonPageRequest request = new CirclePersonPageRequest();
+    @Inject
+    List<MyFansListResult> mFansList;
+    @Inject
+    CirclePersonMyFansAdapter mFansAdapter;
 
-    public static CirclePersonPageCardFragment newInstance(int userId) {
+
+    private int pageNum = 1;
+    CirclePersonPageRequest request = new CirclePersonPageRequest();
+    private int mUserId;
+
+    //TODO 0：请求粉丝接口 1：请求关注的接口
+    private int myRequestType = 0;
+
+    public static CirclePersonMyFansFragment newInstance(int userId, int requestType) {
         Bundle args = new Bundle();
-        CirclePersonPageCardFragment fragment = new CirclePersonPageCardFragment();
+        CirclePersonMyFansFragment fragment = new CirclePersonMyFansFragment();
         fragment.mUserId = userId;
+        fragment.myRequestType = requestType;
         fragment.setArguments(args);
         return fragment;
     }
+
+
+    @Override
+    public Context getCtx() {
+        return getContext();
+    }
+
 
     @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,27 +89,26 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
     public void initData(@Nullable Bundle savedInstanceState) {
         assert mPresenter != null;
         request.setReplyId(mUserId);
-        mPresenter.queryCircleMyNoteList(request);
-        mCardRv.setLayoutManager(mLayoutManager);
-        mCardRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
-        mCardRv.setAdapter(mCardAdapter);
+        switch (myRequestType) {
+            case 0:
+                mPresenter.queryFansList(request);
+                break;
+
+            case 1:
+                mPresenter.queryMyAttentionList(request);
+                break;
+        }
+
+        mFansRv.setLayoutManager(mLayoutManager);
+        mFansRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
+        mFansRv.setAdapter(mFansAdapter);
         mSmartRefresh.setOnLoadMoreListener(refreshLayout -> {
             pageNum++;
             request.setPageNum(pageNum);
             mPresenter.queryCircleMyNoteList(request);
         });
-
-        mCardAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
-                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mCardList.get(position).getId()).navigation();
-        });
     }
 
-
-    @Override
-    public Context getCtx() {
-        return getContext();
-    }
 
     @Override
     public void finishRefresh() {

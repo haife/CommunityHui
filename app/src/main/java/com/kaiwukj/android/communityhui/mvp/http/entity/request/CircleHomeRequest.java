@@ -11,7 +11,7 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request;
  */
 public class CircleHomeRequest {
     private int type;
-    private int pages;
+    private int pageNum;
 
     public CircleHomeRequest() {
     }
@@ -20,12 +20,12 @@ public class CircleHomeRequest {
         this.type = type;
     }
 
-    public int getPages() {
-        return pages;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setPages(int pages) {
-        this.pages = pages;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
     public int getType() {
