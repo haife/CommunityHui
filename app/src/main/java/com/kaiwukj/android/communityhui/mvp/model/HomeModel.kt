@@ -55,9 +55,9 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
      * @param isRefresh Boolean
      * @return Observable<StoreListResult>
      */
-    override fun requestStoreRecommend(recommendFlg: StoreListRequest, isRefresh: Boolean): Observable<StoreListResult> {
+    override fun requestStoreRecommend(request: StoreListRequest, isRefresh: Boolean): Observable<StoreListResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
-                .requestStoreRecommend(getRequestBody(mGson.toJson(recommendFlg))))
+                .requestStoreRecommend(getRequestBody(mGson.toJson(request))))
                 .flatMap {
                     mRepositoryManager.obtainCacheService(CommonCache::class.java).getHomeStoreCache(it, EvictProvider(isRefresh))
                             .map { list: Reply<StoreListResult> ->

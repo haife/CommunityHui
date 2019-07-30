@@ -76,6 +76,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
      * 是否推荐 0默认，1推荐 不传为默认所有
      */
     fun requestStoreRecommend(request: StoreListRequest, isRefresh: Boolean) {
+        request.recommendFlag = 1
         mModel.requestStoreRecommend(request, isRefresh)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
@@ -129,6 +130,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             mRecommendAdapter.notifyDataSetChanged()
                         }
                     }
+
                     override fun onError(t: Throwable) {
                         super.onError(t)
                         mRootView.onResponseError()
