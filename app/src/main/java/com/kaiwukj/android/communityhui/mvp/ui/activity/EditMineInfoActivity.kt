@@ -66,12 +66,14 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
         initTopBar()
         when (mTargetStr) {
             PersonHomePageFragment.PERSON_HOME_PAGE_FRAGMENT -> {
-                    loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
+                qtb_edit_mine_info.addLeftBackImageButton().setOnClickListener { killMyself() }
+                loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
             }
             MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT -> {
                 loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance(false))
             }
             SettingFragment.SETTING_FRAGMENT -> {
+                qtb_edit_mine_info.addLeftBackImageButton().setOnClickListener { killMyself() }
                 qtb_edit_mine_info.setTitle(getString(R.string.setting_title))
                 loadRootFragment(R.id.fl_edit_mine_info_container, SettingFragment.newInstance())
             }
@@ -83,7 +85,7 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
     }
 
     private fun initTopBar() {
-        qtb_edit_mine_info.addLeftBackImageButton().setOnClickListener { killMyself() }
+
     }
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {

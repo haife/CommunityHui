@@ -28,7 +28,17 @@ public class SocialUserHomePageResult extends BaseRootResult<SocialUserHomePageR
     private String nickName;
     private int noteCount;
     private String perSign;
+    private String hxName;
     private int replyCount;
+
+
+    public String getHxName() {
+        return hxName;
+    }
+
+    public void setHxName(String hxName) {
+        this.hxName = hxName;
+    }
 
     public int getFansCount() {
         return fansCount;

@@ -117,7 +117,7 @@ public class DataCleanManager {
         }
     }
 
-    public static long getFolderSize(File file) throws Exception {
+    public static long getFolderSize(File file)  {
         long size = 0;
         try {
             File[] fileList = file.listFiles();
@@ -134,7 +134,8 @@ public class DataCleanManager {
         }
         return size;
     }
-    public static String getFormatSize(double size) throws Exception {
+
+    public static String getFormatSize(double size) {
         double kiloByte = size / 1024;
         if (kiloByte < 1) {
             return size + "Byte";

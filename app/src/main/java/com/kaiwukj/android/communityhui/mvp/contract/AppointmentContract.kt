@@ -22,7 +22,7 @@ interface AppointmentContract {
 
     interface View : IView {
         fun onGetStaffDetailInfo(result: StaffInfoResult)
-        fun onGetStaffCommentInfo(result: StaffCommentResult)
+        fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>)
         fun onGetMyAddressList(result: MyAddressResult)
     }
 
@@ -31,7 +31,7 @@ interface AppointmentContract {
         fun requestSelectStaffDetail(userId: Int): Observable<StaffInfoResult>
 
         //获取用户评价
-        fun requestUserComment(userId: Int): Observable<StaffCommentResult>
+        fun requestUserComment(userId: Int, page: Int): Observable<StaffCommentResult>
 
         //获取地址
         fun requestMyAddress(): Observable<MyAddressResult>

@@ -4,6 +4,9 @@ import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleListActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.CirclePersonMyFansFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.CirclePersonPageCardFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.CirclePersonPageReplyFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTopicFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.PostCardTypeFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
@@ -27,11 +30,24 @@ import dagger.Component;
 @Component(modules = SocialCircleModule.class, dependencies = AppComponent.class)
 public interface SocialCircleComponent {
     void inject(SocialCircleActivity activity);
+
     void inject(SocialCircleListActivity activity);
+
     void inject(SocialCircleFragment fragment);
+
     void inject(CircleCardDetailFragment fragment);
+
     void inject(PostCardTopicFragment fragment);
+
     void inject(SocialCirclePersonPageFragment fragment);
+
     void inject(SocialCircleListFragment fragment);
+
     void inject(PostCardTypeFragment fragment);
+
+    void inject(CirclePersonPageCardFragment fragment);
+
+    void inject(CirclePersonPageReplyFragment fragment);
+
+    void inject(CirclePersonMyFansFragment fragment);
 }

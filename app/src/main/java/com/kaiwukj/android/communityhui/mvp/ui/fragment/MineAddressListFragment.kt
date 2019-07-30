@@ -37,6 +37,7 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     lateinit var mAddressAdapter: MyAddressAdapter
     var mAddressList = ArrayList<MyAddressResult>()
     var isChoiceAddress: Boolean = false
+    private var selectAddress = MyAddressResult()
 
     companion object {
         const val MINE_ADDRESS_LIST_FRAGMENT = "MINE_ADDRESS_LIST_FRAGMENT"
@@ -64,6 +65,17 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+
+        if (isChoiceAddress) {
+            qtb_mine_address_list.visibility = View.VISIBLE
+            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
+            qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
+        } else {
+            qtb_mine_address_list.visibility = View.GONE
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { activity?.onBackPressed() }
+        }
+
         mPresenter?.requestMyAddress()
         rv_mine_address_list.layoutManager = LinearLayoutManager(context)
         rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
@@ -71,22 +83,19 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
         rv_mine_address_list.adapter = mAddressAdapter
 
-
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_mine_address_edit -> {
                     val address: MyAddressResult = mAddressList[position]
-                    address.isFromToAppointment = true
                     startForResult(EditMineAddressFragment.newInstance(address), REQUEST_CODE_EDIT_ADDRESS)
                 }
             }
         }
         mAddressAdapter.setOnItemClickListener { adapter, view, position ->
             if (isChoiceAddress) {
-                val address: MyAddressResult = mAddressList[position]
-                address.isFromToAppointment = true
+                selectAddress = mAddressList[position]
                 val bundle = Bundle()
-                bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, address)
+                bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, selectAddress)
                 setFragmentResult(ISupportFragment.RESULT_OK, bundle)
                 activity?.onBackPressed()
             }
@@ -129,23 +138,15 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun launchActivity(intent: Intent) {
     }
 
-    override fun onSupportVisible() {
-        if (isChoiceAddress) {
-            qtb_mine_address_list.visibility = View.VISIBLE
-            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
-            qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { onBackPressedSupport() }
-        } else {
-            qtb_mine_address_list.visibility = View.GONE
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { onBackPressedSupport() }
-        }
-    }
-
 
     override fun onBackPressedSupport(): Boolean {
-        val bundle = Bundle()
-        bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, MyAddressResult())
-        setFragmentResult(ISupportFragment.RESULT_OK, bundle)
-        return false
+        return if (isChoiceAddress) {
+            val bundle = Bundle()
+            bundle.putSerializable(ExtraCons.EXTRA_KEY_CHOICE_ADDRESS, selectAddress)
+            setFragmentResult(ISupportFragment.RESULT_OK, bundle)
+            false
+        } else {
+            super.onBackPressedSupport()
+        }
     }
 }

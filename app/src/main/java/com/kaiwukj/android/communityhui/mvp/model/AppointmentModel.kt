@@ -50,8 +50,10 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
      * @param userId Int
      * @return Observable<StaffCommentResult>
      */
-    override fun requestUserComment(userId: Int): Observable<StaffCommentResult> {
-        var req = StaffCommentRequest(userId)
+    override fun requestUserComment(userId: Int, page: Int): Observable<StaffCommentResult> {
+        var req = StaffCommentRequest()
+        req.storeemployeeId = userId
+        req.pageNum = page
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestSelectStaffComment(getRequestBody(mGson.toJson(req))))
                 .flatMap { it }
@@ -78,8 +80,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .requestAppointmentOrder(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
-
-
 
 
 }

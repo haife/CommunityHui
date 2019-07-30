@@ -82,7 +82,6 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .unsubscribeOn(Schedulers.io())
                 .doFinally {
                     mRootView.onResponseError()
-                    requestStaffRecommend(request, isRefresh)
                 }
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
                     override fun onNext(data: StoreListResult) {
@@ -95,6 +94,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             recommendStore.recommendStoreList = data.result.list
                             hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND, recommendStore)
                             mRecommendAdapter.notifyDataSetChanged()
+                            requestStaffRecommend(request, isRefresh)
                         }
                     }
 
@@ -129,7 +129,6 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             mRecommendAdapter.notifyDataSetChanged()
                         }
                     }
-
                     override fun onError(t: Throwable) {
                         super.onError(t)
                         mRootView.onResponseError()

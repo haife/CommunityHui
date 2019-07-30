@@ -7,8 +7,11 @@ import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseQITokenResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleAttentionOthersRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleCardDetailRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonFansRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonMinePageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CommentOtherRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.PostCardRequest;
@@ -133,27 +136,60 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
 
     @Override
     public Observable<CircleHomeResult> queryCircleMyNoteList(CirclePersonPageRequest request) {
-        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyNoteList(getRequestBody(mGson.toJson(request))))
-                .flatMap((Function<Observable<CircleHomeResult>, ObservableSource<CircleHomeResult>>) observable -> observable);
+        if ((request.getOtherUserId()) == 0) {
+            CirclePersonMinePageRequest request1 = new CirclePersonMinePageRequest();
+            request1.setPageNum(request.getPageNum());
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyNoteList(getRequestBody(mGson.toJson(request1))))
+                    .flatMap((Function<Observable<CircleHomeResult>, ObservableSource<CircleHomeResult>>) observable -> observable);
+        } else {
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyNoteList(getRequestBody(mGson.toJson(request))))
+                    .flatMap((Function<Observable<CircleHomeResult>, ObservableSource<CircleHomeResult>>) observable -> observable);
+        }
+
     }
 
     @Override
     public Observable<PersonPageCardCommentResult> queryReplyList(CirclePersonPageRequest request) {
-        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryReplyList(getRequestBody(mGson.toJson(request))))
-                .flatMap((Function<Observable<PersonPageCardCommentResult>, ObservableSource<PersonPageCardCommentResult>>) observable -> observable);
-
+        if ((request.getOtherUserId()) == 0) {
+            CirclePersonMinePageRequest request1 = new CirclePersonMinePageRequest();
+            request1.setPageNum(request.getPageNum());
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryReplyList(getRequestBody(mGson.toJson(request1))))
+                    .flatMap((Function<Observable<PersonPageCardCommentResult>, ObservableSource<PersonPageCardCommentResult>>) observable -> observable);
+        } else {
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryReplyList(getRequestBody(mGson.toJson(request))))
+                    .flatMap((Function<Observable<PersonPageCardCommentResult>, ObservableSource<PersonPageCardCommentResult>>) observable -> observable);
+        }
     }
 
-
     @Override
-    public Observable<MyFansListResult> queryFansList(CirclePersonPageRequest request) {
-        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryFansList(getRequestBody(mGson.toJson(request))))
-                .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+    public Observable<MyFansListResult> queryFansList(CirclePersonFansRequest request) {
+        if ((request.getOtherUserId()) == 0) {
+            CirclePersonMinePageRequest request1 = new CirclePersonMinePageRequest();
+            request1.setPageNum(request.getPageNum());
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryFansList(getRequestBody(mGson.toJson(request1))))
+                    .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+        } else {
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryFansList(getRequestBody(mGson.toJson(request))))
+                    .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+        }
     }
 
     @Override
-    public Observable<MyFansListResult> queryMyAttentionList(CirclePersonPageRequest request) {
-        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyAttentionList(getRequestBody(mGson.toJson(request))))
-                .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+    public Observable<MyFansListResult> queryMyAttentionList(CirclePersonFansRequest request) {
+        if ((request.getOtherUserId()) == 0) {
+            CirclePersonMinePageRequest request1 = new CirclePersonMinePageRequest();
+            request1.setPageNum(request.getPageNum());
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyAttentionList(getRequestBody(mGson.toJson(request1))))
+                    .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+        } else {
+            return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).queryMyAttentionList(getRequestBody(mGson.toJson(request))))
+                    .flatMap((Function<Observable<MyFansListResult>, ObservableSource<MyFansListResult>>) observable -> observable);
+        }
+    }
+
+    @Override
+    public Observable<BaseStatusResult> requestAttentionOther(CircleAttentionOthersRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestAttentionOther(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<BaseStatusResult>, ObservableSource<BaseStatusResult>>) observable -> observable);
     }
 }

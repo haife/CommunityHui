@@ -14,9 +14,6 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -37,13 +34,7 @@ public class CirclePersonPageCardAdapter extends BaseQuickAdapter<CircleHomeResu
 
     @Override
     protected void convert(BaseViewHolder helper, CircleHomeResult item) {
-        SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
-        Date strData = null;
-        try {
-            strData = format.parse(item.getCreateTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
         QMUIRadiusImageView image = helper.getView(R.id.qmui_circle_home_page_image);
         if (null != item.getImgList() && item.getImgList().size() > 0) {
             image.setVisibility(View.VISIBLE);
@@ -52,7 +43,7 @@ public class CirclePersonPageCardAdapter extends BaseQuickAdapter<CircleHomeResu
             image.setVisibility(View.GONE);
         }
         helper.setText(R.id.tv_circle_home_page_title, item.getTitle()).setText(R.id.tv_circle_home_page_content, item.getContent())
-                .setText(R.id.tv_circle_home_page_card_topic, Html.fromHtml(String.format(mContext.getString(R.string.person_page_card_hint), strData, item.getNoteType())))
+                .setText(R.id.tv_circle_home_page_card_topic, Html.fromHtml(String.format(mContext.getString(R.string.person_page_card_hint), item.getCreateTime(), item.getNoteType())))
                 .setText(R.id.tv_circle_comment_number, String.valueOf(item.getCommentNum()));
 
         helper.getView(R.id.tv_circle_home_page_card_topic).setOnClickListener(view ->

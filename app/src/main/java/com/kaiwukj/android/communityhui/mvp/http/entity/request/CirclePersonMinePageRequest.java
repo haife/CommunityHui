@@ -9,19 +9,11 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request;
  * @time 2019/7/29
  * @desc $desc
  */
-public class CirclePersonPageRequest {
-    private int otherUserId;
+public class CirclePersonMinePageRequest {
     private int pageNum = 1;
 
 
 
-    public int getOtherUserId() {
-        return otherUserId;
-    }
-
-    public void setOtherUserId(int otherUserId) {
-        this.otherUserId = otherUserId;
-    }
 
     public int getPageNum() {
         return pageNum;

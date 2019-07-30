@@ -58,8 +58,7 @@ class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), A
             ARouter.getInstance().build(MainRouterUrl).navigation(context)
         }
     }
-
-    override fun onGetStaffCommentInfo(result: StaffCommentResult) {
+    override fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>) {
     }
 
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {

@@ -1,6 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseListRootResult;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2019-07-27
  * 个人主页回复列表
  */
-public class PersonPageCardCommentResult extends BaseRootResult<List<PersonPageCardCommentResult>> {
+public class PersonPageCardCommentResult extends BaseListRootResult<List<PersonPageCardCommentResult>> {
 
 
     private String content;

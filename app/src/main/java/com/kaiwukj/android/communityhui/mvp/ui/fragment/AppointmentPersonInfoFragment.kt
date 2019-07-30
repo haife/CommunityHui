@@ -43,6 +43,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private var mServiceTypeId: Int? = null
     private lateinit var mStoreListAdapter: AppointmentCommentAdapter
     private var commentList = ArrayList<StaffCommentResult>()
+    private var page = 1
 
     companion object {
         const val APPOINTMENT_PERSON_INFO_FRAGMENT = "APPOINTMENT_PERSON_INFO_FRAGMENT"
@@ -72,12 +73,12 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         initTopBar()
         userId?.let { mPresenter?.requestSelectStaffDetail(it) }
 
+        if (mServiceTypeId == null || mServiceTypeId == 0) {
+            rl_appointment_right_now.visibility = View.GONE
+        }
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
-        mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList as MutableList<StaffCommentResult>?, context!!)
+        mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
         rv_appointment_user_comment.adapter = mStoreListAdapter
-        val footLoadView = LayoutInflater.from(context!!).inflate(R.layout.footer_comment_load_more_layout, null)
-        mStoreListAdapter.addFooterView(footLoadView)
-
 
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
@@ -87,6 +88,11 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         //所属门店
         rl_person_info_store.setOnClickListener {
             start(StoreSortListFragment.newInstance(shopId))
+        }
+
+        smart_refresh_appoint_user_info.setOnLoadMoreListener {
+            page++
+            mPresenter?.requestUserComment(userId!!, page)
         }
     }
 
@@ -103,7 +109,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         tv_riv_person_info_gender.text = String.format(getString(R.string.home_format_staff_info_gender), result.avgScore)
         tv_riv_person_info_below_belong_shops.text = result.storeName
         tv_person_info_work_time.text = String.format(getString(R.string.home_format_staff_info_work_time), result.worktime)
-        tv_person_info_shop_comment.text = String.format(getString(R.string.home_format_staff_info_work_time), result.evaluate)
+        tv_person_info_shop_comment.text = result.evaluate
         //资历列表
         if (result.empCommentList.isNotEmpty()) {
             commentList.addAll(result.empCommentList)
@@ -140,11 +146,14 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
      * 获取到评论信息
      * @param result StaffCommentResult
      */
-    override fun onGetStaffCommentInfo(commentResult: StaffCommentResult) {
-        commentList.addAll(commentResult.result)
+    override fun onGetStaffCommentInfo(commentResult: ArrayList<StaffCommentResult>) {
+        if (page > 1 && commentResult.isNotEmpty()) {
+            smart_refresh_appoint_user_info.finishLoadMoreWithNoMoreData()
+        }
+        smart_refresh_appoint_user_info.finishLoadMore()
+        commentList.addAll(commentResult)
         mStoreListAdapter.notifyDataSetChanged()
     }
-
 
     override fun onGetMyAddressList(result: MyAddressResult) {
     }

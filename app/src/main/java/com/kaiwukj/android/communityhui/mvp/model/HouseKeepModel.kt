@@ -71,7 +71,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
      */
     override fun requestShopsStaffList(request: StoreListRequest): Observable<StaffListResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
-                .requestSelectStaff(getRequestBody(mGson.toJson(request))))
+                .requestStaffRecommend(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
 

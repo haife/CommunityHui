@@ -29,13 +29,24 @@ public class CircleHomeResult extends BaseListRootResult<List<CircleHomeResult>>
     private int recommendFlag;
     private int reportedCount;
     private int statusFlag;
+    private boolean myUnote;
     private String title;
     private int type;
     private String updateTime;
     private int userId;
     private List<String> imgList;
 
+    public boolean isMyUnote() {
+        return myUnote;
+    }
+
+    public void setMyUnote(boolean myUnote) {
+        this.myUnote = myUnote;
+    }
+
     public String getAddress() {
+
+
         return address;
     }
 

@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -74,6 +75,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     override fun initData(savedInstanceState: Bundle?) {
         mShopID?.let { request.hmstoreId = it }
         mUserId?.let {
+            request.storeemployeeId = it
             mPresenter?.requestMyAddress()
         }
         mServiceTypeId?.let {
@@ -130,23 +132,31 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
      * 获取到我的地址
      * @param result MyAddressResult
      */
+    @SuppressLint("SetTextI18n")
     override fun onGetMyAddressList(result: MyAddressResult) {
         //判断有无地址
         tv_add_address_hint.visibility = if (result.result.isNotEmpty()) View.GONE else View.VISIBLE
         rl_appointment_address_container.visibility = if (result.result.isNotEmpty()) View.VISIBLE else View.GONE
         if (result.result.isNotEmpty()) {
             mAddressId = result.result[0].id
-            tv_appoint_demand_address.text = result.result[0].address
+            tv_appoint_demand_address.text = result.result[0].area + "\t" + result.result[0].address
             tv_address_user_info.text = String.format(getString(R.string.mine_address_info), result.result[0].name, result.result[0].phone)
         }
     }
 
+    /**
+     * 地址
+     * @param requestCode Int
+     * @param resultCode Int
+     * @param data Bundle
+     */
+    @SuppressLint("SetTextI18n")
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
         super.onFragmentResult(requestCode, resultCode, data)
         val myAddress: MyAddressResult? = data?.getSerializable(EXTRA_KEY_CHOICE_ADDRESS) as MyAddressResult
         if (myAddress != null && myAddress.id != 0) {
             mAddressId = myAddress.id
-            tv_appoint_demand_address.text = myAddress.address
+            tv_appoint_demand_address.text = myAddress.area + "\t" + myAddress.address
             tv_address_user_info.text = String.format(getString(R.string.mine_address_info), myAddress.name, myAddress.phone)
         }
 
@@ -181,7 +191,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
                 return@lable
             }
             if (et_appoint_demand_other_content.text.isNotEmpty()) {
-                request.description = et_appoint_demand_service_days.text.toString()
+                request.description = et_appoint_demand_other_content.text.toString()
             }
             showLoading()
             Handler().postDelayed({
@@ -195,9 +205,8 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {
     }
 
-    override fun onGetStaffCommentInfo(result: StaffCommentResult) {
+    override fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>) {
     }
-
     override fun showLoading() {
         hintDialog = QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING).setTipWord(getString(R.string.setting_submitting)).create()
         hintDialog?.show()

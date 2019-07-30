@@ -38,7 +38,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import me.yokeyword.fragmentation.ISupportFragment;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -56,7 +55,6 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
 
     @BindView(R.id.view_pager_chat_message_container)
     ViewPager mChatPagerContainer;
-    private ISupportFragment[] mFragments = new ISupportFragment[2];
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
     private ChatListFragment mChatListFragment;
 

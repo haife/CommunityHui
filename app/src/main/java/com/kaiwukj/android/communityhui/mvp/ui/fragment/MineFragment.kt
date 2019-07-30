@@ -81,20 +81,19 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
         tv_mine_card_num.setOnClickListener {
             CHOICE_INDEX = 0
-            launcherPersonPage()
-
+            launcherPersonPage(CHOICE_INDEX)
         }
         tv_mine_reply_num.setOnClickListener {
             CHOICE_INDEX = 1
-            launcherPersonPage()
+            launcherPersonPage(CHOICE_INDEX)
         }
         tv_mine_fans_num.setOnClickListener {
             CHOICE_INDEX = 2
-            launcherPersonPage()
+            launcherPersonPage(CHOICE_INDEX)
         }
         tv_mine_collection_num.setOnClickListener {
             CHOICE_INDEX = 3
-            launcherPersonPage()
+            launcherPersonPage(CHOICE_INDEX)
 
         }
 
@@ -122,9 +121,9 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
      * 跳转到个人主页
      * @param url String
      */
-    private fun launcherPersonPage() {
+    private fun launcherPersonPage(index: Int) {
         if (userInfoResult != null)
-            ARouter.getInstance().build(SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+            ARouter.getInstance().build(SocialCircleUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, index).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
                     .withInt(ExtraCons.EXTRA_KEY_USER_ID, userInfoResult!!.userId).navigation()
     }
 

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
+import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
@@ -67,7 +69,15 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
         return fragment;
     }
 
-
+    @Override
+    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerSocialCircleComponent
+                .builder()
+                .appComponent(appComponent)
+                .socialCircleModule(new SocialCircleModule(this))
+                .build()
+                .inject(this);
+    }
     @Override
     public Context getCtx() {
         return getContext();
@@ -84,7 +94,7 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         assert mPresenter != null;
-        request.setReplyId(mUserId);
+        request.setOtherUserId(mUserId);
         mPresenter.queryReplyList(request);
         mReplydRv.setLayoutManager(mLayoutManager);
         mReplydRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
@@ -119,10 +129,6 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
 
     }
 
-    @Override
-    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
-
-    }
 
 
     @Override

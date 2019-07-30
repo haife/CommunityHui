@@ -62,7 +62,7 @@
     <string name="home_format_staff_info_gender">雇主评分%d</string>
     <string name="home_format_staff_info_work_time">%s年</string>
     <string name="person_info_service_price_format">¥%d/%s</string>
-    <string name="person_page_card_hint"><Data><![CDATA[<font color="#999999">%s发布于</font><font color="#FE714B">  #%s#</font>]]></Data></string>
+    <string name="person_page_card_hint"><Data><![CDATA[<font color="#999999">%s  发布于</font><font color="#FE714B">  #%s#</font>]]></Data></string>
     <string name="person_page_card_topic_hint"><Data><![CDATA[<font color="#999999">来自主题贴  </font><font color="#222222">" %s "</font>]]></Data></string>
     <!--首页-->
 

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
@@ -43,6 +44,8 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
@@ -117,6 +120,8 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private int page = 1;
     private int mCardId;
     private QMUITipDialog dialog;
+    //发帖人ID
+    private int cardUserId;
 
     public static CircleCardDetailFragment newInstance(int cardId) {
         CircleCardDetailFragment fragment = new CircleCardDetailFragment();
@@ -147,7 +152,6 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         mPresenter.requestCommentList(mCardId, page);
         assert getActivity() != null;
         mTopBar = this.getActivity().findViewById(R.id.qtb_social_circle);
-        mCommentListList = new ArrayList<>();
         initTopBar(mTopBar);
         initRvItemClick();
     }
@@ -155,6 +159,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private void initRvItemClick() {
         mCircleCardCommentRv.setNestedScrollingEnabled(false);
         mCircleCardCommentRv.setHasFixedSize(true);
+        mCircleCardCommentRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
         McaUtils.configRecyclerView(mCircleCardCommentRv, mLayoutManager);
         mCircleCardCommentRv.setAdapter(mCommentAdapter);
 
@@ -171,6 +176,12 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             mPresenter.requestCommentList(mCardId, page);
         });
 
+        //关注其他人
+        mCollection.setOnClickListener(view -> {
+            assert mPresenter != null;
+            mPresenter.requestAttentionOther(cardUserId);
+        });
+
     }
 
     private void initTopBar(QMUITopBar topBar) {
@@ -182,17 +193,16 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     public void onGetCardDetailResult(CircleCardDetailResult result) {
         assert result != null;
         assert getContext() != null;
+        cardUserId = result.getUserId();
         GlideArms.with(getContext()).load(Api.IMG_URL + result.getHeadImg()).circleCrop().into(mUserHeadIv);
         mTitleTv.setText(result.getTitle());
         mNickNameTv.setText(result.getNickName());
         mTimeTv.setText(result.getCreateTime());
         mTagTv.setText(result.getNoteType());
         mContentTv.setText(result.getContent());
-        mCommentNumberTv.setText(mCommentListList.size() == 0 ? getString(R.string.social_card_no_comment) : String.valueOf(mCommentListList.size()));
         if (mGridIvAdapter == null) {
             initGroupImageAdapter(result);
         }
-
     }
 
     /**
@@ -209,7 +219,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
                 imageInfo.add(info);
             }
             //单张图片的大小
-            mGridIvAdapter = new NineGridIvAdapter(getContext(), imageInfo);
+            mGridIvAdapter = new NineGridIvAdapter(getContext(), imageInfo, getActivity());
             mImageGroup.setSingleImageSize(McaUtils.getScreenWidth(getContext()) - McaUtils.dip2px(getContext(), 32));
             mImageGroup.setAdapter(mGridIvAdapter);
         }
@@ -234,14 +244,21 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void showMessage(@NonNull String message) {
-        assert mPresenter != null;
-        mCommentListList.clear();
-        mCommentAdapter.notifyDataSetChanged();
-        mPresenter.requestSocialCardDetail(mCardId);
         dialog = new QMUITipDialog.Builder(getContext()).setTipWord(message).create();
         dialog.setTitle(message);
         dialog.show();
         new Handler().postDelayed(() -> dialog.dismiss(), 800);
+
+        if (message.equals("关注成功")) {
+            mCollection.setText("已关注");
+        } else {
+            assert mPresenter != null;
+            mCommentListList.clear();
+            mCommentAdapter.notifyDataSetChanged();
+            mPresenter.requestSocialCardDetail(mCardId);
+        }
+
+
     }
 
     @Override
@@ -275,6 +292,11 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
 
     @Override
     public void finishLoadMore(@Nullable boolean noData) {
+        if (page == 1 && noData) {
+            mCommentNumberTv.setText(getString(R.string.social_card_no_comment));
+        } else {
+            mCommentNumberTv.setVisibility(View.GONE);
+        }
         mSmartRefresh.finishLoadMore();
         if (noData)
             mSmartRefresh.finishLoadMoreWithNoMoreData();

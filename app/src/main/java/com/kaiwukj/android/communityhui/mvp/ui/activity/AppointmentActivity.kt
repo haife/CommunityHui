@@ -34,6 +34,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 class AppointmentActivity : BaseSwipeBackActivity<AppointmentPresenter>(), AppointmentContract.View {
 
 
+
     @Autowired(name = ExtraCons.EXTRA_KEY_HOUSE_KEEP)
     @JvmField
     var mTargetStr: String? = null
@@ -74,7 +75,7 @@ class AppointmentActivity : BaseSwipeBackActivity<AppointmentPresenter>(), Appoi
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {
     }
 
-    override fun onGetStaffCommentInfo(result: StaffCommentResult) {
+    override fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>) {
     }
 
 

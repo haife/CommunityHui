@@ -44,6 +44,8 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
     int mCardId;
     @Autowired(name = ExtraCons.EXTRA_KEY_USER_ID)
     int mUserId;
+    @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX)
+    int index;
     public static final String FRAGMENT_KEY = "FRAGMENT_KEY";
 
     public static final String FRAGMENT_KEY_CARD_ID = "FRAGMENT_KEY_CARD_ID";
@@ -70,7 +72,7 @@ public class SocialCircleActivity extends BaseSwipeBackActivity<SocialCirclePres
         } else if (PostCardTopicFragment.POST_CARD_TOPIC_FRAGMENT.equals(mFragmentKey)) {
             loadRootFragment(R.id.fl_social_circle_container, PostCardTopicFragment.newInstance());
         } else if (SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT.equals(mFragmentKey)) {
-            loadRootFragment(R.id.fl_social_circle_container, SocialCirclePersonPageFragment.newInstance(String.valueOf(mUserId)));
+            loadRootFragment(R.id.fl_social_circle_container, SocialCirclePersonPageFragment.newInstance(String.valueOf(mUserId), index));
         }
 
     }

@@ -137,8 +137,8 @@
                     android:layout_below="@+id/line_rv_circle_card_detail"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_20"
-                    android:drawableRight="@drawable/shape_social_black_circle_oval"
-                    android:drawablePadding="@dimen/dp_5"
+
+
                     android:text="@string/social_circle_all_comment"
                     android:textColor="@color/common_text_dark_color"
                     android:textSize="@dimen/sp_15"
@@ -150,7 +150,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/line_circle_comment"
                     android:layout_marginLeft="@dimen/dp_5"
+                    android:drawablePadding="@dimen/dp_5"
                     android:layout_toRightOf="@+id/line_circle_comment"
+                    android:drawableLeft="@drawable/shape_social_black_circle_oval"
                     android:textColor="@color/common_text_dark_color"
                     android:textSize="@dimen/sp_15"
                     />

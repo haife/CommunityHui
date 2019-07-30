@@ -24,11 +24,12 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineCollectionRes
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.utils.GetJsonDataUtil
+import com.kaiwukj.android.communityhui.utils.InputMethodUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
+import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_edit_mine_address.*
-import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 import me.yokeyword.fragmentation.ISupportFragment
 import org.json.JSONArray
 import java.util.regex.Pattern
@@ -55,6 +56,8 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     //判断是新增地址还是编辑地址
     private var isEditAddress = true
     private var isLoaded = false
+    //是否是预约跳转过来
+    private var isFromToAppointment = false
 
     companion object {
         const val EDIT_MINE_ADDRESS_FRAGMENT = "EDIT_MINE_ADDRESS_FRAGMENT"
@@ -62,6 +65,7 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         fun newInstance(myAddressResult: MyAddressResult): EditMineAddressFragment {
             val fragment = EditMineAddressFragment()
             fragment.myAddressResult = myAddressResult
+            fragment.isFromToAppointment = myAddressResult.isFromToAppointment
             return fragment
         }
     }
@@ -83,7 +87,6 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     override fun initData(savedInstanceState: Bundle?) {
         initClick()
         mHandler.sendEmptyMessage(MSG_LOAD_DATA)
-        myAddressResult.isFromToAppointment
         if (!McaUtils.isEmpty(myAddressResult.name)) {
             //编辑地址
             custom_edit_address_name.setEdText(myAddressResult.name)
@@ -121,7 +124,6 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 return@setOnClickListener
             }
             myAddressResult.area = address
-
             val detailAddress = custom_edit_address_detail.contentText
             if (McaUtils.isEmpty(detailAddress)) {
                 showMessage("请输入详细地址")
@@ -141,17 +143,26 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     private fun initClick() {
+        if (isFromToAppointment) {
+            qtb_mine_address.visibility = View.VISIBLE
+            qtb_mine_address.setTitle(getString(R.string.mine_address_title))
+            qtb_mine_address.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
+        } else {
+            qtb_mine_address.visibility = View.GONE
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { activity?.onBackPressed() }
+        }
+
         ll_edit_address_detail.setOnClickListener {
+            InputMethodUtils.hideSoftInput(it)
             showPickerView()
         }
     }
 
     override fun onSupportVisible() {
-        super.onSupportVisible()
-        qtb_mine_address_list.visibility = View.VISIBLE
-        qtb_mine_address_list.setTitle(getString(R.string.edit_mine_address))
-        qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { onBackPressedSupport() }
+
     }
+
 
     override fun onGetMyCollectionData(list: List<MineCollectionResult>) {
     }

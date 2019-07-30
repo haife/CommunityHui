@@ -28,7 +28,6 @@ import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import com.kaiwukj.android.mcas.utils.McaUtils
 import kotlinx.android.synthetic.main.fragment_store_sort.*
 import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -159,7 +158,6 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                 simplePagerTitleView.text = magicIndicatorContentList[index].string_name
-                simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.typeface = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
@@ -178,7 +176,6 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         view_pager_store_sort_list_container.offscreenPageLimit = 1
         magic_indicator_store_sort_list.navigator = mMIndicatorNavigator
         ViewPagerHelper.bind(magic_indicator_store_sort_list, view_pager_store_sort_list_container)
-
         //bind fragmentViewPager
         val homeViewPagerAdapter = HomeViewPagerAdapter(childFragmentManager, mFragmentList)
         view_pager_store_sort_list_container.adapter = homeViewPagerAdapter

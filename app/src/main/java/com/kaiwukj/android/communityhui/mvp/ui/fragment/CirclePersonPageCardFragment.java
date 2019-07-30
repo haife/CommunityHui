@@ -13,6 +13,8 @@ import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
@@ -71,6 +73,16 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
     }
 
     @Override
+    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerSocialCircleComponent
+                .builder()
+                .appComponent(appComponent)
+                .socialCircleModule(new SocialCircleModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Override
     public View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_circle_person_page_card, container, false);
         ButterKnife.bind(this, view);
@@ -80,7 +92,7 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         assert mPresenter != null;
-        request.setReplyId(mUserId);
+        request.setOtherUserId(mUserId);
         mPresenter.queryCircleMyNoteList(request);
         mCardRv.setLayoutManager(mLayoutManager);
         mCardRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
@@ -96,7 +108,6 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
                     .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mCardList.get(position).getId()).navigation();
         });
     }
-
 
     @Override
     public Context getCtx() {
@@ -122,11 +133,6 @@ public class CirclePersonPageCardFragment extends BaseSupportFragment<SocialCirc
 
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
-
-    }
-
-    @Override
-    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
 
     }
 

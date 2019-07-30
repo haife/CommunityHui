@@ -14,8 +14,6 @@ import java.util.List;
  * @desc https://github.com/VictorAlbertos/RxCache/issues/73
  */
 public class StoreListResult extends BaseListRootResult<List<StoreListResult>> {
-
-
     private String address;
     private int id;
     private int orderNum;

@@ -123,7 +123,6 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
     }
 
     private fun initTopBar() {
-
         qtb_store_list.addLeftBackImageButton().setOnClickListener { killMyself() }
         qtb_store_list.setTitle(getString(R.string.store_title))
     }

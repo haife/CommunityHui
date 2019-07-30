@@ -39,7 +39,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     @Inject
     lateinit var mLayoutManager: RecyclerView.LayoutManager
 
-
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
         const val RECOMMEND_FLAG = 1
@@ -48,7 +47,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
             return HomeFragment()
         }
     }
-
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerHomeComponent

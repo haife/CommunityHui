@@ -11,8 +11,10 @@ import android.view.ViewGroup;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
+import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
+import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
-import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonPageRequest;
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CirclePersonFansRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
@@ -56,7 +58,7 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
 
 
     private int pageNum = 1;
-    CirclePersonPageRequest request = new CirclePersonPageRequest();
+    CirclePersonFansRequest request = new CirclePersonFansRequest();
     private int mUserId;
 
     //TODO 0：请求粉丝接口 1：请求关注的接口
@@ -71,6 +73,15 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
         return fragment;
     }
 
+    @Override
+    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
+        DaggerSocialCircleComponent
+                .builder()
+                .appComponent(appComponent)
+                .socialCircleModule(new SocialCircleModule(this))
+                .build()
+                .inject(this);
+    }
 
     @Override
     public Context getCtx() {
@@ -88,14 +99,13 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         assert mPresenter != null;
-        request.setReplyId(mUserId);
+        request.setOtherUserId(mUserId);
         switch (myRequestType) {
             case 0:
-                mPresenter.queryFansList(request);
-                break;
-
-            case 1:
                 mPresenter.queryMyAttentionList(request);
+                break;
+            case 1:
+                mPresenter.queryFansList(request);
                 break;
         }
 
@@ -105,7 +115,7 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
         mSmartRefresh.setOnLoadMoreListener(refreshLayout -> {
             pageNum++;
             request.setPageNum(pageNum);
-            mPresenter.queryCircleMyNoteList(request);
+            mPresenter.queryFansList(request);
         });
     }
 
@@ -129,11 +139,6 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
 
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
-
-    }
-
-    @Override
-    public void setupFragmentComponent(@NonNull AppComponent appComponent) {
 
     }
 

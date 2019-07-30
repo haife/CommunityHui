@@ -76,7 +76,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         return inflater.inflate(R.layout.fragment_house_staff_list, container, false);
     }
 
-
     override fun initData(savedInstanceState: Bundle?) {
         when (mRequestType) {
             1 ->   //如果是选择阿姨类型 请求此接口
@@ -96,7 +95,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
 
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             val userID = staffList[position].storeemployeeId
-            val serviceTypeId = mRequestType
+            val serviceTypeId = request.serviceTypeId
             ARouter.getInstance().build(AppointmentUrl)
                     .withString(ExtraCons.EXTRA_KEY_HOUSE_KEEP, APPOINTMENT_PERSON_INFO_FRAGMENT)
                     .withString(ExtraCons.EXTRA_KEY_STAFF_SETVIE_TYPE_ID, serviceTypeId.toString())
@@ -106,12 +105,19 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         smart_refresh_staff_list.setOnLoadMoreListener {
             page++
             isLoadMore = true
-            request.pageNum = page
+
             when (mRequestType) {
                 1 ->   //如果是选择阿姨类型 请求此接口
+                {
+                    request.pageNum = page
                     mPresenter?.requestSelectStaff(request)
+                }
                 2 ->   //如果是查看某个门店下的所有阿姨
+                {
+                    mShopStaffRequest?.pageNum = page
                     mShopStaffRequest?.let { mPresenter?.requestShopsStaffList(it) }
+                }
+
             }
         }
     }

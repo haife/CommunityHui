@@ -133,7 +133,6 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
                     } else {
                         intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
                     }
-
                 }
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, username);

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/ll_circle_person_page_bottom"
-        android:overScrollMode="never"
-        android:scrollbars="none">
 
-        <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:id="@+id/ll_circle_person_page_msg"
@@ -56,29 +58,42 @@
                     android:textSize="@dimen/sp_14"/>
             </RelativeLayout>
 
-            <net.lucode.hackware.magicindicator.MagicIndicator
-                android:id="@+id/magic_indicator_circle_person_page"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/home_magic_indicator_height"
-                android:background="@color/write_color"
-                android:overScrollMode="never"
-                android:scrollbars="none"/>
 
-            <FrameLayout
-                android:id="@+id/view_pager_circle_person_page_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_5"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator_circle_person_page"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_magic_indicator_height"
+            android:background="@android:color/white"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_scrollFlags="exitUntilCollapsed">
+
+        </net.lucode.hackware.magicindicator.MagicIndicator>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_circle_person_page_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_60"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout">
+
+    </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:id="@+id/ll_circle_person_page_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:orientation="horizontal">
 
         <TextView
@@ -99,6 +114,7 @@
             android:background="@color/common_divide_line_color"/>
 
         <TextView
+            android:id="@+id/tv_send_message"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -108,4 +124,5 @@
             android:textColor="@color/common_text_dark_color"
             android:textSize="16sp"/>
     </LinearLayout>
-</RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

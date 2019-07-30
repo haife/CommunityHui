@@ -21,6 +21,13 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
     private int fansFlag;
     private int id;
 
+    private String imgs;
+    private String noteType;
+    private String title;
+    private int type;
+    private String updateTime;
+    private int userId;
+    private List<String> imgList;
     public String getHeadImg() {
         return headImg;
     }
@@ -45,13 +52,6 @@ public class CircleCardDetailResult extends BaseRootResult<CircleCardDetailResul
         this.statusFlag = statusFlag;
     }
 
-    private String imgs;
-    private String noteType;
-    private String title;
-    private int type;
-    private String updateTime;
-    private int userId;
-    private List<String> imgList;
 
     public String getAddress() {
         return address;

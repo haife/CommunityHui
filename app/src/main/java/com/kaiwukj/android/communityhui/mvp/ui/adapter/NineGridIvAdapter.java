@@ -1,9 +1,12 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter;
 
 
+import android.app.Activity;
 import android.content.Context;
 
+import com.kaiwukj.android.communityhui.mvp.ui.widget.home.PopupWindowUtil;
 import com.lzy.ninegrid.ImageInfo;
+import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.NineGridViewAdapter;
 
 import java.util.List;
@@ -19,10 +22,14 @@ import java.util.List;
  */
 public class NineGridIvAdapter extends NineGridViewAdapter {
 
-
-    public NineGridIvAdapter(Context context, List<ImageInfo> imageInfo) {
+    private Activity mActivity;
+    public NineGridIvAdapter(Context context, List<ImageInfo> imageInfo, Activity activity) {
         super(context, imageInfo);
+        mActivity = activity;
     }
 
-
+    @Override
+    protected void onImageItemClick(Context context, NineGridView nineGridView, int index, List<ImageInfo> imageInfo) {
+        PopupWindowUtil.createImageDialog(mActivity, imageInfo.get(index).bigImageUrl);
+    }
 }

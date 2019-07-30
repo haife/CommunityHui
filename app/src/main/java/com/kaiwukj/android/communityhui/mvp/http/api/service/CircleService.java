@@ -89,11 +89,10 @@ public interface CircleService {
     @POST("/app/sc/unote/queryMyNoteList")
     Observable<CircleHomeResult> queryMyNoteList(@Body RequestBody body);
 
-
     /**
      * 个人主页回复列表
      */
-    @POST("/app/sc//queryReplyList")
+    @POST("/app/sc/unoteComment/queryReplyList")
     Observable<PersonPageCardCommentResult> queryReplyList(@Body RequestBody body);
 
     /**
@@ -103,9 +102,15 @@ public interface CircleService {
     Observable<MyFansListResult> queryFansList(@Body RequestBody body);
 
     /**
-     * 关注
+     * 关注的用户
      */
     @POST("/app/sc/ufans/getFocusList")
     Observable<MyFansListResult> queryMyAttentionList(@Body RequestBody body);
+
+    /**
+     * 关注其他用户
+     */
+    @POST("/app/sc/ufans/focus")
+    Observable<BaseStatusResult> requestAttentionOther(@Body RequestBody body);
 
 }

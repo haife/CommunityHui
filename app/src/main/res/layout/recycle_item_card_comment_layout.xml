@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tv_card_comment_person_time"
         android:layout_marginTop="@dimen/dp_5"
+        android:layout_alignParentRight="true"
         android:layout_toLeftOf="@+id/tv_card_comment_reply"
         android:textColor="@color/common_text_slight_color"
         android:textSize="@dimen/sp_13"/>
@@ -96,5 +97,6 @@
         android:gravity="center|top"
         android:text="回复"
         android:textColor="@color/common_text_slight_color"
-        android:textSize="@dimen/sp_13"/>
+        android:textSize="@dimen/sp_13"
+        android:visibility="gone"/>
 </RelativeLayout>

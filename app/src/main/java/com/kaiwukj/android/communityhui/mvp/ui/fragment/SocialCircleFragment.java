@@ -136,8 +136,11 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
                     .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mCardResults.get(position).getDicValue()).navigation();
         });
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
-                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
+            if (!mDataList.get(position).isMyUnote()){
+                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+                        .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
+            }
+
         });
 
         mCircleListAdapter.setOnItemChildClickListener((adapter, view, position) -> {

@@ -113,7 +113,7 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_house_keeping_list_container.currentItem = index }
-                var data = StoreListRequest(0, serviceTypeId = magicIndicatorContentList[index].id.toInt())
+                var data = StoreListRequest(0, serviceTypeId = magicIndicatorContentList[index].id)
                 mFragmentList = mFragmentList + HouseStaffListFragment.newInstance(data, 1)
                 return simplePagerTitleView
             }

@@ -54,7 +54,7 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                     override fun onNext(data: StaffInfoResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetStaffDetailInfo(data)
-                            requestUserComment(userId)
+                            requestUserComment(userId, page = 1)
                         } else {
 
                         }
@@ -65,8 +65,8 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
     /**
      * 选择阿姨
      */
-    fun requestUserComment(request: Int) {
-        mModel.requestUserComment(request)
+    fun requestUserComment(userId: Int, page: Int) {
+        mModel.requestUserComment(userId, page)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
@@ -74,9 +74,11 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                 .subscribe(object : ErrorHandleSubscriber<StaffCommentResult>(mErrorHandler) {
                     override fun onNext(data: StaffCommentResult) {
                         if (data.code == Api.RequestSuccess) {
-                        } else {
-
+                            mRootView.onGetStaffCommentInfo(data.result as ArrayList<StaffCommentResult>)
                         }
+                    }
+
+                    override fun onComplete() {
                     }
                 })
     }

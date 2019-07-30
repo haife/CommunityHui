@@ -9,12 +9,8 @@ package com.kaiwukj.android.communityhui.mvp.http.entity.request;
  * @time 2019/7/22
  * @desc 首页阿姨的评价
  */
-public class StaffCommentRequest  {
-
-    public StaffCommentRequest(int storeemployeeId) {
-        this.storeemployeeId = storeemployeeId;
-    }
-
+public class StaffCommentRequest {
+    private int pageNum;
     private int storeemployeeId;
 
     public int getStoreemployeeId() {
@@ -23,5 +19,13 @@ public class StaffCommentRequest  {
 
     public void setStoreemployeeId(int storeemployeeId) {
         this.storeemployeeId = storeemployeeId;
+    }
+
+    public int getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 }

@@ -90,6 +90,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
         }
 
         tv_person_home_page_birthday.setOnClickListener {
+            InputMethodUtils.hideSoftInput(tv_person_home_page_birthday)
             //时间选择器
             TimePickerBuilder(context, OnTimeSelectListener
             { date, v ->
@@ -116,10 +117,27 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
 
 
     private fun initLayout() {
+        rg_person_home_sex.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                R.id.rb_person_home_page_man -> {
+                    mUserInfo?.gender = 1
+                }
+                R.id.rb_person_home_page_woman -> {
+                    mUserInfo?.gender = 2
+                }
+            }
+        }
+
         val topBar: QMUITopBar = activity!!.findViewById(R.id.qtb_edit_mine_info)
         topBar.addRightTextButton(getString(R.string.user_info_save), R.id.qmui_top_right_btn).setOnClickListener {
             it.isEnabled = false
-            mUserInfo?.let { it1 -> mPresenter?.updateMineInfoData(it1) }
+            if (mUserInfo != null) {
+                mUserInfo?.perSign = et_person_home_page_sign.text.toString()
+                mUserInfo?.nickName = tv_home_page_name.text.toString()
+                mUserInfo?.birthday = tv_person_home_page_birthday.text.toString()
+                mUserInfo?.birthday = tv_person_home_page_birthday.text.toString()
+                mPresenter?.updateMineInfoData(mUserInfo!!)
+            }
             it.isEnabled = true
         }
         mUserInfo?.let {
@@ -184,6 +202,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
         hintDialog?.show()
         Handler().postDelayed({
             hintDialog?.dismiss()
+            killMyself()
         }, 1000)
     }
 

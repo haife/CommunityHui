@@ -15,8 +15,6 @@ import java.util.List;
  */
 public class MyFansListResult extends BaseListRootResult<List<MyFansListResult>> {
 
-
-
     private String headImg;
     private String nickName;
 
