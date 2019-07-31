@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.hyphenate.chat.EMClient
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
@@ -116,7 +117,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
 
                 }
                 aboutCompany -> {
-
+                    start(AboutUsFragment.newInstance())
                 }
 
             }
@@ -158,6 +159,7 @@ class SettingFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.Vie
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        EMClient.getInstance().logout(true)
         activity?.finish()
     }
 

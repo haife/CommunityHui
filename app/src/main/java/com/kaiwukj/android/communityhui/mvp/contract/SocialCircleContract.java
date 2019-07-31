@@ -85,5 +85,8 @@ public interface SocialCircleContract {
 
         //关注别人
         Observable<BaseStatusResult> requestAttentionOther(CircleAttentionOthersRequest request);
+
+        //取消光柱
+        Observable<BaseStatusResult> removeAttentionOther(CircleAttentionOthersRequest request);
     }
 }

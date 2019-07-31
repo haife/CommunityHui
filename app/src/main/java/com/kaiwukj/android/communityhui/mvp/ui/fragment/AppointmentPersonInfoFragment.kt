@@ -110,10 +110,14 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         tv_riv_person_info_below_belong_shops.text = result.storeName
         tv_person_info_work_time.text = String.format(getString(R.string.home_format_staff_info_work_time), result.worktime)
         tv_person_info_shop_comment.text = result.evaluate
-        //资历列表
+        if (result.imgList.isNotEmpty()) {
+            tv_person_qualification.text = "已认证"
+        } else {
+            tv_person_qualification.text = "未认证"
+        }
+        //评论列表
         if (result.empCommentList.isNotEmpty()) {
             commentList.addAll(result.empCommentList)
-            //ll_person_qualification_info_container.setLabels()
         }
         //服务价格
         if (result.empTypeList.isNotEmpty()) {
@@ -139,9 +143,13 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private fun initTopBar() {
         qtb_appointment_person_info.setTitle(getString(com.kaiwukj.android.communityhui.R.string.appointment_staff_info_detail))
         qtb_appointment_person_info.addLeftBackImageButton().setOnClickListener { killMyself() }
-
+        qtb_appointment_person_info.addRightTextButton(getString(R.string.store_collect_desc), R.id.qmui_top_right_btn).setOnClickListener {
+            //收藏服务人员
+            userId?.let {
+                mPresenter?.requestAddCollection(it)
+            }
+        }
     }
-
     /**
      * 获取到评论信息
      * @param result StaffCommentResult

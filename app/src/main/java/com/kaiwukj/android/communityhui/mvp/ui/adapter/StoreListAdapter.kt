@@ -2,10 +2,12 @@ package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
 import android.graphics.Typeface
+import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StoreListResult
+import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 
 /**
  * @author Haife Android Developer
@@ -17,6 +19,7 @@ class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val cont
     private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
 
     override fun convert(helper: BaseViewHolder, item: StoreListResult) {
+        val iv = helper.getView<ImageView>(R.id.iv_store_list)
         var shopTypeName: String? = ""
         var oneStr: String? = ""
         for ((index, str: StoreListResult.StoreSortResponseListBean) in item.storeSortResponseList.withIndex()) {
@@ -26,6 +29,8 @@ class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val cont
         }
         helper.setText(R.id.iv_store_list_name, item.storeName).setTypeface(typeFaceMedium).setText(R.id.iv_store_list_price, item.address)
         helper.setText(R.id.iv_store_list_message, oneStr + shopTypeName)
+        GlideArms.with(context).load(item.storeLogoImg).centerCrop().into(iv)
+
     }
 
 

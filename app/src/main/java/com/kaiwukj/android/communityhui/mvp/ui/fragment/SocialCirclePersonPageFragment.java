@@ -79,11 +79,19 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
 
     @BindView(R.id.tv_send_message)
     TextView mSendMessage;
+
+    @BindView(R.id.tv_circle_person_attention)
+    TextView mAttentionTv;
+
+
     private String hxName;
+    private String mTitleName;
     private int index = 0;
     public static final String SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT = "SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT";
     private int mUserId;
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
+    //是否关注
+    private boolean isCollection = false;
 
     public static SocialCirclePersonPageFragment newInstance(String userId, int index) {
         SocialCirclePersonPageFragment fragment = new SocialCirclePersonPageFragment();
@@ -110,13 +118,16 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         //如果是自己个人中心跳转过来 需要隐藏底部信息
-        if (mUserId == 0) {
-            bottomPersonLL.setVisibility(View.GONE);
-        }
         assert mPresenter != null;
         mPresenter.requestSocialHomePage(mUserId);
         QMUITopBar topBar = this.getActivity().findViewById(R.id.qtb_social_circle);
         initTopBar(topBar);
+        if (mUserId == 0) {
+            bottomPersonLL.setVisibility(View.GONE);
+            topBar.setTitle(getString(R.string.social_circle_mine_page));
+        } else {
+            topBar.setTitle(getString(R.string.social_circle_person_page_title));
+        }
         mSendMessage.setEnabled(false);
 
         mSendMessage.setOnClickListener(view -> {
@@ -124,10 +135,21 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, hxName);
+//                intent.putExtra(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mTitleName);
                 startActivity(intent);
             }
 
         });
+
+        mAttentionTv.setOnClickListener(view -> {
+            if (isCollection) {
+                mPresenter.removeAttentionOther(mUserId);
+            } else {
+                mPresenter.requestAttentionOther(mUserId);
+            }
+        });
+
+
     }
 
     private void initTopBar(QMUITopBar topBar) {
@@ -139,7 +161,9 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     @Override
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
         mSendMessage.setEnabled(true);
+        isCollection = result.isFocusedStatus();
         hxName = result.getHxName();
+        mTitleName = result.getHxName();
         GlideArms.with(getContext()).load(result.getHeadImg()).centerCrop().into(mHeadIv);
         mNameTv.setText(result.getNickName());
         mSignTv.setText(result.getPerSign());
@@ -150,6 +174,11 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         list.add(result.getFansCount() + "\n粉丝");
         initMagicIndicatorView(list);
         mPersonContainer.setCurrentItem(index);
+        if (isCollection) {
+            mAttentionTv.setText(getString(R.string.social_circle_cancel_attention));
+        } else {
+            mAttentionTv.setText(getString(R.string.social_circle_attention_str));
+        }
     }
 
 
@@ -222,6 +251,13 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
 
     @Override
     public void showMessage(@NonNull String message) {
+        if (message.equals(getString(R.string.social_circle_attention_success))) {
+            mAttentionTv.setText(getString(R.string.social_circle_attention_hint));
+            isCollection = true;
+        } else if (message.equals(getString(R.string.social_circle_cancel_attention_hint))) {
+            isCollection = false;
+            mAttentionTv.setText(getString(R.string.social_circle_attention_str));
+        }
     }
 
     @Override

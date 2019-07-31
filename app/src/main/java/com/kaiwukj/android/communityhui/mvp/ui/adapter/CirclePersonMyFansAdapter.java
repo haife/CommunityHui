@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
+import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 import java.util.List;
@@ -30,8 +31,13 @@ public class CirclePersonMyFansAdapter extends BaseQuickAdapter<MyFansListResult
     @Override
     protected void convert(BaseViewHolder helper, MyFansListResult item) {
         helper.setText(R.id.riv_circle_person_page_name, item.getNickName());
+
         QMUIRadiusImageView image = helper.getView(R.id.riv_circle_person_page_info_photo);
         GlideArms.with(mContext).load(item.getHeadImg()).circleCrop().into(image);
-
+        if (!McaUtils.isEmpty(item.getPerSign())) {
+            helper.setText(R.id.tv_circle_person_page_sign, item.getPerSign());
+        } else {
+            helper.setText(R.id.tv_circle_person_page_sign, "这个人太懒了，什么都没留下～");
+        }
     }
 }

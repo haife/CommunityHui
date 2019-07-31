@@ -14,8 +14,8 @@
         android:id="@+id/riv_circle_person_page_info_photo"
         android:layout_width="@dimen/dp_45"
         android:layout_height="@dimen/dp_45"
+        android:background="@mipmap/icon_common_head_place_holder"
         android:layout_centerVertical="true"
-        android:background="@drawable/shape_user_head_oval"
         app:qmui_is_circle="true"/>
 
     <TextView

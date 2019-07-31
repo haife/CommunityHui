@@ -88,7 +88,6 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         List<String> magicIndicatorContentList = new ArrayList<>();
         magicIndicatorContentList.add("消息");
-        magicIndicatorContentList.add("通知");
         initMagicIndicatorView(magicIndicatorContentList);
     }
 

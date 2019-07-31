@@ -9,18 +9,6 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
  */
 public class SocialUserHomePageResult extends BaseRootResult<SocialUserHomePageResult> {
 
-
-    /**
-     * fansCount : 2
-     * focusedCount : 0
-     * headImg : icon_20190617103557330.jpg
-     * id : 1
-     * nickName : 牛逼布拉斯
-     * noteCount : 10
-     * perSign :
-     * replyCount : 4
-     */
-
     private int fansCount;
     private int focusedCount;
     private String headImg;
@@ -30,7 +18,15 @@ public class SocialUserHomePageResult extends BaseRootResult<SocialUserHomePageR
     private String perSign;
     private String hxName;
     private int replyCount;
+    private boolean focusedStatus;
 
+    public boolean isFocusedStatus() {
+        return focusedStatus;
+    }
+
+    public void setFocusedStatus(boolean focusedStatus) {
+        this.focusedStatus = focusedStatus;
+    }
 
     public String getHxName() {
         return hxName;

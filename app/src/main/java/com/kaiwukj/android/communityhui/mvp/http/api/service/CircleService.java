@@ -113,4 +113,10 @@ public interface CircleService {
     @POST("/app/sc/ufans/focus")
     Observable<BaseStatusResult> requestAttentionOther(@Body RequestBody body);
 
+    /**
+     * 取消关注其他用户
+     */
+    @POST("/app/sc/ufans/notFocus")
+    Observable<BaseStatusResult> removeAttentionOther(@Body RequestBody body);
+
 }

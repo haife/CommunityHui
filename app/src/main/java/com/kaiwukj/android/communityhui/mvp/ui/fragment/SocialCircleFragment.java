@@ -136,18 +136,19 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
                     .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mCardResults.get(position).getDicValue()).navigation();
         });
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (!mDataList.get(position).isMyUnote()){
-                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
-                        .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
-            }
+
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
 
         });
 
         mCircleListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             //点击头衔跳转到个人首页
             if (view.getId() == R.id.qriv_circle_head_photo) {
-                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
-                        .withInt(ExtraCons.EXTRA_KEY_USER_ID, mDataList.get(position).getUserId()).navigation();
+                if (!mDataList.get(position).isMyUnote()) {
+                    ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+                            .withInt(ExtraCons.EXTRA_KEY_USER_ID, mDataList.get(position).getUserId()).navigation();
+                }
             }
         });
         mRefreshView.setOnRefreshListener(refreshLayout -> {

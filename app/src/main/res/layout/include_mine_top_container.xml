@@ -23,7 +23,7 @@
             android:id="@+id/qiv_user_profile_photo"
             android:layout_width="@dimen/dp_60"
             android:layout_height="@dimen/dp_60"
-            android:background="@drawable/shape_user_head_oval"
+            android:background="@mipmap/icon_common_head_place_holder"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:qmui_is_circle="true"/>
@@ -88,8 +88,9 @@
             android:lineSpacingExtra="@dimen/dp_5"
             />
 
+
         <TextView
-            android:id="@+id/tv_mine_fans_num"
+            android:id="@+id/tv_mine_collection_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"
@@ -98,7 +99,7 @@
             />
 
         <TextView
-            android:id="@+id/tv_mine_collection_num"
+            android:id="@+id/tv_mine_fans_num"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_45"
             android:layout_weight="1"

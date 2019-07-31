@@ -13,6 +13,7 @@
         android:id="@+id/riv_comment_person_info_photo"
         android:layout_width="@dimen/dp_35"
         android:layout_height="@dimen/dp_35"
+        android:background="@mipmap/icon_common_head_place_holder"
         android:clickable="true"
         app:qmui_border_color="?attr/qmui_config_color_gray_6"
         app:qmui_border_width="1px"

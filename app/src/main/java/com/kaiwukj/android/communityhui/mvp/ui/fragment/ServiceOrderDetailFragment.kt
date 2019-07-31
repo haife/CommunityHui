@@ -65,7 +65,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
     }
 
     private fun initLayout() {
-        mServiceTypeId = orderData.serviceTypeId
+        mServiceTypeId = orderData.statusFlag
         tv_custom_order_number.setRightStr(orderData.orderNo)
         tv_custom_order_subordinate_the_stores.setRightStr(orderData.storeName)
         tv_order_detail_user_name.text = orderData.realName

@@ -3,6 +3,7 @@ package com.kaiwukj.android.communityhui.mvp.contract
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.AppointmentDemandRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
 import com.kaiwukj.android.mcas.mvp.IModel
@@ -38,6 +39,9 @@ interface AppointmentContract {
 
         //提交订单
         fun requestAppointmentDate(request: AppointmentDemandRequest): Observable<BaseStatusResult>
+
+        //添加收藏
+        fun requestAddCollection(request: CollectionRequest): Observable<BaseStatusResult>
     }
 
 }

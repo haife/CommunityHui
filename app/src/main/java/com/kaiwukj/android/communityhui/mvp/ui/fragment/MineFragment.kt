@@ -87,15 +87,18 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
             CHOICE_INDEX = 1
             launcherPersonPage(CHOICE_INDEX)
         }
-        tv_mine_fans_num.setOnClickListener {
-            CHOICE_INDEX = 2
-            launcherPersonPage(CHOICE_INDEX)
-        }
+
         tv_mine_collection_num.setOnClickListener {
-            CHOICE_INDEX = 3
+            CHOICE_INDEX = 2
             launcherPersonPage(CHOICE_INDEX)
 
         }
+        tv_mine_fans_num.setOnClickListener {
+
+            CHOICE_INDEX = 3
+            launcherPersonPage(CHOICE_INDEX)
+        }
+
 
         // 3:待服务 4：服务中 5：已完结，
         tv_mine_order_contracting.setOnClickListener {
@@ -182,7 +185,6 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         QMUIGroupListView.newSection(context)
                 .setUseTitleViewForSectionSpace(false)
                 .addItemView(mineAddressItem, onClickListener)
-                .addItemView(mineServiceItem, onClickListener)
                 .addItemView(mineCollectItem, onClickListener)
                 .addItemView(mineSettingItem, onClickListener)
                 .addTo(qui_group_list_mine)
@@ -206,6 +208,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         } else {
             initHx()
         }
+//        UserCacheManager.save(userInfoResult?.hxName, userInfoResult?.nickName, userInfoResult?.headImg)
         tv_user_explain.text = if (result.perSign.isNullOrEmpty()) getString(R.string.user_info_no_setting) else result.perSign
 
         context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }

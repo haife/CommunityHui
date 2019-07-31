@@ -192,4 +192,9 @@ public class SocialCircleModel extends BaseModel implements SocialCircleContract
         return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).requestAttentionOther(getRequestBody(mGson.toJson(request))))
                 .flatMap((Function<Observable<BaseStatusResult>, ObservableSource<BaseStatusResult>>) observable -> observable);
     }
+    @Override
+    public Observable<BaseStatusResult> removeAttentionOther(CircleAttentionOthersRequest request) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService.class).removeAttentionOther(getRequestBody(mGson.toJson(request))))
+                .flatMap((Function<Observable<BaseStatusResult>, ObservableSource<BaseStatusResult>>) observable -> observable);
+    }
 }

@@ -32,7 +32,6 @@
     </style>
 
 
-
     <!--登录EditTextInput-->
     <style name="LoginInputEditLayout" parent="AppTheme">
         <item name="android:textColorHint">@color/common_text_slight_color</item>
@@ -207,10 +206,10 @@
     </style>
     <!--QMUI STYLE-->
 
-
     <!--SwipeBackTheme-->
     <style name="SwipeBackStyle" parent="AppTheme">
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <!--Activity换动画-->

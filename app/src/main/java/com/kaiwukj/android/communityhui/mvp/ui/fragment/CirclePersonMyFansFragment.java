@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
@@ -19,6 +21,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailR
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyFansListResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonMyFansAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,6 +38,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt.SocialCircleUrl;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -116,6 +121,21 @@ public class CirclePersonMyFansFragment extends BaseSupportFragment<SocialCircle
             pageNum++;
             request.setPageNum(pageNum);
             mPresenter.queryFansList(request);
+        });
+
+        mFansAdapter.setOnItemClickListener((adapter, view, position) ->
+        {
+            switch (myRequestType) {
+                case 0:
+                    ARouter.getInstance().build(SocialCircleUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 0).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+                            .withInt(ExtraCons.EXTRA_KEY_USER_ID, mFansList.get(position).getFocusedUserId()).navigation();
+                    break;
+                case 1:
+                    ARouter.getInstance().build(SocialCircleUrl).withInt(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, 0).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+                            .withInt(ExtraCons.EXTRA_KEY_USER_ID, mFansList.get(position).getFansId()).navigation();
+                    break;
+            }
+
         });
     }
 

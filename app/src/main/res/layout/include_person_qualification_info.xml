@@ -7,25 +7,31 @@
               android:orientation="vertical"
               android:paddingTop="@dimen/dp_20">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_16"
-        android:text="@string/appointment_staff_info_aptitudes_detail"
-        android:textColor="@color/common_text_dark_color"
-        android:textSize="@dimen/sp_15"/>
-
-    <com.kaiwukj.android.communityhui.mvp.ui.widget.home.LineBreakLayout
-        android:id="@+id/ll_person_qualification_info_container"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_25"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:paddingLeft="@dimen/dp_16"
-        android:paddingRight="@dimen/dp_16"
-        app:HorizontalSpace="@dimen/dp_10"
-        app:TagsTypes="1"
-        app:VerticalSpace="@dimen/dp_10"/>
+        android:layout_height="@dimen/dp_50">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:text="@string/appointment_staff_info_aptitudes_detail"
+            android:textColor="@color/common_text_dark_color"
+            android:textSize="@dimen/sp_15"/>
+
+        <TextView
+            android:id="@+id/tv_person_qualification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_16"
+            android:textColor="@color/app_color_theme"
+            android:textSize="@dimen/sp_15"/>
+
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"

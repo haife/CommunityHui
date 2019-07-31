@@ -470,7 +470,34 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(BaseStatusResult result) {
                         if (result.getCode().equals(Api.RequestSuccess)) {
-                            mRootView.showMessage("关注成功");
+                            mRootView.showMessage(mRootView.getCtx().getString(R.string.social_circle_attention_success));
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.finishLoadMore(false);
+                    }
+                });
+    }
+
+    /**
+     * 关注别人
+     */
+    public void removeAttentionOther(int userId) {
+        CircleAttentionOthersRequest request = new CircleAttentionOthersRequest();
+        request.setFocusedUserId(userId);
+        mModel.removeAttentionOther(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseStatusResult result) {
+                        if (result.getCode().equals(Api.RequestSuccess)) {
+                            mRootView.showMessage(mRootView.getCtx().getString(R.string.social_circle_cancel_attention_hint));
                         }
                     }
 

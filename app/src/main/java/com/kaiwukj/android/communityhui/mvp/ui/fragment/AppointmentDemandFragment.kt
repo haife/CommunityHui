@@ -81,6 +81,23 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
         mServiceTypeId?.let {
             request.serviceTypeId = it
         }
+        //1月嫂/月 2育婴师/月 3护工/天 4催乳师/次
+        tv_appoint_demand_service_days_hint.text = when (mServiceTypeId) {
+            //服务时长设置
+            1 -> {
+                getString(R.string.appointment_demand_days_mouth)
+            }
+            2 -> {
+                getString(R.string.appointment_demand_days_mouth)
+            }
+            3 -> {
+                getString(R.string.appointment_demand_days)
+            }
+            4 -> {
+                getString(R.string.appointment_demand_days_times)
+            }
+            else -> getString(R.string.appointment_demand_days_mouth)
+        }
 
         initTopBar()
         initPickDate()
@@ -207,6 +224,7 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
 
     override fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>) {
     }
+
     override fun showLoading() {
         hintDialog = QMUITipDialog.Builder(context).setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING).setTipWord(getString(R.string.setting_submitting)).create()
         hintDialog?.show()
@@ -222,8 +240,14 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
     }
 
     override fun showMessage(message: String) {
-        start(AppointmentResultFragment.newInstance())
-        hideLoading()
+        if (message == "1") {
+            start(AppointmentResultFragment.newInstance(1))
+            hideLoading()
+        } else {
+            start(AppointmentResultFragment.newInstance(0))
+            hideLoading()
+        }
+
     }
 
     override fun launchActivity(intent: Intent) {

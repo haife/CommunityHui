@@ -15,6 +15,7 @@
         android:id="@+id/qriv_circle_head_photo"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
+        android:background="@mipmap/icon_common_head_place_holder"
         app:qmui_is_circle="true"/>
 
     <TextView
@@ -51,11 +52,11 @@
         android:id="@+id/tv_circle_message_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@+id/qriv_circle_head_photo"
         android:layout_marginTop="@dimen/dp_16"
         android:textColor="@color/common_text_dark_color"
-        android:textSize="@dimen/sp_15"/>
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tv_circle_message_content"

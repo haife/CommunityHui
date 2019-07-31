@@ -34,7 +34,6 @@ public class CirclePersonPageCardAdapter extends BaseQuickAdapter<CircleHomeResu
 
     @Override
     protected void convert(BaseViewHolder helper, CircleHomeResult item) {
-
         QMUIRadiusImageView image = helper.getView(R.id.qmui_circle_home_page_image);
         if (null != item.getImgList() && item.getImgList().size() > 0) {
             image.setVisibility(View.VISIBLE);

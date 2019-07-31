@@ -41,6 +41,7 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
         //use EaseChatFratFragment
+//        chatFragment = new HxEaseChatFragment();
         chatFragment = new EaseChatFragment();
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());

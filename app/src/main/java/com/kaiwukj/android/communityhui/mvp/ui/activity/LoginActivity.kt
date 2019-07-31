@@ -38,17 +38,16 @@ import kotlinx.android.synthetic.main.activity_login.*
  * @job Android Development
  * @company KW | 开物科技
  * @time 2019/7/15
+ *
  * @desc  Login Screen
  */
 @Route(path = LoginRouterUrl)
 class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWatcher {
-
     private var timeCount: LoginTimeCount? = null
     private lateinit var phoneNumber: String
     private lateinit var phoneCode: String
     private var hintDialog: QMUITipDialog? = null
     override fun getActivity(): FragmentActivity = this
-
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerLoginComponent
@@ -108,7 +107,6 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWa
         textInputLayout.editText?.isFocusable = true
         textInputLayout.editText?.isFocusableInTouchMode = true
         textInputLayout.editText?.requestFocus()
-
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -143,9 +141,7 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWa
      * 验证码发送成功
      */
     override fun sendVerifyCodeComplete() {
-        hintDialog = QMUITipDialog.Builder(this@LoginActivity)
-                .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
-                .setTipWord(getString(R.string.setting_clearing_cache)).create()
+
 
     }
 

@@ -13,6 +13,9 @@ public class CollectionRequest {
     private int favoriteId;
     private int type;
 
+    public CollectionRequest() {
+    }
+
     public CollectionRequest(int favoriteId, int type) {
         this.favoriteId = favoriteId;
         this.type = type;

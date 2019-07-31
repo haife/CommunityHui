@@ -90,6 +90,6 @@ public class EaseChatImagePresenter extends EaseChatFilePresenter {
                 e.printStackTrace();
             }
         }
-        getContext().startActivity(intent);
+        //getContext().startActivity(intent);
     }
 }

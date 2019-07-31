@@ -29,13 +29,15 @@ import kotlinx.android.synthetic.main.fragment_appointment_success.*
  * @desc 预约结果
  */
 class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), AppointmentContract.View {
+    private var status: Int = 0
     override fun onGetMyAddressList(result: MyAddressResult) {
     }
 
 
     companion object {
-        fun newInstance(): AppointmentResultFragment {
+        fun newInstance(status: Int): AppointmentResultFragment {
             val fragment = AppointmentResultFragment()
+            fragment.status = status
             return fragment
         }
     }
@@ -50,14 +52,21 @@ class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), A
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_appointment_success, container, false);
+        return if (status == 1) {
+            inflater.inflate(R.layout.fragment_appointment_success, container, false)
+        } else {
+            inflater.inflate(R.layout.fragment_appointment_failur, container, false)
+        }
+
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+
         qbtn_appoint_back_home.setOnClickListener {
             ARouter.getInstance().build(MainRouterUrl).navigation(context)
         }
     }
+
     override fun onGetStaffCommentInfo(result: ArrayList<StaffCommentResult>) {
     }
 

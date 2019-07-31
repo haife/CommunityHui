@@ -136,6 +136,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
                 }
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, username);
+//                intent.putExtra(Constant.EXTRA_USER_ID, username);
                 startActivity(intent);
             }
         });

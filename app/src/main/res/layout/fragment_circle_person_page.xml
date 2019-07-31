@@ -30,7 +30,7 @@
                     android:id="@+id/riv_circle_person_page_info_photo"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="@dimen/dp_60"
-                    android:background="@drawable/shape_user_head_oval"
+                    android:background="@mipmap/icon_common_head_place_holder"
                     app:qmui_is_circle="true"/>
 
                 <TextView
@@ -97,12 +97,12 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_circle_person_attention"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/ripper_common_click_back_ground"
             android:gravity="center"
-            android:text="加关注"
             android:textColor="@color/common_text_dark_color"
             android:textSize="16sp"/>
 

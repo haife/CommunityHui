@@ -17,12 +17,12 @@
     <RelativeLayout
         android:id="@+id/rl_appointment_result_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/iv_appointment_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_60"
@@ -34,23 +34,23 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_appointment_result"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_30"
             android:text="@string/appointment_failure"
             android:textColor="@color/common_text_dark_color"
             android:textSize="@dimen/sp_20"/>
 
 
         <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-            android:id="@+id/qbtn_appoint_status"
+            android:id="@+id/qbtn_appoint_back_home"
             style="@style/QDRoundButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@+id/tv_appointment_result_status"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_30"
             android:layout_marginTop="@dimen/dp_50"
             android:layout_marginRight="@dimen/dp_30"
             android:layout_marginBottom="@dimen/dp_30"
-            android:text="@string/appointment_choice_again"
+            android:text="@string/appointment_return_home"
             android:textSize="@dimen/sp_16"/>
     </RelativeLayout>
 
@@ -60,24 +60,6 @@
         android:layout_below="@id/rl_appointment_result_container"
         android:background="@color/window_background_color"/>
 
-    <TextView
-        android:id="@+id/tv_appointment_choice_again_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_appointment_result_container"
-        android:layout_marginLeft="@dimen/base_horizontal_left_margin"
-        android:layout_marginTop="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_20"
-        android:text="@string/appointment_choice_again_hint"
-        android:textColor="@color/common_text_slight_color"
-        android:textSize="@dimen/sp_14"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        style="@style/BaseRecycleViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_appointment_choice_again_hint"
-        android:background="@color/write_color"/>
 
 </RelativeLayout>
 

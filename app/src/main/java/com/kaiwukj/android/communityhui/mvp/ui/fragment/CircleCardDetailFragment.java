@@ -122,6 +122,8 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private QMUITipDialog dialog;
     //发帖人ID
     private int cardUserId;
+    //是否关注
+    private boolean isCollection = false;
 
     public static CircleCardDetailFragment newInstance(int cardId) {
         CircleCardDetailFragment fragment = new CircleCardDetailFragment();
@@ -179,7 +181,12 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         //关注其他人
         mCollection.setOnClickListener(view -> {
             assert mPresenter != null;
-            mPresenter.requestAttentionOther(cardUserId);
+            if (isCollection) {
+                mPresenter.removeAttentionOther(cardUserId);
+            } else {
+                mPresenter.requestAttentionOther(cardUserId);
+            }
+
         });
 
     }
@@ -194,12 +201,20 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         assert result != null;
         assert getContext() != null;
         cardUserId = result.getUserId();
+
         GlideArms.with(getContext()).load(Api.IMG_URL + result.getHeadImg()).circleCrop().into(mUserHeadIv);
         mTitleTv.setText(result.getTitle());
         mNickNameTv.setText(result.getNickName());
         mTimeTv.setText(result.getCreateTime());
         mTagTv.setText(result.getNoteType());
         mContentTv.setText(result.getContent());
+        if (result.getFansFlag() == 1) {
+            isCollection = true;
+            mCollection.setText(getString(R.string.social_circle_cancel_attention));
+        } else {
+            isCollection = false;
+            mCollection.setText(getString(R.string.social_circle_attention_str));
+        }
         if (mGridIvAdapter == null) {
             initGroupImageAdapter(result);
         }
@@ -248,17 +263,18 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
         dialog.setTitle(message);
         dialog.show();
         new Handler().postDelayed(() -> dialog.dismiss(), 800);
-
-        if (message.equals("关注成功")) {
-            mCollection.setText("已关注");
+        if (message.equals(getString(R.string.social_circle_attention_success))) {
+            mCollection.setText(getString(R.string.social_circle_attention_hint));
+            isCollection = true;
+        } else if (message.equals(getString(R.string.social_circle_cancel_attention_hint))) {
+            isCollection = false;
+            mCollection.setText(getString(R.string.social_circle_attention_str));
         } else {
             assert mPresenter != null;
             mCommentListList.clear();
             mCommentAdapter.notifyDataSetChanged();
             mPresenter.requestSocialCardDetail(mCardId);
         }
-
-
     }
 
     @Override

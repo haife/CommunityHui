@@ -33,7 +33,7 @@ public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardComment
     @Override
     protected void convert(BaseViewHolder helper, CircleCardCommentResult item) {
         QMUIRadiusImageView headIv = helper.getView(R.id.riv_card_comment_person_info_photo);
-        TextView floorTv = helper.getView(R.id.tv_card_comment_floor);
+        TextView floorTv = helper.getView(R.id.tvr_card_comment_person_floor);
         floorTv.setVisibility(item.getLandlordFlag() == 1 ? View.VISIBLE : View.GONE);
         GlideArms.with(mContext).load(Api.IMG_URL + item.getCommentatorHeadImg()).into(headIv);
         helper.setText(R.id.tvr_card_comment_person_info_name, item.getCommentatorNickName())

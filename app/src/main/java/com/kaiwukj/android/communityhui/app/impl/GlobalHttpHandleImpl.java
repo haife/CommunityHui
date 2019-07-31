@@ -2,10 +2,8 @@ package com.kaiwukj.android.communityhui.app.impl;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.text.TextUtils;
 
-import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.constant.SPParam;
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.LoginActivity;
@@ -13,7 +11,6 @@ import com.kaiwukj.android.communityhui.utils.SPUtils;
 import com.kaiwukj.android.mcas.http.GlobalHttpHandler;
 import com.kaiwukj.android.mcas.http.log.RequestInterceptor;
 import com.kaiwukj.android.mcas.utils.McaUtils;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -31,7 +28,6 @@ import okhttp3.Response;
  */
 public class GlobalHttpHandleImpl implements GlobalHttpHandler {
     private Context context;
-    private QMUITipDialog hintDialog;
 
     public GlobalHttpHandleImpl(Context context) {
         this.context = context;
@@ -53,13 +49,8 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
             if (null != result.getCode()) {
                 if (result.getCode().equals("2") || result.getCode().equals("10")) {
                     //Token失效
-                    hintDialog = new QMUITipDialog.Builder(context).setTipWord(context.getString(R.string.login_out_time)).create();
                     SPUtils.getInstance().remove(SPParam.SP_LOGIN_TOKEN);
-                    hintDialog.show();
-                    new Handler().postDelayed(() -> {
-                        context.startActivity(new Intent(context, LoginActivity.class));
-                        hintDialog.dismiss();
-                    }, 1000);
+                    context.startActivity(new Intent(context, LoginActivity.class));
                 }
             }
         }

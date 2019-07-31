@@ -23,7 +23,7 @@ public interface LoginService {
     /*
      * 获取验证码
      */
-    @GET("/app/sc/login/{phoneNo}")
+    @GET("/app/sc/sendVerifyCode/{phoneNo}")
     Observable<LoginVerifyCodeResult> requestLoginVerifyCode(@Path("phoneNo") String phoneNo);
 
     /*

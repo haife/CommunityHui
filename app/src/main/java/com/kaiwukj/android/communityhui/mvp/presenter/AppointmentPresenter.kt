@@ -6,6 +6,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.AppointmentDemandRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
@@ -115,9 +116,31 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                 .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
                     override fun onNext(data: BaseStatusResult) {
                         if (data.code == Api.RequestSuccess) {
-                            mRootView.showMessage(data.desc)
+                            mRootView.showMessage("1")
                         } else {
+                            mRootView.showMessage("0")
+                        }
+                    }
+                })
+    }
 
+
+    /**
+     * 添加收藏阿姨
+     * @param request StoreListRequest
+     */
+    fun requestAddCollection(userId: Int) {
+        val request = CollectionRequest()
+        request.type = 1
+        request.favoriteId = userId
+        mModel.requestAddCollection(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(data: BaseStatusResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.showMessage(data.desc)
                         }
                     }
                 })

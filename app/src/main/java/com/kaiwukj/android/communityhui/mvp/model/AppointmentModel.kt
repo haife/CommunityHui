@@ -8,6 +8,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.StaffInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.AppointmentDemandRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.CollectionRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StaffCommentRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MyAddressResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.StaffCommentResult
@@ -15,7 +16,6 @@ import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
 import io.reactivex.Observable
-import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -23,7 +23,6 @@ import javax.inject.Inject
 class AppointmentModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), AppointmentContract.Model {
-
 
     @Inject
     lateinit var mGson: Gson;
@@ -78,6 +77,17 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun requestAppointmentDate(request: AppointmentDemandRequest): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(HomeService::class.java)
                 .requestAppointmentOrder(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+
+    /**
+     * 收藏阿姨
+     * @param request CollectionRequest
+     * @return Observable<BaseStatusResult>
+     */
+    override fun requestAddCollection(request: CollectionRequest): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .addCollectionRequest(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
 
