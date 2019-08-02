@@ -41,10 +41,10 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     private var mShopStaffRequest: StoreListRequest? = null
     private var staffList = ArrayList<StaffListResult>()
     private var page: Int = 1
-    private var isLoadMore = false
     //用来判断是选择阿姨的列表页面还是查看门店下阿姨
     //1:选择阿姨 2:门店阿姨
     private var mRequestType: Int? = null
+
     companion object {
         fun newInstance(bean: StoreListRequest?, requestType: Int?): HouseStaffListFragment {
             val fragment = HouseStaffListFragment()
@@ -86,6 +86,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     }
 
     private fun initRecycle() {
+        //smart_refresh_staff_list.setEnableLoadMoreWhenContentNotFull(false)
         rv_staff_list_child.layoutManager = LinearLayoutManager(context)
         rv_staff_list_child.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
         mHouseAdapter = SelectStaffListAdapter(R.layout.recycle_item_house_staff_list_layout, staffList, context)
@@ -102,8 +103,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
 
         smart_refresh_staff_list.setOnLoadMoreListener {
             page++
-            isLoadMore = true
-
             when (mRequestType) {
                 1 ->   //如果是选择阿姨类型 请求此接口
                 {
@@ -139,13 +138,13 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
      * @param result List<StaffListResult>
      */
     override fun onSelectStaffList(result: List<StaffListResult>) {
-        if (isLoadMore) {
-            smart_refresh_staff_list?.finishLoadMore()
-            if (result.isEmpty() && page > 1) smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
-            isLoadMore = false
-        }
         if (page == 1) {
             staffList.clear()
+        } else {
+            if (result.isEmpty()) {
+                smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
+                return
+            }
         }
         staffList.addAll(result)
         mHouseAdapter.notifyDataSetChanged()

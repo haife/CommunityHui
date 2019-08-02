@@ -94,6 +94,16 @@ ext {
             "multidex"                 : "com.android.support:multidex:1.0.3",
             "javax.annotation"         : "javax.annotation:jsr250-api:1.0",
             "autosize"                 : "me.jessyan:autosize:1.1.1",
+            //极光推送
+            "jpush"                    : "cn.jiguang.sdk:jpush:3.3.4",
+            "jcore"                    : "cn.jiguang.sdk:jcore:2.1.2",
+            "greendao"                 : "org.greenrobot:greendao:3.2.2",
+            //环信
+            "j256"                     : "com.j256.ormlite:ormlite-android:5.0",
+            "google-gms"               : "com.google.android.gms:play-services-base:11.4.0",
+            "google-firebase"          : "com.google.firebase:firebase-messaging:11.4.0",
+            "parse"                    : "com.parse:parse-android:1.13.1",
+            "hx-sdk"                   : "com.hyphenate:hyphenate-sdk:3.6.1",
 
             "base-recyclerview-adapter": "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["baseRecycleViewVersion"]}",
             "utilcode"                 : "com.blankj:utilcode:1.22.10",

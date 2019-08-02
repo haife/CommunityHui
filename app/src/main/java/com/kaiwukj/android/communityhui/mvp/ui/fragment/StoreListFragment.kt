@@ -108,10 +108,8 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
             if (list.result.list.size > 0) {
                 listData.addAll(list.result.list)
                 smart_store_list.finishLoadMore()
-                smart_store_list.finishLoadMoreWithNoMoreData()
             } else {
                 smart_store_list.finishLoadMoreWithNoMoreData()
-                listData.addAll(list.result.list)
             }
         }
         mStoreListAdapter.notifyDataSetChanged()

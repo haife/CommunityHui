@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: 'org.greenrobot.greendao'
 kapt {
     generateStubs = true
     arguments {
@@ -11,6 +11,20 @@ kapt {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('F:\\KaiWuTechnology.jks')
+            storePassword 'kaiwu2019'
+            keyAlias = 'KaiWu'
+            keyPassword 'kaiwu2019'
+        }
+        debug {
+            storeFile file('F:\\KaiWuTechnology.jks')
+            storePassword 'kaiwu2019'
+            keyAlias = 'KaiWu'
+            keyPassword 'kaiwu2019'
+        }
+    }
     useLibrary 'org.apache.http.legacy'
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -31,7 +45,13 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
-        flavorDimensions "versionCode"
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "dc950f3b32df4441fb84e895",
+                JPUSH_CHANNEL: "developer-default",
+        ]
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -49,26 +69,25 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
             buildConfigField("String", "API_HOST", "\"http://hm.kaiwumace.com\"")
-//            minifyEnabled true
-//            shrinkResources true
-//            zipAlignEnabled true
+//          minifyEnabled true
+//          shrinkResources true
+//          zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    productFlavors {
-        app {
-            resValue "string", "name", "优家服"
-        }
-    }
-
 
     android.applicationVariants.all {
         variant ->
             variant.outputs.all {
                 //这里修改apk文件名
-                outputFileName = "${productFlavors[0].name}_v${defaultConfig.versionName}_${buildType.name}_${releaseTime()}.apk"
+                outputFileName = "SC_v${defaultConfig.versionName}_${buildType.name}_${releaseTime()}.apk"
             }
+    }
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.kaiwukj.android.communityhui.greendao.gen'
+        targetGenDir 'src/main/java'
     }
 }
 
@@ -135,11 +154,15 @@ dependencies {
     releaseImplementation rootProject.ext.dependencies["canary-release"]
     testImplementation rootProject.ext.dependencies["canary-release"]
     /*环信*/
-    implementation 'com.google.android.gms:play-services-base:11.4.0'
-    implementation 'com.google.firebase:firebase-messaging:11.4.0'
-    api 'com.hyphenate:hyphenate-sdk:3.6.1'
-    implementation 'com.parse:parse-android:1.13.1'
-    /*环信*/
+    implementation rootProject.ext.dependencies["google-gms"]
+    implementation rootProject.ext.dependencies["google-firebase"]
+    implementation rootProject.ext.dependencies["parse"]
+    api rootProject.ext.dependencies["hx-sdk"]
     implementation project(path: ':easeui')
-    implementation 'com.j256.ormlite:ormlite-android:5.0'
+    implementation rootProject.ext.dependencies["j256"]
+    /*极光推送服务*/
+    implementation rootProject.ext.dependencies["jpush"]
+
+    implementation rootProject.ext.dependencies["jcore"]
+    implementation rootProject.ext.dependencies["greendao"]
 }

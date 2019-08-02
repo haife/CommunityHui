@@ -56,7 +56,6 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
     @BindView(R.id.view_pager_chat_message_container)
     ViewPager mChatPagerContainer;
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
-    private ChatListFragment mChatListFragment;
 
     public static ChatMessageFragment newInstance() {
         Bundle args = new Bundle();
@@ -88,6 +87,7 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
     public void initData(@Nullable Bundle savedInstanceState) {
         List<String> magicIndicatorContentList = new ArrayList<>();
         magicIndicatorContentList.add("消息");
+        magicIndicatorContentList.add("通知");
         initMagicIndicatorView(magicIndicatorContentList);
     }
 
@@ -125,14 +125,13 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
             }
         });
 
-        mChatListFragment = ChatListFragment.newInstance();
-        mHomeFragmentList.add(mChatListFragment);
+        mHomeFragmentList.add(ChatListFragment.newInstance());
+        mHomeFragmentList.add(PushMessageListFragment.newInstance());
         mChatMagicIndicator.setNavigator(mMIndicatorNavigator);
         ViewPagerHelper.bind(mChatMagicIndicator, mChatPagerContainer);
         HomeViewPagerAdapter homeViewPagerAdapter = new HomeViewPagerAdapter(getChildFragmentManager(), mHomeFragmentList);
         mChatPagerContainer.setAdapter(homeViewPagerAdapter);
     }
-
 
 
     @Override

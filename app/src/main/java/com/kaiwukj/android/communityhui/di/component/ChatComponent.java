@@ -5,6 +5,7 @@ import com.kaiwukj.android.communityhui.mvp.contract.ChatContract;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.ChatActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatListFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.PushMessageListFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.kaiwukj.android.mcas.di.scope.ActivityScope;
 
@@ -18,6 +19,7 @@ public interface ChatComponent {
     void inject(ChatActivity activity);
     void inject(ChatListFragment fragment);
     void inject(ChatMessageFragment fragment);
+    void inject(PushMessageListFragment fragment);
 
     @Component.Builder
     interface Builder {

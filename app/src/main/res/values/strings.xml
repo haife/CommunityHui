@@ -177,7 +177,7 @@
     <string name="mine_address_title">我的地址</string>
     <string name="edit_mine_address_name">姓名</string>
     <string name="edit_mine_address_phone">手机号</string>
-    <string name="edit_mine_address_num">楼房-门牌号</string>
+    <string name="edit_mine_address_num">详细地址</string>
     <string name="edit_mine_address_detail">服务地址</string>
     <string name="edit_mine_address_name_hint">请输入姓名</string>
     <string name="edit_mine_address_phone_hint">请输入手机号</string>

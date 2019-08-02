@@ -66,7 +66,6 @@ public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActi
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O && isTranslucentOrFloating()) {
             fixOrientation();
         }
-
         mContext = this;
         mDelegate.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);

@@ -21,7 +21,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_18"
         android:background="@color/window_background_color">
 
         <ImageView
@@ -93,7 +93,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_12"
-
                 android:textSize="@dimen/sp_16"/>
 
             <TextView

@@ -213,15 +213,15 @@ public class DemoHelper {
 
         /**
          * NOTE:你需要设置自己申请的账号来使用三方推送功能，详见集成文档
+         * FCM ViVo
          */
         EMPushConfig.Builder builder = new EMPushConfig.Builder(context);
         builder.enableVivoPush() // 需要在AndroidManifest.xml中配置appId和appKey
-                .enableMeiZuPush("118654", "eaf530ff717f479cab93714d45972ff6")
-                .enableMiPush("2882303761517426801", "5381742660801")
-                .enableOppoPush("65872dc4c26a446a8f29014f758c8272",
-                        "9385ae4308d64b36bf82bc4d73c4369d")
-                .enableHWPush() // 需要在AndroidManifest.xml中配置appId
-                .enableFCM("921300338324");
+                .enableMiPush("2882303761518091620", "5111809163620")
+                .enableOppoPush("cd26f8e66fe94da98f5b7c1dcdf173a5",
+                        "43ea6042f6134e499cbbf37124395341")
+                .enableHWPush()
+                .enableFCM("30157294");
         options.setPushConfig(builder.build());
 
         //set custom servers, commonly used in private deployment

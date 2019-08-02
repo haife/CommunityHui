@@ -268,7 +268,7 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 .setContentTextSize(16)
                 .setSubmitColor(ContextCompat.getColor(context!!, R.color.app_color_theme))
                 .setCancelColor(ContextCompat.getColor(context!!, R.color.common_text_slight_color))
-                .setSelectOptions(13, 1, 1)
+                .setSelectOptions(13, 0, 0)
                 .setLineSpacingMultiplier(2.0f)
 
                 .build<Any>().also {
@@ -278,7 +278,6 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     private fun initJsonData() {//解析数据
-
         /**
          * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
          * 关键逻辑在于循环体

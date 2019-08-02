@@ -3,6 +3,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.kaiwukj.android.communityhui">
 
+
+    <!--极光推送权限-->
+    <permission
+        android:name="com.kaiwukj.android.communityhui.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -20,6 +25,43 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- 悬浮窗权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+
+    <!-- 魅族推送配置 start-->
+    <!-- 兼容 flyme5.0 以下版本，魅族内部集成 pushSDK 必填，不然无法收到消息-->
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
+    <permission
+        android:name="${applicationId}.push.permission.MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.push.permission.MESSAGE" />
+    <!-- 兼容 flyme3.0 配置权限-->
+    <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
+    <permission
+        android:name="${applicationId}.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
+    <!-- 魅族推送配置 end-->
+
+    <!-- Oppo推送配置 start -->
+    <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE"/>
+    <!-- Oppo推送配置 end -->
+
+    <!-- Mi推送配置 start -->
+    <permission
+        android:name="${applicationId}.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
+    <!-- Mi推送配置 end -->
+
+
 
     <application
         android:name="com.kaiwukj.android.mcas.base.BaseApplication"
@@ -56,8 +98,7 @@
             android:name=".app.base.BootScreenActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/BootScreenTheme"
-            >
+            android:theme="@style/BootScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -112,7 +153,6 @@
             android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/horizontal_slide"/>
-
         <activity
             android:name=".mvp.ui.activity.SocialCircleActivity"
             android:screenOrientation="portrait"
@@ -144,6 +184,142 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false"/>
+        <!--推送-->
+
+        <!--推送配置项-->
+        <!-- VIVO推送配置 start -->
+        <service
+            android:name="com.vivo.push.sdk.service.CommandClientService"
+            android:exported="true" />
+        <activity
+            android:name="com.vivo.push.sdk.LinkProxyClientActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--推送配置项-->
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="0cb2103e-eb1e-4dfc-b746-1b4e1661582b" />
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="14154" />
+
+        <receiver android:name="com.hyphenate.push.platform.vivo.EMVivoMsgReceiver" >
+            <intent-filter>
+                <!-- 接收 push 消息 -->
+                <action android:name="com.vivo.pushclient.action.RECEIVE" />
+            </intent-filter>
+        </receiver>
+        <!-- VIVO推送配置 end -->
+
+        <!-- MEIZU推送配置 start -->
+      <!--  <receiver android:name="com.hyphenate.push.platform.meizu.EMMzMsgReceiver">
+            <intent-filter>
+                &lt;!&ndash; 接收 push 消息 &ndash;&gt;
+                <action android:name="com.meizu.flyme.push.intent.MESSAGE"
+                    />
+                &lt;!&ndash; 接收 register 消息 &ndash;&gt;
+                <action
+                    android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />
+                &lt;!&ndash; 接收 unregister 消息&ndash;&gt;
+                <action
+                    android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>
+                &lt;!&ndash; 兼容低版本 Flyme3 推送服务配置 &ndash;&gt;
+                <action android:name="com.meizu.c2dm.intent.REGISTRATION"
+                    />
+                <action android:name="com.meizu.c2dm.intent.RECEIVE" />
+                <category android:name="${applicationId}"></category>
+            </intent-filter>
+        </receiver>-->
+        <!-- MEIZU推送配置 end -->
+
+        <!-- Oppo推送配置 start -->
+        <service
+            android:name="com.coloros.mcssdk.PushService"
+            android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
+            <intent-filter>
+                <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE" />
+            </intent-filter>
+        </service>
+        <!-- Oppo推送配置 end -->
+
+        <!-- Mi推送配置 start -->
+        <service
+            android:name="com.xiaomi.push.service.XMPushService"
+            android:enabled="true"
+            android:process=":pushservice" />
+
+        <service
+            android:name="com.xiaomi.push.service.XMJobService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":pushservice" /> <!--注：此service必须在3.0.1版本以后（包括3.0.1版本）加入-->
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.PushMessageHandler"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name="com.xiaomi.mipush.sdk.MessageHandleService"
+            android:enabled="true" /> <!--注：此service必须在2.2.5版本以后（包括2.2.5版本）加入-->
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.xiaomi.push.service.receivers.PingReceiver"
+            android:exported="false"
+            android:process=":pushservice">
+
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
+            </intent-filter>
+
+        </receiver>
+
+        <receiver android:name="com.hyphenate.push.platform.mi.EMMiMsgReceiver">
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.xiaomi.mipush.ERROR" />
+            </intent-filter>
+        </receiver>
+        <!-- Mi推送配置 end-->
+
+        <!--极光推送start-->
+        <!-- 注册继承JCommonService的服务 -->
+        <service android:name=".jpush.MJService"
+                 android:enabled="true"
+                 android:exported="false"
+                 android:process=":pushcore">
+            <intent-filter>
+                <action android:name="cn.jiguang.user.service.action" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.kaiwukj.android.communityhui.jpush.MyPushReceiver"
+            android:enabled="true"
+            android:exported="false"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.kaiwu.shopmanagerment" /> <!--JPush上注册的包名 -->
+            </intent-filter>
+        </receiver>
+        <!--极光推送end-->
     </application>
 
 </manifest>

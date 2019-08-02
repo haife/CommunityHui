@@ -26,6 +26,7 @@ import com.squareup.leakcanary.RefWatcher;
 import java.lang.reflect.Field;
 
 import androidx.multidex.MultiDex;
+import cn.jpush.android.api.JPushInterface;
 import me.jessyan.autosize.AutoSizeConfig;
 import me.jessyan.autosize.unit.Subunits;
 import timber.log.Timber;
@@ -77,6 +78,9 @@ public class AppLifecyclesImpl implements AppLifecycles {
 //                    // Bugtags.sendException(e);
 //                })
 //                .install();
+        //极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(application);
 
         DemoHelper.getInstance().init(application);
         //图片选择器

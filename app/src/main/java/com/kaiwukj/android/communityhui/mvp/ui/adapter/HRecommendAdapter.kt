@@ -133,6 +133,7 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
      */
     private fun initRecycle(recyclerView: RecyclerView, childAdapter: HRecommendChildAdapter) {
         val horizontalLM = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = horizontalLM
         recyclerView.onFlingListener = null
         FixLinearSnapHelper().attachToRecyclerView(recyclerView)
