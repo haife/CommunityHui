@@ -14,6 +14,7 @@
         app:layout_scrollFlags="scroll"
         app:qmui_layout_collapseMode="pin"
         app:qmui_topbar_bg_color="@color/qmui_config_color_white"
+        app:qmui_topbar_text_btn_color_state_list = "@color/app_color_theme"
         app:qmui_topbar_left_back_drawable_id="@mipmap/icon_tool_bar_left_back"
         app:qmui_topbar_need_separator="true"/>
 

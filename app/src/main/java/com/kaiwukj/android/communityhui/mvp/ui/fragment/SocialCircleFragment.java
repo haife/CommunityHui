@@ -210,6 +210,10 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void showLoading() {
+        if (mHotList.size() == 0) {
+            mHotContainer.setVisibility(View.GONE);
+            return;
+        }
         //圈子热门帖子滚动数据
         for (int i = 0; i < mHotList.size(); i++) {
             RelativeLayout itemView = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.custom_social_circle_hot_item, null);

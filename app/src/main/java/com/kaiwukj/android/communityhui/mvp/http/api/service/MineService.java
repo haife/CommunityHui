@@ -34,10 +34,16 @@ public interface MineService {
     Observable<BaseStatusResult> upDateMyAddress(@Body RequestBody body);
 
     /**
-     * 新增
+     * 新增地址
      */
     @POST("/app/sc/uaddress/save")
     Observable<BaseStatusResult> addMineAddress(@Body RequestBody body);
+
+    /**
+     * 删除地址
+     */
+    @GET("/app/sc/uaddress/delete/{id}")
+    Observable<BaseStatusResult> deleteMineAddress(@Path("id") int id);
 
 
     /**
@@ -49,8 +55,8 @@ public interface MineService {
     /**
      * 取消收藏
      */
-    @GET("/app/sc/favorite/deletefavorite/{id}")
-    Observable<BaseStatusResult> moveCollectionRequest(@Path("id") int id);
+    @POST("/app/sc/favorite/deletefavorite")
+    Observable<BaseStatusResult> moveCollectionRequest(@Body RequestBody body);
 
     /**
      * 用户信息
@@ -75,6 +81,18 @@ public interface MineService {
      */
     @POST("/app/sc/favorite/favourByTypePage")
     Observable<MineCollectionResult> getMineCollectionData(@Body RequestBody body);
+
+    /**
+     * 取消订单
+     */
+    @GET("/app/sc/userOrder/orderCancel/{orderId}")
+    Observable<BaseStatusResult> requestCancelMineOrderData(@Path("orderId") int orderId);
+
+    /**
+     * 评价订单
+     */
+    @GET("/app/sc/userOrder/orderComment")
+    Observable<BaseStatusResult> requestCommentOrderData(@Body RequestBody body);
 
 
     /**

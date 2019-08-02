@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +12,14 @@ import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderCommentRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_evaluate_service.*
 
 /**
@@ -29,6 +32,11 @@ import kotlinx.android.synthetic.main.fragment_evaluate_service.*
  */
 class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
     lateinit var orderData: OrderListResult
+    lateinit var commentRequest: OrderCommentRequest
+    private var professionStarSize: Int = 0
+    private var attitudeStarSize: Int = 0
+    private var chatStarSize: Int = 0
+    private var ethicsStarSize: Int = 0
 
     companion object {
         fun newInstance(orderData: OrderListResult): EvaluateServiceFragment {
@@ -52,11 +60,27 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        commentRequest = OrderCommentRequest()
         tv_user_nick_name.text = orderData.realName
         context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(qiv_user_profile_photo) }
-
         qbtn_order_detail_bottom.setOnClickListener {
-            activity?.finish()
+            commentRequest.orderId = orderData.orderId
+            commentRequest.content = et_service_order_comment_content.text.toString()
+            commentRequest.score = ((professionStarSize + attitudeStarSize + chatStarSize + ethicsStarSize) / 4)
+            mPresenter?.requestCommentOrderData(commentRequest)
+        }
+
+        rating_bar_profession.setOnRatingChangeListener {
+            professionStarSize = it.toInt()
+        }
+        rating_bar_attitude.setOnRatingChangeListener {
+            attitudeStarSize = it.toInt()
+        }
+        rating_order_chat.setOnRatingChangeListener {
+            chatStarSize = it.toInt()
+        }
+        rating_order_ethics.setOnRatingChangeListener {
+            ethicsStarSize = it.toInt()
         }
     }
 
@@ -84,6 +108,14 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
     }
 
     override fun showMessage(message: String) {
+        val dialog: QMUITipDialog = QMUITipDialog.Builder(context).setTipWord(message).create()
+        dialog.setTitle(message)
+        dialog.show()
+        Handler().postDelayed({
+            dialog.dismiss()
+            activity?.finish()
+        }, 800)
+
     }
 
     override fun launchActivity(intent: Intent) {

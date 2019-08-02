@@ -66,13 +66,16 @@ class StoreDetailFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContra
         val requestCollection = mShopId?.let { CollectionRequest(it, mTypeId) }
 
         cb_store_detail_header_address.setOnCheckedChangeListener { compoundButton, b ->
-            if (b) {
-                if (requestCollection != null) {
+
+            requestCollection?.let {
+                if (b) {
                     mPresenter?.requestAddCollection(requestCollection)
+                } else {
+                    mPresenter?.requestMoveCollection(requestCollection)
                 }
-            } else {
-                mShopId?.let { mPresenter?.requestMoveCollection(it) }
             }
+
+
         }
     }
 

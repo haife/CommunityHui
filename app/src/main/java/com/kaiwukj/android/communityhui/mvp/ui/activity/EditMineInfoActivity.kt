@@ -70,6 +70,7 @@ class EditMineInfoActivity : BaseSwipeBackActivity<EditMineInfoPresenter>(), Edi
                 loadRootFragment(R.id.fl_edit_mine_info_container, PersonHomePageFragment.newInstance(mUserInfo))
             }
             MineAddressListFragment.MINE_ADDRESS_LIST_FRAGMENT -> {
+                qtb_edit_mine_info.addLeftBackImageButton().setOnClickListener { killMyself() }
                 loadRootFragment(R.id.fl_edit_mine_info_container, MineAddressListFragment.newInstance(false))
             }
             SettingFragment.SETTING_FRAGMENT -> {

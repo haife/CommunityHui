@@ -23,8 +23,8 @@
         android:id="@+id/tv_mine_address_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
         android:layout_alignBottom="@+id/iv_mine_address_edit"
+        android:layout_marginTop="@dimen/dp_16"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_15"
         />
@@ -43,8 +43,18 @@
         android:id="@+id/iv_mine_address_edit"
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_toLeftOf="@+id/iv_mine_address_delete"
+        android:scaleType="centerInside"
+        android:src="@mipmap/icon_input_text_evaluate"/>
+
+    <ImageView
+        android:id="@+id/iv_mine_address_delete"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:scaleType="centerInside"
-        android:src="@mipmap/icon_input_text_evaluate"/>
+        android:src="@drawable/ic_address_list_delete"/>
 </RelativeLayout>

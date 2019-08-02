@@ -49,7 +49,6 @@ import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-
 /**
  * Copyright © KaiWu Technology Company
  *
@@ -135,7 +134,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, hxName);
-//                intent.putExtra(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mTitleName);
+                intent.putExtra(Constant.EXTRA_USER_NAME, mTitleName);
                 startActivity(intent);
             }
 
@@ -163,7 +162,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         mSendMessage.setEnabled(true);
         isCollection = result.isFocusedStatus();
         hxName = result.getHxName();
-        mTitleName = result.getHxName();
+        mTitleName = result.getNickName();
         GlideArms.with(getContext()).load(result.getHeadImg()).centerCrop().into(mHeadIv);
         mNameTv.setText(result.getNickName());
         mSignTv.setText(result.getPerSign());

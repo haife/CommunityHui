@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.mvp.ui.activity.LoginActivity
 import com.kaiwukj.android.communityhui.mvp.ui.activity.MainActivity
@@ -21,9 +20,7 @@ class BootScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_boot_screen)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
 
         Handler().postDelayed({
             val userCode = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN)

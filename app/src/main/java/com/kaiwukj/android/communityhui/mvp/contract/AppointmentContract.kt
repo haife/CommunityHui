@@ -42,6 +42,11 @@ interface AppointmentContract {
 
         //添加收藏
         fun requestAddCollection(request: CollectionRequest): Observable<BaseStatusResult>
+
+        //取消收藏
+        fun requestMoveCollection(request: CollectionRequest): Observable<BaseStatusResult>
+
+
     }
 
 }

@@ -241,18 +241,18 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                     @Override
                     public void onNext(CircleCardCommentResult result) {
                         if (result.getCode().equals(Api.RequestSuccess)) {
-                            if (page > 1 && result.getResult().getList().size() == 0) {
-                                //加载完全部数据
-                                mRootView.finishLoadMore(true);
-                            } else if (page == 1 && result.getResult().getList().size() == 0) {
-                                mRootView.finishLoadMore(true);
-                            } else {
-                                mRootView.finishLoadMore(false);
-                            }
-
+                            //加载完全部数据
+                            mRootView.finishLoadMore(page >= 1 && result.getResult().getList().size() == 0);
                             mCommentListList.addAll(result.getResult().getList());
                             mCommentAdapter.notifyDataSetChanged();
+                        } else {
+                            mRootView.finishLoadMore(false);
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        mRootView.finishLoadMore(false);
                     }
                 });
     }

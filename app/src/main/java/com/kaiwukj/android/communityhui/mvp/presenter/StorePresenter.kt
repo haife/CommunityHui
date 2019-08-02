@@ -131,18 +131,17 @@ constructor(model: StoreContract.Model, rootView: StoreContract.View) :
                     override fun onNext(data: BaseStatusResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.showMessage(data.desc)
-                        } else {
                         }
                     }
                 })
     }
 
     /**
-     * 添加收藏
+     * 删除收藏
      * @param request StoreListRequest
      */
-    fun requestMoveCollection(id: Int) {
-        mModel.requestMoveCollection(id)
+    fun requestMoveCollection(request: CollectionRequest) {
+        mModel.requestMoveCollection(request)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())

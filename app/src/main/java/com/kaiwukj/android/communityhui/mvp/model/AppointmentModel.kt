@@ -91,5 +91,17 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .flatMap { it }
     }
 
+    /**
+     * 取消收藏
+     * @param id Int
+     * @return Observable<BaseStatusResult>
+     */
+    override fun requestMoveCollection(request: CollectionRequest): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .moveCollectionRequest(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+
+
 
 }

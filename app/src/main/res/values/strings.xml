@@ -95,6 +95,7 @@
     <!--门店-->
     <string name="store_look_detail_desc">查看详情</string>
     <string name="store_collect_desc">收藏</string>
+    <string name="store_collect_had_desc">已收藏</string>
     <string name="store_title">门店</string>
     <string name="store_detail_title">门店详情</string>
     <string name="store_business_qualification">营业资质</string>
@@ -130,6 +131,8 @@
     <string name="mine_person_sign">签名</string>
     <string name="mine_person_birthday">生日</string>
     <string name="mine_person_phone">电话</string>
+    <string name="mine_address_edit_success">编辑成功</string>
+    <string name="mine_address_delete_success">删除成功</string>
     <!--我的-->
     <!--服务订单-->
     <string name="service_order_title">服务订单</string>
@@ -138,6 +141,7 @@
     <string name="service_order_comment_right_now">立即评价</string>
     <string name="service_order_comment_cancel_order">取消订单</string>
     <string name="subordinate_the_stores">所属门店</string>
+    <string name="stores_comment">门店评价：  %s</string>
 
     <string name="order_stores_phone">门店电话</string>
     <string name="order_stores_wait">待服务</string>
@@ -232,6 +236,12 @@
     <string name="user_info_save">保存</string>
     <string name="user_info_no_setting">未设置</string>
     <string name="card_comment_floor_home">楼主</string>
+    <string name="appoint_has_identify">已认证</string>
+    <string name="appoint_no_identify">未认证</string>
+    <string name="order_cancel_success">订单已取消</string>
     <!--社交圈子-->
-
+    <!--环信-->
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
+    <string name="at_your_in_group">%s在群聊中@了你</string>
+    <!--环信-->
 </resources>

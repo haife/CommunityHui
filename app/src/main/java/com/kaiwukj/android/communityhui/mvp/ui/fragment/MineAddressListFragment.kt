@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.EditMineInfoPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.MyAddressAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.qmuiteam.qmui.widget.QMUITopBar
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_mine_address_list.*
 import me.yokeyword.fragmentation.ISupportFragment
 
@@ -65,17 +67,6 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
-        if (isChoiceAddress) {
-            qtb_mine_address_list.visibility = View.VISIBLE
-            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
-            qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
-        } else {
-            qtb_mine_address_list.visibility = View.GONE
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { activity?.onBackPressed() }
-        }
-
         mPresenter?.requestMyAddress()
         rv_mine_address_list.layoutManager = LinearLayoutManager(context)
         rv_mine_address_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
@@ -88,6 +79,10 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
                 R.id.iv_mine_address_edit -> {
                     val address: MyAddressResult = mAddressList[position]
                     startForResult(EditMineAddressFragment.newInstance(address), REQUEST_CODE_EDIT_ADDRESS)
+                }
+                R.id.iv_mine_address_delete -> {
+                    mPresenter?.deleteMyAddress(mAddressList[position].id)
+                    mAddressList.removeAt(position)
                 }
             }
         }
@@ -103,6 +98,18 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
 
         qbtn_add_address.setOnClickListener {
             startForResult(EditMineAddressFragment.newInstance(MyAddressResult()), REQUEST_CODE_EDIT_ADDRESS)
+        }
+
+    }
+
+    override fun onSupportVisible() {
+        if (isChoiceAddress) {
+            qtb_mine_address_list.visibility = View.VISIBLE
+            qtb_mine_address_list.setTitle(getString(R.string.mine_address_title))
+            qtb_mine_address_list.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
+        } else {
+            qtb_mine_address_list.visibility = View.GONE
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.mine_address_title))
         }
 
     }
@@ -125,7 +132,16 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
     }
 
     override fun showLoading() {
-
+        //删除成功
+        val tipDialog = QMUITipDialog.Builder(context)
+                .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
+                .setTipWord(getString(R.string.mine_address_delete_success))
+                .create()
+        tipDialog.show()
+        Handler().postDelayed({
+            mAddressAdapter.notifyDataSetChanged()
+            tipDialog?.dismiss()
+        }, 800)
     }
 
     override fun hideLoading() {

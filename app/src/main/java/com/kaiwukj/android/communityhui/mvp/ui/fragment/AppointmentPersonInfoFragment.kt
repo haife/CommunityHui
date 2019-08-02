@@ -3,6 +3,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.AppointmentCommentAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_appointment_person_information.*
 import kotlinx.android.synthetic.main.include_person_information_header.*
 import kotlinx.android.synthetic.main.include_person_others_info.*
@@ -44,6 +46,8 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private lateinit var mStoreListAdapter: AppointmentCommentAdapter
     private var commentList = ArrayList<StaffCommentResult>()
     private var page = 1
+    private lateinit var dialog: QMUITipDialog
+    private var mResult: StaffInfoResult = StaffInfoResult()
 
     companion object {
         const val APPOINTMENT_PERSON_INFO_FRAGMENT = "APPOINTMENT_PERSON_INFO_FRAGMENT"
@@ -54,7 +58,6 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
             return fragment
         }
     }
-
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerAppointmentComponent
@@ -101,27 +104,32 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
      * @param result StaffInfoResult
      */
     override fun onGetStaffDetailInfo(result: StaffInfoResult) {
-        val result: StaffInfoResult = result.result
-        shopId = result.hmstoreId
-        GlideArms.with(context!!).load(Api.IMG_URL + result.avatar).circleCrop().centerCrop().into(riv_person_info_photo)
-        tv_riv_person_info_name.text = result.realName
-        tv_riv_person_info_message.text = String.format(getString(R.string.home_format_staff_message), result.worktime, result.age, result.nativePlace)
-        tv_riv_person_info_gender.text = String.format(getString(R.string.home_format_staff_info_gender), result.avgScore)
-        tv_riv_person_info_below_belong_shops.text = result.storeName
-        tv_person_info_work_time.text = String.format(getString(R.string.home_format_staff_info_work_time), result.worktime)
-        tv_person_info_shop_comment.text = result.evaluate
-        if (result.imgList.isNotEmpty()) {
-            tv_person_qualification.text = "已认证"
+        mResult = result.result
+        initTobBarClick()
+        initLayoutData()
+    }
+
+    private fun initLayoutData() {
+        shopId = mResult.hmstoreId
+        GlideArms.with(context!!).load(Api.IMG_URL + mResult.avatar).circleCrop().centerCrop().into(riv_person_info_photo)
+        tv_riv_person_info_name.text = mResult.realName
+        tv_riv_person_info_message.text = String.format(getString(R.string.home_format_staff_message), mResult.worktime, mResult.age, mResult.nativePlace)
+        tv_riv_person_info_gender.text = String.format(getString(R.string.home_format_staff_info_gender), mResult.avgScore)
+        tv_riv_person_info_below_belong_shops.text = mResult.storeName
+        tv_person_info_work_time.text = String.format(getString(R.string.home_format_staff_info_work_time), mResult.worktime)
+        tv_person_info_shop_comment.text = String.format(getString(R.string.stores_comment), mResult.evaluate)
+        if (mResult.imgList.isNotEmpty()) {
+            tv_person_qualification.text = getString(R.string.appoint_has_identify)
         } else {
-            tv_person_qualification.text = "未认证"
+            tv_person_qualification.text = getString(R.string.appoint_no_identify)
         }
         //评论列表
-        if (result.empCommentList.isNotEmpty()) {
-            commentList.addAll(result.empCommentList)
+        if (mResult.empCommentList.isNotEmpty()) {
+            commentList.addAll(mResult.empCommentList)
         }
         //服务价格
-        if (result.empTypeList.isNotEmpty()) {
-            for (index in result.empTypeList) {
+        if (mResult.empTypeList.isNotEmpty()) {
+            for (index in mResult.empTypeList) {
                 val lp = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
                 lp.setMargins(0, 15, 0, 15)
                 var itemView = LayoutInflater.from(context).inflate(R.layout.include_person_infor_staff_service_price, null)
@@ -133,23 +141,37 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
                 ll_peron_other_info_service_price.addView(itemView)
             }
         }
-
-        if (result.empTagList.isNotEmpty()) {
-            ll_person_tags_info_container.setLabels(result.empTagList)
+        if (mResult.empTagList.isNotEmpty()) {
+            ll_person_tags_info_container.setLabels(mResult.empTagList)
         }
+    }
 
+    private fun initTobBarClick() {
+        when (mResult.favoriteFlag) {
+            1 -> {
+                qtb_appointment_person_info.addRightTextButton(getString(R.string.store_collect_had_desc), R.id.qmui_top_right_btn).setOnClickListener {
+                    //收藏服务人员
+                    userId?.let {
+                        mPresenter?.requestMoveCollection(it)
+                    }
+                }
+            }
+            0 -> {
+                qtb_appointment_person_info.addRightTextButton(getString(R.string.store_collect_desc), R.id.qmui_top_right_btn).setOnClickListener {
+                    //收藏服务人员
+                    userId?.let {
+                        mPresenter?.requestAddCollection(it)
+                    }
+                }
+            }
+        }
     }
 
     private fun initTopBar() {
         qtb_appointment_person_info.setTitle(getString(com.kaiwukj.android.communityhui.R.string.appointment_staff_info_detail))
         qtb_appointment_person_info.addLeftBackImageButton().setOnClickListener { killMyself() }
-        qtb_appointment_person_info.addRightTextButton(getString(R.string.store_collect_desc), R.id.qmui_top_right_btn).setOnClickListener {
-            //收藏服务人员
-            userId?.let {
-                mPresenter?.requestAddCollection(it)
-            }
-        }
     }
+
     /**
      * 获取到评论信息
      * @param result StaffCommentResult
@@ -175,6 +197,18 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     }
 
     override fun showMessage(message: String) {
+        dialog = QMUITipDialog.Builder(context).setTipWord(message).create()
+        dialog.setTitle(message)
+        dialog.show()
+        Handler().postDelayed({ dialog.dismiss() }, 800)
+        if (message == getString(R.string.store_collect_had_desc)) {
+            mResult.favoriteFlag = 1
+            initTobBarClick()
+
+        } else if (message == getString(R.string.social_circle_cancel_attention_hint)) {
+            mResult.favoriteFlag = 0
+            initTobBarClick()
+        }
     }
 
     override fun launchActivity(intent: Intent) {

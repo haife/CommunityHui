@@ -5,7 +5,7 @@
               android:layout_height="wrap_content"
               android:background="@color/write_color"
               android:orientation="vertical"
-              android:paddingTop="@dimen/dp_20">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -18,7 +18,8 @@
             android:layout_marginLeft="@dimen/dp_16"
             android:text="@string/appointment_staff_info_aptitudes_detail"
             android:textColor="@color/common_text_dark_color"
-            android:textSize="@dimen/sp_15"/>
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_person_qualification"
@@ -45,7 +46,8 @@
         android:layout_marginTop="@dimen/dp_20"
         android:text="@string/appointment_staff_work_info_detail"
         android:textColor="@color/common_text_dark_color"
-        android:textSize="@dimen/sp_15"/>
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

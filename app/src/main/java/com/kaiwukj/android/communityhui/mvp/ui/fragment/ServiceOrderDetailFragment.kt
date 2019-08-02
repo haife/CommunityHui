@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePag
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_service_order_detail.*
 import kotlinx.android.synthetic.main.include_order_detail_header.*
 
@@ -29,7 +31,6 @@ import kotlinx.android.synthetic.main.include_order_detail_header.*
  * @desc 服务订单详情
  */
 class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
-
     lateinit var orderData: OrderListResult
     var mServiceTypeId: Int = 0
 
@@ -61,7 +62,6 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
     override fun initData(savedInstanceState: Bundle?) {
         initClick()
         initLayout()
-
     }
 
     private fun initLayout() {
@@ -90,6 +90,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
             }
             3 -> {
                 //签约中
+
             }
             4 -> {
                 //服务中
@@ -105,12 +106,13 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
     }
 
     private fun initClick() {
+        //评价订单
         qbtn_order_detail_bottom.setOnClickListener {
             start(EvaluateServiceFragment.newInstance(orderData))
         }
-
+        //取消
         qbtn_order_detail_cancel_order.setOnClickListener {
-
+            mPresenter?.requestCancelMineOrderData(orderData.orderId)
         }
     }
 
@@ -130,6 +132,12 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
     }
 
     override fun showMessage(message: String) {
+        //订单取消成功
+        qbtn_order_detail_cancel_order.visibility = View.GONE
+        val dialog: QMUITipDialog = QMUITipDialog.Builder(context).setTipWord(getString(R.string.order_cancel_success)).create()
+        dialog.setTitle(message)
+        dialog.show()
+        Handler().postDelayed({ dialog.dismiss() }, 800)
     }
 
     override fun launchActivity(intent: Intent) {

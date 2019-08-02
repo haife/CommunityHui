@@ -61,9 +61,9 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
      * @param id Int
      * @return Observable<BaseStatusResult>
      */
-    override fun requestMoveCollection(id: Int): Observable<BaseStatusResult> {
+    override fun requestMoveCollection(request: CollectionRequest): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
-                .moveCollectionRequest(id))
+                .moveCollectionRequest(getRequestBody(mGson.toJson(request))))
                 .flatMap { it }
     }
 

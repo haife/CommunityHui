@@ -3,11 +3,12 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.hyphenate.util.EasyUtils;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportActivity;
+import com.kaiwukj.android.communityhui.app.constant.Constant;
 import com.kaiwukj.android.communityhui.di.component.DaggerChatComponent;
+import com.kaiwukj.android.communityhui.hx.HxEaseChatFragment;
 import com.kaiwukj.android.communityhui.mvp.contract.ChatContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.ChatPresenter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
@@ -18,8 +19,10 @@ import androidx.annotation.Nullable;
 
 public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements ChatContract.View {
     public static ChatActivity activityInstance;
-    private EaseChatFragment chatFragment;
+    private HxEaseChatFragment chatFragment;
     String toChatUsername;
+    String toChatTitleName;
+
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerChatComponent
@@ -39,10 +42,11 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
     public void initData(@Nullable Bundle savedInstanceState) {
         activityInstance = this;
         //get user id or group id
-        toChatUsername = getIntent().getExtras().getString("userId");
+        toChatUsername = getIntent().getExtras().getString(Constant.EXTRA_USER_ID);
+        toChatTitleName = getIntent().getExtras().getString(Constant.EXTRA_USER_NAME);
         //use EaseChatFratFragment
 //        chatFragment = new HxEaseChatFragment();
-        chatFragment = new EaseChatFragment();
+        chatFragment = new HxEaseChatFragment();
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.container, chatFragment).commit();
@@ -80,10 +84,10 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
             startActivity(intent);
         }
     }
-    public String getToChatUsername(){
+
+    public String getToChatUsername() {
         return toChatUsername;
     }
-
 
 
     @Override

@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--圈子图文混排-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <com.qmuiteam.qmui.widget.QMUIEmptyView
-        android:id="@+id/qmui_empty_view_card_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"/>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart_refresh_card_detail"
@@ -163,7 +156,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/line_circle_comment"
-                    android:layout_marginTop="@dimen/dp_10">
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:nestedScrollingEnabled="false">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -173,7 +167,7 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.scwang.smartrefresh.layout.footer.FalsifyFooter
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -221,7 +215,11 @@
 
     </RelativeLayout>
 
-
+    <com.qmuiteam.qmui.widget.QMUIEmptyView
+        android:id="@+id/qmui_empty_view_card_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"/>
 </RelativeLayout>
 
 

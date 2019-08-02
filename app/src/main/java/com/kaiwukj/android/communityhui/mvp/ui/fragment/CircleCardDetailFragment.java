@@ -174,8 +174,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             mCommentOtherRequest.setContent(mCommentEt.getText().toString());
             assert mPresenter != null;
             mPresenter.requestCommentOther(mCommentOtherRequest);
-            mCommentListList.clear();
-            mPresenter.requestCommentList(mCardId, page);
+
         });
 
         //关注其他人
@@ -186,7 +185,12 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             } else {
                 mPresenter.requestAttentionOther(cardUserId);
             }
-
+        });
+        //分页评论
+        mSmartRefresh.setOnLoadMoreListener(refreshLayout -> {
+            page++;
+            assert mPresenter != null;
+            mPresenter.requestCommentList(mCardId, page);
         });
 
     }
@@ -270,10 +274,10 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             isCollection = false;
             mCollection.setText(getString(R.string.social_circle_attention_str));
         } else {
+
             assert mPresenter != null;
             mCommentListList.clear();
-            mCommentAdapter.notifyDataSetChanged();
-            mPresenter.requestSocialCardDetail(mCardId);
+            mPresenter.requestCommentList(mCardId, page);
         }
     }
 

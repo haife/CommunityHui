@@ -3,13 +3,13 @@ package com.kaiwukj.android.communityhui.app.impl;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.location.LocationManager;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.EaseUI;
 import com.kaiwukj.android.communityhui.BuildConfig;
+import com.kaiwukj.android.communityhui.hx.DemoHelper;
 import com.kaiwukj.android.communityhui.utils.ImagePickerLoad;
 import com.kaiwukj.android.communityhui.utils.NineGridImageLoader;
 import com.kaiwukj.android.mcas.base.delegate.AppLifecycles;
@@ -43,19 +43,6 @@ import static me.jessyan.autosize.utils.LogUtils.isDebug;
  */
 public class AppLifecyclesImpl implements AppLifecycles {
     private RefWatcher mRefWatcher;
-    private LocationManager mLocationManager;
-    /**
-     * 屏幕宽度
-     */
-    public static int screenWidth;
-    /**
-     * 屏幕高度
-     */
-    public static int screenHeight;
-    /**
-     * 屏幕密度
-     */
-    public static float screenDensity;
 
     @Override
     public void attachBaseContext(Context base) {
@@ -91,6 +78,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
 //                })
 //                .install();
 
+        DemoHelper.getInstance().init(application);
         //图片选择器
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new ImagePickerLoad());

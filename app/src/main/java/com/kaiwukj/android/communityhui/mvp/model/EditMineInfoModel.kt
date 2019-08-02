@@ -85,6 +85,13 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .flatMap { it }
     }
 
+    override fun deleteMyAddress(addressId: Int): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .deleteMineAddress(addressId))
+                .flatMap { it }
+    }
+
+
     override fun requestQIToken(): Observable<BaseQITokenResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(CircleService::class.java)
                 .requestQiToken(getRequestBody(mGson.toJson(Any()))))

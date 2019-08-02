@@ -31,6 +31,7 @@ android {
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
+        flavorDimensions "versionCode"
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
@@ -41,7 +42,7 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "API_HOST", "\"http://172.168.1.112:8070\"")
+            buildConfigField("String", "API_HOST", "\"http://172.168.1.100:8070\"")
         }
 
         release {
@@ -55,6 +56,24 @@ android {
         }
     }
 
+    productFlavors {
+        app {
+            resValue "string", "name", "优家服"
+        }
+    }
+
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //这里修改apk文件名
+                outputFileName = "${productFlavors[0].name}_v${defaultConfig.versionName}_${buildType.name}_${releaseTime()}.apk"
+            }
+    }
+}
+
+static def releaseTime() {
+    return new Date().format("yyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
@@ -119,6 +138,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:11.4.0'
     implementation 'com.google.firebase:firebase-messaging:11.4.0'
     api 'com.hyphenate:hyphenate-sdk:3.6.1'
+    implementation 'com.parse:parse-android:1.13.1'
     /*环信*/
     implementation project(path: ':easeui')
     implementation 'com.j256.ormlite:ormlite-android:5.0'

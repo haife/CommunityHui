@@ -208,8 +208,7 @@
 
     <!--SwipeBackTheme-->
     <style name="SwipeBackStyle" parent="AppTheme">
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <!--Activity换动画-->

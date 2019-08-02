@@ -136,7 +136,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
                 }
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, username);
-//                intent.putExtra(Constant.EXTRA_USER_ID, username);
+                intent.putExtra(Constant.EXTRA_USER_NAME, username);
                 startActivity(intent);
             }
         });
@@ -155,6 +155,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
             handler.sendEmptyMessage(MSG_REFRESH);
         }
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -180,7 +181,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
         synchronized (conversations) {
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0) {
-                    sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                    sortList.add(new Pair<>(conversation.getLastMessage().getMsgTime(), conversation));
                 }
             }
         }
@@ -235,22 +236,9 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
     };
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        this.hidden = hidden;
-        if (!hidden && !isConflict) {
-            refresh();
-        }
+    public void onSupportVisible() {
+        refresh();
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!hidden) {
-            refresh();
-        }
-    }
-
 
     @Override
     public void onDestroy() {
@@ -265,7 +253,6 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
             outState.putBoolean("isConflict", true);
         }
     }
-
 
     /**
      * connected to server

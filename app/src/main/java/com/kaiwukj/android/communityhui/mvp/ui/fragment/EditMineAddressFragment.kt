@@ -137,21 +137,15 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
             } else {
                 //新增地址
                 mPresenter?.addMyAddress(myAddressResult)
+                if (isFromToAppointment) {
+
+                }
             }
 
         }
     }
 
     private fun initClick() {
-        if (isFromToAppointment) {
-            qtb_mine_address.visibility = View.VISIBLE
-            qtb_mine_address.setTitle(getString(R.string.mine_address_title))
-            qtb_mine_address.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
-        } else {
-            qtb_mine_address.visibility = View.GONE
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
-            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.addLeftBackImageButton()?.setOnClickListener { activity?.onBackPressed() }
-        }
 
         ll_edit_address_detail.setOnClickListener {
             InputMethodUtils.hideSoftInput(it)
@@ -159,8 +153,16 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         }
     }
 
-    override fun onSupportVisible() {
 
+    override fun onSupportVisible() {
+        if (isFromToAppointment) {
+            qtb_mine_address.visibility = View.VISIBLE
+            qtb_mine_address.setTitle(getString(R.string.mine_address_title))
+            qtb_mine_address.addLeftBackImageButton().setOnClickListener { activity?.onBackPressed() }
+        } else {
+            qtb_mine_address.visibility = View.GONE
+            activity?.findViewById<QMUITopBar>(R.id.qtb_edit_mine_info)?.setTitle(getString(R.string.edit_mine_address))
+        }
     }
 
 
@@ -178,7 +180,7 @@ class EditMineAddressFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         //请求成功的回调函数
         val tipDialog = QMUITipDialog.Builder(context)
                 .setIconType(QMUITipDialog.Builder.ICON_TYPE_SUCCESS)
-                .setTipWord("编辑成功")
+                .setTipWord(getString(R.string.mine_address_edit_success))
                 .create()
 
         tipDialog.show()

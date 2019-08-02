@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.contract
 
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderCommentRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
@@ -32,6 +33,11 @@ interface MineContract {
         fun requestSocialHomePage(request: SocialUserHomePageRequest): Observable<SocialUserHomePageResult>
 
         fun requestMineOrderData(request: OrderListRequest): Observable<OrderListResult>
+        /*取消订单*/
+        fun requestCancelMineOrderData(orderId: Int): Observable<BaseStatusResult>
+
+        /*取消订单*/
+        fun requestCommentOrderData(request: OrderCommentRequest): Observable<BaseStatusResult>
 
         fun requestLoginOut(): Observable<BaseStatusResult>
     }

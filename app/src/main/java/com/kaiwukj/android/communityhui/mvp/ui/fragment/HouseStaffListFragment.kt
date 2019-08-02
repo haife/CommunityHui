@@ -25,7 +25,6 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.AppointmentPersonInfoFra
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import kotlinx.android.synthetic.main.fragment_house_staff_list.*
 
-
 /**
  * Copyright © KaiWu Technology Company
  * @author Haife
@@ -46,7 +45,6 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     //用来判断是选择阿姨的列表页面还是查看门店下阿姨
     //1:选择阿姨 2:门店阿姨
     private var mRequestType: Int? = null
-
     companion object {
         fun newInstance(bean: StoreListRequest?, requestType: Int?): HouseStaffListFragment {
             val fragment = HouseStaffListFragment()

@@ -1,5 +1,8 @@
 package com.kaiwukj.android.communityhui.app.base;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +20,9 @@ import com.kaiwukj.android.mcas.mvp.IPresenter;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 
 import org.simple.eventbus.Subscriber;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,7 +42,7 @@ import timber.log.Timber;
  * 展示自定制的MySupportFragment，不继承SupportFragment
  * 框架 Fragmentation
  */
-public abstract class   BaseSupportActivity<P extends IPresenter> extends BaseActivity<P> implements ISupportActivity {
+public abstract class BaseSupportActivity<P extends IPresenter> extends BaseActivity<P> implements ISupportActivity {
 
     final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
     public BaseSupportActivity mContext;
@@ -57,6 +63,10 @@ public abstract class   BaseSupportActivity<P extends IPresenter> extends BaseAc
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O && isTranslucentOrFloating()) {
+            fixOrientation();
+        }
+
         mContext = this;
         mDelegate.onCreate(savedInstanceState);
         ARouter.getInstance().inject(this);
@@ -214,6 +224,43 @@ public abstract class   BaseSupportActivity<P extends IPresenter> extends BaseAc
         return SupportHelper.findFragment(getSupportFragmentManager(), fragmentClass);
     }
 
+    private boolean isTranslucentOrFloating() {
+        boolean isTranslucentOrFloating = false;
+        try {
+            int[] styleableRes = (int[]) Class.forName("com.android.internal.R$styleable").getField("Window").get(null);
+            final TypedArray ta = obtainStyledAttributes(styleableRes);
+            Method m = ActivityInfo.class.getMethod("isTranslucentOrFloating", TypedArray.class);
+            m.setAccessible(true);
+            isTranslucentOrFloating = (boolean) m.invoke(null, ta);
+            m.setAccessible(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isTranslucentOrFloating;
+    }
+
+    @Override
+    public void setRequestedOrientation(int requestedOrientation) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O && isTranslucentOrFloating()) {
+            return;
+        }
+
+        super.setRequestedOrientation(requestedOrientation);
+    }
+
+    private boolean fixOrientation() {
+        try {
+            Field field = Activity.class.getDeclaredField("mActivityInfo");
+            field.setAccessible(true);
+            ActivityInfo o = (ActivityInfo) field.get(this);
+            o.screenOrientation = -1;
+            field.setAccessible(false);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      * 全透状态栏

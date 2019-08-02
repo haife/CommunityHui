@@ -27,16 +27,10 @@
     </style>
 
     <style name="BootScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/app_color_theme</item>
+        <item name="android:windowBackground">@drawable/common_launcher_background_image</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-
-    <style name="ToolBar">
-        <item name="android:background">@android:color/white</item>
-        <item name="android:height">@dimen/base_tool_bar_height</item>
-        <item name="navigationIcon">@drawable/ic_arrow_back_black_24dp</item>
-    </style>
 
     <style name="BaseRecycleViewStyle">
         <item name="android:scrollbars">none</item>
@@ -52,9 +46,8 @@
     </style>
 
     <!--SwipeBackTheme-->
-    <style name="SwipeBackStyle" parent="QMUI.Compat.NoActionBar">
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowDisablePreview">true</item>
+    <style name="SwipeBackStyle" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <!--QMUI STYLE-->
@@ -204,7 +197,6 @@
         <item name="qmui_dialog_menu_container_padding_bottom_when_action_exist">24dp</item>
     </style>
     <!--QMUI STYLE-->
-
 
 
 </resources>

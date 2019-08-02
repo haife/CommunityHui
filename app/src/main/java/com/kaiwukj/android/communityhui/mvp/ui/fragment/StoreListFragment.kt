@@ -42,8 +42,6 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
     @Inject
     lateinit var listData: ArrayList<StoreListResult>
     private var page = 1
-    private var refresh = false
-    private var loadMore = false
     override fun post(runnable: Runnable?) {
     }
 
@@ -80,15 +78,15 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
         }
         smart_store_list.setOnRefreshListener {
             page = 1
-            refresh = true
             it.setEnableLoadMore(false)
             mPresenter?.requestAllStoreRecommend(page)
+            smart_store_list.setEnableLoadMore(true)
         }
         smart_store_list.setOnLoadMoreListener {
             page++
-            loadMore = true
             it.setEnableRefresh(false)
             mPresenter?.requestAllStoreRecommend(page)
+            it.setEnableRefresh(true)
         }
     }
 
@@ -102,23 +100,20 @@ class StoreListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreContract
 
     override fun onGetStoreRecommend(list: StoreListResult) {
         //所有门店
-        if (refresh) {
+        if (page == 1) {
             listData.clear()
-            refresh = false
             smart_store_list.finishRefresh()
-            smart_store_list.setEnableLoadMore(true)
+            listData.addAll(list.result.list)
+        } else {
+            if (list.result.list.size > 0) {
+                listData.addAll(list.result.list)
+                smart_store_list.finishLoadMore()
+                smart_store_list.finishLoadMoreWithNoMoreData()
+            } else {
+                smart_store_list.finishLoadMoreWithNoMoreData()
+                listData.addAll(list.result.list)
+            }
         }
-
-        if (loadMore) {
-            loadMore = false
-            smart_store_list.finishLoadMore()
-            smart_store_list.setEnableRefresh(true)
-        }
-        if (loadMore && page != 1 && list.result.list.size > 0) {
-            smart_store_list.finishLoadMore()
-            smart_store_list.finishLoadMoreWithNoMoreData()
-        }
-        listData.addAll(list.result.list)
         mStoreListAdapter.notifyDataSetChanged()
     }
 

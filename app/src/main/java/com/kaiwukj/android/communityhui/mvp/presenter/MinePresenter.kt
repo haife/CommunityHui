@@ -7,6 +7,7 @@ import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderCommentRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
@@ -101,7 +102,7 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
      * 3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
      */
     fun requestMineOrderData(typeId: Int?) {
-        var request = OrderListRequest(typeId.toString())
+        val request = OrderListRequest(typeId.toString())
         mModel.requestMineOrderData(request)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle<OrderListResult>(mRootView))
@@ -111,6 +112,44 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                     override fun onNext(result: OrderListResult) {
                         if (result.code == Api.RequestSuccess) {
                             mRootView.onGetOrderList(result)
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 取消订单
+     * @param orderId Int
+     */
+    fun requestCancelMineOrderData(orderId: Int) {
+        mModel.requestCancelMineOrderData(orderId)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(result: BaseStatusResult) {
+                        if (result.code == Api.RequestSuccess) {
+                            mRootView.showMessage("取消成功")
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 评价订单
+     * @param orderId Int
+     */
+    fun requestCommentOrderData(request: OrderCommentRequest) {
+        mModel.requestCommentOrderData(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle<BaseStatusResult>(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(result: BaseStatusResult) {
+                        if (result.code == Api.RequestSuccess) {
+                            mRootView.showMessage("评价成功")
                         }
                     }
                 })

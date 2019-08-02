@@ -87,11 +87,11 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 app:starCount="5"
+                app:starStep="0"
                 app:starEmpty="@drawable/icon_service_evaluate_rating_empty"
                 app:starFill="@drawable/icon_service_evaluate_rating_full"
                 app:starImageSize="@dimen/dp_16"
                 app:starPadding="@dimen/dp_8"
-                app:starStep="2"
                 app:stepSize="Full"/>
 
         </RelativeLayout>
@@ -118,11 +118,11 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 app:starCount="5"
+                app:starStep="0"
                 app:starEmpty="@drawable/icon_service_evaluate_rating_empty"
                 app:starFill="@drawable/icon_service_evaluate_rating_full"
                 app:starImageSize="@dimen/dp_16"
                 app:starPadding="@dimen/dp_8"
-                app:starStep="2"
                 app:stepSize="Full"/>
 
         </RelativeLayout>
@@ -149,11 +149,11 @@
                 android:clickable="true"
                 android:gravity="center_vertical"
                 app:starCount="5"
+                app:starStep="0"
                 app:starEmpty="@drawable/icon_service_evaluate_rating_empty"
                 app:starFill="@drawable/icon_service_evaluate_rating_full"
                 app:starImageSize="@dimen/dp_16"
                 app:starPadding="@dimen/dp_8"
-                app:starStep="2"
                 app:stepSize="Full"/>
 
         </RelativeLayout>
@@ -184,7 +184,7 @@
                 app:starFill="@drawable/icon_service_evaluate_rating_full"
                 app:starImageSize="@dimen/dp_16"
                 app:starPadding="@dimen/dp_8"
-                app:starStep="2"
+                app:starStep="0"
                 app:stepSize="Full"/>
 
         </RelativeLayout>
@@ -203,6 +203,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_evaluate_rate">
 
         <EditText
+            android:id="@+id/et_service_order_comment_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"

@@ -10,12 +10,11 @@ import com.hyphenate.EMCallBack
 import com.hyphenate.chat.EMClient
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
-import com.kaiwukj.android.communityhui.app.constant.ExtraCons
-import com.kaiwukj.android.communityhui.app.constant.MineInfoUrl
-import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
-import com.kaiwukj.android.communityhui.app.constant.SocialCircleUrl
+import com.kaiwukj.android.communityhui.app.constant.*
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
+import com.kaiwukj.android.communityhui.hx.DemoHelper
+import com.kaiwukj.android.communityhui.hx.UserCacheManager
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
@@ -23,6 +22,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity
+import com.kaiwukj.android.communityhui.utils.SPUtils
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
@@ -139,13 +139,21 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
                 EMClient.getInstance().groupManager().loadAllGroups()
                 EMClient.getInstance().chatManager().loadAllConversations()
                 Timber.e("登录聊天服务器成功！")
+                SPUtils.getInstance().put(SPParam.HX_USER_ID, userInfoResult?.hxName)
+                SPUtils.getInstance().put(SPParam.HX_USER_NICK_NAME, userInfoResult?.nickName)
+                SPUtils.getInstance().put(SPParam.HX_HEAD_IMAGE, userInfoResult?.headImg)
+
+                UserCacheManager.save(userInfoResult?.hxName, userInfoResult?.nickName, userInfoResult?.headImg)
+                DemoHelper.getInstance().userProfileManager.updateCurrentUserNickName(userInfoResult?.nickName)
+                DemoHelper.getInstance().userProfileManager.setCurrentUserAvatar(userInfoResult?.headImg)
+                DemoHelper.getInstance().setCurrentUserName(userInfoResult?.hxName) // 环信Id
             }
 
             override fun onProgress(progress: Int, status: String) {
             }
 
             override fun onError(code: Int, message: String) {
-                Timber.e("登录聊天服务器失败！" + message)
+                Timber.e("登录聊天服务器失败！${message}")
             }
         })
     }
@@ -208,9 +216,7 @@ class MineFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
         } else {
             initHx()
         }
-//        UserCacheManager.save(userInfoResult?.hxName, userInfoResult?.nickName, userInfoResult?.headImg)
         tv_user_explain.text = if (result.perSign.isNullOrEmpty()) getString(R.string.user_info_no_setting) else result.perSign
-
         context?.let { GlideArms.with(it).load(Api.IMG_URL + result.headImg).circleCrop().into(qiv_user_profile_photo) }
         tv_mine_user_nick_name.text = result.nickName
 

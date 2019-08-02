@@ -28,6 +28,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
 import com.kaiwukj.android.mcas.di.component.AppComponent
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_store_sort.*
 import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
@@ -116,8 +117,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         //请求门店下所有技工实体类
         val all = StoreListRequest(null, serviceTypeId = null, hmstoreId = mShopId)
         mFragmentList.add(HouseStaffListFragment.newInstance(all, 2))
-
-        for ((index, element) in detailResult.storeSortResponseList.withIndex()) {
+        for (element in detailResult.storeSortResponseList) {
             val itemAll = HouseKeepingServiceType(element.serviceTypeId, element.serviceName)
             listTab.add(itemAll)
             val itemType = StoreListRequest(recommendFlag = null, serviceTypeId = element.serviceTypeId, hmstoreId = mShopId)
@@ -125,16 +125,18 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         }
         initMagicIndicatorView(listTab)
         val requestCollection = mShopId?.let { CollectionRequest(it, mTypeId) }
-        cb_store_sort_header_collection.setOnClickListener {
-                if (cb_store_sort_header_collection.isChecked) {
-                    mShopId?.let { mPresenter?.requestMoveCollection(it) }
-                } else {
-                    if (requestCollection != null) {
-                        mPresenter?.requestAddCollection(requestCollection)
-                    }
-            }
 
+        cb_store_sort_header_collection.setOnCheckedChangeListener { compoundButton, b ->
+            if (requestCollection != null) {
+                if (b) {
+                    mPresenter?.requestAddCollection(requestCollection)
+                } else {
+                    mPresenter?.requestMoveCollection(requestCollection)
+                }
+            }
         }
+
+
     }
 
 

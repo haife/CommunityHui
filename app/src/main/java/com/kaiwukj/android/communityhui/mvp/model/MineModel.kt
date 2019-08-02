@@ -7,6 +7,7 @@ import com.kaiwukj.android.communityhui.mvp.http.api.service.CircleService
 import com.kaiwukj.android.communityhui.mvp.http.api.service.MineService
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseStatusResult
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderCommentRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.OrderListRequest
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.MineUserInfoResult
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.OrderListResult
@@ -23,8 +24,6 @@ import javax.inject.Inject
 class MineModel
 @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), MineContract.Model {
-
-
 
     @Inject
     lateinit var mGson: Gson;
@@ -61,6 +60,24 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         }
 
     }
+
+    override fun requestCancelMineOrderData(orderId: Int): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .requestCancelMineOrderData(orderId))
+                .flatMap { it }
+    }
+
+    /**
+     * 评论订单
+     * @param orderId Int
+     * @return Observable<BaseStatusResult>
+     */
+    override fun requestCommentOrderData(request: OrderCommentRequest): Observable<BaseStatusResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)
+                .requestCommentOrderData(getRequestBody(mGson.toJson(request))))
+                .flatMap { it }
+    }
+
 
     override fun requestLoginOut(): Observable<BaseStatusResult> {
         return Observable.just(mRepositoryManager.obtainRetrofitService(MineService::class.java)

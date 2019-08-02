@@ -167,15 +167,19 @@ class AppointmentDemandFragment : BaseSwipeBackFragment<AppointmentPresenter>(),
      * @param resultCode Int
      * @param data Bundle
      */
-    @SuppressLint("SetTextI18n")
     override fun onFragmentResult(requestCode: Int, resultCode: Int, data: Bundle?) {
         super.onFragmentResult(requestCode, resultCode, data)
-        val myAddress: MyAddressResult? = data?.getSerializable(EXTRA_KEY_CHOICE_ADDRESS) as MyAddressResult
-        if (myAddress != null && myAddress.id != 0) {
-            mAddressId = myAddress.id
-            tv_appoint_demand_address.text = myAddress.area + "\t" + myAddress.address
-            tv_address_user_info.text = String.format(getString(R.string.mine_address_info), myAddress.name, myAddress.phone)
+        if (data != null) {
+            val myAddress: MyAddressResult? = data.getSerializable(EXTRA_KEY_CHOICE_ADDRESS) as MyAddressResult
+            if (myAddress != null && myAddress.id != 0) {
+                mAddressId = myAddress.id
+                tv_appoint_demand_address.text = myAddress.area + "\t" + myAddress.address
+                tv_address_user_info.text = String.format(getString(R.string.mine_address_info), myAddress.name, myAddress.phone)
+            } else {
+                mPresenter?.requestMyAddress()
+            }
         }
+
 
     }
 

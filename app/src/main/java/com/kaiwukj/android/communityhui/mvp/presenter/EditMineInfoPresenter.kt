@@ -131,7 +131,25 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                     override fun onNext(data: BaseStatusResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.showLoading()
-                        } else {
+                        }
+                    }
+                })
+    }
+
+
+    /**
+     * 删除
+     */
+    fun deleteMyAddress(addressId:Int) {
+        mModel.deleteMyAddress(addressId)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(data: BaseStatusResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.showLoading()
                         }
                     }
                 })
@@ -161,6 +179,8 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                     }
                 })
     }
+
+
 
 
     override fun onDestroy() {

@@ -28,6 +28,8 @@ interface EditMineInfoContract {
         fun upDateMyAddress(request: MyAddressResult): Observable<BaseStatusResult>
         //新增地址
         fun addMyAddress(request: MyAddressResult): Observable<BaseStatusResult>
+        //新增地址
+        fun deleteMyAddress(addressId:Int): Observable<BaseStatusResult>
 
         fun updateMineInfoData(request: MineUserInfoResult): Observable<BaseStatusResult>
 

@@ -140,7 +140,28 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
                     override fun onNext(data: BaseStatusResult) {
                         if (data.code == Api.RequestSuccess) {
-                            mRootView.showMessage(data.desc)
+                            mRootView.showMessage("已收藏")
+                        }
+                    }
+                })
+    }
+
+    /**
+     * 删除收藏技工
+     * @param request StoreListRequest
+     */
+    fun requestMoveCollection(userId: Int) {
+        val request = CollectionRequest()
+        request.type = 1
+        request.favoriteId = userId
+        mModel.requestMoveCollection(request)
+                .subscribeOn(Schedulers.io())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<BaseStatusResult>(mErrorHandler) {
+                    override fun onNext(data: BaseStatusResult) {
+                        if (data.code == Api.RequestSuccess) {
+                            mRootView.showMessage("已取消")
                         }
                     }
                 })

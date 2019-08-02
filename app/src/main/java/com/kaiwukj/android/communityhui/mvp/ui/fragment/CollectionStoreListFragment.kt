@@ -62,13 +62,17 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>
     override fun initData(savedInstanceState: Bundle?) {
         mPresenter?.requestMyCollection(request)
         rv_collection_store_list.layoutManager = LinearLayoutManager(context)
-        mCollectionAdapter = CollectionListAdapter(request.typeId,collectionList, R.layout.recycle_item_collection_store_list, context!!)
+        mCollectionAdapter = CollectionListAdapter(request.typeId, collectionList, R.layout.recycle_item_collection_store_list, context!!)
         rv_collection_store_list.adapter = mCollectionAdapter
 
         smart_collection_store_list.setOnLoadMoreListener {
             pageNum++
             request.pageNum = pageNum
             mPresenter?.requestMyCollection(request)
+        }
+
+        mCollectionAdapter.setOnItemClickListener { adapter, view, position ->
+            start(StoreSortListFragment.newInstance(collectionList[position].id))
         }
     }
 

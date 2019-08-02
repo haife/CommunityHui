@@ -21,6 +21,7 @@
         android:layout_below="@+id/rv_header_circle_topic"
         android:layout_marginLeft="@dimen/dp_16"
         android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_10"
         android:text="@string/social_circle_dynamic_state"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_18"
@@ -30,12 +31,9 @@
         android:id="@+id/custom_circle_scroll_hot_container"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_10"
         android:layout_below="@+id/tv_social_circle_dynamic_state"
-        android:layout_marginTop="@dimen/dp_10"/>
-
-
-
+        android:layout_marginBottom="@dimen/dp_10"
+        />
 
 
 </RelativeLayout>

@@ -38,7 +38,7 @@ interface  StoreContract {
         fun requestAddCollection(request: CollectionRequest): Observable<BaseStatusResult>
 
         //取消收藏
-        fun requestMoveCollection(id: Int): Observable<BaseStatusResult>
+        fun requestMoveCollection(request: CollectionRequest): Observable<BaseStatusResult>
     }
 
 }

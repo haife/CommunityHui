@@ -28,6 +28,7 @@ public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
         private int servicePrice;
         private String storeName;
         private int storeemployeeId;
+        private int favoriteFlag;
         private int worktime;
         public List<StaffCommentResult> empCommentList;
         public List<String> empTagList;
@@ -62,7 +63,15 @@ public class StaffInfoResult extends BaseRootResult<StaffInfoResult> {
             return evaluate;
         }
 
-        public void setEvaluate(String evaluate) {
+    public int getFavoriteFlag() {
+        return favoriteFlag;
+    }
+
+    public void setFavoriteFlag(int favoriteFlag) {
+        this.favoriteFlag = favoriteFlag;
+    }
+
+    public void setEvaluate(String evaluate) {
             this.evaluate = evaluate;
         }
 

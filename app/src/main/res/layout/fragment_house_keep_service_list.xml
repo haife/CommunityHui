@@ -58,7 +58,7 @@
                 android:paddingRight="@dimen/dp_20"
                 android:text="@string/home_staff_price"
                 android:textColor="@color/color_common_theme_checked_text"
-                android:textSize="@dimen/sp_15"
+                android:textSize="@dimen/sp_13"
                 />
 
             <RadioButton
@@ -75,7 +75,7 @@
                 android:paddingRight="@dimen/dp_20"
                 android:text="@string/home_format_staff_number"
                 android:textColor="@color/color_common_theme_checked_text"
-                android:textSize="@dimen/sp_15"
+                android:textSize="@dimen/sp_13"
                 />
 
             <RadioButton
@@ -92,7 +92,7 @@
                 android:paddingRight="@dimen/dp_20"
                 android:text="@string/home_carer_work_year"
                 android:textColor="@color/color_common_theme_checked_text"
-                android:textSize="@dimen/sp_15"
+                android:textSize="@dimen/sp_13"
                 />
 
             <RadioButton
@@ -109,7 +109,7 @@
                 android:paddingRight="@dimen/dp_20"
                 android:text="@string/home_carer_gender"
                 android:textColor="@color/color_common_theme_checked_text"
-                android:textSize="@dimen/sp_15"
+                android:textSize="@dimen/sp_13"
                 />
         </RadioGroup>
 
