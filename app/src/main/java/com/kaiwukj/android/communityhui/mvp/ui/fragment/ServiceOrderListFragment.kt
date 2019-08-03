@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide
@@ -35,12 +34,11 @@ import kotlinx.android.synthetic.main.fragment_service_oreder_list.*
  */
 class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContract.View {
 
-    private var mFragmentList: List<Fragment> = ArrayList()
-
     //TODO:3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
     private var mType: Int? = null
     private var orderList = ArrayList<OrderListResult>()
     lateinit var mOrderListAdapter: OrderListAdapter
+    private var pageNum = 1;
 
     companion object {
         fun newInstance(type: Int): ServiceOrderListFragment {
@@ -64,13 +62,32 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        mPresenter?.requestMineOrderData(mType)
+        mPresenter?.requestMineOrderData(mType, pageNum)
+        initRecycleView()
 
+    }
+
+    private fun initRecycleView() {
+        smart_refresh_order_list.setEnableLoadMoreWhenContentNotFull(false)
         rv_service_order_list.layoutManager = LinearLayoutManager(context!!)
-        rv_service_order_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20,
-                divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
+        rv_service_order_list.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20, divideColor = ContextCompat.getColor(context!!, R.color.window_background_color)))
         mOrderListAdapter = OrderListAdapter(R.layout.recycle_item_service_order_list, orderList, context!!)
         rv_service_order_list.adapter = mOrderListAdapter
+
+        val emptyView = LayoutInflater.from(context).inflate(R.layout.empty_view_common_container, null)
+        mOrderListAdapter.emptyView = emptyView
+
+        smart_refresh_order_list.setOnRefreshListener {
+            pageNum = 1
+            smart_refresh_order_list.setEnableLoadMore(false)
+            mPresenter?.requestMineOrderData(mType, pageNum)
+        }
+
+        smart_refresh_order_list.setOnLoadMoreListener {
+            pageNum++
+            smart_refresh_order_list.setEnableRefresh(false)
+            mPresenter?.requestMineOrderData(mType, pageNum)
+        }
 
         mOrderListAdapter.setOnItemClickListener { adapter, view, position ->
             //TODO 跳转订单详情
@@ -80,13 +97,23 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
                     .withSerializable(ExtraCons.EXTRA_KEY_ORDER_DETAIL_KEY, order)
                     .navigation(context)
         }
-
-        smart_refresh_order_list.setOnRefreshListener {
-            smart_refresh_order_list.finishRefresh()
-        }
     }
 
     override fun onGetOrderList(result: OrderListResult) {
+        if (pageNum == 1) {
+            smart_refresh_order_list.setEnableLoadMore(true)
+            smart_refresh_order_list.finishRefresh()
+            orderList.clear()
+        } else {
+            if (result.result.isEmpty()) {
+                smart_refresh_order_list.finishRefresh()
+                smart_refresh_order_list.finishLoadMoreWithNoMoreData()
+                return
+            } else {
+                smart_refresh_order_list.setEnableRefresh(true)
+                smart_refresh_order_list.finishRefresh()
+            }
+        }
         orderList.addAll(result.result)
         mOrderListAdapter.notifyDataSetChanged()
     }

@@ -74,6 +74,9 @@ class MineAddressListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), 
         mAddressAdapter = MyAddressAdapter(R.layout.recycle_item_mine_address_list, mAddressList, context!!)
         rv_mine_address_list.adapter = mAddressAdapter
 
+        val emptyView = LayoutInflater.from(context).inflate(R.layout.empty_view_common_container, null)
+        mAddressAdapter.emptyView = emptyView
+
         mAddressAdapter.setOnItemChildClickListener { adapter, view, position ->
             when (view.id) {
                 R.id.iv_mine_address_edit -> {

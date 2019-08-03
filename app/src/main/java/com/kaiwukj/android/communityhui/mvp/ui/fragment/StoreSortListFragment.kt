@@ -28,10 +28,10 @@ import com.kaiwukj.android.communityhui.mvp.presenter.StorePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HomeViewPagerAdapter
 import com.kaiwukj.android.communityhui.mvp.ui.widget.home.ScaleTransitionPagerTitleView
 import com.kaiwukj.android.mcas.di.component.AppComponent
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_store_sort.*
 import kotlinx.android.synthetic.main.include_store_sort_header.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
+import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -158,8 +158,8 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
                 simplePagerTitleView.text = magicIndicatorContentList[index].string_name
+                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
                 simplePagerTitleView.typeface = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
@@ -169,8 +169,11 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
 
             override fun getIndicator(context: Context): IPagerIndicator {
                 val indicator = LinePagerIndicator(context)
-                indicator.mode = LinePagerIndicator.MODE_WRAP_CONTENT
-                indicator.lineHeight = 4.0f
+                indicator.mode = LinePagerIndicator.MODE_EXACTLY
+                indicator.lineHeight = 6.0f
+                indicator.lineWidth = 40.0f
+                indicator.roundRadius = 4.0f
+                indicator.yOffset = UIUtil.dip2px(context, 10.0).toFloat()
                 indicator.setColors(ContextCompat.getColor(context, R.color.common_text_dark_color))
                 return indicator
             }

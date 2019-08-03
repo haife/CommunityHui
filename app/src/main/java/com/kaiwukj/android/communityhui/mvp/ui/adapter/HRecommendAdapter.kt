@@ -21,6 +21,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.HomeServiceEntity
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment.Companion.EXTRA_KEY_HOME_FRAGMENT_URL
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HouseKeepListFragment.Companion.HOUSE_KEEP_LIST_FRAGMENT
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
 
 /**
  * @author Haife Android Developer
@@ -81,6 +82,9 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 helper.getView<ImageView>(R.id.iv_home_moon_woman_service).setOnClickListener {
                     launcherHouseKeepList(item.homeServiceList[0])
                 }
+                helper.getView<QMUIRoundButton>(R.id.qbtn_home_hot_service_appointment).setOnClickListener {
+                    launcherHouseKeepList(item.homeServiceList[0])
+                }
                 helper.getView<ImageView>(R.id.iv_home_carer).setOnClickListener {
                     launcherHouseKeepList(item.homeServiceList[1])
                 }
@@ -122,7 +126,7 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
     //TODO("服务暂未开通")
     private fun showServiceNoOpenDialog() {
         hintDialog.show()
-        Handler().postDelayed({ hintDialog?.hide() }, 800)
+        Handler().postDelayed({ hintDialog.dismiss() }, 800)
     }
 
 

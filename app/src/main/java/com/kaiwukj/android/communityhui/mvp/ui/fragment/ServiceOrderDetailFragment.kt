@@ -18,6 +18,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePag
 import com.kaiwukj.android.communityhui.mvp.presenter.MinePresenter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
+import com.kaiwukj.android.mcas.utils.McaUtils
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_service_order_detail.*
 import kotlinx.android.synthetic.main.include_order_detail_header.*
@@ -73,7 +74,12 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         tv_order_detail_user_grade.text = String.format(getString(R.string.home_format_order_grade), orderData.avgScore)
         tv_order_detail_user_tags.text = String.format(getString(R.string.home_format_order_detail_message), orderData.worktime, 35, orderData.nativePlace)
         context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(iv_order_detail_head) }
-        tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
+        if (McaUtils.isEmpty(orderData.interviewTime)) {
+            tv_custom_order_interview_time.setRightStr(getString(R.string.interview_time_wait_sure))
+        }else{
+            tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
+        }
+
         tv_custom_order_service_type.setRightStr(orderData.serviceTypeName)
         tv_custom_order_service_days.setRightStr(orderData.serviceLength.toString() + "/" + orderData.serviceTypeUnit)
         tv_custom_order_service_days.setRightStr("${orderData.serviceLength} / ${orderData.serviceTypeUnit}")

@@ -23,6 +23,7 @@ import com.kaiwukj.android.communityhui.mvp.presenter.AppointmentPresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.AppointmentCommentAdapter
 import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
+import com.kaiwukj.android.mcas.utils.McaUtils
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_appointment_person_information.*
 import kotlinx.android.synthetic.main.include_person_information_header.*
@@ -43,7 +44,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private var shopId: Int? = null
     private var userId: Int? = null
     private var mServiceTypeId: Int? = null
-    private lateinit var mStoreListAdapter: AppointmentCommentAdapter
+    private lateinit var mCommentAdapter: AppointmentCommentAdapter
     private var commentList = ArrayList<StaffCommentResult>()
     private var page = 1
     private lateinit var dialog: QMUITipDialog
@@ -80,8 +81,8 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
             rl_appointment_right_now.visibility = View.GONE
         }
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
-        mStoreListAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
-        rv_appointment_user_comment.adapter = mStoreListAdapter
+        mCommentAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
+        rv_appointment_user_comment.adapter = mCommentAdapter
 
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
@@ -92,7 +93,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         rl_person_info_store.setOnClickListener {
             start(StoreSortListFragment.newInstance(shopId))
         }
-
+        //获取更多评论
         smart_refresh_appoint_user_info.setOnLoadMoreListener {
             page++
             mPresenter?.requestUserComment(userId!!, page)
@@ -147,6 +148,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     }
 
     private fun initTobBarClick() {
+        qtb_appointment_person_info.removeAllRightViews()
         when (mResult.favoriteFlag) {
             1 -> {
                 qtb_appointment_person_info.addRightTextButton(getString(R.string.store_collect_had_desc), R.id.qmui_top_right_btn).setOnClickListener {
@@ -177,23 +179,36 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
      * @param result StaffCommentResult
      */
     override fun onGetStaffCommentInfo(commentResult: ArrayList<StaffCommentResult>) {
-        if (page > 1 && commentResult.isNotEmpty()) {
-            smart_refresh_appoint_user_info.finishLoadMoreWithNoMoreData()
+        if (page == 1 && commentResult.isEmpty()) {
+            val noCommentView = LayoutInflater.from(context).inflate(R.layout.footer_comment_no_layout, null)
+            noCommentView.minimumHeight = McaUtils.dip2px(context!!,80f)
+            mCommentAdapter.setFooterView(noCommentView)
+            return
         }
-        smart_refresh_appoint_user_info.finishLoadMore()
+
+        if (commentResult.isNotEmpty()) {
+            smart_refresh_appoint_user_info.finishLoadMore()
+        } else {
+            smart_refresh_appoint_user_info.finishLoadMore()
+            smart_refresh_appoint_user_info.finishLoadMoreWithNoMoreData()
+            return
+        }
+
         commentList.addAll(commentResult)
-        mStoreListAdapter.notifyDataSetChanged()
+        mCommentAdapter.notifyDataSetChanged()
     }
 
     override fun onGetMyAddressList(result: MyAddressResult) {
     }
 
     override fun showLoading() {
-
+        smart_refresh_appoint_user_info.visibility = View.GONE
+        empty_view_staff_info.setLoadingShowing(true)
     }
 
     override fun hideLoading() {
-
+        smart_refresh_appoint_user_info.visibility = View.VISIBLE
+        empty_view_staff_info.hide()
     }
 
     override fun showMessage(message: String) {

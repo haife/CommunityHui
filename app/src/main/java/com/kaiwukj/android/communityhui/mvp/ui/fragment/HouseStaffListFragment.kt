@@ -141,6 +141,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
         if (page == 1) {
             staffList.clear()
         } else {
+            smart_refresh_staff_list?.finishLoadMore()
             if (result.isEmpty()) {
                 smart_refresh_staff_list?.finishLoadMoreWithNoMoreData()
                 return

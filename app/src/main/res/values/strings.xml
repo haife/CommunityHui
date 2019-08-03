@@ -90,6 +90,7 @@
     <string name="appointment_demand_times_hint">预计服务时间</string>
     <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
     <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
+    <string name="interview_time_wait_sure">待确定</string>
 
     <!--预约-->
     <!--门店-->
@@ -222,6 +223,7 @@
     <string name="social_circle_person_page_title">TA的主页</string>
     <string name="social_circle_mine_page">我的主页</string>
     <string name="mine_add_address_hint">请添加地址</string>
+    <string name="no_address_user_hint">暂无可用地址</string>
     <string name="social_circle_comment_hint">评论</string>
     <string name="post_card_input_title_hint">请输入标题</string>
     <string name="post_card_input_content_hint">请输入内容</string>

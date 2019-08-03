@@ -5,142 +5,146 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-
-    <ScrollView
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:nestedScrollingEnabled="false"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/include_order_detail_header"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_5"
-                android:background="@color/write_color"/>
-
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                android:id="@+id/tv_custom_order_interview_time"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                app:left_str="@string/order_detail_interview_time"/>
-
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                android:id="@+id/tv_custom_order_service_type"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                app:left_str="@string/order_detail_service_project"/>
-
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                android:id="@+id/tv_custom_order_service_days"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                app:left_str="@string/order_detail_service_days"/>
-
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                android:id="@+id/tv_custom_order_service_order_time"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                app:left_str="@string/order_detail_create_time"/>
-
-            <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                android:id="@+id/tv_custom_order_detail_store_address"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_35"
-                app:left_str="@string/order_detail_service_detail"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_16"
-                android:background="@color/write_color"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
-                android:layout_marginTop="@dimen/dp_5"
-                android:background="@color/write_color"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/write_color"
-                    android:paddingLeft="@dimen/dp_16"
-                    android:paddingTop="@dimen/dp_20"
-                    android:paddingBottom="@dimen/dp_20"
-                    android:text="@string/order_detail_service_remark"
-                    android:textColor="@color/common_text_dark_color"
-                    android:textSize="@dimen/sp_15"/>
-
-                <TextView
-                    android:id="@+id/tv_order_detail_remark"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_80"
-                    android:background="@color/write_color"
-                    android:lineSpacingExtra="@dimen/dp_5"
-                    android:paddingLeft="@dimen/dp_16"
-                    android:paddingRight="@dimen/dp_16"
-                    android:paddingBottom="@dimen/dp_30"
-                    android:textColor="@color/common_text_slight_color"
-                    android:textSize="15sp"/>
-            </LinearLayout>
-
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_30"
-                android:background="@color/write_color"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
+
+                <include layout="@layout/include_order_detail_header"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:background="@color/write_color"/>
 
                 <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
-                    android:id="@+id/tv_order_detail_service_price"
+                    android:id="@+id/tv_custom_order_interview_time"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_35"
-                    android:visibility="gone"
-                    app:left_str="@string/order_detail_service_price"
-                    />
+                    app:left_str="@string/order_detail_interview_time"/>
 
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/qbtn_order_detail_bottom"
+                <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                    android:id="@+id/tv_custom_order_service_type"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
-                    android:layout_marginLeft="@dimen/dp_30"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_30"
-                    android:text="@string/service_order_comment_right_now"
-                    android:textSize="@dimen/sp_16"
-                    android:visibility="gone"/>
+                    android:layout_height="@dimen/dp_35"
+                    app:left_str="@string/order_detail_service_project"/>
 
-
-                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                    android:id="@+id/qbtn_order_detail_cancel_order"
+                <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                    android:id="@+id/tv_custom_order_service_days"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
-                    android:layout_marginLeft="@dimen/dp_30"
-                    android:layout_marginTop="@dimen/dp_30"
-                    android:layout_marginRight="@dimen/dp_30"
-                    android:text="@string/service_order_comment_cancel_order"
-                    android:textColor="@color/color_login_out_bg"
-                    android:textSize="@dimen/sp_16"
-                    android:visibility="gone"
-                    app:qmui_borderColor="@color/color_login_out_bg"/>
+                    android:layout_height="@dimen/dp_35"
+                    app:left_str="@string/order_detail_service_days"/>
+
+                <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                    android:id="@+id/tv_custom_order_service_order_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    app:left_str="@string/order_detail_create_time"/>
+
+                <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                    android:id="@+id/tv_custom_order_detail_store_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_35"
+                    app:left_str="@string/order_detail_service_detail"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_16"
+                    android:background="@color/write_color"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_200"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:background="@color/write_color"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/write_color"
+                        android:paddingLeft="@dimen/dp_16"
+                        android:paddingTop="@dimen/dp_20"
+                        android:paddingBottom="@dimen/dp_20"
+                        android:text="@string/order_detail_service_remark"
+                        android:textColor="@color/common_text_dark_color"
+                        android:textSize="@dimen/sp_15"/>
+
+                    <TextView
+                        android:id="@+id/tv_order_detail_remark"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@color/write_color"
+                        android:lineSpacingExtra="@dimen/dp_5"
+                        android:paddingLeft="@dimen/dp_16"
+                        android:paddingRight="@dimen/dp_16"
+                        android:paddingBottom="@dimen/dp_30"
+                        android:textColor="@color/common_text_slight_color"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_30"
+                    android:background="@color/write_color"
+                    android:orientation="vertical"
+                    >
+
+                    <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                        android:id="@+id/tv_order_detail_service_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_35"
+                        android:visibility="gone"
+                        app:left_str="@string/order_detail_service_price"
+                        />
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                        android:id="@+id/qbtn_order_detail_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_30"
+                        android:layout_marginRight="@dimen/dp_30"
+                        android:text="@string/service_order_comment_right_now"
+                        android:textSize="@dimen/sp_16"
+                        android:visibility="gone"/>
+
+
+                    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                        android:id="@+id/qbtn_order_detail_cancel_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginLeft="@dimen/dp_30"
+                        android:layout_marginTop="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_30"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:text="@string/service_order_comment_cancel_order"
+                        android:textColor="@color/color_login_out_bg"
+                        android:textSize="@dimen/sp_16"
+                        android:visibility="gone"
+                        app:qmui_borderColor="@color/color_login_out_bg"/>
+                </LinearLayout>
+
+
             </LinearLayout>
 
+        </ScrollView>
 
-        </LinearLayout>
-
-
-    </ScrollView>
-
-
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

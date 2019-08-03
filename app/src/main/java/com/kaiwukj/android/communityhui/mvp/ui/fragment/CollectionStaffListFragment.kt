@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
@@ -67,7 +69,10 @@ class CollectionStaffListFragment : BaseSupportFragment<EditMineInfoPresenter>()
 
         mCollectionAdapter = CollectionListAdapter(request.typeId, collectionList, R.layout.recycle_item_collection_staff_list_layout, context!!)
         rv_staff_list_child.adapter = mCollectionAdapter
-
+        val emptyView = LayoutInflater.from(context).inflate(R.layout.empty_view_common_container, null)
+        val emptyIV = emptyView.findViewById<ImageView>(R.id.iv_empty_view_type)
+        emptyIV.background = (ContextCompat.getDrawable(context!!, R.mipmap.icon_empty_view_collection))
+        mCollectionAdapter.emptyView = emptyView
         mCollectionAdapter.setOnItemClickListener { adapter, view, position ->
             val userID = collectionList[position].favoriteId
             ARouter.getInstance().build(AppointmentUrl)

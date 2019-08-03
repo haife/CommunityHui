@@ -49,6 +49,12 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
     fun requestSelectStaffDetail(userId: Int) {
         mModel.requestSelectStaffDetail(userId)
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe {
+                    mRootView.showLoading()
+                }
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally { mRootView.hideLoading() }
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StaffInfoResult>(mErrorHandler) {
@@ -64,7 +70,7 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
     }
 
     /**
-     * 选择阿姨
+     * 阿姨评论
      */
     fun requestUserComment(userId: Int, page: Int) {
         mModel.requestUserComment(userId, page)

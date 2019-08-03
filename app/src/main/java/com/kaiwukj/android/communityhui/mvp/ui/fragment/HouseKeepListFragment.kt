@@ -2,6 +2,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ import com.kaiwukj.android.mcas.di.component.AppComponent
 import com.kaiwukj.android.mcas.utils.McaUtils
 import kotlinx.android.synthetic.main.fragment_house_keep_service_list.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
+import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -107,8 +109,9 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
+                simplePagerTitleView.typeface = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
                 simplePagerTitleView.text = magicIndicatorContentList[index].dicValue
+                simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
@@ -122,6 +125,8 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
                 val indicator = LinePagerIndicator(context)
                 indicator.mode = LinePagerIndicator.MODE_WRAP_CONTENT
                 indicator.lineHeight = 4.0f
+                indicator.roundRadius = 4.0f
+                indicator.yOffset = UIUtil.dip2px(context, 10.0).toFloat()
                 indicator.setColors(ContextCompat.getColor(context, R.color.common_text_dark_color))
                 return indicator
             }

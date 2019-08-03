@@ -101,8 +101,8 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
      * 获取我的订单
      * 3:待服务 4：服务中 5：已完结，不传值即为查看所有订单
      */
-    fun requestMineOrderData(typeId: Int?) {
-        val request = OrderListRequest(typeId.toString())
+    fun requestMineOrderData(typeId: Int?, page: Int) {
+        val request = OrderListRequest(typeId.toString(), page)
         mModel.requestMineOrderData(request)
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle<OrderListResult>(mRootView))
