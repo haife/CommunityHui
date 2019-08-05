@@ -87,12 +87,13 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
     }
 
     private fun initRecycle() {
-        //smart_refresh_staff_list.setEnableLoadMoreWhenContentNotFull(false)
+        smart_refresh_staff_list.setEnableLoadMoreWhenContentNotFull(false)
         rv_staff_list_child.layoutManager = LinearLayoutManager(context)
         rv_staff_list_child.addItemDecoration(RecycleViewDivide(drawableId = null, divideHeight = 20))
         mHouseAdapter = SelectStaffListAdapter(R.layout.recycle_item_house_staff_list_layout, staffList, context)
         rv_staff_list_child.adapter = mHouseAdapter
-
+        val emptyView = LayoutInflater.from(context).inflate(R.layout.empty_view_common_container, null)
+        mHouseAdapter.emptyView = emptyView
         mHouseAdapter.setOnItemClickListener { adapter, view, position ->
             val userID = staffList[position].storeemployeeId
             val serviceTypeId = request.serviceTypeId
