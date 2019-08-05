@@ -84,8 +84,7 @@ public class EaseChatMessageList extends RelativeLayout{
         itemStyle = builder.build();
         ta.recycle();
     }
-    
-    
+
     /**
      * refresh
      */

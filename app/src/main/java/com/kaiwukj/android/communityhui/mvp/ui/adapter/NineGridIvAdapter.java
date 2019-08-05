@@ -1,14 +1,18 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter;
 
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 
-import com.kaiwukj.android.communityhui.mvp.ui.widget.home.PopupWindowUtil;
+import com.kaiwukj.android.communityhui.mvp.browse.JBrowseImgActivity;
+import com.kaiwukj.android.communityhui.mvp.browse.JPhotosInfos;
+import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.NineGridViewAdapter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,15 +25,39 @@ import java.util.List;
  * @desc $desc
  */
 public class NineGridIvAdapter extends NineGridViewAdapter {
+    private String[] mPaths;
 
-    private Activity mActivity;
-    public NineGridIvAdapter(Context context, List<ImageInfo> imageInfo, Activity activity) {
+    public NineGridIvAdapter(Context context, List<ImageInfo> imageInfo) {
         super(context, imageInfo);
-        mActivity = activity;
+        mPaths = new String[imageInfo.size()];
+        for (int i = 0; i < imageInfo.size(); i++) {
+            mPaths[i] = imageInfo.get(i).bigImageUrl;
+        }
+
     }
 
     @Override
     protected void onImageItemClick(Context context, NineGridView nineGridView, int index, List<ImageInfo> imageInfo) {
-        PopupWindowUtil.createImageDialog(mActivity, imageInfo.get(index).bigImageUrl);
+        startBrowse(index, imageInfo,nineGridView);
     }
+
+
+    private void startBrowse(int pos, List<ImageInfo> imageInfo,NineGridView nineGridView) {
+        ArrayList<JPhotosInfos> infos = new ArrayList<>();
+        for (int i = 0; i < imageInfo.size(); i++) {
+            Rect rect = new Rect();
+            rect.left = 32;
+            rect.bottom = nineGridView.getBottom();
+            rect.top = nineGridView.getTop();
+            rect.right = McaUtils.getScreenWidth(context)-32;
+            JPhotosInfos photosInfos = new JPhotosInfos();
+            infos.add(photosInfos.build(rect));
+            infos.add(photosInfos);
+        }
+
+
+        JBrowseImgActivity.start(context, new ArrayList<>(Arrays.asList(mPaths)), pos, infos);
+    }
+
+
 }

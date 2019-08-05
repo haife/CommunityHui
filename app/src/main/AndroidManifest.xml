@@ -105,6 +105,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.kaiwukj.android.communityhui.mvp.browse.JBrowseImgActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/FullscreenTransTheme"/>
         <activity
             android:name=".mvp.ui.activity.MainActivity"
             android:launchMode="singleTask"
@@ -157,7 +160,9 @@
             android:name=".mvp.ui.activity.SocialCircleActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle">
-        </activity> <!-- 设置环信应用的AppKey -->
+        </activity>
+        <!-- 设置环信应用的AppKey -->
+
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="1115190326030529#communityhui"/> <!-- 声明SDK所需的service SDK核心功能 -->

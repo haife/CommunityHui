@@ -21,6 +21,7 @@ public class NineGridImageLoader implements NineGridView.ImageLoader {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .into(imageView);
+
     }
 
 

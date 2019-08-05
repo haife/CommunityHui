@@ -62,7 +62,7 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "API_HOST", "\"http://172.168.1.100:8070\"")
+            buildConfigField("String", "API_HOST", "\"http://hm.kaiwumace.com\"")
         }
 
         release {

@@ -238,7 +238,7 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
                 imageInfo.add(info);
             }
             //单张图片的大小
-            mGridIvAdapter = new NineGridIvAdapter(getContext(), imageInfo, getActivity());
+            mGridIvAdapter = new NineGridIvAdapter(getContext(), imageInfo);
             mImageGroup.setSingleImageSize(McaUtils.getScreenWidth(getContext()) - McaUtils.dip2px(getContext(), 32));
             mImageGroup.setAdapter(mGridIvAdapter);
         }
