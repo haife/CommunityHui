@@ -1,6 +1,7 @@
 package com.kaiwukj.android.communityhui.mvp.presenter
 
 import android.app.Application
+import cn.jpush.android.api.JPushInterface
 import com.kaiwukj.android.communityhui.app.constant.SPParam
 import com.kaiwukj.android.communityhui.mvp.contract.LoginContract
 import com.kaiwukj.android.communityhui.mvp.http.api.Api
@@ -75,6 +76,7 @@ constructor(model: LoginContract.Model, rootView: LoginContract.View) :
                             SPUtils.getInstance().put(SPParam.SP_LOGIN_PHONE, loginRequest.phoneNo)
                             SPUtils.getInstance().put(SPParam.SP_LOGIN_TOKEN, t.result.token)
                             SPUtils.getInstance().put(SPParam.SP_ALIAS, t.result.alias)
+                            JPushInterface.setAlias(mRootView.getActivity(), 0, SPUtils.getInstance().getString(SPParam.SP_ALIAS))
                             mRootView.loginSuccess()
 
                         } else {

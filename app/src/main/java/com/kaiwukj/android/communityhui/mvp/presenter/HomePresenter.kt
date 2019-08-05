@@ -54,12 +54,14 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .doFinally { requestStoreRecommend(request, isRefresh) }
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
                             processRecommendData(data.result)
+                            requestStoreRecommend(request, isRefresh)
                         }
+
+
                     }
 
                     override fun onError(t: Throwable) {
