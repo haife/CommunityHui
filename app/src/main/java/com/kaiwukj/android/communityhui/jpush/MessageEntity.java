@@ -18,8 +18,7 @@ public class MessageEntity {
     public long createTime;
     public String Alias;
     @Generated(hash = 1373649859)
-    public MessageEntity(Long id, String title, String message, long createTime,
-            String Alias) {
+    public MessageEntity(Long id, String title, String message, long createTime, String Alias) {
         this.id = id;
         this.title = title;
         this.message = message;

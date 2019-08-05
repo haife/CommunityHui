@@ -13,6 +13,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -25,6 +26,9 @@ import androidx.annotation.Nullable;
  */
 public class SocialCircleTopicAdapter extends BaseQuickAdapter<CircleCardResult, BaseViewHolder> {
 
+    private int[] imageArray = {R.mipmap.icon_social_circle_the_user, R.mipmap.icon_social_circle_travel, R.mipmap.ic_socail_circle_pet, R.mipmap.icon_social_circle_house
+            , R.mipmap.ic_social_circle_carport};
+
     public SocialCircleTopicAdapter(int layoutResId, @Nullable List<CircleCardResult> data, Context context) {
         super(layoutResId, data);
         mContext = context;
@@ -34,6 +38,7 @@ public class SocialCircleTopicAdapter extends BaseQuickAdapter<CircleCardResult,
     protected void convert(BaseViewHolder helper, CircleCardResult item) {
         ImageView iv = helper.getView(R.id.iv_social_circle_topic);
         helper.setText(R.id.tv_social_circle_topic, item.getDicValue());
-        Glide.with(mContext).load(Api.IMG_URL + item.getImg()).into(iv);
+        iv.setBackground(ContextCompat.getDrawable(mContext, imageArray[helper.getAdapterPosition()]));
+        //Glide.with(mContext).load(Api.IMG_URL + item.getImg()).into(iv);
     }
 }

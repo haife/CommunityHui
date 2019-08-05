@@ -109,7 +109,7 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
                 simplePagerTitleView.setText(magicIndicatorContentList.get(index));
                 simplePagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.home_color_hot_service_text));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.common_text_dark_color));
-                //  simplePagerTitleView.setOnClickListener(v -> mChatPagerContainer.setCurrentItem(index));
+                simplePagerTitleView.setOnClickListener(v -> mChatPagerContainer.setCurrentItem(index));
                 return simplePagerTitleView;
 
             }

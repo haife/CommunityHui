@@ -2,6 +2,9 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -92,6 +95,10 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
         mCircleListRv.setLayoutManager(new LinearLayoutManager(this));
         mCircleListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(this, R.color.window_background_color)));
         mCircleListRv.setAdapter(mCircleListAdapter);
+        View emptyView = LayoutInflater.from(mContext).inflate(R.layout.empty_view_common_container, null);
+        ImageView iv = emptyView.findViewById(R.id.iv_empty_view_type);
+        iv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.icon_empty_view_common));
+        mCircleListAdapter.setEmptyView(emptyView);
         mSmartRefreshLayout.setOnLoadMoreListener(refreshLayout -> {
             page += 1;
             request.setPageNum(page);

@@ -98,7 +98,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG), true)
-        mPresenter?.requestStaffRecommend(StoreListRequest(RECOMMEND_FLAG), true)
     }
 
 }

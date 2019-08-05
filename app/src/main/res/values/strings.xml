@@ -70,6 +70,7 @@
     <!--预约 Appointment-->
     <string name="appointment_submit_order_btn">提交订单</string>
     <string name="appointment_success">预约成功</string>
+    <string name="appointment_desc">预约</string>
     <string name="appointment_right_now">立即预约</string>
     <string name="appointment_failure">预约失败</string>
     <string name="appointment_return_home">返回首页</string>
@@ -151,9 +152,12 @@
     <string name="order_stores_all">全部</string>
 
     <string name="order_detail_interview_time">面试时间</string>
+    <string name="order_detail_interview">面试</string>
     <string name="order_detail_service_project">服务项目</string>
     <string name="order_detail_service_days">服务天数</string>
     <string name="order_detail_create_time">下单时间</string>
+    <string name="order_detail_pay">签约付款</string>
+    <string name="order_detail_serving">服务中</string>
     <string name="order_detail_service_detail">服务地址</string>
     <string name="order_detail_service_remark">备注</string>
     <string name="order_detail_service_price">服务费</string>

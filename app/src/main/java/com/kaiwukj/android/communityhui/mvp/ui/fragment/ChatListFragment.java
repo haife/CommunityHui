@@ -8,6 +8,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
@@ -110,7 +111,10 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
         mChatListRv.addItemDecoration(new RecycleViewDivide(LinearLayoutManager.VERTICAL, null, 2, ContextCompat.getColor(getContext(), R.color.window_background_color)));
         mChatAdapter = new ChatListAdapter(getContext(), R.layout.ease_row_chat_history, conversationList);
         mChatListRv.setAdapter(mChatAdapter);
-
+        View emptyView = LayoutInflater.from(mContext).inflate(R.layout.empty_view_common_container, null);
+        ImageView iv = emptyView.findViewById(R.id.iv_empty_view_type);
+        iv.setBackground(ContextCompat.getDrawable(mContext, R.mipmap.icon_empty_view_message));
+        mChatAdapter.setEmptyView(emptyView);
         EMClient.getInstance().addConnectionListener(connectionListener);
         //刷新回调
         smart_refresh_view_chat.setOnRefreshListener(refreshLayout -> {

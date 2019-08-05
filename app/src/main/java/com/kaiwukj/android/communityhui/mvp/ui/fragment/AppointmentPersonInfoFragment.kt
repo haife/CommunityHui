@@ -77,9 +77,10 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         initTopBar()
         userId?.let { mPresenter?.requestSelectStaffDetail(it) }
 
-        if (mServiceTypeId == null || mServiceTypeId == 0) {
+        if (mServiceTypeId == null||mServiceTypeId == 0) {
             rl_appointment_right_now.visibility = View.GONE
         }
+
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
         mCommentAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
         rv_appointment_user_comment.adapter = mCommentAdapter
@@ -181,7 +182,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     override fun onGetStaffCommentInfo(commentResult: ArrayList<StaffCommentResult>) {
         if (page == 1 && commentResult.isEmpty()) {
             val noCommentView = LayoutInflater.from(context).inflate(R.layout.footer_comment_no_layout, null)
-            noCommentView.minimumHeight = McaUtils.dip2px(context!!,80f)
+            noCommentView.minimumHeight = McaUtils.dip2px(context!!, 80f)
             mCommentAdapter.setFooterView(noCommentView)
             return
         }

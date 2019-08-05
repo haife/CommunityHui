@@ -89,12 +89,15 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                         if (data.code == Api.RequestSuccess) {
                             //推荐门店
                             if (isRefresh) {
-                                hRecommendMultiItemList.removeAt(HRecommendMultiItemEntity.STORES_RECOMMEND)
+                                if (hRecommendMultiItemList.size > HRecommendMultiItemEntity.STORES_RECOMMEND)
+                                    hRecommendMultiItemList.removeAt(HRecommendMultiItemEntity.STORES_RECOMMEND)
                             }
                             val recommendStore = HRecommendMultiItemEntity(STRING_STORES_RECOMMEND)
                             recommendStore.recommendStoreList = data.result.list
-                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND, recommendStore)
-                            mRecommendAdapter.notifyDataSetChanged()
+                            if (data.result.list.isNotEmpty()) {
+                                hRecommendMultiItemList.add(HRecommendMultiItemEntity.STORES_RECOMMEND, recommendStore)
+                                mRecommendAdapter.notifyDataSetChanged()
+                            }
                             requestStaffRecommend(request, isRefresh)
                         }
                     }
@@ -122,12 +125,18 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                         if (data.code == Api.RequestSuccess) {
                             //推荐阿姨
                             if (isRefresh) {
-                                hRecommendMultiItemList.removeAt(HRecommendMultiItemEntity.WOMAN_RECOMMEND)
+                                if (hRecommendMultiItemList.size > HRecommendMultiItemEntity.WOMAN_RECOMMEND)
+                                    hRecommendMultiItemList.removeAt(HRecommendMultiItemEntity.WOMAN_RECOMMEND)
                             }
-                            val recommendStaff = HRecommendMultiItemEntity(STRING_WOMAN_RECOMMEND)
-                            recommendStaff.recommendStaffList = data.result.list
-                            hRecommendMultiItemList.add(HRecommendMultiItemEntity.WOMAN_RECOMMEND, recommendStaff)
-                            mRecommendAdapter.notifyDataSetChanged()
+
+                            if (data.result.list.isNotEmpty()) {
+                                val recommendStaff = HRecommendMultiItemEntity(STRING_WOMAN_RECOMMEND)
+                                recommendStaff.recommendStaffList = data.result.list
+                                hRecommendMultiItemList.add(HRecommendMultiItemEntity.WOMAN_RECOMMEND, recommendStaff)
+                                mRecommendAdapter.notifyDataSetChanged()
+                            }
+
+
                         }
                     }
 

@@ -27,6 +27,7 @@
     <!--个人主页-->
     <color name="person_home_page_man_color">#0061EB</color>
     <color name="person_home_page_woman_color">#E23E57</color>
+    <color name="order_detail_shape_oval_color">#D8D8D8</color>
 
     <!--QMUI COLOR-->
     <!-- common -->

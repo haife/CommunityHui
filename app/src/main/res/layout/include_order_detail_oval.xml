@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_90"
+    android:background="@color/write_color"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/dp_10"
+    android:paddingRight="@dimen/dp_10">
+
+    <ImageView
+        android:layout_width="@dimen/dp_3"
+        android:layout_height="@dimen/dp_3"
+        android:background="@drawable/shape_order_detail_head_oval"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_4"
+        android:layout_height="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:background="@drawable/shape_order_detail_head_oval"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_6"
+        android:layout_height="@dimen/dp_6"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:background="@drawable/shape_order_detail_head_oval"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_4"
+        android:layout_height="@dimen/dp_4"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:background="@drawable/shape_order_detail_head_oval"/>
+
+    <ImageView
+        android:layout_width="@dimen/dp_3"
+        android:layout_height="@dimen/dp_3"
+        android:layout_marginLeft="@dimen/dp_6"
+        android:background="@drawable/shape_order_detail_head_oval"/>
+
+
+</LinearLayout>

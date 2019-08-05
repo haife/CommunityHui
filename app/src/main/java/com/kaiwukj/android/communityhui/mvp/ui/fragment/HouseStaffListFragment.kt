@@ -55,6 +55,7 @@ class HouseStaffListFragment : BaseSupportFragment<HouseKeepPresenter>(), HouseK
                 }
                 2 -> {
                     fragment.mShopStaffRequest = bean
+                    bean?.let { it -> it.serviceTypeId?.let { fragment.request.serviceTypeId = it } }
                 }
             }
             return fragment

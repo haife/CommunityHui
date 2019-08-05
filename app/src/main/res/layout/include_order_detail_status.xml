@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/dp_90"
+              android:background="@color/write_color"
+              android:gravity="center_horizontal"
+              android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/iv_order_detail_status_appoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:button="@null"
+            android:clickable="false"
+            android:drawableTop="@drawable/selector_order_detail_appoint"
+            android:drawablePadding="@dimen/dp_12"
+            android:enabled="false"
+            android:text="@string/appointment_desc"
+            android:textColor="@color/color_order_status_text_text"
+            android:textSize="@dimen/sp_12"/>
+
+        <include
+            layout="@layout/include_order_detail_oval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@+id/iv_order_detail_status_appoint"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/cb_order_detail_status_interview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="false"
+            android:drawableTop="@drawable/selector_order_detail_next_step_checked"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="@string/order_detail_interview"
+            android:textColor="@color/color_order_status_text_text"
+            android:textSize="@dimen/sp_12"/>
+
+
+        <include
+            layout="@layout/include_order_detail_oval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@+id/cb_order_detail_status_interview"
+            />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <CheckBox
+            android:id="@+id/cb_order_detail_status_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:button="@null"
+            android:clickable="false"
+            android:drawableTop="@drawable/selector_order_detail_wait"
+            android:drawablePadding="@dimen/dp_12"
+            android:text="@string/order_detail_pay"
+            android:textColor="@color/color_order_status_text_text"
+            android:textSize="@dimen/sp_12"/>
+
+
+        <include
+            layout="@layout/include_order_detail_oval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="27dp"
+            android:layout_toRightOf="@+id/cb_order_detail_status_pay"
+            />
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/iv_order_detail_status_serving"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:button="@null"
+        android:clickable="false"
+        android:drawableTop="@drawable/selector_order_detail_wait"
+        android:drawablePadding="@dimen/dp_12"
+        android:text="@string/order_detail_serving"
+        android:textColor="@color/color_order_status_text_text"
+        android:textSize="@dimen/sp_12"/>
+</LinearLayout>

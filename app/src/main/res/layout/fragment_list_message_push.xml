@@ -4,6 +4,7 @@
     android:id="@+id/smart_refresh_view_push"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:srlEnableLoadMore="false"
     app:srlEnableNestedScrolling="true"
     app:srlHeaderMaxDragRate="2.5">
@@ -14,8 +15,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_push_list"
+        style="@style/BaseRecycleViewStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none"/>
+        />
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

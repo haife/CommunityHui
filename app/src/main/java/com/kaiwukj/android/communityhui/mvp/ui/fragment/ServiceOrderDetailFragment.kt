@@ -6,6 +6,8 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import androidx.core.content.ContextCompat
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
@@ -22,6 +24,8 @@ import com.kaiwukj.android.mcas.utils.McaUtils
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.fragment_service_order_detail.*
 import kotlinx.android.synthetic.main.include_order_detail_header.*
+import kotlinx.android.synthetic.main.include_order_detail_status.*
+
 
 /**
  * Copyright © KaiWu Technology Company
@@ -76,7 +80,7 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(iv_order_detail_head) }
         if (McaUtils.isEmpty(orderData.interviewTime)) {
             tv_custom_order_interview_time.setRightStr(getString(R.string.interview_time_wait_sure))
-        }else{
+        } else {
             tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
         }
 
@@ -88,28 +92,41 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         tv_custom_order_detail_store_address.setRightStr(orderData.serviceAddress)
         when (mServiceTypeId) {
             1 -> {
+                iv_order_detail_status_appoint.isChecked = true
                 qbtn_order_detail_cancel_order.visibility = View.VISIBLE
             }
             2 -> {
                 //面试中
                 qbtn_order_detail_cancel_order.visibility = View.VISIBLE
+                iv_order_detail_status_appoint.isChecked = true
+                cb_order_detail_status_interview.isChecked = true
             }
             3 -> {
                 //签约中
-
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,cb_order_detail_status_pay)
+                cb_order_detail_status_pay.isChecked = true
             }
             4 -> {
                 //服务中
+                iv_order_detail_status_serving.isChecked = true
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_pay)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,iv_order_detail_status_serving)
             }
             5 -> {
                 //服务完成
                 qbtn_order_detail_bottom.visibility = View.VISIBLE
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_pay)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,iv_order_detail_status_serving)
             }
             0 -> {
                 //已取消
             }
         }
     }
+
 
     private fun initClick() {
         //评价订单
@@ -120,6 +137,12 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         qbtn_order_detail_cancel_order.setOnClickListener {
             mPresenter?.requestCancelMineOrderData(orderData.orderId)
         }
+    }
+
+    fun setDrawableTopStatus(drawableRes: Int, checkId: CheckBox) {
+        val drawable = ContextCompat.getDrawable(context!!, drawableRes)
+        drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+        checkId.setCompoundDrawables(null, drawable, null, null);
     }
 
     override fun onGetMineInfo(result: MineUserInfoResult) {

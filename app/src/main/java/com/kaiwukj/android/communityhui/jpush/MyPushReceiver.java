@@ -4,6 +4,9 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 
+import com.kaiwukj.android.communityhui.app.constant.SPParam;
+import com.kaiwukj.android.communityhui.utils.SPUtils;
+
 import cn.jpush.android.api.CmdMessage;
 import cn.jpush.android.api.CustomMessage;
 import cn.jpush.android.api.JPushMessage;
@@ -28,21 +31,24 @@ public class MyPushReceiver extends JPushMessageReceiver {
     public Notification getNotification(Context context, NotificationMessage message) {
         return super.getNotification(context, message);
     }
+
     //自定义消息
     @Override
     public void onMessage(Context context, CustomMessage message) {
         super.onMessage(context, message);
-        //DaoHelper.getMessageDao(context).insert(new MessageEntity(System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS),message.message));
+        DaoHelper.getMessageDao(context).insert(new MessageEntity(System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS), message.message, System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS)));
     }
 
     @Override
     public void onNotifyMessageOpened(Context context, NotificationMessage message) {
         super.onNotifyMessageOpened(context, message);
     }
+
     //通知消息
     @Override
     public void onNotifyMessageArrived(Context context, NotificationMessage message) {
         super.onNotifyMessageArrived(context, message);
+        DaoHelper.getMessageDao(context).insert(new MessageEntity(System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS), message.notificationContent, System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS)));
     }
 
     @Override
