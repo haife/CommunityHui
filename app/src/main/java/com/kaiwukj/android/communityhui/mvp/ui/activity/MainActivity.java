@@ -3,7 +3,10 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -29,10 +32,13 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import timber.log.Timber;
 
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
+import static android.provider.Settings.EXTRA_CHANNEL_ID;
 import static com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt.MainRouterUrl;
 
 @Route(path = MainRouterUrl)
@@ -67,7 +73,6 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         buildBottomMenuListener();
 
     }
-
 
 
     private void buildBottomMenuListener() {
@@ -136,7 +141,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         if (recommendFragment == null) {
             mFragments[0] = HomeFragment.Companion.newInstance();
             mFragments[1] = SocialCircleFragment.newInstance();
-            mFragments[2] =  ChatMessageFragment.newInstance();
+            mFragments[2] = ChatMessageFragment.newInstance();
             mFragments[3] = MineFragment.Companion.newInstance();
             loadMultipleRootFragment(R.id.fl_main_container, 0, mFragments);
         }
@@ -174,6 +179,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     public void post(Runnable runnable) {
 
     }
+
+
 
     @Override
     protected void onDestroy() {

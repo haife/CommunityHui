@@ -84,10 +84,10 @@
     <string name="appointment_demand_days_hint">请填写服务时长</string>
     <string name="appointment_demand_address_hint">请添加地址</string>
     <string name="appointment_select_service_time">选择服务时间</string>
-    <string name="appointment_demand_days">预计天数（天）</string>
+    <string name="appointment_demand_days">预计\t\t（天）</string>
     <string name="appointment_demand_days_mouth">预计天数（月）</string>
     <string name="appointment_demand_days_times">预计天数（次）</string>
-    <string name="appointment_demand_remark_hint">有什么其他特殊需求，可以在这些出来…</string>
+    <string name="appointment_demand_remark_hint">有什么其他特殊需求，可以在这里曰出来…</string>
     <string name="appointment_demand_times_hint">预计服务时间</string>
     <string name="appointment_choice_again_hint">根据需求重新匹配阿姨</string>
     <string name="appointment_failure_hint">稍后将有工作人员与您联系，请保持电话畅通。</string>
@@ -249,5 +249,7 @@
     <!--环信-->
     <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
     <string name="at_your_in_group">%s在群聊中@了你</string>
+    <string name="notify_title">提醒</string>
+    <string name="notify_no_open">开启通知能获得有更多信息哦~</string>
     <!--环信-->
 </resources>

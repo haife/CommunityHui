@@ -16,7 +16,8 @@
         <item name="android:textAppearanceListItem">@style/QDtextAppearanceListItem</item>
         <item name="android:listPreferredItemHeight">?attr/qmui_list_item_height_higher</item>
         <item name="android:listPreferredItemHeightSmall">?attr/qmui_list_item_height</item>
-
+        <item name="md_color_button_text">@color/common_text_dark_color</item>
+        <item name="md_color_title">@color/app_color_theme</item>
         <!-- 配置qmui提供的theme -->
         <item name="qmui_config_color_blue">@color/app_color_theme</item>
         <item name="qmui_round_btn_bg_color">@color/color_common_btn_theme_bg</item>

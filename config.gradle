@@ -60,6 +60,7 @@ ext {
             "image-picker"             : "com.cysion:ImagePicker:1.0.7.x",
             "ninegridview"             : "com.lzy.widget:ninegridview:0.2.0",
             "pick-view"                : "com.contrarywind:Android-PickerView:4.1.8",
+            "dialogs-plus"             : "com.afollestad.material-dialogs:core:3.1.0",
             //rx1
             "rxandroid"                : "io.reactivex:rxandroid:1.2.1",
             "rxjava"                   : "io.reactivex:rxjava:1.3.0",

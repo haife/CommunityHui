@@ -45,7 +45,6 @@ public class ChatActivity extends BaseSupportActivity<ChatPresenter> implements 
         toChatUsername = getIntent().getExtras().getString(Constant.EXTRA_USER_ID);
         toChatTitleName = getIntent().getExtras().getString(Constant.EXTRA_USER_NAME);
         //use EaseChatFratFragment
-//        chatFragment = new HxEaseChatFragment();
         chatFragment = new HxEaseChatFragment();
         //pass parameters to chat fragment
         chatFragment.setArguments(getIntent().getExtras());

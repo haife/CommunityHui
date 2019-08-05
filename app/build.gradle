@@ -62,7 +62,6 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            //http://172.168.1.112:8070
             buildConfigField("String", "API_HOST", "\"http://172.168.1.100:8070\"")
         }
 
@@ -114,6 +113,7 @@ dependencies {
     implementation rootProject.ext.dependencies["magicindicator"]
     implementation rootProject.ext.dependencies["sneaker"]
     implementation rootProject.ext.dependencies["pick-view"]
+    implementation rootProject.ext.dependencies["dialogs-plus"]
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //glide
