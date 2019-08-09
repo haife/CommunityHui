@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,6 @@ import kotlinx.android.synthetic.main.fragment_house_keep_service.*
  */
 class HouseKeepFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), HouseKeepContract.View {
     private var mEntity: ArrayList<HomeServiceEntity> = ArrayList()
-    private var typeFaceMediumBold: Typeface? = null
     private var serviceAdapter: HouseKeepServiceAdapter? = null
 
     companion object {

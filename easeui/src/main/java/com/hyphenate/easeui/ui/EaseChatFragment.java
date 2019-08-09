@@ -670,7 +670,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                             titleBar.setTitle(room.getName());
                             EMLog.d(TAG, "join room success : " + room.getName());
                         } else {
-                            titleBar.setTitle(toChatUsername);
+                            titleBar.setTitle(toChatUserTitle);
                         }
                         onConversationInit();
                         onMessageListInit();
@@ -730,7 +730,7 @@ public class EaseChatFragment extends EaseBaseFragment implements EMMessageListe
                     if (ACTION_TYPING_BEGIN.equals(body.action()) && msg.getFrom().equals(toChatUsername)) {
                         titleBar.setTitle(getString(R.string.alert_during_typing));
                     } else if (ACTION_TYPING_END.equals(body.action()) && msg.getFrom().equals(toChatUsername)) {
-                        titleBar.setTitle(toChatUsername);
+                        titleBar.setTitle(toChatUserTitle);
                     }
                 }
             });

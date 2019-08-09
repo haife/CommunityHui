@@ -20,6 +20,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerHomeComponent
 import com.kaiwukj.android.communityhui.di.module.HomeModule
 import com.kaiwukj.android.communityhui.mvp.contract.HomeContract
+import com.kaiwukj.android.communityhui.mvp.http.entity.multi.HRecommendMultiItemEntity
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.StoreListRequest
 import com.kaiwukj.android.communityhui.mvp.presenter.HomePresenter
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.HRecommendAdapter
@@ -45,7 +46,8 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
 
     @Inject
     lateinit var mLayoutManager: RecyclerView.LayoutManager
-
+    @Inject
+    lateinit var hRecommendMultiItemList: MutableList<HRecommendMultiItemEntity>
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
         const val RECOMMEND_FLAG = 1
@@ -69,7 +71,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        mPresenter?.requestServiceList(StoreListRequest(RECOMMEND_FLAG), false)
+        mPresenter?.requestServiceList(StoreListRequest(RECOMMEND_FLAG), true)
         smart_refresh_home.setOnRefreshListener(this)
         rv_home.layoutManager = mLayoutManager
         rv_home.adapter = mHomeAdapter
@@ -115,8 +117,9 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
         // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
         val isOpened = manager.areNotificationsEnabled()
         if (isOpened) {
-
+            //有通知选线
         } else {
+            //
             val dialog = MaterialDialog(context!!)
                     .cornerRadius(6f)
                     .title(R.string.notify_title)
@@ -145,6 +148,7 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     }
 
     override fun launchActivity(intent: Intent) {
+
     }
 
     override fun killMyself() {
@@ -156,7 +160,8 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mPresenter?.requestStoreRecommend(StoreListRequest(RECOMMEND_FLAG), true)
+        hRecommendMultiItemList.clear()
+        mPresenter?.requestServiceList(StoreListRequest(RECOMMEND_FLAG), true)
     }
 
 }

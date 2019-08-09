@@ -15,6 +15,7 @@ import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
 import com.kaiwukj.android.communityhui.app.constant.Constant;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
+import com.kaiwukj.android.communityhui.hx.UserCacheManager;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
@@ -37,7 +38,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -91,7 +94,9 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
     private List<Fragment> mHomeFragmentList = new ArrayList<>();
     //是否关注
     private boolean isCollection = false;
-
+    private String headUrl;
+    //是否是我的主页
+    private boolean isMinePage = false;
     public static SocialCirclePersonPageFragment newInstance(String userId, int index) {
         SocialCirclePersonPageFragment fragment = new SocialCirclePersonPageFragment();
         fragment.mUserId = Integer.parseInt(userId);
@@ -124,6 +129,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         if (mUserId == 0) {
             bottomPersonLL.setVisibility(View.GONE);
             topBar.setTitle(getString(R.string.social_circle_mine_page));
+            isMinePage = true;
         } else {
             topBar.setTitle(getString(R.string.social_circle_person_page_title));
         }
@@ -135,6 +141,11 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, hxName);
                 intent.putExtra(Constant.EXTRA_USER_NAME, mTitleName);
+                Map<String, Object> map = new HashMap<>();
+                map.put("ChatUserId", hxName);
+                map.put("ChatUserNick", mTitleName);
+                map.put("ChatUserPic", headUrl);
+                UserCacheManager.save(map);
                 startActivity(intent);
             }
 
@@ -163,6 +174,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         isCollection = result.isFocusedStatus();
         hxName = result.getHxName();
         mTitleName = result.getNickName();
+        headUrl = result.getHeadImg();
         GlideArms.with(getContext()).load(result.getHeadImg()).centerCrop().into(mHeadIv);
         mNameTv.setText(result.getNickName());
         mSignTv.setText(result.getPerSign());
@@ -239,7 +251,7 @@ public class SocialCirclePersonPageFragment extends BaseSwipeBackFragment<Social
         });
         mPersonContainer.setOffscreenPageLimit(4);
         mHomeFragmentList.add(CirclePersonPageCardFragment.newInstance(mUserId));
-        mHomeFragmentList.add(CirclePersonPageReplyFragment.newInstance(mUserId));
+        mHomeFragmentList.add(CirclePersonPageReplyFragment.newInstance(mUserId,isMinePage ));
         mHomeFragmentList.add(CirclePersonMyFansFragment.newInstance(mUserId, 0));
         mHomeFragmentList.add(CirclePersonMyFansFragment.newInstance(mUserId, 1));
         mPersonPageMagic.setNavigator(mMIndicatorNavigator);

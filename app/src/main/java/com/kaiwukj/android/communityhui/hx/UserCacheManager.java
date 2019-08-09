@@ -246,9 +246,7 @@ public class UserCacheManager {
         try {
             String userId = ext.get(kChatUserId).toString();
             String avatarUrl = ext.get(kChatUserPic).toString();
-            ;
             String nickName = ext.get(kChatUserNick).toString();
-            ;
 
             save(userId, nickName, avatarUrl);
 

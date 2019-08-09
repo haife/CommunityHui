@@ -97,10 +97,6 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                     buttonMore.setVisibility(View.VISIBLE);
                     buttonSend.setVisibility(View.GONE);
                 }
-
-                if (listener != null) {
-                    listener.onTyping(s, start, before, count);
-                }
             }
 
             @Override
@@ -133,9 +129,9 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                EMLog.i("EaseChatPrimaryMenu", "actionId: " + actionId);
+                EMLog.d("key", "keyCode:" + event.getKeyCode() + " action" + event.getAction() + " ctrl:" + ctrlPress);
                 if (actionId == EditorInfo.IME_ACTION_SEND ||
-                        (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
+                        (event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
                          event.getAction() == KeyEvent.ACTION_DOWN &&
                          ctrlPress == true)) {
                     String s = editText.getText().toString();

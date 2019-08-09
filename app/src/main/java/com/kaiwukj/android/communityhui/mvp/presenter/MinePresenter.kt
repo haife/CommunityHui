@@ -150,6 +150,8 @@ constructor(model: MineContract.Model, rootView: MineContract.View) :
                     override fun onNext(result: BaseStatusResult) {
                         if (result.code == Api.RequestSuccess) {
                             mRootView.showMessage("评价成功")
+                        }else{
+                            mRootView.showMessage("评价失败")
                         }
                     }
                 })

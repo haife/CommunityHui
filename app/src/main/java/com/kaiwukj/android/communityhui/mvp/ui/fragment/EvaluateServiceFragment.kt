@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.fragment_evaluate_service.*
  */
 class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineContract.View {
     lateinit var orderData: OrderListResult
-    lateinit var commentRequest: OrderCommentRequest
+    private lateinit var commentRequest: OrderCommentRequest
     private var professionStarSize: Int = 0
     private var attitudeStarSize: Int = 0
     private var chatStarSize: Int = 0
@@ -64,8 +64,14 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
         tv_user_nick_name.text = orderData.realName
         context?.let { GlideArms.with(it).load(Api.IMG_URL + orderData.avatar).circleCrop().into(qiv_user_profile_photo) }
         qbtn_order_detail_bottom.setOnClickListener {
+
+            if (professionStarSize + attitudeStarSize + chatStarSize + ethicsStarSize == 0) {
+                showMessage("请给技工评分")
+                return@setOnClickListener
+            }
+
             commentRequest.orderId = orderData.orderId
-            commentRequest.content = et_service_order_comment_content.text.toString()
+            commentRequest.serviceComment = et_service_order_comment_content.text.toString()
             commentRequest.score = ((professionStarSize + attitudeStarSize + chatStarSize + ethicsStarSize) / 4)
             mPresenter?.requestCommentOrderData(commentRequest)
         }
@@ -115,7 +121,6 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
             dialog.dismiss()
             activity?.finish()
         }, 800)
-
     }
 
     override fun launchActivity(intent: Intent) {

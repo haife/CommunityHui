@@ -83,12 +83,27 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
         } else {
             tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
         }
+        //查看是否已经评论
+        if ( orderData.isHmServiceCommentFalg) {
+            qbtn_order_detail_bottom.visibility = View.GONE
+            rl_order_comment.visibility = View.VISIBLE
+            rating_bar_order_detail.setStar(orderData.score.toFloat())
+            tv_custom_order_comment_content.setRightStr(orderData.content)
+        } else {
+            qbtn_order_detail_bottom.visibility = View.VISIBLE
+            rl_order_comment.visibility = View.GONE
+        }
 
         tv_custom_order_service_type.setRightStr(orderData.serviceTypeName)
         tv_custom_order_service_days.setRightStr(orderData.serviceLength.toString() + "/" + orderData.serviceTypeUnit)
         tv_custom_order_service_days.setRightStr("${orderData.serviceLength} / ${orderData.serviceTypeUnit}")
         tv_custom_order_service_order_time.setRightStr(orderData.createTime)
-        tv_order_detail_remark.text = orderData.description
+        if (McaUtils.isEmpty(orderData.description)) {
+            ll_order_detail_remark.visibility = View.GONE
+        } else {
+            ll_order_detail_remark.visibility = View.VISIBLE
+            tv_order_detail_remark.text = orderData.description
+        }
         tv_custom_order_detail_store_address.setRightStr(orderData.serviceAddress)
         when (mServiceTypeId) {
             1 -> {
@@ -103,23 +118,22 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
             }
             3 -> {
                 //签约中
-                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
-                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,cb_order_detail_status_pay)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked, cb_order_detail_status_pay)
                 cb_order_detail_status_pay.isChecked = true
             }
             4 -> {
                 //服务中
                 iv_order_detail_status_serving.isChecked = true
-                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
-                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_pay)
-                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,iv_order_detail_status_serving)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_pay)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked, iv_order_detail_status_serving)
             }
             5 -> {
                 //服务完成
-                qbtn_order_detail_bottom.visibility = View.VISIBLE
-                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_interview)
-                setDrawableTopStatus(R.drawable.selector_order_detail_appoint,cb_order_detail_status_pay)
-                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked,iv_order_detail_status_serving)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_interview)
+                setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_pay)
+                setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked, iv_order_detail_status_serving)
             }
             0 -> {
                 //已取消

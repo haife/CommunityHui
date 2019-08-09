@@ -25,6 +25,15 @@ public class CircleCardResult extends BaseRootResult<List<CircleCardResult>> imp
     private int orderIndex;
     private String remark;
     private int statusFlag;
+    private boolean myUnote;
+
+    public boolean isMyUnote() {
+        return myUnote;
+    }
+
+    public void setMyUnote(boolean myUnote) {
+        this.myUnote = myUnote;
+    }
 
     public int getCreateBy() {
         return createBy;

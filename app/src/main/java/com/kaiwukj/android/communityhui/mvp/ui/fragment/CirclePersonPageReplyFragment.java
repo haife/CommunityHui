@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
+import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
@@ -19,6 +21,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailR
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.PersonPageCardCommentResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.CirclePersonPageCommentAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -60,11 +63,13 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
     private int pageNum = 1;
     CirclePersonPageRequest request = new CirclePersonPageRequest();
     private int mUserId;
+    private boolean isMinePage;
 
-    public static CirclePersonPageReplyFragment newInstance(int userId) {
+    public static CirclePersonPageReplyFragment newInstance(int userId,boolean isMinePage) {
         Bundle args = new Bundle();
         CirclePersonPageReplyFragment fragment = new CirclePersonPageReplyFragment();
         fragment.mUserId = userId;
+        fragment.isMinePage = isMinePage;
         fragment.setArguments(args);
         return fragment;
     }
@@ -103,6 +108,12 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
             pageNum++;
             request.setPageNum(pageNum);
             mPresenter.queryCircleMyNoteList(request);
+        });
+
+        mPageCommentAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl)
+                    .withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).withBoolean(SocialCircleActivity.IS_MY_CARD,isMinePage)
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mPageCardCommentList.get(position).getNoteId()).navigation();
         });
     }
 

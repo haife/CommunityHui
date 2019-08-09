@@ -78,7 +78,7 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         setChatFragmentHelper(this);
         if (chatType == Constant.CHATTYPE_SINGLE) {
             Map<String, RobotUser> robotMap = DemoHelper.getInstance().getRobotList();
-            if(robotMap!=null && robotMap.containsKey(toChatUsername)){
+            if (robotMap != null && robotMap.containsKey(toChatUsername)) {
                 isRobot = true;
             }
         }
@@ -91,19 +91,21 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
             }
             onBackPressed();
         });
-        if(chatType == EaseConstant.CHATTYPE_GROUP){
+        if (chatType == EaseConstant.CHATTYPE_GROUP) {
             inputMenu.getPrimaryMenu().getEditText().addTextChangedListener(new TextWatcher() {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(count == 1 && "@".equals(String.valueOf(s.charAt(start)))){
+                    if (count == 1 && "@".equals(String.valueOf(s.charAt(start)))) {
 //                        startActivityForResult(new Intent(getActivity(), PickAtUserActivity.class).
 //                                putExtra("groupId", toChatUsername), REQUEST_CODE_SELECT_AT_USER);
                     }
                 }
+
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 }
+
                 @Override
                 public void afterTextChanged(Editable s) {
                 }
@@ -128,14 +130,13 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
     }
 
 
-
     @Override
     public void onSetMessageAttributes(EMMessage message) {
-        if(isRobot){
+        if (isRobot) {
             //set message extension
             message.setAttribute("em_robot_message", isRobot);
-            UserCacheManager.setMsgExt(message);
         }
+        UserCacheManager.setMsgExt(message);
         // 通过扩展属性，将userPic和userName发送出去。
         String userPic = SPUtils.getInstance().getString(SPParam.HX_HEAD_IMAGE);
         if (!TextUtils.isEmpty(userPic)) {
@@ -174,6 +175,7 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         //消息框点击事件，demo这里不做覆盖，如需覆盖，return true
         return false;
     }
+
     @Override
     public void onCmdMessageReceived(List<EMMessage> messages) {
         super.onCmdMessageReceived(messages);
@@ -212,14 +214,12 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
-
         startActivityForResult(intent, REQUEST_CODE_SELECT_FILE);
     }
 
 
     /**
      * chat row provider
-     *
      */
     private final class CustomChatRowProvider implements EaseCustomChatRowProvider {
         @Override
@@ -231,18 +231,18 @@ public class HxEaseChatFragment extends EaseChatFragment implements EaseChatFrag
 
         @Override
         public int getCustomChatRowType(EMMessage message) {
-            if(message.getType() == EMMessage.Type.TXT){
+            if (message.getType() == EMMessage.Type.TXT) {
                 //voice call
-                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)){
+                if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VOICE_CALL, false)) {
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VOICE_CALL : MESSAGE_TYPE_SENT_VOICE_CALL;
-                }else if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)){
+                } else if (message.getBooleanAttribute(Constant.MESSAGE_ATTR_IS_VIDEO_CALL, false)) {
                     //video call
                     return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_VIDEO_CALL : MESSAGE_TYPE_SENT_VIDEO_CALL;
                 }
                 //messagee recall
-                else if(message.getBooleanAttribute(Constant.MESSAGE_TYPE_RECALL, false)){
+                else if (message.getBooleanAttribute(Constant.MESSAGE_TYPE_RECALL, false)) {
                     return MESSAGE_TYPE_RECALL;
-                } else if (!"".equals(message.getStringAttribute(Constant.MSG_ATTR_CONF_ID,""))) {
+                } else if (!"".equals(message.getStringAttribute(Constant.MSG_ATTR_CONF_ID, ""))) {
                     return MESSAGE_TYPE_CONFERENCE_INVITE;
                 } else if (Constant.OP_INVITE.equals(message.getStringAttribute(Constant.EM_CONFERENCE_OP, ""))) {
                     return MESSAGE_TYPE_LIVE_INVITE;

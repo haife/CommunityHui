@@ -4,11 +4,16 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.kaiwukj.android.communityhui.R;
+import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardCommentResult;
+import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCirclePersonPageFragment;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
@@ -41,5 +46,9 @@ public class SocialCardCommentAdapter extends BaseQuickAdapter<CircleCardComment
                 .setText(R.id.tv_card_comment_person_time, item.getCreateTime())
                 .setText(R.id.tv_card_comment_floor, String.format(mContext.getString(R.string.card_comment_floor), helper.getAdapterPosition() + 1));
         helper.addOnClickListener(R.id.tv_card_comment_reply);
+        headIv.setOnClickListener(view -> {
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+                    .withInt(ExtraCons.EXTRA_KEY_USER_ID, item.getReplyId()).navigation();
+        });
     }
 }

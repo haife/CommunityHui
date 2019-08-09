@@ -11,9 +11,12 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment;
+import com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt;
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons;
 import com.kaiwukj.android.communityhui.di.component.DaggerSocialCircleComponent;
 import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
@@ -23,6 +26,7 @@ import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardComment
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
+import com.kaiwukj.android.communityhui.mvp.ui.activity.SocialCircleActivity;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.NineGridIvAdapter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCardCommentAdapter;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
@@ -124,10 +128,12 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
     private int cardUserId;
     //是否关注
     private boolean isCollection = false;
+    private boolean isMyCard = false;
 
-    public static CircleCardDetailFragment newInstance(int cardId) {
+    public static CircleCardDetailFragment newInstance(int cardId, boolean isMyCard) {
         CircleCardDetailFragment fragment = new CircleCardDetailFragment();
         fragment.mCardId = cardId;
+        fragment.isMyCard = isMyCard;
         return fragment;
     }
 
@@ -173,10 +179,16 @@ public class CircleCardDetailFragment extends BaseSwipeBackFragment<SocialCircle
             mCommentOtherRequest.setNoteId(mCardId);
             mCommentOtherRequest.setContent(mCommentEt.getText().toString());
             assert mPresenter != null;
+            mCommentEt.setText("");
             mPresenter.requestCommentOther(mCommentOtherRequest);
 
         });
+        mUserHeadIv.setOnClickListener(view -> ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, SocialCirclePersonPageFragment.SOCIAL_CIRCLE_PERSON_PAGE_FRAGMENT)
+                .withInt(ExtraCons.EXTRA_KEY_USER_ID, cardUserId).navigation());
 
+
+        //是否是自己的帖子
+        mCollection.setVisibility(isMyCard ? View.GONE : View.VISIBLE);
         //关注其他人
         mCollection.setOnClickListener(view -> {
             assert mPresenter != null;

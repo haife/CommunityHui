@@ -36,7 +36,7 @@ public class MyPushReceiver extends JPushMessageReceiver {
     @Override
     public void onMessage(Context context, CustomMessage message) {
         super.onMessage(context, message);
-        DaoHelper.getMessageDao(context).insert(new MessageEntity(System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS), message.message, System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS)));
+        //   DaoHelper.getMessageDao(context).insert(new MessageEntity(System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS), message.message, System.currentTimeMillis(), SPUtils.getInstance().getString(SPParam.SP_ALIAS)));
     }
 
     @Override

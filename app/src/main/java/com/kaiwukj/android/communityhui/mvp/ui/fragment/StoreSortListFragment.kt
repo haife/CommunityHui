@@ -107,11 +107,11 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
         tv_store_sort_header_address.text = detailResult.address
         cb_store_sort_header_collection.isChecked = detailResult.favoriteFlag == 1
         val listTab = ArrayList<HouseKeepingServiceType>()
-        val itemRecommend = HouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
-        listTab.add(itemRecommend)
         //请求门店下推荐技工实体类
-        val recommend = StoreListRequest(1, serviceTypeId = null, hmstoreId = mShopId)
-        mFragmentList.add(HouseStaffListFragment.newInstance(recommend, 2))
+//       val itemRecommend = HouseKeepingServiceType(0, getString(R.string.home_shops_recommend_desc))
+//        listTab.add(itemRecommend)
+//        val recommend = StoreListRequest(1, serviceTypeId = null, hmstoreId = mShopId)
+//        mFragmentList.add(HouseStaffListFragment.newInstance(recommend, 2))
         val itemAll = HouseKeepingServiceType(0, getString(R.string.mine_order_all))
         listTab.add(itemAll)
         //请求门店下所有技工实体类

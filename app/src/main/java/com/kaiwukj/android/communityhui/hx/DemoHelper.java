@@ -75,6 +75,17 @@ import java.util.concurrent.Executors;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class DemoHelper {
+
+    public interface OnMessageRefreshListener {
+        void onMessageRefreshListener();
+    }
+
+    private OnMessageRefreshListener mRefreshListener;
+
+    public void setOnMessageRefreshListener(OnMessageRefreshListener listener) {
+        this.mRefreshListener = listener;
+    }
+
     /**
      * data sync listener
      */
@@ -1314,6 +1325,7 @@ public class DemoHelper {
                         getNotifier().notify(message);
                     }
                 }
+                mRefreshListener.onMessageRefreshListener();
             }
 
             @Override

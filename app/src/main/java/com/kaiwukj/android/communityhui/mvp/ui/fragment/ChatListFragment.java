@@ -20,6 +20,9 @@ import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSupportFragment;
 import com.kaiwukj.android.communityhui.app.constant.Constant;
 import com.kaiwukj.android.communityhui.di.component.DaggerChatComponent;
+import com.kaiwukj.android.communityhui.hx.DemoHelper;
+import com.kaiwukj.android.communityhui.hx.UserCacheInfo;
+import com.kaiwukj.android.communityhui.hx.UserCacheManager;
 import com.kaiwukj.android.communityhui.mvp.contract.ChatContract;
 import com.kaiwukj.android.communityhui.mvp.presenter.ChatPresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.activity.ChatActivity;
@@ -48,7 +51,7 @@ import butterknife.BindView;
  * @time 2019/7/19
  * @desc 消息列表
  */
-public class ChatListFragment extends BaseSupportFragment<ChatPresenter> implements ChatContract.View {
+public class ChatListFragment extends BaseSupportFragment<ChatPresenter> implements ChatContract.View, DemoHelper.OnMessageRefreshListener {
     @BindView(R.id.rv_chat_contract)
     RecyclerView mChatListRv;
     @BindView(R.id.smart_refresh_view_chat)
@@ -105,6 +108,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        DemoHelper.getInstance().setOnMessageRefreshListener(this);
         //获取联系人个数
         conversationList.addAll(loadConversationList());
         mChatListRv.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -125,6 +129,7 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
         mChatAdapter.setOnItemClickListener((adapter, view1, position) -> {
             EMConversation conversation = conversationList.get(position);
             String username = conversation.conversationId();
+            UserCacheInfo info = UserCacheManager.get(username);
             if (username.equals(EMClient.getInstance().getCurrentUser()))
                 Toast.makeText(getActivity(), R.string.Cant_chat_with_yourself, Toast.LENGTH_SHORT).show();
             else {
@@ -140,7 +145,9 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
                 }
                 // it's single chat
                 intent.putExtra(Constant.EXTRA_USER_ID, username);
-                intent.putExtra(Constant.EXTRA_USER_NAME, username);
+                if (info != null) {
+                    intent.putExtra(Constant.EXTRA_USER_NAME, info.getNickName());
+                }
                 startActivity(intent);
             }
         });
@@ -278,4 +285,8 @@ public class ChatListFragment extends BaseSupportFragment<ChatPresenter> impleme
 
     }
 
+    @Override
+    public void onMessageRefreshListener() {
+        refresh();
+    }
 }

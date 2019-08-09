@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.list.listItems
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
 import com.kaiwukj.android.communityhui.di.component.DaggerAppointmentComponent
@@ -49,6 +51,8 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
     private var page = 1
     private lateinit var dialog: QMUITipDialog
     private var mResult: StaffInfoResult = StaffInfoResult()
+    private val selectItemsStrings = arrayListOf<String>()
+    private val selectItems = arrayListOf<StaffInfoResult.EmpTypeListBean>()
 
     companion object {
         const val APPOINTMENT_PERSON_INFO_FRAGMENT = "APPOINTMENT_PERSON_INFO_FRAGMENT"
@@ -77,16 +81,23 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         initTopBar()
         userId?.let { mPresenter?.requestSelectStaffDetail(it) }
 
-        if (mServiceTypeId == null||mServiceTypeId == 0) {
-            rl_appointment_right_now.visibility = View.GONE
-        }
-
         rv_appointment_user_comment.layoutManager = LinearLayoutManager(context!!)
         mCommentAdapter = AppointmentCommentAdapter(R.layout.recycle_item_staff_comment_layout, commentList, context!!)
         rv_appointment_user_comment.adapter = mCommentAdapter
 
         //立即预约 需要传递哪种服务类型
         qbtn_appointment_right_now.setOnClickListener {
+            if (mServiceTypeId == null || mServiceTypeId == 0) {
+                MaterialDialog(context!!).title(R.string.choice_service_type_title).show {
+                    listItems(res = null, items = selectItemsStrings) { dialog, index, text ->
+                        mServiceTypeId = selectItems[index].serviceTypeId
+                        start(AppointmentDemandFragment.newInstance(userId, mServiceTypeId, shopId))
+                    }
+                }
+                return@setOnClickListener
+            }
+
+
             start(AppointmentDemandFragment.newInstance(userId, mServiceTypeId, shopId))
         }
 
@@ -141,11 +152,16 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
                 priceTv.text = String.format(getString(R.string.person_info_service_price_format), index.servicePrice, index.serviceUnit)
                 itemView.layoutParams = lp
                 ll_peron_other_info_service_price.addView(itemView)
+                //赋值技工服务类型数组，如果serviceID传递进来为0则需要选择类型
+                selectItemsStrings.add(nameTv.text.toString())
+                selectItems.add(index)
             }
         }
         if (mResult.empTagList.isNotEmpty()) {
             ll_person_tags_info_container.setLabels(mResult.empTagList)
         }
+
+        rl_appointment_right_now.visibility = View.VISIBLE
     }
 
     private fun initTobBarClick() {

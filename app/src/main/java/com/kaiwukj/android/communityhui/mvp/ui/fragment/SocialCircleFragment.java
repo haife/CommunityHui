@@ -112,11 +112,11 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        initRecycleView();
         assert mPresenter != null;
         mPresenter.getHomeRecommendData(request, true);
         mPresenter.requestCircleCardList();
         mPresenter.requestCircleHotList();
+        initRecycleView();
     }
 
     private void initRecycleView() {
@@ -136,8 +136,8 @@ public class SocialCircleFragment extends BaseSupportFragment<SocialCirclePresen
                     .withString(ExtraCons.CIRCLE_TOPIC_TYPE_TITLE, mCardResults.get(position).getDicValue()).navigation();
         });
         mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
-
-            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl).withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL)
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl)
+                    .withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).withBoolean(SocialCircleActivity.IS_MY_CARD,mDataList.get(position).isMyUnote())
                     .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
 
         });

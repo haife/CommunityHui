@@ -61,7 +61,6 @@ class AppointmentResultFragment : BaseSupportFragment<AppointmentPresenter>(), A
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-
         qbtn_appoint_back_home.setOnClickListener {
             ARouter.getInstance().build(MainRouterUrl).navigation(context)
         }

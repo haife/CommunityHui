@@ -35,6 +35,39 @@ public class OrderListResult extends BaseRootResult<List<OrderListResult>> imple
     private String storeName;
     private int storeemployeeId;
     private int worktime;
+    private String content;
+    private int score;
+
+
+    private boolean hmServiceCommentFalg;
+
+    public boolean isHmServiceCommentFalg() {
+        return hmServiceCommentFalg;
+    }
+
+    public void setHmServiceCommentFalg(boolean hmServiceCommentFalg) {
+        this.hmServiceCommentFalg = hmServiceCommentFalg;
+    }
+
+    public void setWorktime(int worktime) {
+        this.worktime = worktime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     public String getAvatar() {
         return avatar;
@@ -192,7 +225,4 @@ public class OrderListResult extends BaseRootResult<List<OrderListResult>> imple
         return worktime;
     }
 
-    public void setWorktime(int worktime) {
-        this.worktime = worktime;
-    }
 }

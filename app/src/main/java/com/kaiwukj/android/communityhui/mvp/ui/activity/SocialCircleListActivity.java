@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.haife.app.nobles.spirits.kotlin.mvp.ui.decoration.RecycleViewDivide;
 import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackActivity;
@@ -18,10 +19,11 @@ import com.kaiwukj.android.communityhui.di.module.SocialCircleModule;
 import com.kaiwukj.android.communityhui.mvp.contract.SocialCircleContract;
 import com.kaiwukj.android.communityhui.mvp.http.entity.request.CircleHomeRequest;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardDetailResult;
-import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleCardResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.SocialUserHomePageResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.SocialCirclePresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.adapter.SocialCircleListAdapter;
+import com.kaiwukj.android.communityhui.mvp.ui.fragment.CircleCardDetailFragment;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout;
 import com.qmuiteam.qmui.widget.QMUITopBar;
@@ -60,7 +62,8 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
     String title;
 
     @Inject
-    List<CircleCardResult> mCardResults;
+    List<CircleHomeResult> mDataList;
+
     private int page = 1;
     private CircleHomeRequest request = new CircleHomeRequest();
 
@@ -104,6 +107,12 @@ public class SocialCircleListActivity extends BaseSwipeBackActivity<SocialCircle
             request.setPageNum(page);
             assert mPresenter != null;
             mPresenter.getHomeRecommendData(request, false);
+        });
+
+        mCircleListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl)
+                    .withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).withBoolean(SocialCircleActivity.IS_MY_CARD, mDataList.get(position).isMyUnote())
+                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mDataList.get(position).getId()).navigation();
         });
     }
 

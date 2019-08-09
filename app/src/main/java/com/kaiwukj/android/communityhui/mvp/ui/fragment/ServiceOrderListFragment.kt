@@ -38,7 +38,7 @@ class ServiceOrderListFragment : BaseSupportFragment<MinePresenter>(), MineContr
     private var mType: Int? = null
     private var orderList = ArrayList<OrderListResult>()
     lateinit var mOrderListAdapter: OrderListAdapter
-    private var pageNum = 1;
+    private var pageNum = 1
 
     companion object {
         fun newInstance(type: Int): ServiceOrderListFragment {

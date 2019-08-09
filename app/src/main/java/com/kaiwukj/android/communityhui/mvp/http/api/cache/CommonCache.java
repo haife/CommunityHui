@@ -22,7 +22,7 @@ import io.rx_cache2.Reply;
  */
 public interface CommonCache {
     /*获取服务列表 不需要手动驱逐缓存*/
-    @LifeCache(duration = 10, timeUnit = TimeUnit.HOURS)
+    @LifeCache(duration = 3, timeUnit = TimeUnit.MINUTES)
     Observable<Reply<HomeServiceEntity>> getHomeServiceCache(Observable<HomeServiceEntity> data);
 
     /*首页推荐门店数据*/

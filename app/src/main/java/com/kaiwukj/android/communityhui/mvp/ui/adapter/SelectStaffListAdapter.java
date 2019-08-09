@@ -42,6 +42,6 @@ public class SelectStaffListAdapter extends BaseQuickAdapter<StaffListResult, Ba
         helper.setText(R.id.iv_house_staff_list_name, item.getRealName()).setTypeface(typeFaceMedium).setText(R.id.iv_house_staff_list_price,
                 String.format(mContext.getString(R.string.home_format_staff_price), item.getServicePrice().toString()))
                 .setText(R.id.iv_house_staff_list_message, staffMsg)
-                .setText(R.id.iv_house_staff_list_order_number, String.format(mContext.getString(R.string.home_format_staff_order_number), item.getOrderNum()));
+                .setText(R.id.iv_house_staff_list_order_number, String.format(mContext.getString(R.string.home_format_staff_order_number), item.getServiceHome()));
     }
 }

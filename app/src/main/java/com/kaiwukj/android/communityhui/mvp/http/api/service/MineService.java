@@ -91,7 +91,7 @@ public interface MineService {
     /**
      * 评价订单
      */
-    @GET("/app/sc/userOrder/orderComment")
+    @POST("/app/sc/userOrder/orderComment")
     Observable<BaseStatusResult> requestCommentOrderData(@Body RequestBody body);
 
 

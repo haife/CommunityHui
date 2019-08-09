@@ -73,6 +73,11 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWa
         et_phone_number.addTextChangedListener(this)
         et_login_phone_code.addTextChangedListener(this)
         clickListener()
+
+        tv_login_agreement_desc.setOnClickListener {
+            val intent = Intent(this@LoginActivity,WebActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getPhoneNumber(): String {

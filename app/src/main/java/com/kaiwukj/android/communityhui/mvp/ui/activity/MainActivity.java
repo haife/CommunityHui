@@ -3,10 +3,7 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -32,13 +29,10 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import timber.log.Timber;
 
-import static android.provider.Settings.EXTRA_APP_PACKAGE;
-import static android.provider.Settings.EXTRA_CHANNEL_ID;
 import static com.kaiwukj.android.communityhui.app.constant.ARouterUrlKt.MainRouterUrl;
 
 @Route(path = MainRouterUrl)
@@ -155,6 +149,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.CALL_PHONE)
                 .subscribe(permission -> {
                     if (permission.granted) {

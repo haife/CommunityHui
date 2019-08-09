@@ -68,11 +68,13 @@
                     android:background="@color/write_color"/>
 
                 <LinearLayout
+                    android:id="@+id/ll_order_detail_remark"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_200"
+                    android:layout_height="@dimen/dp_100"
                     android:layout_marginTop="@dimen/dp_5"
                     android:background="@color/write_color"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -98,6 +100,49 @@
                         android:textSize="15sp"/>
                 </LinearLayout>
 
+
+                <RelativeLayout
+                    android:id="@+id/rl_order_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/write_color"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        android:text="@string/order_professional_kill"
+                        android:textColor="@color/home_color_hot_service_text"
+                        android:textSize="15sp"/>
+
+                    <com.kaiwukj.android.communityhui.mvp.ui.widget.order.CustomRatingBar
+                        android:id="@+id/rating_bar_order_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_16"
+                        android:clickable="false"
+                        android:gravity="center_vertical"
+                        app:starCount="5"
+                        app:starEmpty="@drawable/icon_service_evaluate_rating_empty"
+                        app:starFill="@drawable/icon_service_evaluate_rating_full"
+                        app:starImageSize="@dimen/dp_16"
+                        app:starPadding="@dimen/dp_8"
+                        app:starStep="0"
+                        app:stepSize="Full"/>
+
+                    <com.kaiwukj.android.communityhui.mvp.ui.widget.home.HorizontalMessageWidget
+                        android:id="@+id/tv_custom_order_comment_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_35"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_below="@+id/rating_bar_order_detail"
+                        app:left_str="@string/order_detail_comment_content"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
