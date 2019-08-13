@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="350dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@mipmap/icon_app_version_update">
+
+
+        <TextView
+            android:id="@+id/tv_new_version_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/new_version_find_the"
+            android:textColor="@color/write_color"
+            android:textSize="@dimen/sp_20"
+            />
+
+        <TextView
+            android:id="@+id/tv_new_version_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_new_version_find"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_6"
+            android:textColor="@color/write_color"
+            android:textSize="@dimen/sp_15"
+            />
+
+        <TextView
+            android:id="@+id/tv_new_version_update_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_new_version_name"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_70"
+            android:text="@string/new_version_update_content"
+            android:textColor="@color/home_color_hot_service_text"
+            android:textSize="@dimen/sp_16"
+            />
+
+        <TextView
+            android:id="@+id/tv_version_update_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_new_version_update_content"
+            android:layout_marginLeft="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_20"
+            android:lineSpacingExtra="@dimen/dp_5"
+            android:textColor="@color/home_color_hot_service_text"
+            android:textSize="@dimen/sp_14"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dp_50"
+            android:text="@string/new_version_update_hint"
+            android:textColor="@color/common_slight_light_color"
+            android:textSize="@dimen/sp_12"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:background="@color/dialog_divide_color"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentBottom="true">
+
+
+            <TextView
+                android:id="@+id/tv_refuse_update"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ripper_common_click_back_ground"
+                android:gravity="center"
+                android:text="残忍拒绝"
+                android:textColor="@color/home_color_hot_service_text"
+                />
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@color/dialog_divide_color"/>
+
+            <TextView
+                android:id="@+id/tv_update_now"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/ripper_common_click_back_ground"
+                android:gravity="center"
+                android:text="立即升级"
+                android:textColor="@color/app_color_theme"
+                />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</FrameLayout>

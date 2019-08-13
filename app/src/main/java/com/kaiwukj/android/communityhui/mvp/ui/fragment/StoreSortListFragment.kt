@@ -3,7 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -160,7 +159,7 @@ class StoreSortListFragment : BaseSwipeBackFragment<StorePresenter>(), StoreCont
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
                 simplePagerTitleView.text = magicIndicatorContentList[index].string_name
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
-                simplePagerTitleView.typeface = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
+                simplePagerTitleView.paint.isFakeBoldText = true
                 simplePagerTitleView.normalColor = ContextCompat.getColor(context, R.color.home_color_hot_service_text)
                 simplePagerTitleView.selectedColor = ContextCompat.getColor(context, R.color.common_text_dark_color)
                 simplePagerTitleView.setOnClickListener { view_pager_store_sort_list_container.currentItem = index }

@@ -61,7 +61,7 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                     override fun onNext(data: StaffInfoResult) {
                         if (data.code == Api.RequestSuccess) {
                             mRootView.onGetStaffDetailInfo(data)
-                            requestUserComment(userId, page = 1)
+                           // requestUserComment(userId, page = 1)
                         } else {
 
                         }
@@ -81,10 +81,9 @@ constructor(model: AppointmentContract.Model, rootView: AppointmentContract.View
                 .subscribe(object : ErrorHandleSubscriber<StaffCommentResult>(mErrorHandler) {
                     override fun onNext(data: StaffCommentResult) {
                         if (data.code == Api.RequestSuccess) {
-                            mRootView.onGetStaffCommentInfo(data.result as ArrayList<StaffCommentResult>)
+                            mRootView.onGetStaffCommentInfo(data.result.list as ArrayList<StaffCommentResult>)
                         }
                     }
-
                     override fun onComplete() {
                     }
                 })

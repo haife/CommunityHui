@@ -20,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
+import java.util.*
 import javax.inject.Inject
 
 
@@ -168,13 +169,16 @@ constructor(model: EditMineInfoContract.Model, rootView: EditMineInfoContract.Vi
                 .subscribe(object : ErrorHandleSubscriber<BaseQITokenResult>(mErrorHandler) {
                     override fun onNext(data: BaseQITokenResult) {
                         if (data.code == Api.RequestSuccess) {
+                            val imageUlrs = ArrayList<String>()
+                            imageUlrs.add(paths)
                             var qiNiuUtil = QiNiuUtil(OnSubDataUpdateListener { urls ->
                                 for (bean in urls.orEmpty()) {
                                     mRootView.showMessage(bean.imgUrl)
+
                                 }
                             })
                             //上传图片
-                            qiNiuUtil.uploadImageToQiniu(paths, data.result)
+                            qiNiuUtil.uploadImagesToQiniu(imageUlrs, data.result)
                         }
                     }
                 })

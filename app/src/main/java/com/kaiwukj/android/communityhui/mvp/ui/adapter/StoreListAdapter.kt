@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -16,7 +15,6 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
  *
  */
 class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val context: Context) : BaseQuickAdapter<StoreListResult, BaseViewHolder>(layoutId, data) {
-    private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
 
     override fun convert(helper: BaseViewHolder, item: StoreListResult) {
         val iv = helper.getView<ImageView>(R.id.iv_store_list)
@@ -27,7 +25,7 @@ class StoreListAdapter(data: ArrayList<StoreListResult>, layoutId: Int, val cont
                 oneStr = str.serviceName
             else shopTypeName = "$shopTypeName\t|\t${str.serviceName}"
         }
-        helper.setText(R.id.iv_store_list_name, item.storeName).setTypeface(typeFaceMedium).setText(R.id.iv_store_list_price, item.address)
+        helper.setText(R.id.iv_store_list_name, item.storeName).setText(R.id.iv_store_list_price, item.address)
         helper.setText(R.id.iv_store_list_message, oneStr + shopTypeName)
         GlideArms.with(context).load(item.storeLogoImg).centerCrop().into(iv)
 

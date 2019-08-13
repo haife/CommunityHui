@@ -27,7 +27,7 @@ import com.kaiwukj.android.communityhui.BuildConfig;
  */
 public interface Api {
     String APP_DOMAIN = BuildConfig.API_HOST;
-    String RequestSuccess = "1";
+    String RequestSuccess = "0";
     String IMG_URL = "";
     String QI_IMG = "http://qnzhsq.kaiwumace.com/";
 }

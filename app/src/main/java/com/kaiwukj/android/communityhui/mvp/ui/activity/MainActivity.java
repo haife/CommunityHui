@@ -15,6 +15,7 @@ import com.kaiwukj.android.communityhui.app.constant.SPParam;
 import com.kaiwukj.android.communityhui.di.component.DaggerMainComponent;
 import com.kaiwukj.android.communityhui.di.module.MainModule;
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract;
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.VersionUpdateResult;
 import com.kaiwukj.android.communityhui.mvp.presenter.MainPresenter;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.ChatMessageFragment;
 import com.kaiwukj.android.communityhui.mvp.ui.fragment.HomeFragment;
@@ -23,6 +24,8 @@ import com.kaiwukj.android.communityhui.mvp.ui.fragment.SocialCircleFragment;
 import com.kaiwukj.android.communityhui.utils.SPUtils;
 import com.kaiwukj.android.mcas.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
@@ -65,6 +68,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         initWidget();
         requestPermissions();
         buildBottomMenuListener();
+        assert mPresenter != null;
+        mPresenter.requestVersionUpdate();
 
     }
 
@@ -176,10 +181,21 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     }
 
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         this.mRxPermissions = null;
     }
+
+    @Override
+    public void onVersionUpdateResult(@NotNull VersionUpdateResult result) {
+        assert mPresenter != null;
+        String currentVersion = mPresenter.getAppVersionName(this);
+        if (!currentVersion.equals(result.getVersionNo())){
+            //TODO 当前版本号与服务器不同步
+           // MaterialDialog dialog = new MaterialDialog(this,);
+        }
+
+    }
+
 }

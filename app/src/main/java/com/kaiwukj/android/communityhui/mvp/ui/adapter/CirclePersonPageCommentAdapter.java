@@ -31,9 +31,7 @@ public class CirclePersonPageCommentAdapter extends BaseQuickAdapter<PersonPageC
         helper.setText(R.id.tv_circle_person_reply_content, item.getContent()).setText(R.id.tv_circle_person_reply_time, item.getReplyCreateTime())
                 .setText(R.id.tv_circle_person_reply_topic, Html.fromHtml(String.format(mContext.getString(R.string.person_page_card_topic_hint), item.getTitle())));
 
-        helper.getView(R.id.tv_circle_person_reply_topic).setOnClickListener(view -> {
-
-        });
+        helper.addOnClickListener(R.id.tv_circle_person_reply_topic);
 
 
     }

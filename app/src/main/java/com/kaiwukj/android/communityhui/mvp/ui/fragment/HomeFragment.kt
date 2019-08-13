@@ -40,14 +40,13 @@ import javax.inject.Inject
  * @desc
  */
 class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, OnRefreshListener {
-
     @Inject
     lateinit var mHomeAdapter: HRecommendAdapter
-
     @Inject
     lateinit var mLayoutManager: RecyclerView.LayoutManager
     @Inject
     lateinit var hRecommendMultiItemList: MutableList<HRecommendMultiItemEntity>
+
     companion object {
         const val EXTRA_KEY_HOME_FRAGMENT_URL = "HOME_FRAGMENT"
         const val RECOMMEND_FLAG = 1
@@ -94,7 +93,6 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
                 intent.putExtra("app_package", context?.packageName)
                 intent.putExtra("app_uid", context?.applicationInfo?.uid)
             }
-
 
             startActivity(intent)
         } catch (e: Exception) {
@@ -152,11 +150,14 @@ class HomeFragment : BaseSupportFragment<HomePresenter>(), HomeContract.View, On
     }
 
     override fun killMyself() {
-
+        smart_refresh_home.finishRefresh()
     }
 
     override fun onResponseError() {
-        smart_refresh_home.finishRefresh()
+        qmui_empty_view.show(false, resources.getString(R.string.emptyView_mode_desc_fail_title), resources.getString(R.string.emptyView_mode_desc_fail_desc), resources.getString(R.string.emptyView_mode_desc_retry)) {
+            hRecommendMultiItemList.clear()
+            mPresenter?.requestServiceList(StoreListRequest(RECOMMEND_FLAG), false)
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {

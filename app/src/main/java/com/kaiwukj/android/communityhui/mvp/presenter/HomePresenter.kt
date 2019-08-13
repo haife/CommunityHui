@@ -21,6 +21,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber
 import javax.inject.Inject
 
+
 /**
  * Copyright © KaiWu Technology Company
  * @author Haife
@@ -49,20 +50,21 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
     fun requestServiceList(request: StoreListRequest, isRefresh: Boolean) {
         mModel.requestServiceList()
                 .subscribeOn(Schedulers.io())
+                .doOnSubscribe { mRootView.showLoading() }
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
-
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally {
+                    mRootView.killMyself()
+                }
+                .subscribe(object : ErrorHandleSubscriber<HomeServiceEntity>(mErrorHandler) {
                     override fun onNext(data: HomeServiceEntity) {
                         if (data.code == Api.RequestSuccess) {
                             processRecommendData(data.result)
                             requestStoreRecommend(request, isRefresh)
                         }
-
                     }
-
                     override fun onError(t: Throwable) {
-                        super.onError(t)
                         mRootView.onResponseError()
                     }
                 })
@@ -80,9 +82,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
-                .doFinally {
-                    mRootView.onResponseError()
-                }
+
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StoreListResult>(mErrorHandler) {
                     override fun onNext(data: StoreListResult) {
                         if (data.code == Api.RequestSuccess) {
@@ -91,16 +91,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                             val recommendStore = HRecommendMultiItemEntity(STRING_STORES_RECOMMEND)
                             recommendStore.recommendStoreList = data.result.list
                             hRecommendMultiItemList.add(recommendStore)
-                            mRecommendAdapter.notifyDataSetChanged()
                         }
-
                     }
 
-                    override fun onError(t: Throwable) {
-                        super.onError(t)
-                        mRootView.onResponseError()
-                        if (isRefresh) mRootView.onResponseError()
-                    }
+
                 })
     }
 
@@ -114,6 +108,7 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                 .subscribeOn(Schedulers.io())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
                 .unsubscribeOn(Schedulers.io())
+
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(object : ErrorHandleSubscriber<StaffListResult>(mErrorHandler) {
 
                     override fun onNext(data: StaffListResult) {
@@ -126,12 +121,10 @@ constructor(model: HomeContract.Model, rootView: HomeContract.View) :
                         }
                     }
 
-                    override fun onError(t: Throwable) {
-                        super.onError(t)
-                        mRootView.onResponseError()
-                    }
+
                 })
     }
+
 
     /**
      * TODO 处理首页推荐的数据 提供给View层

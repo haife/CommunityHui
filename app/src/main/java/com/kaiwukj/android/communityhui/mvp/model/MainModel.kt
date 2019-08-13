@@ -3,9 +3,13 @@ package com.kaiwukj.android.communityhui.mvp.model
 import android.app.Application
 import com.google.gson.Gson
 import com.kaiwukj.android.communityhui.mvp.contract.MainContract
+import com.kaiwukj.android.communityhui.mvp.http.api.service.CommonService
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.VersionUpdateRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.VersionUpdateResult
 import com.kaiwukj.android.mcas.di.scope.ActivityScope
 import com.kaiwukj.android.mcas.integration.IRepositoryManager
 import com.kaiwukj.android.mcas.mvp.BaseModel
+import io.reactivex.Observable
 import javax.inject.Inject
 
 
@@ -27,6 +31,16 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     lateinit var mGson: Gson;
     @Inject
     lateinit var mApplication: Application;
+
+
+    override fun requestVersionUpdate(request: VersionUpdateRequest): Observable<VersionUpdateResult> {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(CommonService::class.java)
+                .requestVersionUpdate(getRequestBody(mGson.toJson(request))))
+                .flatMap {
+                    it
+                }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy();

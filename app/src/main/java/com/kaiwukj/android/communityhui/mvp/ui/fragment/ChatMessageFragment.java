@@ -3,7 +3,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -105,7 +104,7 @@ public class ChatMessageFragment extends BaseSupportFragment<ChatPresenter> impl
             public IPagerTitleView getTitleView(final Context context, int index) {
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                simplePagerTitleView.setTypeface(Typeface.createFromAsset(context.getAssets(), "PingFangSC-Medium-Bold.ttf"));
+                simplePagerTitleView.getPaint().setFakeBoldText(true);
                 simplePagerTitleView.setText(magicIndicatorContentList.get(index));
                 simplePagerTitleView.setNormalColor(ContextCompat.getColor(context, R.color.home_color_hot_service_text));
                 simplePagerTitleView.setSelectedColor(ContextCompat.getColor(context, R.color.common_text_dark_color));

@@ -294,7 +294,7 @@ public class SocialCirclePresenter extends BasePresenter<SocialCircleContract.Mo
                             QiNiuUtil qiNiuUtil = new QiNiuUtil(urls -> {
                                 List<String> imageUlrs = new ArrayList<>();
                                 for (SubImageBean bean : urls) {
-                                    imageUlrs.add(Api.QI_IMG + bean.getImgUrl());
+                                    imageUlrs.add(bean.getImgUrl());
                                 }
                                 request.setImgList(imageUlrs);
                                 postSocialCard(request);

@@ -42,6 +42,7 @@
                     android:layout_below="@+id/tv_circle_message_title"
                     android:layout_marginLeft="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_20"
+                    android:background="@mipmap/icon_common_head_place_holder"
                     app:qmui_is_circle="true"
                     app:qmui_is_oval="true"/>
 

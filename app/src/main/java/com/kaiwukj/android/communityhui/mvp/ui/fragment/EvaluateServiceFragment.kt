@@ -6,8 +6,11 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.launcher.ARouter
 import com.kaiwukj.android.communityhui.R
 import com.kaiwukj.android.communityhui.app.base.BaseSwipeBackFragment
+import com.kaiwukj.android.communityhui.app.constant.ExtraCons
+import com.kaiwukj.android.communityhui.app.constant.MineOrderUrl
 import com.kaiwukj.android.communityhui.di.component.DaggerMineComponent
 import com.kaiwukj.android.communityhui.di.module.MineModule
 import com.kaiwukj.android.communityhui.mvp.contract.MineContract
@@ -71,7 +74,7 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
             }
 
             commentRequest.orderId = orderData.orderId
-            commentRequest.serviceComment = et_service_order_comment_content.text.toString()
+            commentRequest.content = et_service_order_comment_content.text.toString()
             commentRequest.score = ((professionStarSize + attitudeStarSize + chatStarSize + ethicsStarSize) / 4)
             mPresenter?.requestCommentOrderData(commentRequest)
         }
@@ -120,6 +123,7 @@ class EvaluateServiceFragment : BaseSwipeBackFragment<MinePresenter>(), MineCont
         Handler().postDelayed({
             dialog.dismiss()
             activity?.finish()
+            ARouter.getInstance().build(MineOrderUrl).withString(ExtraCons.EXTRA_KEY_ORDER_MINE_INDEX, ServiceOrderFragment.TYPE_WAITING.toString()).withString(ExtraCons.EXTRA_KEY_ORDER_MINE, ServiceOrderFragment.SERVICE_ORDER_FRAGMENT).navigation(context)
         }, 800)
     }
 

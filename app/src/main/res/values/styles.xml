@@ -28,7 +28,7 @@
     </style>
 
     <style name="BootScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/common_launcher_background_image</item>
+        <item name="android:background">@drawable/common_launcher_background_image</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 

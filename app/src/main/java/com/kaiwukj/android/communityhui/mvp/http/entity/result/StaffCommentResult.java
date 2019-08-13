@@ -1,6 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.http.entity.result;
 
-import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseRootResult;
+import com.kaiwukj.android.communityhui.mvp.http.entity.base.BaseListRootResult;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @time 2019/7/22
  * @desc 首页阿姨的评价
  */
-public class StaffCommentResult extends BaseRootResult<List<StaffCommentResult>> {
+public class StaffCommentResult extends BaseListRootResult<List<StaffCommentResult>> {
 
     private int createBy;
     private String content;

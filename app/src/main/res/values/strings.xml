@@ -255,4 +255,13 @@
     <string name="notify_title">提醒</string>
     <string name="notify_no_open">开启通知能获得有更多信息哦~</string>
     <!--环信-->
+
+    <!--版本更新-->
+    <string name="new_version_find_the">发现新版本</string>
+    <string name="new_version_update_content">#功能更新#</string>
+    <string name="new_version_update_hint">建议在WiFi下更新</string>
+    <string name="emptyView_mode_desc_fail_title">加载失败</string>
+    <string name="emptyView_mode_desc_fail_desc">请监测网络是否能正常连接</string>
+    <string name="emptyView_mode_desc_retry">点击重试</string>
+    <!--版本更新-->
 </resources>

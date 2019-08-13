@@ -215,7 +215,7 @@ class PersonHomePageFragment : BaseSwipeBackFragment<EditMineInfoPresenter>(), E
     }
 
     override fun showMessage(message: String) {
-        mUserInfo?.headImg = Api.QI_IMG + message
+        mUserInfo?.headImg = message
     }
 
     override fun launchActivity(intent: Intent) {

@@ -22,6 +22,7 @@
     <color name="home_color_hot_service_text">#666666</color>
     <color name="home_color_officer_recommend_bg">#F8F8F8</color>
     <color name="appointment_qualification_tv_color">#EDEDED</color>
+    <color name="dialog_divide_color">#EDEDED</color>
     <!--首页-->
 
     <!--个人主页-->

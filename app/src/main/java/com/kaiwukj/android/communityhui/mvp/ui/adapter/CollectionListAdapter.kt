@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.widget.ImageView
 import android.widget.TextView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -18,8 +17,6 @@ import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms
  *
  */
 class CollectionListAdapter(typeId: Int, data: ArrayList<MineCollectionResult>?, layoutId: Int, val context: Context) : BaseQuickAdapter<MineCollectionResult, BaseViewHolder>(layoutId, data) {
-    private val typeFaceMedium = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
-    private val typeFaceLight = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face.ttf")
     private val mTypeId:Int = typeId
     override fun convert(helper: BaseViewHolder, item: MineCollectionResult) {
         when (mTypeId) {

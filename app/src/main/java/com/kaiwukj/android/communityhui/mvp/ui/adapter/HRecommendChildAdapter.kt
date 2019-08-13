@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +25,6 @@ class HRecommendChildAdapter(val list: HRecommendMultiItemEntity, val context: C
     private val mViewType: Int by lazy { list.itemType }
     private var imageLoader: ImageLoader? = McaUtils.obtainAppComponentFromContext(context).imageLoader()
     private val layoutInflater: LayoutInflater by lazy { LayoutInflater.from(context) }
-    private val typeFaceMedium: Typeface by lazy { Typeface.createFromAsset(context?.assets, "PingFangSC-Medium-Bold.ttf") }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {

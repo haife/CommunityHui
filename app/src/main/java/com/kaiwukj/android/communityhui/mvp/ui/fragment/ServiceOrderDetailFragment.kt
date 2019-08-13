@@ -84,15 +84,6 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
             tv_custom_order_interview_time.setRightStr(orderData.interviewTime)
         }
         //查看是否已经评论
-        if ( orderData.isHmServiceCommentFalg) {
-            qbtn_order_detail_bottom.visibility = View.GONE
-            rl_order_comment.visibility = View.VISIBLE
-            rating_bar_order_detail.setStar(orderData.score.toFloat())
-            tv_custom_order_comment_content.setRightStr(orderData.content)
-        } else {
-            qbtn_order_detail_bottom.visibility = View.VISIBLE
-            rl_order_comment.visibility = View.GONE
-        }
 
         tv_custom_order_service_type.setRightStr(orderData.serviceTypeName)
         tv_custom_order_service_days.setRightStr(orderData.serviceLength.toString() + "/" + orderData.serviceTypeUnit)
@@ -134,6 +125,15 @@ class ServiceOrderDetailFragment : BaseSwipeBackFragment<MinePresenter>(), MineC
                 setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_interview)
                 setDrawableTopStatus(R.drawable.selector_order_detail_appoint, cb_order_detail_status_pay)
                 setDrawableTopStatus(R.drawable.selector_order_detail_next_step_checked, iv_order_detail_status_serving)
+                if (orderData.isHmServiceCommentFalg) {
+                    qbtn_order_detail_bottom.visibility = View.GONE
+                    rl_order_comment.visibility = View.VISIBLE
+                    rating_bar_order_detail.setStar(orderData.score.toFloat())
+                    tv_custom_order_comment_content.setRightStr(orderData.content)
+                } else {
+                    qbtn_order_detail_bottom.visibility = View.VISIBLE
+                    rl_order_comment.visibility = View.GONE
+                }
             }
             0 -> {
                 //已取消

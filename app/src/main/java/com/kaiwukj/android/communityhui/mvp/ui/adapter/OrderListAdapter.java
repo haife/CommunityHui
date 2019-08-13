@@ -35,7 +35,7 @@ public class OrderListAdapter extends BaseQuickAdapter<OrderListResult, BaseView
     protected void convert(BaseViewHolder helper, OrderListResult item) {
         helper.setText(R.id.tv_service_order_number, item.getOrderNo())
                 .setText(R.id.iv_service_order_name, item.getRealName())
-                .setText(R.id.iv_service_order_message, item.getRealName())
+                .setText(R.id.iv_service_order_message, item.getServiceTypeName() + " | " + item.getServiceLength() + "/ " + item.getServiceTypeUnit())
                 .setText(R.id.iv_service_order_address, item.getServiceAddress());
         ImageView iv = helper.getView(R.id.iv_service_order);
         TextView mType = helper.getView(R.id.iv_service_order_order_number);

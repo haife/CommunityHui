@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_store_list"
         android:layout_marginLeft="@dimen/dp_14"
+        android:textStyle="bold"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_toRightOf="@+id/iv_store_list"
         android:text="店铺名称"

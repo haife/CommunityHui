@@ -65,7 +65,7 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
     private int mUserId;
     private boolean isMinePage;
 
-    public static CirclePersonPageReplyFragment newInstance(int userId,boolean isMinePage) {
+    public static CirclePersonPageReplyFragment newInstance(int userId, boolean isMinePage) {
         Bundle args = new Bundle();
         CirclePersonPageReplyFragment fragment = new CirclePersonPageReplyFragment();
         fragment.mUserId = userId;
@@ -83,6 +83,7 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
                 .build()
                 .inject(this);
     }
+
     @Override
     public Context getCtx() {
         return getContext();
@@ -111,9 +112,10 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
         });
 
         mPageCommentAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl)
-                    .withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).withBoolean(SocialCircleActivity.IS_MY_CARD,isMinePage)
-                    .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mPageCardCommentList.get(position).getNoteId()).navigation();
+            if (view.getId() == R.id.tv_circle_person_reply_topic)
+                ARouter.getInstance().build(ARouterUrlKt.SocialCircleUrl)
+                        .withString(SocialCircleActivity.FRAGMENT_KEY, CircleCardDetailFragment.CIRCLE_CARD_DETAIL).withBoolean(SocialCircleActivity.IS_MY_CARD, isMinePage)
+                        .withInt(SocialCircleActivity.FRAGMENT_KEY_CARD_ID, mPageCardCommentList.get(position).getNoteId()).navigation();
         });
     }
 
@@ -139,7 +141,6 @@ public class CirclePersonPageReplyFragment extends BaseSupportFragment<SocialCir
     public void onGetOtherHomePageData(SocialUserHomePageResult result) {
 
     }
-
 
 
     @Override

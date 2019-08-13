@@ -1,8 +1,11 @@
 package com.kaiwukj.android.communityhui.mvp.contract
 
 import androidx.appcompat.app.AppCompatActivity
+import com.kaiwukj.android.communityhui.mvp.http.entity.request.VersionUpdateRequest
+import com.kaiwukj.android.communityhui.mvp.http.entity.result.VersionUpdateResult
 import com.kaiwukj.android.mcas.mvp.IModel
 import com.kaiwukj.android.mcas.mvp.IView
+import io.reactivex.Observable
 
 
 /**
@@ -17,10 +20,11 @@ interface MainContract {
     interface View : IView {
         fun getActivity(): AppCompatActivity
         fun initWidget()
+        fun onVersionUpdateResult(result: VersionUpdateResult)
     }
 
     interface Model : IModel {
-        //fun getMineInfoData(): Observable<MineUserInfoResult>
+        fun requestVersionUpdate(request: VersionUpdateRequest): Observable<VersionUpdateResult>
     }
 
 }

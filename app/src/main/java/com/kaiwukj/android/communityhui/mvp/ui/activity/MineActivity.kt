@@ -28,7 +28,6 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator
 @Route(path = MineOrderUrl)
 class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
 
-
     @Autowired(name = ExtraCons.EXTRA_KEY_ORDER_MINE)
     @JvmField
     var mTargetStr: String? = null
@@ -62,7 +61,6 @@ class MineActivity : BaseSwipeBackActivity<MinePresenter>(), MineContract.View {
         ARouter.getInstance().inject(this)
         return R.layout.activity_mine
     }
-
 
     override fun initData(savedInstanceState: Bundle?) {
         initTopBar()

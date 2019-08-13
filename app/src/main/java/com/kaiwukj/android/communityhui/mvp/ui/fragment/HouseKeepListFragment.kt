@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.fragment
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -109,7 +108,7 @@ class HouseKeepListFragment : BaseSwipeBackFragment<HouseKeepPresenter>(), House
 
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val simplePagerTitleView = ScaleTransitionPagerTitleView(context)
-                simplePagerTitleView.typeface = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
+                simplePagerTitleView.paint.isFakeBoldText = true
                 simplePagerTitleView.text = magicIndicatorContentList[index].dicValue
                 simplePagerTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f)
                 simplePagerTitleView.width = McaUtils.getScreenWidth(context) / 4

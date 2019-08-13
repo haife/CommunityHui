@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,12 +24,10 @@ import androidx.annotation.Nullable;
  * @desc $desc
  */
 public class SelectStaffListAdapter extends BaseQuickAdapter<StaffListResult, BaseViewHolder> {
-    private Typeface typeFaceMedium;
 
     public SelectStaffListAdapter(int layoutResId, @Nullable List<StaffListResult> data, Context context) {
         super(layoutResId, data);
         mContext = context;
-        typeFaceMedium = Typeface.createFromAsset(mContext.getAssets(), "PingFangSC-Medium-Bold.ttf");
     }
 
     @Override
@@ -39,7 +36,7 @@ public class SelectStaffListAdapter extends BaseQuickAdapter<StaffListResult, Ba
 
         GlideArms.with(mContext).load(Api.IMG_URL + item.getAvatar()).centerCrop().into(ima);
         String staffMsg = String.format(mContext.getString(R.string.home_format_staff_message), String.valueOf(item.getWorktime()), item.getAge(), item.getNativePlace());
-        helper.setText(R.id.iv_house_staff_list_name, item.getRealName()).setTypeface(typeFaceMedium).setText(R.id.iv_house_staff_list_price,
+        helper.setText(R.id.iv_house_staff_list_name, item.getRealName()).setText(R.id.iv_house_staff_list_price,
                 String.format(mContext.getString(R.string.home_format_staff_price), item.getServicePrice().toString()))
                 .setText(R.id.iv_house_staff_list_message, staffMsg)
                 .setText(R.id.iv_house_staff_list_order_number, String.format(mContext.getString(R.string.home_format_staff_order_number), item.getServiceHome()));

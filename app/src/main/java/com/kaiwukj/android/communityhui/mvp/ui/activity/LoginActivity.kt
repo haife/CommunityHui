@@ -2,7 +2,6 @@ package com.kaiwukj.android.communityhui.mvp.ui.activity
 
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -68,8 +67,6 @@ class LoginActivity : BaseActivity<LoginPresenter>(), LoginContract.View, TextWa
         //TODO:判断是否存储过手机号
         val number: String = SPUtils.getInstance().getString(SPParam.SP_LOGIN_PHONE)
         et_phone_number.setText(number)
-        val typeface = Typeface.createFromAsset(application.assets, "PingFangSC-Medium-Bold.ttf")
-        tv_login_title.typeface = typeface
         et_phone_number.addTextChangedListener(this)
         et_login_phone_code.addTextChangedListener(this)
         clickListener()

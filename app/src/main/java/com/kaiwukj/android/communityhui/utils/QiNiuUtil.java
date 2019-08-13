@@ -1,5 +1,6 @@
 package com.kaiwukj.android.communityhui.utils;
 
+import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.bean.SubImageBean;
 import com.kaiwukj.android.communityhui.mvp.listener.OnSubDataUpdateListener;
 import com.qiniu.android.http.ResponseInfo;
@@ -33,9 +34,7 @@ public class QiNiuUtil {
     }
 
     public void uploadImageToQiniu(String filePath, String token) {
-        this.filePaths.add(filePath);
-        uploadImage(filePaths.get(0), token);
-
+        uploadImage(filePath, token);
     }
 
     /**
@@ -58,7 +57,7 @@ public class QiNiuUtil {
 //                LogUtils.i("key ---> " + key);
 //                LogUtils.i("info ---> " + info);
 //                LogUtils.i("res ---> " + res);
-                String url = key;
+                String url = Api.QI_IMG + key;
 
 //                LogUtils.i("url ---> " + url);
 

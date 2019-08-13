@@ -4,12 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
-import com.kaiwukj.android.mcas.utils.McaUtils;
-import com.squareup.leakcanary.RefWatcher;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import timber.log.Timber;
 
 /**
  * Copyright © KaiWu Technology Company
@@ -64,18 +60,10 @@ public class FragmentLifecycleCallbacksImpl extends FragmentManager.FragmentLife
 
     @Override
     public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-        RefWatcher refWatcher = ((RefWatcher) McaUtils
-                .obtainAppComponentFromContext(f.getActivity())
-                .extras()
-                .get(IntelligentCache.getKeyOfKeep(RefWatcher.class.getName())));
-        if (refWatcher != null) {
-            refWatcher.watch(f);
-        }
 
     }
 
     @Override
     public void onFragmentDetached(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentDetached");
     }
 }

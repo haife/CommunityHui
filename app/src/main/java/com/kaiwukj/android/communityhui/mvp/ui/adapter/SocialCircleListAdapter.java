@@ -11,7 +11,6 @@ import com.kaiwukj.android.communityhui.R;
 import com.kaiwukj.android.communityhui.mvp.http.api.Api;
 import com.kaiwukj.android.communityhui.mvp.http.entity.result.CircleHomeResult;
 import com.kaiwukj.android.mcas.http.imageloader.glide.GlideArms;
-import com.kaiwukj.android.mcas.utils.McaUtils;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class SocialCircleListAdapter extends BaseQuickAdapter<CircleHomeResult, 
                 .setText(R.id.tv_circle_type_tags, item.getNoteType())
                 .setText(R.id.tv_circle_comment_number, String.valueOf(item.getCommentNum())).setText(R.id.tv_circle_comment_hint, mContext.getString(R.string.social_circle_comment_hint));
         TextView typeTv = helper.getView(R.id.tv_circle_type_tags);
-        typeTv.setVisibility(McaUtils.isEmpty(item.getNoteType()) ? View.GONE : View.VISIBLE);
+       // typeTv.setVisibility(McaUtils.isEmpty(item.getNoteType()) ? View.GONE : View.VISIBLE);
         ImageView headIv = helper.getView(R.id.qriv_circle_head_photo);
         ImageView qriv_circle_image = helper.getView(R.id.qriv_circle_image);
         GlideArms.with(mContext).load(Api.IMG_URL + item.getHeadImg()).circleCrop().into(headIv);

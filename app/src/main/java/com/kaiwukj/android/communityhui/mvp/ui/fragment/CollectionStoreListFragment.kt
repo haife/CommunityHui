@@ -83,7 +83,7 @@ class CollectionStoreListFragment : BaseSwipeBackFragment<EditMineInfoPresenter>
         mCollectionAdapter.setOnItemClickListener { adapter, view, position ->
 
             ARouter.getInstance().build(StoreListURL).withString(ExtraCons.EXTRA_KEY_STORE, StoreSortListFragment.FRAGMENT_KEY_STORE_SORT_LIST)
-                    .withString(ExtraCons.EXTRA_KEY_STORE_SHOP_ID, collectionList[position].id.toString()).navigation()
+                    .withString(ExtraCons.EXTRA_KEY_STORE_SHOP_ID, collectionList[position].favoriteId.toString()).navigation()
         }
     }
 

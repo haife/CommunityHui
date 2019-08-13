@@ -16,14 +16,14 @@ public class OrderCommentRequest {
     private int anonymousFlag;
     //评分
     private int score;
-    private String serviceComment;
+    private String content;
 
-    public String getServiceComment() {
-        return serviceComment;
+    public String getContent() {
+        return content;
     }
 
-    public void setServiceComment(String serviceComment) {
-        this.serviceComment = serviceComment;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public int getOrderId() {

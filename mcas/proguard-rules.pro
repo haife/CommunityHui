@@ -36,10 +36,10 @@
 
 ################common###############
 
--keep public class * implements com.jess.arms.integration.ConfigModule
+-keep public class com.kaiwukj.android.mcas.integration.ConfigModule
 
  #实体类不参与混淆
-#自定义控件不参与混淆
+-keep class com.jess.arms.widget.** { *; } #自定义控件不参与混淆
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
@@ -66,7 +66,14 @@
 -keep interface android.support.** { *; }
 -dontwarn android.support.**
 
+################alipay###############
 
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
 
 ################retrofit###############
 -dontwarn retrofit2.**
@@ -231,37 +238,3 @@
 
 ################Timber#################
 -dontwarn org.jetbrains.annotations.**
-
-
-################Canary#################
--dontwarn com.squareup.haha.guava.**
--dontwarn com.squareup.haha.perflib.**
--dontwarn com.squareup.haha.trove.**
--dontwarn com.squareup.leakcanary.**
--keep class com.squareup.haha.** { *; }
--keep class com.squareup.leakcanary.** { *; }
-
-# Marshmallow removed Notification.setLatestEventInfo()
--dontwarn android.app.Notification
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

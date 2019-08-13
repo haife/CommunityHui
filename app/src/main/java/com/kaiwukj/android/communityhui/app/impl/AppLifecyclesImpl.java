@@ -13,15 +13,12 @@ import com.kaiwukj.android.communityhui.hx.DemoHelper;
 import com.kaiwukj.android.communityhui.utils.ImagePickerLoad;
 import com.kaiwukj.android.communityhui.utils.NineGridImageLoader;
 import com.kaiwukj.android.mcas.base.delegate.AppLifecycles;
-import com.kaiwukj.android.mcas.utils.McaUtils;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.ninegrid.NineGridView;
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.FalsifyFooter;
 import com.scwang.smartrefresh.layout.header.FalsifyHeader;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.reflect.Field;
 
@@ -43,7 +40,6 @@ import static me.jessyan.autosize.utils.LogUtils.isDebug;
  * @desc
  */
 public class AppLifecyclesImpl implements AppLifecycles {
-    private RefWatcher mRefWatcher;
 
     @Override
     public void attachBaseContext(Context base) {
@@ -54,7 +50,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
     public void onCreate(Application application) {
         initTimber();
         initTextFaceType(application);
-        initLeakCanary(application);
         //qmui arch 初始化
         QMUISwipeBackActivityManager.init(application);
         //AutoSize
@@ -111,15 +106,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
         EaseUI.getInstance().init(application.getApplicationContext(), options);
     }
 
-
-    private void initLeakCanary(Application application) {
-        //LeakCanary 内存泄露检查
-        //使用 IntelligentCache.KEY_KEEP 作为 key 的前缀, 可以使储存的数据永久存储在内存中
-        //否则存储在 LRU 算法的存储空间中, 前提是 extras 使用的是 IntelligentCache (框架默认使用)
-        mRefWatcher = BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED;
-        McaUtils.obtainAppComponentFromContext(application).extras().put(RefWatcher.class.getName(), mRefWatcher);
-    }
-
     private void initTimber() {
         if (BuildConfig.LOG_DEBUG) {
             //Timber日志打印
@@ -129,7 +115,6 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void onTerminate(Application application) {
-        mRefWatcher = null;
     }
 
     /**

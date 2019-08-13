@@ -12,6 +12,8 @@ import com.kaiwukj.android.mcas.http.GlobalHttpHandler;
 import com.kaiwukj.android.mcas.http.log.RequestInterceptor;
 import com.kaiwukj.android.mcas.utils.McaUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -42,6 +44,7 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
      * @param response   {@link Response}
      * @return
      */
+    @NotNull
     @Override
     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
         if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
@@ -54,7 +57,6 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
                 }
             }
         }
-
          /* 这里如果发现 token 过期, 可以先请求最新的 token, 然后在拿新的 token 放入 Request 里去重新请求
         注意在这个回调之前已经调用过 proceed(), 所以这里必须自己去建立网络请求, 如使用 Okhttp 使用新的 Request 去请求
         create a new request and modify it accordingly using the new token
@@ -74,10 +76,10 @@ public class GlobalHttpHandleImpl implements GlobalHttpHandler {
      * @param request {@link Request}
      * @return
      */
+    @NotNull
     @Override
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         String token = SPUtils.getInstance().getString(SPParam.SP_LOGIN_TOKEN);
         return chain.request().newBuilder().addHeader("Content-Type", "application/json").addHeader("Authorization", token).build();
-
     }
 }

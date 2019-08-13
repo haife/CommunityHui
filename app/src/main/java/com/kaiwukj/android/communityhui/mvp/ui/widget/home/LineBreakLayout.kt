@@ -2,7 +2,6 @@ package  com.kaiwukj.android.communityhui.mvp.ui.widget.home
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,6 @@ class LineBreakLayout(context: Context, attr: AttributeSet) : ViewGroup(context,
     private var horizontalSpace: Int = 10
     private var verticalSpace: Int = 10
     private var tableList: List<String> = ArrayList()
-    private val typeFaceTint = Typeface.createFromAsset(context.assets, "PingFangSC-Light-Face-Medium-Tint.ttf")
     private var tagsTypes = 0;
 
     init {
@@ -53,7 +51,6 @@ class LineBreakLayout(context: Context, attr: AttributeSet) : ViewGroup(context,
                     tv.background = ContextCompat.getDrawable(context, R.drawable.shape_home_staff_qualification_tags)
                 }
                 tv.text = element
-                tv.typeface = typeFaceTint
                 addView(tv)
             }
 

@@ -108,6 +108,9 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         //获取更多评论
         smart_refresh_appoint_user_info.setOnLoadMoreListener {
             page++
+            if (page == 2) {
+                commentList.clear()
+            }
             mPresenter?.requestUserComment(userId!!, page)
         }
     }
@@ -139,6 +142,7 @@ class AppointmentPersonInfoFragment : BaseSwipeBackFragment<AppointmentPresenter
         //评论列表
         if (mResult.empCommentList.isNotEmpty()) {
             commentList.addAll(mResult.empCommentList)
+            mCommentAdapter.notifyDataSetChanged()
         }
         //服务价格
         if (mResult.empTypeList.isNotEmpty()) {

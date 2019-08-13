@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_50"
+        android:textStyle="bold"
         android:text="@string/login_title_desc"
         android:textColor="@color/common_text_dark_color"
         android:textSize="@dimen/sp_36"

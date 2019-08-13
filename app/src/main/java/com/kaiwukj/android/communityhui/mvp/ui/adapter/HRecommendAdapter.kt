@@ -1,7 +1,6 @@
 package com.kaiwukj.android.communityhui.mvp.ui.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Handler
 import android.widget.ImageView
 import android.widget.TextView
@@ -30,7 +29,6 @@ import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
  *
  */
 class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val context: Context) : BaseMultiItemQuickAdapter<HRecommendMultiItemEntity, BaseViewHolder>(data) {
-    private val typeFaceMediumBold = Typeface.createFromAsset(context.assets, "PingFangSC-Medium-Bold.ttf")
     private val hintDialog: QMUITipDialog = QMUITipDialog.Builder(context).setTipWord(context.getString(R.string.home_service_no_open_hint)).create()
     //RecycleView线程池
     private val shareRecycledViewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
@@ -155,7 +153,6 @@ class HRecommendAdapter(data: MutableList<HRecommendMultiItemEntity>?, val conte
                 .setText(R.id.tv_home_carer_service, homeServiceList[1].dicValue)
                 .setText(R.id.tv_home_child_rearing, homeServiceList[2].dicValue)
                 .setText(R.id.tv_home_prolactin, homeServiceList[3].dicValue)
-        helper.setTypeface(typeFaceMediumBold, R.id.tv_home_moon_woman_service, R.id.tv_home_carer_service, R.id.tv_home_child_rearing, R.id.tv_home_prolactin)
     }
 
     /**
